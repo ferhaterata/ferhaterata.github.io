@@ -31,20 +31,21 @@ bio: My research interests include automated reasoning, program analysis, formal
 interests:
   - Automated Reasoning
   - Formal Verification
+  - Property Synthesis
   - Security
 
 # Education to show in About widget
 education:
   courses:
-    - course: PhD in Artificial Intelligence
-      institution: Stanford University
-      year: 2012
-    - course: MEng in Artificial Intelligence
-      institution: Massachusetts Institute of Technology
-      year: 2009
-    - course: BSc in Artificial Intelligence
-      institution: Massachusetts Institute of Technology
-      year: 2008
+    - course: PhD in Computer Science
+      institution: Yale University
+      year: 2025
+    - course: MPh in Computer Science
+      institution: Yale University
+      year: 2021
+    - course: MSc in Computer Science
+      institution: Ege University
+      year: 2011
 
 # Skills
 # For available icons, see: https://docs.hugoblox.com/getting-started/page-builder/#icons
@@ -121,10 +122,4 @@ highlight_name: true
 ---
 
 I am pursuing my PhD in Computer Science at Yale University with a concentration in Programming Languages and Verification, under the guidance of Ruzica Piskac. My recent research focuses on the dynamic inference of real or integer-valued relational properties, including nonlinear equalities and inequalities, random self-reducible properties, functional equations, and recurrence relations by integrating ML with formal techniques. Additionally, I am exploring the application of these properties to enhance areas such as property-based testing, formal verification, side-channel security, self-correcting programs, function synthesis, and privacy-preserving machine learning.
-
-Currently, I am an Applied Scientist Intern with the Automated Reasoning Group at Amazon Web Services (AWS). My work aims to improve the reliability of AWS services by creating advanced tools for model-based testing, conformance checking, randomized testing of distributed networked systems, database systems, and cloud services. 
-
-In the past, I worked on verifying the security of low-level Post-Quantum Cryptographic (PQC) code, including C, C++, and binary analysis. I specialized in detecting side-channel vulnerabilities in cryptographic code using formal techniques. For my master's project at Yale, I developed a probabilistic symbolic execution engine to estimate the power consumption and timing of energy-harvesting, battery-free embedded devices. 
-
-Before PhD school, I worked as a Software Research Engineer on R&D projects within consortia in the aviation and automotive sectors. In these roles, I applied formal methods to both software and system designs.
 {style="text-align: justify;"}
