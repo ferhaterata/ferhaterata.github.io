@@ -1,13 +1,13 @@
 ---
 # Display name
-title: 吳健雄
+title: Ferhat Erata
 
 # Name pronunciation (optional)
-name_pronunciation: Chien Shiung Wu
+name_pronunciation: ''
 
 # Full name (for SEO)
-first_name: Shiung Wu
-last_name: Chien
+first_name: Ferhat
+last_name: Erata
 
 # Status emoji
 status:
@@ -17,21 +17,21 @@ status:
 superuser: true
 
 # Role/position/tagline
-role: Professor of Artificial Intelligence
+role: PhD Candidate at Yale | Applied Scientist Intern at AWS
 
 # Organizations/Affiliations to show in About widget
 organizations:
-  - name: Stanford University
-    url: https://www.stanford.edu/
+  - name: Yale University
+    url: https://www.yale.edu/
 
 # Short bio (displayed in user profile at end of posts)
-bio: My research interests include distributed robotics, mobile computing and programmable matter.
+bio: My research interests include automated reasoning, program analysis, formal verification, security, and property synthesis.
 
 # Interests to show in About widget
 interests:
-  - Artificial Intelligence
-  - Computational Linguistics
-  - Information Retrieval
+  - Automated Reasoning
+  - Formal Verification
+  - Security
 
 # Education to show in About widget
 education:
@@ -120,5 +120,11 @@ social:
 highlight_name: true
 ---
 
-Chien Shiung Wu is a professor of artificial intelligence at the Stanford AI Lab. Her research interests include distributed robotics, mobile computing and programmable matter. She leads the Robotic Neurobiology group, which develops self-reconfiguring robots, systems of self-organizing robots, and mobile sensor networks.
+I am pursuing my PhD in Computer Science at Yale University with a concentration in Programming Languages and Verification, under the guidance of Ruzica Piskac. My recent research focuses on the dynamic inference of real or integer-valued relational properties, including nonlinear equalities and inequalities, random self-reducible properties, functional equations, and recurrence relations by integrating ML with formal techniques. Additionally, I am exploring the application of these properties to enhance areas such as property-based testing, formal verification, side-channel security, self-correcting programs, function synthesis, and privacy-preserving machine learning.
+
+Currently, I am an Applied Scientist Intern with the Automated Reasoning Group at Amazon Web Services (AWS). My work aims to improve the reliability of AWS services by creating advanced tools for model-based testing, conformance checking, randomized testing of distributed networked systems, database systems, and cloud services. 
+
+In the past, I worked on verifying the security of low-level Post-Quantum Cryptographic (PQC) code, including C, C++, and binary analysis. I specialized in detecting side-channel vulnerabilities in cryptographic code using formal techniques. For my master's project at Yale, I developed a probabilistic symbolic execution engine to estimate the power consumption and timing of energy-harvesting, battery-free embedded devices. 
+
+Before PhD school, I worked as a Software Research Engineer on R&D projects within consortia in the aviation and automotive sectors. In these roles, I applied formal methods to both software and system designs.
 {style="text-align: justify;"}
