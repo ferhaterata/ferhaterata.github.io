@@ -40,12 +40,12 @@ education:
     - course: PhD in Computer Science
       institution: Yale University
       year: 2025
-    - course: MPh in Computer Science
+    - course: MPhil in Computer Science
+      institution: Yale University
+      year: 2022
+    - course: MSc in Computer Science
       institution: Yale University
       year: 2021
-    - course: MSc in Computer Science
-      institution: Ege University
-      year: 2011
 
 # Skills
 # For available icons, see: https://docs.hugoblox.com/getting-started/page-builder/#icons
