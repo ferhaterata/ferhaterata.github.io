@@ -95,7 +95,7 @@ sections:
           company_logo: aws
           location: Remote 
           date_start: '2023-09-01'
-          date_end: '2024-01-01'
+          date_end: ''
           description: Automated Reasoning Group (ARG) -- Conformance Checking of Distributed Message-Passing Systems 
         - title: Applied Scientist Intern -- Full Time
           company: Amazon Web Services (AWS) 
