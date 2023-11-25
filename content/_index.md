@@ -81,7 +81,7 @@ sections:
         - title: Graduate Research Assistant
           company: Yale University
           company_url: ''
-          company_logo: yale
+          company_logo: yale.png
           location: New Haven
           date_start: '2020-06-01'
           date_end: ''
