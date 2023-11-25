@@ -23,6 +23,8 @@ role: PhD Candidate at Yale | Applied Scientist Intern at AWS
 organizations:
   - name: Yale University
     url: https://www.yale.edu/
+  - name: Amazon Web Services
+    url: https://aws.amazon.com/
 
 # Short bio (displayed in user profile at end of posts)
 bio: My research interests include automated reasoning, program analysis, formal verification, security, and property synthesis.
@@ -47,45 +49,45 @@ education:
       institution: Yale University
       year: 2021
 
-# Skills
-# For available icons, see: https://docs.hugoblox.com/getting-started/page-builder/#icons
-# skills:
-#   - name: Technical
-#     items:
-#       - name: Python
-#         description: ''
-#         percent: 80
-#         icon: python
-#         icon_pack: fab
-#       - name: Data Science
-#         description: ''
-#         percent: 100
-#         icon: chart-line
-#         icon_pack: fas
-#       - name: SQL
-#         description: ''
-#         percent: 40
-#         icon: database
-#         icon_pack: fas
-#   - name: Hobbies
-#     color: '#eeac02'
-#     color_border: '#f0bf23'
-#     items:
-#       - name: Hiking
-#         description: ''
-#         percent: 60
-#         icon: person-hiking
-#         icon_pack: fas
-#       - name: Cats
-#         description: ''
-#         percent: 100
-#         icon: cat
-#         icon_pack: fas
-#       - name: Photography
-#         description: ''
-#         percent: 80
-#         icon: camera-retro
-#         icon_pack: fas
+Skills
+For available icons, see: https://docs.hugoblox.com/getting-started/page-builder/#icons
+skills:
+  - name: Technical
+    items:
+      - name: Python
+        description: ''
+        percent: 80
+        icon: python
+        icon_pack: fab
+      - name: Data Science
+        description: ''
+        percent: 100
+        icon: chart-line
+        icon_pack: fas
+      - name: SQL
+        description: ''
+        percent: 40
+        icon: database
+        icon_pack: fas
+  - name: Hobbies
+    color: '#eeac02'
+    color_border: '#f0bf23'
+    items:
+      - name: Hiking
+        description: ''
+        percent: 60
+        icon: person-hiking
+        icon_pack: fas
+      - name: Cats
+        description: ''
+        percent: 100
+        icon: cat
+        icon_pack: fas
+      - name: Photography
+        description: ''
+        percent: 80
+        icon: camera-retro
+        icon_pack: fas
 
 # Social/Academic Networking
 # For available icons, see: https://docs.hugoblox.com/getting-started/page-builder/#icons
@@ -121,5 +123,5 @@ social:
 highlight_name: true
 ---
 
-I am pursuing my PhD in Computer Science at Yale University with a concentration in Programming Languages and Verification, under the guidance of Ruzica Piskac. My recent research focuses on the dynamic inference of real or integer-valued relational properties, including nonlinear equalities and inequalities, random self-reducible properties, functional equations, and recurrence relations by integrating ML with formal techniques. Additionally, I am exploring the application of these properties to enhance areas such as property-based testing, formal verification, side-channel security, self-correcting programs, function synthesis, and privacy-preserving machine learning.
+I am pursuing my PhD in Computer Science at Yale University with a concentration in Programming Languages and Verification, under the guidance of [Ruzica Piskac](http://www.cs.yale.edu/homes/piskac/) and [Jakub Szefer](https://caslab.csl.yale.edu/~jakub/). My recent research focuses on the dynamic inference of real or integer-valued relational properties from implementations by integrating machine learning with formal techniques. Additionally, I am exploring the application of these properties to enhance areas such as property-based testing, formal verification, side-channel security, self-correcting programs, function synthesis, and privacy-preserving machine learning.
 {style="text-align: justify;"}
