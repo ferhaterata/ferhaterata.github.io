@@ -51,7 +51,7 @@ image:
   preview_only: false
 
 # Summary. An optional shortened abstract.
-summary: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis posuere tellus ac convallis placerat. Proin tincidunt magna sed ex sollicitudin condimentum.
+summary: Pascal is a tool that introduces novel symbolic register analysis techniques for constant-time low-level cryptographic code, and verifies locations of potential single-trace power side-channel vulnerabilities with high precision. Pascal is evaluated on a number of implementations of post-quantum cryptographic algorithms, and it is able to find dozens of previously reported single-trace power side-channel vulnerabilities in these algorithms, all in an automated manner.
 
 # Associated Projects (optional).
 #   Associate this publication with one or more of your projects.
