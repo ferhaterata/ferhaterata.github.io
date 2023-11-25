@@ -80,7 +80,7 @@ sections:
       items:
         - title: Graduate Research Assistant
           company: Yale University
-          company_url: ''
+          company_url: 'https://cpsc.yale.edu'
           company_logo: yale.png
           location: New Haven
           date_start: '2020-06-01'
@@ -107,7 +107,7 @@ sections:
           description: Model-based Testing, Systematic Exploration and Fuzzing of Distributed Systems. 
         - title: Graduate Teaching Assistant
           company: Yale University
-          company_url: ''
+          company_url: 'https://cpsc.yale.edu'
           company_logo: yale
           location: New Haven
           date_start: '2020-06-01'
