@@ -23,8 +23,8 @@ role: PhD Candidate at Yale | Applied Scientist Intern at AWS
 organizations:
   - name: Yale University
     url: https://www.yale.edu/
-  - name: Amazon Web Services
-    url: https://aws.amazon.com/
+  # - name: Amazon Web Services
+  #   url: https://aws.amazon.com/
 
 # Short bio (displayed in user profile at end of posts)
 bio: My research interests include automated reasoning, program analysis, formal verification, security, and property synthesis.
