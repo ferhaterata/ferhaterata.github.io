@@ -49,8 +49,8 @@ education:
       institution: Yale University
       year: 2021
 
-Skills
-For available icons, see: https://docs.hugoblox.com/getting-started/page-builder/#icons
+# Skills
+# For available icons, see: https://docs.hugoblox.com/getting-started/page-builder/#icons
 skills:
   - name: Technical
     items:
