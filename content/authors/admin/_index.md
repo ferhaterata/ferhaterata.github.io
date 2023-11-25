@@ -32,7 +32,7 @@ bio: My research interests include automated reasoning, program analysis, formal
 # Interests to show in About widget
 interests:
   - Automated Reasoning
-  - Formal Verification
+  - Program Analysis
   - Property Synthesis
   - System Security
   - Distributed Systems
