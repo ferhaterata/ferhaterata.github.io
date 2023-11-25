@@ -16,8 +16,8 @@ appearance:
 marketing:
   seo:
     site_type: Person
-    local_business_type: ''
-    org_name: ''
+    local_business_type: 'Computer Science'
+    org_name: 'Yale University'
     description: 'Ferhat Erata - Personal Website'
     twitter: 'ferhaterata'
   analytics:
