@@ -78,27 +78,65 @@ sections:
       #   Leave `date_end` empty if it's your current employer.
       #   Begin multi-line descriptions with YAML's `|2-` multi-line prefix.
       items:
-        - title: CEO
-          company: GenCoin
+        - title: Graduate Research Assistant
+          company: Yale University
           company_url: ''
-          company_logo: org-gc
-          location: California
-          date_start: '2021-01-01'
+          company_logo: yale
+          location: New Haven
+          date_start: '2020-06-01'
           date_end: ''
           description: |2-
-              Responsibilities include:
-
-              * Analysing
-              * Modelling
-              * Deploying
-        - title: Professor of Semiconductor Physics
-          company: University X
+              * [Member of Rigorous Software Engineering Lab.](https://rose.yale.edu/)
+              * [Member of Computer Architecture and Security Lab.](https://caslab.csl.yale.edu/)
+              * C/C++, LLVM, Rust, and ARM Binaries -- Dynamic Analysis, Formal Verification, Property Synthesis, Symbolic Execution, Property-based Testing, Cryptographic Applications, Side-Channel analysis.
+        - title: Applied Scientist Intern -- Part Time
+          company: Amazon Web Services (AWS), Automated Reasoning Group (ARG)
+          company_url: 'https://www.amazon.science/research-areas/automated-reasoning'
+          company_logo: aws
+          location: Remote 
+          date_start: '2023-09-01'
+          date_end: '2024-12-01'
+          description: Conformance Checking of Distributed Message-Passing Systems 
+        - title: Applied Scientist Intern -- Full Time
+          company: Amazon Web Services (AWS), Automated Reasoning Group (ARG)
+          company_url: 'https://www.amazon.science/research-areas/automated-reasoning'
+          company_logo: aws
+          location: New York
+          date_start: '2023-05-01'
+          date_end: '2023-08-01'
+          description: Model-based Testing, Systematic Exploration and Fuzzing of Distributed Systems. 
+        - title: Graduate Teaching Assistant
+          company: Yale University
           company_url: ''
-          company_logo: org-x
-          location: California
-          date_start: '2016-01-01'
-          date_end: '2020-12-31'
-          description: Taught electronic engineering and researched semiconductor physics.
+          company_logo: yale
+          location: New Haven
+          date_start: '2020-06-01'
+          date_end: ''
+          description: |2-
+              Teaching Asistant for:
+
+              * CS423--Principles of Operating System (Avi Silberschatz)
+              * CS437--Database Systems (Avi Silberschatz)
+              * CS440--Advanced Databases (Robert Soule)
+
+        - title: Applied Scientist Intern -- Part Time
+          company: Amazon Web Services (AWS), Automated Reasoning Group (ARG)
+          company_url: 'https://www.amazon.science/research-areas/automated-reasoning'
+          company_logo: aws
+          location: Remote 
+          date_start: '2022-09-01'
+          date_end: '2023-01-01'
+          description: Fuzzing of Distributed Message-Passing Systems
+
+        - title: Applied Scientist Intern -- Full Time
+          company: Amazon Web Services (AWS), Automated Reasoning Group (ARG)
+          company_url: 'https://www.amazon.science/research-areas/automated-reasoning'
+          company_logo: aws
+          location: New York
+          date_start: '2022-06-01'
+          date_end: '2022-08-01'
+          description: Developed a decision procedure for checking consistency of distributed systems. 
+
     design:
       columns: '2'
   # - block: accomplishments
