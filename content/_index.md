@@ -52,9 +52,10 @@ sections:
   #   design:
   #     columns: '1'
   - block: collection
+    id: publications
     content:
       title: Recent Publications
-      count: 10
+      count: 12
       text: |-
         {{% callout note %}}
         Quickly discover relevant content by [filtering publications](./publication/).
