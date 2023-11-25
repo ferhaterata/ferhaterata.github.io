@@ -34,7 +34,8 @@ interests:
   - Automated Reasoning
   - Formal Verification
   - Property Synthesis
-  - Security
+  - System Security
+  - Distributed Systems
 
 # Education to show in About widget
 education:
@@ -42,9 +43,9 @@ education:
     - course: PhD in Computer Science
       institution: Yale University
       year: 2025
-    # - course: MPhil in Computer Science
-    #   institution: Yale University
-    #   year: 2022
+    - course: MPhil in Computer Science
+      institution: Yale University
+      year: 2022
     - course: MSc in Computer Science
       institution: Yale University
       year: 2021
