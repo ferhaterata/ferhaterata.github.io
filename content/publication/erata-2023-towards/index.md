@@ -36,4 +36,34 @@ tags:
 links:
 - name: URL
   url: https://doi.ieeecomputersociety.org/10.1109/EuroSP57164.2023.00047
+
+# Display this page in the Featured widget?
+featured: true
+
+url_slides: 'https://eurosp2023.ieee-security.org/slides/EuroSP-Pascal-Slides.pdf'
+url_video: 'https://youtu.be/1w_jSuvThD4'
+
+# Featured image
+# To use, add an image named `featured.jpg/png` to your page's folder.
+image:
+  caption: ''
+  focal_point: ''
+  preview_only: false
+
+# Summary. An optional shortened abstract.
+summary: Pascal is a tool that introduces novel symbolic register analysis techniques for constant-time low-level cryptographic code, and verifies locations of potential single-trace power side-channel vulnerabilities with high precision. Pascal is evaluated on a number of implementations of post-quantum cryptographic algorithms, and it is able to find dozens of previously reported single-trace power side-channel vulnerabilities in these algorithms, all in an automated manner.
+
+# Associated Projects (optional).
+#   Associate this publication with one or more of your projects.
+#   Simply enter your project's folder or file name without extension.
+#   E.g. `internal-project` references `content/project/internal-project/index.md`.
+#   Otherwise, set `projects: []`.
+# projects:
+#   - example
+
+# Slides (optional).
+#   Associate this publication with Markdown slides.
+#   Simply enter your slide deck's filename without extension.
+#   E.g. `slides: "example"` references `content/slides/example/index.md`.
+#   Otherwise, set 
 ---
