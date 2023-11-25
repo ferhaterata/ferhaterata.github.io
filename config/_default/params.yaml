@@ -16,7 +16,7 @@ appearance:
 marketing:
   seo:
     site_type: Person
-    local_business_type: 'Computer Science'
+    local_business_type: 'Applied Scienctist'
     org_name: 'Yale University'
     description: 'Ferhat Erata - Personal Website'
     twitter: 'ferhaterata'
@@ -98,7 +98,7 @@ features:
   map:
     provider: 'mapnik'
     api_key: ''
-    zoom: 15
+    zoom: 10
 
 # Extensions
 
