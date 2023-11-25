@@ -89,53 +89,53 @@ sections:
               * Member of [Rigorous Software Engineering (ROSE) Lab.](https://rose.yale.edu/)
               * Member of [Computer Architecture and Security (CASLAB) Lab.](https://caslab.csl.yale.edu/)
               * C/C++, LLVM, Rust, and ARM Binaries -- Dynamic Analysis, Formal Verification, Property Synthesis, Symbolic Execution, Property-based Testing, Cryptographic Applications, Side-Channel analysis.
-        - title: Applied Scientist Intern -- Part Time
-          company: Amazon Web Services (AWS), Automated Reasoning Group (ARG)
-          company_url: 'https://www.amazon.science/research-areas/automated-reasoning'
-          company_logo: aws
-          location: Remote 
-          date_start: '2023-09-01'
-          date_end: '2024-12-01'
-          description: Conformance Checking of Distributed Message-Passing Systems 
-        - title: Applied Scientist Intern -- Full Time
-          company: Amazon Web Services (AWS), Automated Reasoning Group (ARG)
-          company_url: 'https://www.amazon.science/research-areas/automated-reasoning'
-          company_logo: aws
-          location: New York
-          date_start: '2023-05-01'
-          date_end: '2023-08-01'
-          description: Model-based Testing, Systematic Exploration and Fuzzing of Distributed Systems. 
-        - title: Graduate Teaching Assistant
-          company: Yale University
-          company_url: 'https://cpsc.yale.edu'
-          company_logo: yale
-          location: New Haven
-          date_start: '2020-06-01'
-          date_end: ''
-          description: |2-
-              Teaching Asistant for:
+        # - title: Applied Scientist Intern -- Part Time
+        #   company: Amazon Web Services (AWS), Automated Reasoning Group (ARG)
+        #   company_url: 'https://www.amazon.science/research-areas/automated-reasoning'
+        #   company_logo: aws
+        #   location: Remote 
+        #   date_start: '2023-09-01'
+        #   date_end: '2024-12-01'
+        #   description: Conformance Checking of Distributed Message-Passing Systems 
+        # - title: Applied Scientist Intern -- Full Time
+        #   company: Amazon Web Services (AWS), Automated Reasoning Group (ARG)
+        #   company_url: 'https://www.amazon.science/research-areas/automated-reasoning'
+        #   company_logo: aws
+        #   location: New York
+        #   date_start: '2023-05-01'
+        #   date_end: '2023-08-01'
+        #   description: Model-based Testing, Systematic Exploration and Fuzzing of Distributed Systems. 
+        # - title: Graduate Teaching Assistant
+        #   company: Yale University
+        #   company_url: 'https://cpsc.yale.edu'
+        #   company_logo: yale
+        #   location: New Haven
+        #   date_start: '2020-06-01'
+        #   date_end: ''
+        #   description: |2-
+        #       Teaching Asistant for:
 
-              * CS423--Principles of Operating System (Avi Silberschatz)
-              * CS437--Database Systems (Avi Silberschatz)
-              * CS440--Advanced Databases (Robert Soule)
+        #       * CS423--Principles of Operating System (Avi Silberschatz)
+        #       * CS437--Database Systems (Avi Silberschatz)
+        #       * CS440--Advanced Databases (Robert Soule)
 
-        - title: Applied Scientist Intern -- Part Time
-          company: Amazon Web Services (AWS), Automated Reasoning Group (ARG)
-          company_url: 'https://www.amazon.science/research-areas/automated-reasoning'
-          company_logo: aws
-          location: Remote 
-          date_start: '2022-09-01'
-          date_end: '2023-01-01'
-          description: Fuzzing of Distributed Message-Passing Systems
+        # - title: Applied Scientist Intern -- Part Time
+        #   company: Amazon Web Services (AWS), Automated Reasoning Group (ARG)
+        #   company_url: 'https://www.amazon.science/research-areas/automated-reasoning'
+        #   company_logo: aws
+        #   location: Remote 
+        #   date_start: '2022-09-01'
+        #   date_end: '2023-01-01'
+        #   description: Fuzzing of Distributed Message-Passing Systems
 
-        - title: Applied Scientist Intern -- Full Time
-          company: Amazon Web Services (AWS), Automated Reasoning Group (ARG)
-          company_url: 'https://www.amazon.science/research-areas/automated-reasoning'
-          company_logo: aws
-          location: New York
-          date_start: '2022-06-01'
-          date_end: '2022-08-01'
-          description: Developed a decision procedure for checking consistency of distributed systems. 
+        # - title: Applied Scientist Intern -- Full Time
+        #   company: Amazon Web Services (AWS), Automated Reasoning Group (ARG)
+        #   company_url: 'https://www.amazon.science/research-areas/automated-reasoning'
+        #   company_logo: aws
+        #   location: New York
+        #   date_start: '2022-06-01'
+        #   date_end: '2022-08-01'
+        #   description: Developed a decision procedure for checking consistency of distributed systems. 
 
     design:
       columns: '2'
@@ -281,13 +281,13 @@ sections:
       # phone: 203 833 9448
       appointment_url: 'https://calendly.com/ferhat-erata'
       address:
-        street: 51 Prospect Street
+        street: 51 Prospect Street, AKW 203
         city: New Haven 
         region: CT
         postcode: '06511'
         country: United States
         country_code: US
-      directions: Enter Building AKW and take the stairs to Office 203 on Floor 2
+      # directions: Enter Building AKW and take the stairs to Office 203 on Floor 2
       # office_hours:
         # - 'Monday 10:30 to 11:30'
         # - 'Wednesday 09:00 to 10:00'
@@ -295,11 +295,11 @@ sections:
       coordinates:
         latitude: '41.31308'
         longitude: '-72.92487'  
-      contact_links:
-        - icon: twitter
-          icon_pack: fab
-          name: DM Me
-          link: 'https://twitter.com/ferhaterata'
+      # contact_links:
+      #   - icon: twitter
+      #     icon_pack: fab
+      #     name: DM Me
+      #     link: 'https://twitter.com/ferhaterata'
         # - icon: skype
         #   icon_pack: fab
         #   name: Skype Me
