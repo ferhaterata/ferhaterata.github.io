@@ -123,5 +123,5 @@ social:
 highlight_name: true
 ---
 
-I am pursuing my PhD in Computer Science at Yale University with a concentration in Programming Languages and Verification, under the guidance of [Ruzica Piskac](http://www.cs.yale.edu/homes/piskac/) and [Jakub Szefer](https://caslab.csl.yale.edu/~jakub/). My recent research focuses on the dynamic inference of real or integer-valued relational properties from implementations by integrating machine learning with formal techniques. Additionally, I am exploring the application of these properties to enhance areas such as property-based testing, formal verification, side-channel security, self-correcting programs, function synthesis, and privacy-preserving machine learning.
-{style="text-align: justify;"}
+I am pursuing my PhD in [Computer Science](https://cpsc.yale.edu) at Yale University with a concentration in Programming Languages and Verification, under the guidance of [Ruzica Piskac](http://www.cs.yale.edu/homes/piskac/) and [Jakub Szefer](https://caslab.csl.yale.edu/~jakub/). My recent research focuses on the dynamic inference of real or integer-valued relational properties from implementations by integrating machine learning with formal techniques. Additionally, I am exploring the application of these properties to enhance areas such as property-based testing, formal verification, side-channel security, self-correcting programs, function synthesis, and privacy-preserving machine learning.
+{style="text-align: left;"}
