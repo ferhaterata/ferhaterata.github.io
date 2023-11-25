@@ -3,6 +3,7 @@
 title: ''
 date: 2022-10-24
 type: landing
+# https://academic-demo.netlify.app
 
 sections:
   - block: hero
