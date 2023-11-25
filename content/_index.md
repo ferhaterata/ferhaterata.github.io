@@ -86,8 +86,8 @@ sections:
           date_start: '2020-06-01'
           date_end: ''
           description: |2-
-              * [Member of Rigorous Software Engineering Lab.](https://rose.yale.edu/)
-              * [Member of Computer Architecture and Security Lab.](https://caslab.csl.yale.edu/)
+              * Member of [Rigorous Software Engineering (ROSE) Lab.](https://rose.yale.edu/)
+              * Member of [Computer Architecture and Security (CASLAB) Lab.](https://caslab.csl.yale.edu/)
               * C/C++, LLVM, Rust, and ARM Binaries -- Dynamic Analysis, Formal Verification, Property Synthesis, Symbolic Execution, Property-based Testing, Cryptographic Applications, Side-Channel analysis.
         - title: Applied Scientist Intern -- Part Time
           company: Amazon Web Services (AWS), Automated Reasoning Group (ARG)
