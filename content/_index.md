@@ -51,6 +51,22 @@ sections:
   #     username: admin
   #   design:
   #     columns: '1'
+  - block: collection
+    id: publications
+    content:
+      title: Publications
+      count: 15
+      # text: |-
+      #   {{% callout note %}}
+      #   Quickly discover relevant content by [filtering publications](./publication/).
+      #   {{% /callout %}}
+      filters:
+        folders:
+          - publication
+        exclude_featured: false
+    design:
+      columns: '2'
+      view: citation
   - block: experience
     id: experience
     content:
@@ -124,22 +140,6 @@ sections:
 
     design:
       columns: '2'
-  - block: collection
-    id: publications
-    content:
-      title: Publications
-      count: 15
-      # text: |-
-      #   {{% callout note %}}
-      #   Quickly discover relevant content by [filtering publications](./publication/).
-      #   {{% /callout %}}
-      filters:
-        folders:
-          - publication
-        exclude_featured: false
-    design:
-      columns: '2'
-      view: citation
   # - block: accomplishments
   #   content:
   #     # Note: `&shy;` is used to add a 'soft' hyphen in a long heading.
