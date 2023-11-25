@@ -35,8 +35,10 @@ tags = ["widgets",
         "product",
         "slide"
         ]
+# features = ["page builder", "widgets", "themes", "search", "research publication system", "filterable portfolio",
+            # "blog", "create courses", "talks", "events", "slides", "gallery", "contact form"]
 features = ["page builder", "widgets", "themes", "search", "research publication system", "filterable portfolio",
-            "blog", "create courses", "talks", "events", "slides", "gallery", "contact form"]
+            "blog", "create courses", "talks", "events", "slides", "contact form"]
 
 [author]
   name = "George Cushen"
