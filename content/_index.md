@@ -81,7 +81,7 @@ sections:
         - title: Graduate Research Assistant
           company: Yale University
           company_url: 'https://cpsc.yale.edu'
-          company_logo: yale.png
+          company_logo: yale
           location: New Haven
           date_start: '2020-06-01'
           date_end: ''
