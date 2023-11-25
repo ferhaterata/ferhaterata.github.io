@@ -90,21 +90,21 @@ sections:
               * Member of [Computer Architecture and Security (CASLAB) Lab.](https://caslab.csl.yale.edu/)
               * C/C++, LLVM, Rust, and ARM Binaries -- Dynamic Analysis, Formal Verification, Property Synthesis, Symbolic Execution, Property-based Testing, Cryptographic Applications, Side-Channel analysis.
         - title: Applied Scientist Intern -- Part Time
-          company: Amazon Web Services (AWS), Automated Reasoning Group (ARG)
+          company: Amazon Web Services (AWS)
           company_url: 'https://www.amazon.science/research-areas/automated-reasoning'
           company_logo: aws
           location: Remote 
           date_start: '2023-09-01'
           date_end: '2024-12-01'
-          description: Conformance Checking of Distributed Message-Passing Systems 
+          description: Automated Reasoning Group (ARG) -- Conformance Checking of Distributed Message-Passing Systems 
         - title: Applied Scientist Intern -- Full Time
-          company: Amazon Web Services (AWS), Automated Reasoning Group (ARG)
+          company: Amazon Web Services (AWS) 
           company_url: 'https://www.amazon.science/research-areas/automated-reasoning'
           company_logo: aws
           location: New York, NY, US
           date_start: '2023-05-01'
           date_end: '2023-08-01'
-          description: Model-based Testing, Systematic Exploration and Fuzzing of Distributed Systems. 
+          description: Automated Reasoning Group (ARG) -- Model-based Testing, Systematic Exploration and Fuzzing of Distributed Systems. 
         - title: Graduate Teaching Assistant
           company: Yale University
           company_url: 'https://cpsc.yale.edu'
@@ -118,23 +118,23 @@ sections:
               * CS423--Principles of Operating System (Avi Silberschatz)
               * CS437--Database Systems (Avi Silberschatz)
               * CS440--Advanced Databases (Robert Soule)
-        # - title: Applied Scientist Intern -- Part Time
-        #   company: Amazon Web Services (AWS), Automated Reasoning Group (ARG)
-        #   company_url: 'https://www.amazon.science/research-areas/automated-reasoning'
-        #   company_logo: aws
-        #   location: Remote 
-        #   date_start: '2022-09-01'
-        #   date_end: '2023-01-01'
-        #   description: Fuzzing of Distributed Message-Passing Systems
+        - title: Applied Scientist Intern -- Part Time
+          company: Amazon Web Services (AWS)
+          company_url: 'https://www.amazon.science/research-areas/automated-reasoning'
+          company_logo: aws
+          location: Remote 
+          date_start: '2022-09-01'
+          date_end: '2023-01-01'
+          description: Automated Reasoning Group (ARG) -- Fuzzing of Distributed Message-Passing Systems
 
-        # - title: Applied Scientist Intern -- Full Time
-        #   company: Amazon Web Services (AWS), Automated Reasoning Group (ARG)
-        #   company_url: 'https://www.amazon.science/research-areas/automated-reasoning'
-        #   company_logo: aws
-        #   location: New York
-        #   date_start: '2022-06-01'
-        #   date_end: '2022-08-01'
-        #   description: Developed a decision procedure for checking consistency of distributed systems. 
+        - title: Applied Scientist Intern -- Full Time
+          company: Amazon Web Services (AWS)
+          company_url: 'https://www.amazon.science/research-areas/automated-reasoning'
+          company_logo: aws
+          location: New York
+          date_start: '2022-06-01'
+          date_end: '2022-08-01'
+          description: Automated Reasoning Group (ARG) -- Developed a decision procedure for checking consistency of distributed systems. 
 
     design:
       columns: '2'
