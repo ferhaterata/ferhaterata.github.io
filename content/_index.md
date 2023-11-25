@@ -54,7 +54,7 @@ sections:
   - block: collection
     id: publications
     content:
-      title: Recent Publications
+      title: Publications
       count: 12
       # text: |-
       #   {{% callout note %}}
