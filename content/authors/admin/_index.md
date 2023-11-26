@@ -42,7 +42,7 @@ education:
   courses:
     - course: PhD in Computer Science
       institution: Yale University
-      # year: 2025
+      year: expected 2025
     # - course: MPhil in Computer Science
     #   institution: Yale University
       # year: 2022
