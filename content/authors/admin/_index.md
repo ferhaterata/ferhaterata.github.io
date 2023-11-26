@@ -53,8 +53,8 @@ education:
     - course: MSc in Information Technology 
       institution: Ege University
       # year: 2021
-    - course: BSc in Computer Science
-      institution: Dokuz Eylul University
+    # - course: BSc in Computer Science
+    #   institution: Dokuz Eylul University
       # year: 2021
 
 # Skills
