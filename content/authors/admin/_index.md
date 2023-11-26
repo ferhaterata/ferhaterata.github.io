@@ -34,6 +34,7 @@ interests:
   - Automated Reasoning
   - Program Analysis
   - Property Synthesis
+  - Machine Learning
   - System Security
   - Distributed Systems
 
@@ -42,7 +43,7 @@ education:
   courses:
     - course: PhD in Computer Science
       institution: Yale University
-      year: expected 2025
+      year: 2025
     # - course: MPhil in Computer Science
     #   institution: Yale University
       # year: 2022
