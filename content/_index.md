@@ -227,8 +227,14 @@ sections:
   #     buttons:
   #       - name: All
   #         tag: '*'
-  #       - name: Deep Learning
-  #         tag: Deep Learning
+  #       - name: Automated Reasoning 
+  #         tag: Automated Reasoning
+  #       - name: Program Analysis 
+  #         tag: Program Analysis
+  #       - name: Side-Channel Analysis
+  #         tag: System Security
+  #       - name: Quantum Computers 
+  #         tag: Quantum Computers
   #       - name: Other
   #         tag: Demo
   #   design:
