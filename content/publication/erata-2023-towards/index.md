@@ -31,8 +31,13 @@ abstract: 'Although cryptographic algorithms may be mathematically secure, it is
   and it is able to find dozens of previously reported single-trace power side-channel
   vulnerabilities in these algorithms, all in an automated manner.'
 tags:
-- power side-channels;hamming weight;differential program analysis;post-quantum cryptography;symbolic
-  execution;relational program analysis;binary analysis
+- power side-channels
+- hamming weight
+- differential program analysis
+- post-quantum cryptography
+- symbolic execution
+- relational program analysis
+- binary analysis
 links:
 - name: URL
   url: https://doi.ieeecomputersociety.org/10.1109/EuroSP57164.2023.00047
