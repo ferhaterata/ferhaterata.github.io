@@ -2,7 +2,7 @@
 title: Classification of Quantum Computer Fault Injection Attacks
 authors:
 - Chuanqi Xu
-- Ferhat Erata
+- admin 
 - Jakub Szefer
 date: '2023-01-01'
 publishDate: '2023-11-25T07:08:35.436119Z'

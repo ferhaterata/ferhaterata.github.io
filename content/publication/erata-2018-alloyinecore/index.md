@@ -2,7 +2,7 @@
 title: 'AlloyInEcore: embedding of first-order relational logic into meta-object facility
   for automated model reasoning'
 authors:
-- Ferhat Erata
+- admin 
 - Arda Goknil
 - Ivan Kurtev
 - Bedir Tekinerdogan

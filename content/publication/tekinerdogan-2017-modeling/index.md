@@ -2,7 +2,7 @@
 title: Modeling traceability in system of systems
 authors:
 - Bedir Tekinerdogan
-- Ferhat Erata
+- admin 
 date: '2017-01-01'
 publishDate: '2023-11-25T07:08:35.506850Z'
 publication_types:

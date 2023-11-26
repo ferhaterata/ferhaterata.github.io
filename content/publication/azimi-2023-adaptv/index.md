@@ -5,7 +5,7 @@ authors:
 - Mohammad Yusaf Azimi
 - Celal Cagin Elgun
 - Atil Firat
-- Ferhat Erata
+- admin 
 - Cemal Yilmaz
 date: '2023-01-01'
 publishDate: '2023-11-25T07:08:35.443159Z'

@@ -2,7 +2,7 @@
 title: 'Tarski: A platform for automated analysis of dynamically configurable traceability
   semantics'
 authors:
-- Ferhat Erata
+- admin 
 - Moharram Challenger
 - Bedir Tekinerdogan
 - Anne Monceaux

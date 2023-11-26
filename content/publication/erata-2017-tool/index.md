@@ -1,7 +1,7 @@
 ---
 title: A tool for automated reasoning about traces based on configurable formal semantics
 authors:
-- Ferhat Erata
+- admin 
 - Arda Goknil
 - Bedir Tekinerdogan
 - Geylani Kardas

@@ -2,7 +2,7 @@
 title: Integrating static code analysis toolchains
 authors:
 - Matthias Kern
-- Ferhat Erata
+- admin 
 - Markus Iser
 - Carsten Sinz
 - Frederic Loiret

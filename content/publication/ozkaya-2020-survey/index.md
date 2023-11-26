@@ -2,7 +2,7 @@
 title: A survey on the practical use of UML for different software architecture viewpoints
 authors:
 - Mert Ozkaya
-- Ferhat Erata
+- admin 
 date: '2020-01-01'
 publishDate: '2023-11-25T07:08:35.464467Z'
 publication_types:

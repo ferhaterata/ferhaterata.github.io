@@ -1,7 +1,7 @@
 ---
 title: Survey of approaches and techniques for security verification of computer systems
 authors:
-- Ferhat Erata
+- admin 
 - Shuwen Deng
 - Faisal Zaghloul
 - Wenjie Xiong

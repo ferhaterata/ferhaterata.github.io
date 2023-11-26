@@ -2,7 +2,7 @@
 title: Towards Automated Detection of Single-Trace Side-Channel Vulnerabilities in
   Constant-Time Cryptographic Code
 authors:
-- Ferhat Erata
+- admin 
 - Ruzica Piskac
 - Victor Mateu
 - Jakub Szefer

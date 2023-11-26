@@ -2,7 +2,7 @@
 title: Exploration of Power Side-Channel Vulnerabilities in Quantum Computer Controllers
 authors:
 - Chuanqi Xu
-- Ferhat Erata
+- admin 
 - Jakub Szefer
 date: '2023-11-01'
 publishDate: '2023-11-25T07:08:35.394792Z'

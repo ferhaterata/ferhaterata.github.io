@@ -1,7 +1,7 @@
 ---
 title: 'ETAP: Energy-aware timing analysis of intermittent programs'
 authors:
-- Ferhat Erata
+- admin 
 - Eren Yildiz
 - Arda Goknil
 - Kasim Sinan Yildirim

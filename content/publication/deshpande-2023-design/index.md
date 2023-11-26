@@ -5,7 +5,7 @@ authors:
 - Chuanqi Xu
 - Theodoros Trochatos
 - Hanrui Wang
-- Ferhat Erata
+- admin 
 - Song Han
 - Yongshan Ding
 - Jakub Szefer
