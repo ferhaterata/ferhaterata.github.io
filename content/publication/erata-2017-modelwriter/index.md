@@ -1,7 +1,7 @@
 ---
 title: 'ModelWriter: Text and model-synchronized document engineering platform'
 authors:
-- Ferhat Erata
+- admin 
 - Claire Gardent
 - Bikash Gyawali
 - Anastasia Shimorina
