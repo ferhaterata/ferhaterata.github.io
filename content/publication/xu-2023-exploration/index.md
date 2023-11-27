@@ -35,4 +35,42 @@ tags:
 links:
 - name: URL
   url: https://doi.org/10.1145/3576915.3623118
+
+# Display this page in the Featured widget?
+featured: true
+
+url_slides: ''
+url_video: ''
+
+# Featured image
+# To use, add an image named `featured.jpg/png` to your page's folder.
+image:
+  placement: 3 
+  caption: ''
+  focal_point: 'Bottom'
+  preview_only: false
+
+show_breadcrumb: false
+
+# Summary. An optional shortened abstract.
+summary: This work shows
+  the first exploration and study of power-based side-channel attacks in quantum computers.
+  The explored attacks could be used to recover information about the control pulses
+  sent to these computers. By analyzing these control pulses, attackers can reverse-engineer
+  the equivalent gate-level description of the circuits, and the algorithms being
+  run, or data hard-coded into the circuits.
+
+# Associated Projects (optional).
+#   Associate this publication with one or more of your projects.
+#   Simply enter your project's folder or file name without extension.
+#   E.g. `internal-project` references `content/project/internal-project/index.md`.
+#   Otherwise, set `projects: []`.
+# projects:
+#   - example
+
+# Slides (optional).
+#   Associate this publication with Markdown slides.
+#   Simply enter your slide deck's filename without extension.
+#   E.g. `slides: "example"` references `content/slides/example/index.md`.
+#   Otherwise, set 
 ---

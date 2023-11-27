@@ -37,4 +37,37 @@ tags:
 links:
 - name: URL
   url: https://doi.org/10.1145/3563216
+
+# Display this page in the Featured widget?
+featured: true
+
+url_slides: ''
+url_video: ''
+
+# Featured image
+# To use, add an image named `featured.jpg/png` to your page's folder.
+image:
+  placement: 3 
+  caption: ''
+  focal_point: 'Top'
+  preview_only: false
+
+show_breadcrumb: false
+
+# Summary. An optional shortened abstract.
+summary: Energy harvesting battery-free embedded devices rely only on ambient energy harvesting that enables stand-alone and sustainable IoT applications. These devices execute programs intermittently when the harvested ambient energy in their energy reservoir is sufficient to operate and stop execution abruptly (and start charging) otherwise. This work presents a probabilistic symbolic execution approach that analyzes the timing and energy behavior of intermittent programs at compile time.
+
+# Associated Projects (optional).
+#   Associate this publication with one or more of your projects.
+#   Simply enter your project's folder or file name without extension.
+#   E.g. `internal-project` references `content/project/internal-project/index.md`.
+#   Otherwise, set `projects: []`.
+# projects:
+#   - example
+
+# Slides (optional).
+#   Associate this publication with Markdown slides.
+#   Simply enter your slide deck's filename without extension.
+#   E.g. `slides: "example"` references `content/slides/example/index.md`.
+#   Otherwise, set 
 ---

@@ -51,9 +51,12 @@ url_video: 'https://youtu.be/1w_jSuvThD4'
 # Featured image
 # To use, add an image named `featured.jpg/png` to your page's folder.
 image:
+  placement: 3 
   caption: ''
-  focal_point: ''
+  focal_point: 'Bottom'
   preview_only: false
+
+show_breadcrumb: false
 
 # Summary. An optional shortened abstract.
 summary: Pascal is a tool that introduces novel symbolic register analysis techniques for constant-time low-level cryptographic code, and verifies locations of potential single-trace power side-channel vulnerabilities with high precision. Pascal is evaluated on a number of implementations of post-quantum cryptographic algorithms, and it is able to find dozens of previously reported single-trace power side-channel vulnerabilities in these algorithms, all in an automated manner.
