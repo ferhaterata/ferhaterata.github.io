@@ -125,7 +125,6 @@ sections:
           date_end: ''
           description: |2-
               Teaching Asistant for:
-
               * CS423--Principles of Operating System (Avi Silberschatz)
               * CS437--Database Systems (Avi Silberschatz)
               * CS440--Advanced Databases (Robert Soule)
@@ -146,6 +145,33 @@ sections:
           date_start: '2022-06-01'
           date_end: '2022-08-01'
           description: Automated Reasoning Group (ARG) -- Developed a decision procedure for checking consistency of distributed systems. 
+
+        - title: National Consortium Leader, Software Research Engineer  
+          company: 'ITEA4 Project: XIVT--eXcellence In Variant Testing' 
+          company_url: 'https://itea4.org/project/xivt.html'
+          company_logo: itea
+          location: Europe 
+          date_start: '2018-10-01'
+          date_end: '2019-08-01'
+          description: I developed [AlloyInEcore](https://modelwriter.github.io/AlloyInEcore/) for Automated Model Reasoning from Alloy Specifications.  
+
+        - title: National Consortium Leader, Software Research Engineer  
+          company: 'ITEA3 Project: ASSUME--Safe & Secure Mobility Evolution' 
+          company_url: 'https://itea4.org/project/assume.html'
+          company_logo: itea
+          location: Europe 
+          date_start: '2015-09-01'
+          date_end: '2018-12-01'
+          description: I developed [Tarski](https://modelwriter.github.io/AlloyInEcore/) Automated Reasoning tool for Traces based on Formal Semantics. 
+
+        - title: Project Leader, Software Research Engineer  
+          company: 'ITEA2 Project: Text & Model-Synchronized Document Engineering'
+          company_url: 'https://itea4.org/project/modelwriter.html'
+          company_logo: itea
+          location: Europe 
+          date_start: '2014-09-01'
+          date_end: '2017-09-01'
+          description: I led the development of [ModelWriter](https://ieeexplore.ieee.org/document/8115703)--Text and model-synchronization engineering platform.
 
     design:
       columns: '2'
