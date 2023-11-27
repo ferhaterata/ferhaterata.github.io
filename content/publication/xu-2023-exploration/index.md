@@ -8,8 +8,9 @@ date: '2023-11-01'
 publishDate: '2023-11-25T07:08:35.394792Z'
 publication_types:
 - paper-conference
-publication: '*Proceedings of the 2023 ACM SIGSAC Conference on Computer and Communications
+publication: '*2023 ACM SIGSAC Conference on Computer and Communications
   Security (CCS)*'
+# publication_short: In *CCS 2023*
 doi: 10.1145/3576915.3623118
 abstract: The rapidly growing interest in quantum computing also increases the importance
   of securing these computers from various physical attacks. Constantly increasing
@@ -36,6 +37,10 @@ links:
 - name: URL
   url: https://doi.org/10.1145/3576915.3623118
 
+# image_preview : ""
+
+selected: true
+
 # Display this page in the Featured widget?
 featured: true
 
@@ -45,9 +50,9 @@ url_video: ''
 # Featured image
 # To use, add an image named `featured.jpg/png` to your page's folder.
 image:
-  placement: 3 
+  placement: 1
   caption: ''
-  focal_point: 'Bottom'
+  focal_point: 'Top'
   preview_only: false
 
 show_breadcrumb: false
@@ -65,8 +70,8 @@ summary: This work shows
 #   Simply enter your project's folder or file name without extension.
 #   E.g. `internal-project` references `content/project/internal-project/index.md`.
 #   Otherwise, set `projects: []`.
-# projects:
-#   - example
+projects:
+  - side-channel-analysis
 
 # Slides (optional).
 #   Associate this publication with Markdown slides.

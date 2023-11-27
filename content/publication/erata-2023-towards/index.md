@@ -51,9 +51,9 @@ url_video: 'https://youtu.be/1w_jSuvThD4'
 # Featured image
 # To use, add an image named `featured.jpg/png` to your page's folder.
 image:
-  placement: 3 
+  placement: 1 
   caption: ''
-  focal_point: 'Bottom'
+  focal_point: 'Smart'
   preview_only: false
 
 show_breadcrumb: false
