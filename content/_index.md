@@ -177,7 +177,7 @@ sections:
       columns: '2'
       spacing:
         padding: ['30px', '0', '10px', '0']
-  - block: accomplishments
+  - block: experience # accomplishments
     id: service 
     content:
       # Note: `&shy;` is used to add a 'soft' hyphen in a long heading.
@@ -199,8 +199,12 @@ sections:
           icon: cost
           organization: European Cooperation in Science and Technology (COST)
           organization_url: https://www.cost.eu/actions/IC1402
+          company: European Cooperation in Science and Technology (COST)
+          company_url: https://www.cost.eu/actions/IC1402
+          company_logo: cost
           title: Management Committee Member 
           url: https://www.cost.eu/actions/IC1402
+
         - certificate_url: '' 
           date_end: '2019-01-01'
           date_start: '2015-01-01'
@@ -208,8 +212,29 @@ sections:
           icon: cost
           organization: European Cooperation in Science and Technology (COST)
           organization_url: https://www.cost.eu/actions/IC1404
+          company_logo: cost
+          company: European Cooperation in Science and Technology (COST)
+          company_url: https://www.cost.eu/actions/IC1404
           title: Management Committee Member 
           url: https://www.cost.eu/actions/IC1404
+        # - certificate_url: '' 
+        #   date_end: '2019-01-01'
+        #   date_start: '2017-12-01'
+        #   description: COST Action IC1402 - Runtime Verification beyond Monitoring (ARVI)
+        #   icon: cost
+        #   organization: European Cooperation in Science and Technology (COST)
+        #   organization_url: https://www.cost.eu/actions/IC1402
+        #   title: Management Committee Member 
+        #   url: https://www.cost.eu/actions/IC1402
+        # - certificate_url: '' 
+        #   date_end: '2019-01-01'
+        #   date_start: '2015-01-01'
+        #   description: COST Action IC1404 - Multi-Paradigm Modelling for Cyber-Physical Systems (MPM4CPS)
+        #   icon: cost
+        #   organization: European Cooperation in Science and Technology (COST)
+        #   organization_url: https://www.cost.eu/actions/IC1404
+        #   title: Management Committee Member 
+        #   url: https://www.cost.eu/actions/IC1404
     design:
       columns: '2'
       spacing:
