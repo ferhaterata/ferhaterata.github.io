@@ -162,7 +162,7 @@ sections:
           location: Europe 
           date_start: '2015-09-01'
           date_end: '2018-12-01'
-          description: I developed [Tarski](https://modelwriter.github.io/AlloyInEcore/) Automated Reasoning tool for Traces based on Formal Semantics. 
+          description: I developed [Tarski](https://modelwriter.github.io/Tarski/) Automated Reasoning tool for Traces based on Formal Semantics. 
 
         - title: Project Leader, Software Research Engineer  
           company: 'ITEA2 Project: Text & Model-Synchronized Document Engineering'
