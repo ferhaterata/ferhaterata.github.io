@@ -29,4 +29,7 @@ abstract: The rapid growth of interest in quantum computing has brought about th
 links:
 - name: URL
   url: https://arxiv.org/abs/2309.05478
+
+projects:
+  - side-channel-analysis
 ---

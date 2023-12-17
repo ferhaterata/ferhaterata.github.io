@@ -1,8 +1,8 @@
 ---
-title: Quantum Computer Security Analysis 
+title: Quantum Computer Side-Channel and Fault Injection Security Analysis 
 authors:
-- Chuanqi Xu
 - admin 
+- Chuanqi Xu
 - Jakub Szefer
 date: '2023-11-01'
 publishDate: '2023-11-25T07:08:35.394792Z'
