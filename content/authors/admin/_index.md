@@ -131,7 +131,11 @@ social:
 highlight_name: true
 ---
 
-I am pursuing my PhD in [Computer Science](https://cpsc.yale.edu) at Yale University under the guidance of [Ruzica Piskac](http://www.cs.yale.edu/homes/piskac/) and [Jakub Szefer](https://caslab.csl.yale.edu/~jakub/). My recent research focuses on the dynamic inference of real-valued relational properties from programs by integrating machine learning with formal techniques. Additionally, I am exploring the application of these properties in areas such as side-channel security, property-based testing, self-correcting programs, and privacy-preserving machine learning.
+I am pursuing my PhD in [Computer Science](https://cpsc.yale.edu) at Yale University under the guidance of [Ruzica Piskac](http://www.cs.yale.edu/homes/piskac/) and [Jakub Szefer](https://caslab.csl.yale.edu/~jakub/). My recent research focuses on the dynamic inference of nonlinear, integer or real-valued relational properties, such as equalities and inequalities, from programs by integrating machine learning with formal techniques. 
+
+<!-- Additionally, I am exploring the application of these properties in areas such as property-based testing, self-correcting programs, and privacy-preserving machine learning. -->
 
 I am an Applied Scientist Intern at the [Automated Reasoning Group](https://www.amazon.science/research-areas/automated-reasoning) of Amazon Web Services (AWS) mentored by [Rupak Majumdar](https://people.mpi-sws.org/~rupak/). My work aims to improve the reliability of AWS services by creating advanced tools for model-based testing, conformance checking, and randomized testing of distributed networked systems. 
+
+I have worked on verifying the side-channel security of low-level Post-Quantum Cryptographic (PQC) code ([EuroS&P 2023](https://ieeexplore.ieee.org/document/10190541)). I also worked on reverse engineering quantum circuits from power side-channel traces of quantum computer controllers ([CHES 2024](https://ferhat.ai/publication/erata-2024-quantum/erata-2024-quantum.pdf), [CCS 2023](https://dl.acm.org/doi/10.1145/3576915.3623118)). Additionally, I explored modeling and quantifying non-functional behaviors of intermittent programs ([TECS 2023](https://dl.acm.org/doi/10.1145/3563216)).
 {style="text-align: left;"}
