@@ -37,24 +37,25 @@ interests:
   - Machine Learning
   - System Security
   - Distributed Systems
+  - Quantum Computing
 
 # Education to show in About widget
 education:
   courses:
     - course: PhD in Computer Science
-      institution: Yale University
+      institution: Yale University, CT, US
       year: 2025
     # - course: MPhil in Computer Science
     #   institution: Yale University
       # year: 2022
-    - course: MSc in Computer Science
-      institution: Yale University
+    - course: MSc, MPhil in Computer Science
+      institution: Yale University, CT, US
       # year: 2021
     - course: MSc in Information Technology 
-      institution: Ege University
+      institution: Ege University, Izmir, TR
       # year: 2021
-    # - course: BSc in Computer Science
-    #   institution: Dokuz Eylul University
+    - course: BSc in Computer Science
+      institution: Dokuz Eylul University, Izmir, TR
       # year: 2021
 
 # Skills
@@ -131,11 +132,11 @@ social:
 highlight_name: true
 ---
 
-I am pursuing my PhD in [Computer Science](https://cpsc.yale.edu) at Yale University under the guidance of [Ruzica Piskac](http://www.cs.yale.edu/homes/piskac/) and [Jakub Szefer](https://caslab.csl.yale.edu/~jakub/). My recent research focuses on the dynamic inference of nonlinear, integer or real-valued relational properties, such as equalities and inequalities, from programs by integrating machine learning with formal techniques. 
+I am pursuing my PhD in [Computer Science](https://cpsc.yale.edu) at Yale University under the guidance of [Ruzica Piskac](http://www.cs.yale.edu/homes/piskac/) and [Jakub Szefer](https://caslab.csl.yale.edu/~jakub/). My recent research focuses on the automated inference of nonlinear relational properties, equalities, inequalities, and random self-reducible properties from programs by integrating _machine learning_ with formal methods. 
 
 <!-- Additionally, I am exploring the application of these properties in areas such as property-based testing, self-correcting programs, and privacy-preserving machine learning. -->
 
 I am an Applied Scientist Intern at the [Automated Reasoning Group](https://www.amazon.science/research-areas/automated-reasoning) of Amazon Web Services (AWS) mentored by [Rupak Majumdar](https://people.mpi-sws.org/~rupak/) and [Nafi Diallo](https://linkedin.com/in/ndiallo). My work aims to improve the reliability of AWS services by creating advanced tools for model-based testing, conformance checking, and randomized testing of distributed networked systems. 
 
-I have worked on verifying the side-channel insecurity of low-level Post-Quantum Cryptographic (PQC) code ([EuroS&P 2023](https://ieeexplore.ieee.org/document/10190541)). I also worked on reverse engineering quantum circuits from power side-channel traces of quantum computer controllers ([CHES 2024](https://ferhat.ai/publication/erata-2024-quantum/erata-2024-quantum.pdf), [CCS 2023](https://dl.acm.org/doi/10.1145/3576915.3623118)), and contributed to a technique that detect quantum computer viruses ([HOST 2023](https://ieeexplore.ieee.org/document/10133711)). Additionally, I explored modeling and quantifying non-functional behaviors of intermittent programs ([TECS 2023](https://dl.acm.org/doi/10.1145/3563216)).
+I have worked on verifying the side-channel insecurity of low-level Post-Quantum Cryptographic (PQC) code ([EuroS&P 2023](https://ieeexplore.ieee.org/document/10190541)). I explored reverse engineering quantum circuits from power side-channel traces ([CHES 2024](https://ferhat.ai/publication/erata-2024-quantum/erata-2024-quantum.pdf), [CCS 2023](https://dl.acm.org/doi/10.1145/3576915.3623118)), and contributed to a technique that detects quantum computer viruses ([HOST 2023](https://ieeexplore.ieee.org/document/10133711)). Additionally, I explored automated analysis of non-functional behaviors of intermittent programs ([TECS 2023](https://dl.acm.org/doi/10.1145/3563216)), and surveyed security verification techniques ([JETC 2023](https://doi.org/10.1145/3564785)).
 {style="text-align: left;"}
