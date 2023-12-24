@@ -114,7 +114,7 @@ sections:
           company_logo: aws
           location: New York, NY, US 
           date_start: '2023-05-01'
-          date_end: ''
+          date_end: '2024-01-19'
           description: Automated Reasoning Group (ARG) -- Developed a scheduler framework for randomized testing, model-based testing, and conformance checking of distributed AWS Services in Rust. 
         - title: Applied Scientist Intern 
           company: Amazon Web Services (AWS)
