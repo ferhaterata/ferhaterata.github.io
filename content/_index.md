@@ -132,7 +132,7 @@ sections:
           location: Ege University, Izmir, TR 
           date_start: '2018-10-01'
           date_end: '2019-08-01'
-          description: I developed [AlloyInEcore](https://modelwriter.github.io/AlloyInEcore/) for Automated Model Reasoning from Alloy Specifications.  
+          description: I developed [AlloyInEcore](https://modelwriter.github.io/AlloyInEcore/) for Automated Model Reasoning from Alloy Specifications. Published in [FSE 2018](https://doi.org/10.1145/3236024.3264588).  
 
         - title: National Consortium Leader, Software Research Engineer  
           company: 'ITEA3 Project: ASSUME--Safe & Secure Mobility Evolution' 
@@ -141,7 +141,7 @@ sections:
           location: Ege University, Izmir, TR 
           date_start: '2015-09-01'
           date_end: '2018-12-01'
-          description: I developed [Tarski](https://modelwriter.github.io/Tarski/) Automated Reasoning tool for Traces based on Formal Semantics. 
+          description: I developed [Tarski](https://modelwriter.github.io/Tarski/) Automated Reasoning tool for Traces based on Formal Semantics. Published in [FSE 2017](https://doi.org/10.1145/3106237.3122825) and [SAC 2017](https://doi.org/10.1145/3019612.3019747).
 
         - title: Project Leader, Software Research Engineer  
           company: 'ITEA2 Project: Text & Model-Synchronized Document Engineering'
@@ -150,7 +150,7 @@ sections:
           location: Ege University, Izmir, TR 
           date_start: '2014-09-01'
           date_end: '2017-09-01'
-          description: I led the development of [ModelWriter](https://ieeexplore.ieee.org/document/8115703)--Text and model-synchronization engineering platform.
+          description: I led the development of [ModelWriter](https://ieeexplore.ieee.org/document/8115703)--Text and model-synchronization engineering platform. Published in [ASE 2017](https://doi.org/10.1109/ASE.2017.8115703).
 
     design:
       columns: '2'
@@ -175,7 +175,9 @@ sections:
         - certificate_url: '' 
           date_end: '2019-01-01'
           date_start: '2017-12-01'
-          description: COST Action IC1402 - Runtime Verification beyond Monitoring (ARVI)
+          description: |2-
+            * Action IC1402 - Runtime Verification beyond Monitoring (ARVI)
+            * Received a short-term scientific mission grant to visit [Division of Formal Methods, Chalmers University of Technology, Gothenburg, Sweden](https://chalmersformalmethods.github.io/), 
           icon: cost
           organization: European Cooperation in Science and Technology (COST)
           organization_url: https://www.cost.eu/actions/IC1402
@@ -188,7 +190,9 @@ sections:
         - certificate_url: '' 
           date_end: '2019-01-01'
           date_start: '2015-01-01'
-          description: COST Action IC1404 - Multi-Paradigm Modelling for Cyber-Physical Systems (MPM4CPS)
+          description: |2-
+            * Action IC1404 - Multi-Paradigm Modelling for Cyber-Physical Systems (MPM4CPS) 
+            * Received a short-term scientific mission grant to visit [Modelling, Simulation and Design lab (MSDL), University of Antwerp, Antwerp, Belgium](http://msdl.uantwerpen.be).
           icon: cost
           organization: European Cooperation in Science and Technology (COST)
           organization_url: https://www.cost.eu/actions/IC1404
