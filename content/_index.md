@@ -57,6 +57,7 @@ sections:
   #     username: admin
   #   design:
   #     columns: '1'
+
   - block: collection
     id: publications
     content:
@@ -76,6 +77,7 @@ sections:
       spacing:
         # Customize the section spacing. Order is top, right, bottom, left.
         padding: ['30px', '0', '30px', '0']
+
   - block: experience
     id: experience
     content:
@@ -89,7 +91,7 @@ sections:
       #   Leave `date_end` empty if it's your current employer.
       #   Begin multi-line descriptions with YAML's `|2-` multi-line prefix.
       items:
-        - title: Graduate Research Assistant
+        - title: Graduate Research Assistant & Teaching Fellow
           company: Yale University
           company_url: 'https://cpsc.yale.edu'
           company_logo: yale
@@ -97,60 +99,37 @@ sections:
           date_start: '2020-06-01'
           date_end: ''
           description: |2-
+              Research Asistant:
               * Member of [Rigorous Software Engineering (ROSE) Lab.](https://rose.yale.edu/)
               * Member of [Computer Architecture and Security (CASLAB) Lab.](https://caslab.csl.yale.edu/)
-              * C/C++, LLVM, Rust, and ARM Binaries -- Dynamic Analysis, Formal Verification, Property Synthesis, Symbolic Execution, Property-based Testing, Cryptographic Applications, Side-Channel analysis.
-        - title: Applied Scientist Intern -- Part Time
-          company: Amazon Web Services (AWS)
-          company_url: 'https://www.amazon.science/research-areas/automated-reasoning'
-          company_logo: aws
-          location: Remote 
-          date_start: '2023-09-01'
-          date_end: ''
-          description: Automated Reasoning Group (ARG) -- Conformance Checking of Distributed Message-Passing Systems 
-        - title: Applied Scientist Intern -- Full Time
-          company: Amazon Web Services (AWS) 
-          company_url: 'https://www.amazon.science/research-areas/automated-reasoning'
-          company_logo: aws
-          location: New York, NY, US
-          date_start: '2023-05-01'
-          date_end: '2023-08-01'
-          description: Automated Reasoning Group (ARG) -- Model-based Testing, Systematic Exploration and Fuzzing of Distributed Systems. 
-        - title: Graduate Teaching Assistant
-          company: Yale University
-          company_url: 'https://cpsc.yale.edu'
-          company_logo: yale
-          location: New Haven, CT, US
-          date_start: '2020-06-01'
-          date_end: ''
-          description: |2-
-              Teaching Asistant for:
+
+              Teaching Asistant:
               * CS423--Principles of Operating System (Avi Silberschatz)
               * CS437--Database Systems (Avi Silberschatz)
               * CS440--Advanced Databases (Robert Soule)
-        - title: Applied Scientist Intern -- Part Time
+#              * C/C++, LLVM, Rust, and ARM Binaries -- Dynamic Analysis, Formal Verification, Property Synthesis, Symbolic Execution, Property-based Testing, Cryptographic Applications, Side-Channel analysis, Machine Learning.
+        - title: Applied Scientist Intern 
           company: Amazon Web Services (AWS)
           company_url: 'https://www.amazon.science/research-areas/automated-reasoning'
           company_logo: aws
-          location: Remote 
-          date_start: '2022-09-01'
-          date_end: '2023-01-01'
-          description: Automated Reasoning Group (ARG) -- Fuzzing of Distributed Message-Passing Systems
-
-        - title: Applied Scientist Intern -- Full Time
+          location: New York, NY, US 
+          date_start: '2023-05-01'
+          date_end: ''
+          description: Automated Reasoning Group (ARG) -- Developed a scheduler framework for randomized testing, model-based testing, and conformance checking of distributed AWS Services in Rust. 
+        - title: Applied Scientist Intern 
           company: Amazon Web Services (AWS)
           company_url: 'https://www.amazon.science/research-areas/automated-reasoning'
           company_logo: aws
-          location: New York
+          location: New York, NY, US
           date_start: '2022-06-01'
-          date_end: '2022-08-01'
-          description: Automated Reasoning Group (ARG) -- Developed a decision procedure for checking consistency of distributed systems. 
+          date_end: '2023-01-01'
+          description: Automated Reasoning Group (ARG) -- Developed a decision procedure in Rust programming languages for checking linearizability of distributed systems. 
 
         - title: National Consortium Leader, Software Research Engineer  
           company: 'ITEA4 Project: XIVT--eXcellence In Variant Testing' 
           company_url: 'https://itea4.org/project/xivt.html'
           company_logo: itea
-          location: Europe 
+          location: Ege University, Izmir, TR 
           date_start: '2018-10-01'
           date_end: '2019-08-01'
           description: I developed [AlloyInEcore](https://modelwriter.github.io/AlloyInEcore/) for Automated Model Reasoning from Alloy Specifications.  
@@ -159,7 +138,7 @@ sections:
           company: 'ITEA3 Project: ASSUME--Safe & Secure Mobility Evolution' 
           company_url: 'https://itea4.org/project/assume.html'
           company_logo: itea
-          location: Europe 
+          location: Ege University, Izmir, TR 
           date_start: '2015-09-01'
           date_end: '2018-12-01'
           description: I developed [Tarski](https://modelwriter.github.io/Tarski/) Automated Reasoning tool for Traces based on Formal Semantics. 
@@ -168,7 +147,7 @@ sections:
           company: 'ITEA2 Project: Text & Model-Synchronized Document Engineering'
           company_url: 'https://itea4.org/project/modelwriter.html'
           company_logo: itea
-          location: Europe 
+          location: Ege University, Izmir, TR 
           date_start: '2014-09-01'
           date_end: '2017-09-01'
           description: I led the development of [ModelWriter](https://ieeexplore.ieee.org/document/8115703)--Text and model-synchronization engineering platform.
@@ -177,6 +156,7 @@ sections:
       columns: '2'
       spacing:
         padding: ['30px', '0', '10px', '0']
+
   - block: experience # accomplishments
     id: service 
     content:

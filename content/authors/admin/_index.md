@@ -132,7 +132,7 @@ social:
 highlight_name: true
 ---
 
-I am pursuing my PhD in [Computer Science](https://cpsc.yale.edu) at Yale University under the guidance of [Ruzica Piskac](http://www.cs.yale.edu/homes/piskac/) and [Jakub Szefer](https://caslab.csl.yale.edu/~jakub/). My recent research focuses on the automated inference of nonlinear relational properties, equalities, inequalities, and random self-reducible properties from programs by integrating _machine learning_ with formal methods. 
+I am pursuing my PhD in [Computer Science](https://cpsc.yale.edu) at Yale University under the guidance of [Ruzica Piskac](http://www.cs.yale.edu/homes/piskac/) and [Jakub Szefer](https://caslab.csl.yale.edu/~jakub/). My recent research focuses on the automated inference of nonlinear relational properties, equalities, inequalities, and random self-reducible properties from programs by integrating _machine learning_ with _formal methods_. 
 
 <!-- Additionally, I am exploring the application of these properties in areas such as property-based testing, self-correcting programs, and privacy-preserving machine learning. -->
 
