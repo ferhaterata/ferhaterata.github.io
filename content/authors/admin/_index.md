@@ -51,7 +51,7 @@ education:
     - course: MSc, MPhil in Computer Science
       institution: Yale University, CT, US
       # year: 2021
-    - course: MSc in Information Technology 
+    - course: MSc in Information Technologies
       institution: Ege University, Izmir, TR
       # year: 2021
     - course: BSc in Computer Science
