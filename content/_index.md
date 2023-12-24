@@ -62,7 +62,7 @@ sections:
     id: publications
     content:
       title: Publications
-      count: 15
+      count: 14
       text: |-
         {{% callout note %}}
         See all publications by [filtering](./publication/).
@@ -132,7 +132,7 @@ sections:
           location: Ege University, Izmir, TR 
           date_start: '2018-10-01'
           date_end: '2019-08-01'
-          description: I developed [AlloyInEcore](https://modelwriter.github.io/AlloyInEcore/) for Automated Model Reasoning from Alloy Specifications. Published in [FSE 2018](https://doi.org/10.1145/3236024.3264588).  
+          description: I developed [AlloyInEcore](https://modelwriter.github.io/AlloyInEcore/) for Automated Model Reasoning from Alloy Specifications. Published in [FSE 2018](https://doi.org/10.1145/3236024.3264588) and contributed to a Model-based Testing framework [IEEE Access](https://doi.org/10.1109/ACCESS.2023.3262746).  
 
         - title: National Consortium Leader, Software Research Engineer  
           company: 'ITEA3 Project: ASSUME--Safe & Secure Mobility Evolution' 
@@ -148,7 +148,7 @@ sections:
           company_url: 'https://itea4.org/project/modelwriter.html'
           company_logo: itea
           location: Ege University, Izmir, TR 
-          date_start: '2014-09-01'
+          date_start: '2015-01-01'
           date_end: '2017-09-01'
           description: I led the development of [ModelWriter](https://ieeexplore.ieee.org/document/8115703)--Text and model-synchronization engineering platform. Published in [ASE 2017](https://doi.org/10.1109/ASE.2017.8115703).
 
