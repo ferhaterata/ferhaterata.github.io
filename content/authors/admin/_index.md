@@ -33,10 +33,11 @@ bio: My research interests include automated reasoning, program analysis, formal
 interests:
   - Automated Reasoning
   - Program Analysis
-  - Property Synthesis
+  # - Property Synthesis
   - Machine Learning
   - System Security
   - Distributed Systems
+  - Software Engineering
   # - Quantum Computing
 
 # Education to show in About widget
