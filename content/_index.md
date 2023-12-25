@@ -46,7 +46,7 @@ sections:
     design:
       spacing:
         # Customize the section spacing. Order is top, right, bottom, left.
-        padding: ['10px', '0', '40px', '0']
+        padding: ['5px', '0', '10px', '0']
 
   # - block: skills
   #   content:
@@ -57,26 +57,6 @@ sections:
   #     username: admin
   #   design:
   #     columns: '1'
-
-  - block: collection
-    id: publications
-    content:
-      title: Publications
-      count: 14
-      text: |-
-        {{% callout note %}}
-        See all publications by [filtering](./publication/).
-        {{% /callout %}}
-      filters:
-        folders:
-          - publication
-        exclude_featured: false
-    design:
-      columns: '2'
-      view: citation
-      spacing:
-        # Customize the section spacing. Order is top, right, bottom, left.
-        padding: ['30px', '0', '30px', '0']
 
   - block: experience
     id: experience
@@ -155,7 +135,7 @@ sections:
     design:
       columns: '2'
       spacing:
-        padding: ['30px', '0', '10px', '0']
+        padding: ['20px', '0', '10px', '0']
 
   - block: experience # accomplishments
     id: service 
@@ -222,7 +202,29 @@ sections:
     design:
       columns: '2'
       spacing:
-        padding: ['30px', '0', '30px', '0']
+        padding: ['20px', '0', '10px', '0']
+
+
+  - block: collection
+    id: publications
+    content:
+      title: Publications
+      count: 14
+      text: |-
+        {{% callout note %}}
+        See all publications by [filtering](./publication/).
+        {{% /callout %}}
+      filters:
+        folders:
+          - publication
+        exclude_featured: false
+    design:
+      columns: '2'
+      view: citation
+      spacing:
+        # Customize the section spacing. Order is top, right, bottom, left.
+        padding: ['20px', '0', '10px', '0']
+
   # - block: collection
   #   id: posts
   #   content:

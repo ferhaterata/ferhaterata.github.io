@@ -37,7 +37,7 @@ interests:
   - Machine Learning
   - System Security
   - Distributed Systems
-  - Quantum Computing
+  # - Quantum Computing
 
 # Education to show in About widget
 education:
@@ -136,7 +136,9 @@ I am pursuing my PhD in [Computer Science](https://cpsc.yale.edu) at Yale Univer
 
 <!-- Additionally, I am exploring the application of these properties in areas such as property-based testing, self-correcting programs, and privacy-preserving machine learning. -->
 
-I am an Applied Scientist Intern at the [Automated Reasoning Group](https://www.amazon.science/research-areas/automated-reasoning) of Amazon Web Services (AWS) mentored by [Rupak Majumdar](https://people.mpi-sws.org/~rupak/) and [Nafi Diallo](https://linkedin.com/in/ndiallo). My work aims to improve the reliability of AWS services by creating advanced tools for model-based testing, conformance checking, and randomized testing of distributed networked systems. 
+I am an Applied Scientist Intern at the [Automated Reasoning Group](https://www.amazon.science/research-areas/automated-reasoning) of Amazon Web Services (AWS) mentored by [Rupak Majumdar](https://people.mpi-sws.org/~rupak/). I am developing tools for model-based testing, conformance checking, and fuzzing of distributed networked systems.
+<!-- My work aims to improve the reliability of AWS services by creating advanced tools for model-based testing, conformance checking, and randomized testing of distributed networked systems.  -->
+<!-- and [Nafi Diallo](https://linkedin.com/in/ndiallo).  -->
 
 I have worked on verifying the side-channel insecurity of low-level Post-Quantum Cryptographic (PQC) code ([EuroS&P 2023](https://ieeexplore.ieee.org/document/10190541)). I explored reverse engineering quantum circuits from power side-channel traces ([CHES 2024](https://ferhat.ai/publication/erata-2024-quantum/erata-2024-quantum.pdf), [CCS 2023](https://dl.acm.org/doi/10.1145/3576915.3623118)), and contributed to a technique that detects quantum computer viruses ([HOST 2023](https://ieeexplore.ieee.org/document/10133711)). Additionally, I explored automated analysis of non-functional behaviors of intermittent programs ([TECS 2023](https://dl.acm.org/doi/10.1145/3563216)), and surveyed security verification techniques ([JETC 2023](https://doi.org/10.1145/3564785)).
 {style="text-align: left;"}
