@@ -84,8 +84,8 @@ sections:
               * Member of [Computer Architecture and Security (CASLAB) Lab.](https://caslab.csl.yale.edu/)
 
               Teaching Asistant:
-              * CS423--Principles of Operating System (Avi Silberschatz)
-              * CS437--Database Systems (Avi Silberschatz)
+              * CS437--[Database Systems](https://codex.cs.yale.edu/avi/db-book/) (Avi Silberschatz)
+              * CS423--[Principles of Operating System](https://codex.cs.yale.edu/avi/os-book/OS10/index.html) (Avi Silberschatz)
               * CS440--Advanced Databases (Robert Soule)
 #              * C/C++, LLVM, Rust, and ARM Binaries -- Dynamic Analysis, Formal Verification, Property Synthesis, Symbolic Execution, Property-based Testing, Cryptographic Applications, Side-Channel analysis, Machine Learning.
         - title: Applied Scientist Intern 
