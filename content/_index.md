@@ -215,9 +215,9 @@ sections:
         See all publications by [filtering](./publication/).
         {{% /callout %}}
       filters:
+        category: "selected"
         folders:
           - publication
-        category: "selected"
         exclude_featured: false
     design:
       columns: '2'
