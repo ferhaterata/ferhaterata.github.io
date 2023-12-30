@@ -16,4 +16,6 @@ doi: 10.1109/ACCESS.2023.3262746
 links:
 - name: URL
   url: https://doi.org/10.1109/ACCESS.2023.3262746
+categories:
+- selected
 ---

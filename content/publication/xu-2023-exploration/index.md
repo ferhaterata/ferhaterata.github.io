@@ -8,7 +8,7 @@ date: '2023-11-01'
 publishDate: '2023-11-25T07:08:35.394792Z'
 publication_types:
 - paper-conference
-publication: '*2023 ACM SIGSAC Conference on Computer and Communications
+publication: '*ACM SIGSAC Conference on Computer and Communications
   Security (CCS)*'
 # publication_short: In *CCS 2023*
 doi: 10.1145/3576915.3623118
@@ -78,4 +78,7 @@ projects:
 #   Simply enter your slide deck's filename without extension.
 #   E.g. `slides: "example"` references `content/slides/example/index.md`.
 #   Otherwise, set 
+
+categories:
+- selected
 ---

@@ -32,4 +32,6 @@ links:
 
 projects:
   - side-channel-analysis
+
+categories:
 ---

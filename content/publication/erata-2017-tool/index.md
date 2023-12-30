@@ -9,8 +9,8 @@ date: '2017-01-01'
 publishDate: '2023-11-25T07:08:35.492191Z'
 publication_types:
 - paper-conference
-publication: '*Proceedings of the 2017 11th Joint Meeting on Foundations of Software
-  Engineering (ESEC/FSE 2017)*'
+publication: '*Proceedings of Foundations of Software
+  Engineering (ESEC/FSE)*'
 doi: 10.1145/3106237.3122825
 abstract: We present Tarski, a tool for specifying configurable trace semantics to
   facilitate automated reasoning about traces. Software development projects require
@@ -30,4 +30,7 @@ tags:
 links:
 - name: URL
   url: https://doi.org/10.1145/3106237.3122825
+
+categories:
+- selected
 ---

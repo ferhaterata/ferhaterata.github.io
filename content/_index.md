@@ -217,6 +217,7 @@ sections:
       filters:
         folders:
           - publication
+        category: "selected"
         exclude_featured: false
     design:
       columns: '2'

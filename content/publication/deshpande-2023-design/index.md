@@ -41,4 +41,6 @@ tags:
 links:
 - name: URL
   url: https://ieeexplore.ieee.org/document/10133711
+categories:
+- selected
 ---

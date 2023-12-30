@@ -10,9 +10,8 @@ date: '2018-01-01'
 publishDate: '2023-11-25T07:08:35.478874Z'
 publication_types:
 - paper-conference
-publication: '*Proceedings of European Software
-  Engineering Conference and Symposium on the Foundations of Software Engineering
-  (ESEC/FSE)*'
+publication: '*Proceedings of Foundations of Software
+  Engineering (ESEC/FSE)*'
 doi: 10.1145/3236024.3264588
 abstract: We present AlloyInEcore, a tool for specifying metamodels with their static
   semantics to facilitate automated, formal reasoning on models. Software development
@@ -31,4 +30,7 @@ tags:
 links:
 - name: URL
   url: https://doi.org/10.1145/3236024.3264588
+
+categories:
+- selected
 ---

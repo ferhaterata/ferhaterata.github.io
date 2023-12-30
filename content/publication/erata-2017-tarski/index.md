@@ -12,7 +12,7 @@ date: '2017-01-01'
 publishDate: '2023-11-25T07:08:35.499382Z'
 publication_types:
 - paper-conference
-publication: '*Proceedings of the Symposium on Applied Computing (SAC)*'
+publication: '*Symposium on Applied Computing (SAC)*'
 doi: 10.1145/3019612.3019747
 abstract: Traceability can be defined as the degree to which a relationship can be
   established among work products of the development process. Traceability is important
@@ -39,4 +39,6 @@ tags:
 links:
 - name: URL
   url: https://doi.org/10.1145/3019612.3019747
+categories:
+- selected
 ---
