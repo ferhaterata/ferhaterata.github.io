@@ -10,7 +10,7 @@ date: '2023-07-01'
 publishDate: '2023-11-25T07:08:35.405532Z'
 publication_types:
 - paper-conference
-publication: '*2023 IEEE 8th European Symposium on Security and Privacy (EuroS&P)*'
+publication: '*European Symposium on Security and Privacy (EuroS&P)*'
 doi: 10.1109/EuroSP57164.2023.00047
 abstract: 'Although cryptographic algorithms may be mathematically secure, it is often
   possible to leak secret information from the implementation of the algorithms. Timing

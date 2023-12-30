@@ -13,7 +13,7 @@ date: '2023-01-01'
 publishDate: '2023-11-25T07:08:35.428461Z'
 publication_types:
 - paper-conference
-publication: '*2023 IEEE International Symposium on Hardware Oriented Security and
+publication: '*International Symposium on Hardware Oriented Security and
   Trust (HOST)*'
 doi: 10.1109/HOST55118.2023.10133711
 abstract: The development of quantum computers has been advancing rapidly in recent

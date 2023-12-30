@@ -10,7 +10,7 @@ date: '2018-01-01'
 publishDate: '2023-11-25T07:08:35.478874Z'
 publication_types:
 - paper-conference
-publication: '*Proceedings of the 2018 26th ACM Joint Meeting on European Software
+publication: '*Proceedings of European Software
   Engineering Conference and Symposium on the Foundations of Software Engineering
   (ESEC/FSE)*'
 doi: 10.1145/3236024.3264588

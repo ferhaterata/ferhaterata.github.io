@@ -7,7 +7,7 @@ date: '2020-01-01'
 publishDate: '2023-11-25T07:08:35.449458Z'
 publication_types:
 - article-journal
-publication: '*Journal of Computer Languages (COLA)*'
+publication: '*Journal of Computer Languages*'
 doi: https://doi.org/10.1016/j.cola.2020.100963
 abstract: 'Software modeling is considered as the high-level design technique for
   describing abstract statements about software systems. While some practitioners
