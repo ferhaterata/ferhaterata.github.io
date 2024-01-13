@@ -34,4 +34,5 @@ projects:
   - side-channel-analysis
 
 categories:
+- selected
 ---
