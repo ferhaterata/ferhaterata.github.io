@@ -219,6 +219,10 @@ sections:
         folders:
           - publication
         exclude_featured: false
+      archive:
+        enable: true
+        text: 'See all publications'
+        link: publication/
     design:
       columns: '2'
       view: citation
