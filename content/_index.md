@@ -94,7 +94,7 @@ sections:
           company_logo: aws
           location: New York, NY, US 
           date_start: '2024-05-27'
-          date_end: '2024-08-23'
+          date_end: ''
           description: Automated Reasoning Group (ARG). Redrock Team. 
         - title: Applied Scientist Intern 
           company: Amazon Web Services (AWS)
