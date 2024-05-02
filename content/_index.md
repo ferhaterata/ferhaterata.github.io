@@ -93,6 +93,14 @@ sections:
           company_url: 'https://www.amazon.science/research-areas/automated-reasoning'
           company_logo: aws
           location: New York, NY, US 
+          date_start: '2024-05-27'
+          date_end: '2024-08-23'
+          description: Automated Reasoning Group (ARG). Redrock Team. 
+        - title: Applied Scientist Intern 
+          company: Amazon Web Services (AWS)
+          company_url: 'https://www.amazon.science/research-areas/automated-reasoning'
+          company_logo: aws
+          location: New York, NY, US 
           date_start: '2023-05-01'
           date_end: '2024-01-19'
           description: Automated Reasoning Group (ARG) -- Developed a scheduler framework for randomized testing, model-based testing, and conformance checking of distributed AWS Services in Rust. 
