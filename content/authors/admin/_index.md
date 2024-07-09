@@ -27,16 +27,16 @@ organizations:
   #   url: https://aws.amazon.com/
 
 # Short bio (displayed in user profile at end of posts)
-bio: My research interests include automated reasoning, program analysis, formal verification, security, and property synthesis.
+bio: My research interests include automated reasoning, program synthesis, neurosymbolic approaches, security, and formal verification.
 
 # Interests to show in About widget
 interests:
   - Automated Reasoning
-  - Program Analysis
+  - Program Synthesis 
   # - Property Synthesis
+  - Neurosymbolic Computing
   - Machine Learning
   - System Security
-  - Distributed Systems
   - Software Engineering
   # - Quantum Computing
 
@@ -133,11 +133,10 @@ social:
 highlight_name: true
 ---
 
-I am pursuing my PhD in [Computer Science](https://cpsc.yale.edu) at Yale University under the guidance of [Ruzica Piskac](http://www.cs.yale.edu/homes/piskac/) and [Jakub Szefer](https://caslab.csl.yale.edu/~jakub/). My recent research focuses on the automated inference of nonlinear relational properties, equalities, inequalities, and random self-reducible properties from programs by integrating _machine learning_ with _formal methods_. 
+I am pursuing a PhD in [Computer Science](https://cpsc.yale.edu) at Yale University under the guidance of [Ruzica Piskac](http://www.cs.yale.edu/homes/piskac/) and [Jakub Szefer](https://caslab.csl.yale.edu/~jakub/). My research focuses on the automated inference of relational properties and invariants in programs by integrating _machine learning_ with _formal methods_. Additionally, I am conducting research on discrete program search to automatically solve abstraction and reasoning tasks.
 
-<!-- Additionally, I am exploring the application of these properties in areas such as property-based testing, self-correcting programs, and privacy-preserving machine learning. -->
-
-I am an Applied Scientist Intern at the [Automated Reasoning Group](https://www.amazon.science/research-areas/automated-reasoning) of Amazon Web Services (AWS) mentored by [Rupak Majumdar](https://people.mpi-sws.org/~rupak/). I am developing tools for model-based testing, conformance checking, and fuzzing of distributed networked systems.
+I am also an Applied Scientist Intern at the [Automated Reasoning Group](https://www.amazon.science/research-areas/automated-reasoning) of Amazon Web Services (AWS), working on a neurosymbolic approach to detect hallucinations of LLMs in program synthesis and logical reasoning.
+<!-- mentored by [Rupak Majumdar](https://people.mpi-sws.org/~rupak/). I am developing tools for model-based testing, conformance checking, and fuzzing of distributed networked systems. -->
 <!-- My work aims to improve the reliability of AWS services by creating advanced tools for model-based testing, conformance checking, and randomized testing of distributed networked systems.  -->
 <!-- and [Nafi Diallo](https://linkedin.com/in/ndiallo).  -->
 
