@@ -133,7 +133,8 @@ social:
 highlight_name: true
 ---
 
-I am pursuing a PhD in [Computer Science](https://cpsc.yale.edu) at Yale University under the guidance of [Ruzica Piskac](http://www.cs.yale.edu/homes/piskac/) and [Jakub Szefer](https://caslab.csl.yale.edu/~jakub/). My current research focuses on the automated inference of program properties and invariants by integrating _machine learning_ with _formal methods_. Additionally, I am conducting research on discrete program search to automatically solve abstraction and reasoning tasks.
+I am pursuing a PhD in [Computer Science](https://cpsc.yale.edu) at Yale University under the guidance of [Ruzica Piskac](http://www.cs.yale.edu/homes/piskac/) and [Jakub Szefer](https://caslab.csl.yale.edu/~jakub/). My current research focuses on the automated inference of program properties and invariants by integrating _machine learning_ with _formal methods_. 
+<!-- Additionally, I am conducting research on discrete program search to automatically solve abstraction and reasoning tasks. -->
 
 I am also an Applied Scientist Intern at the [Automated Reasoning Group](https://www.amazon.science/research-areas/automated-reasoning) of Amazon Web Services (AWS), working on Neurosymbolic Program Synthesis to capture symbolic knowledge and detect hallucinations of LLMs in logical reasoning.
 <!-- mentored by [Rupak Majumdar](https://people.mpi-sws.org/~rupak/). I am developing tools for model-based testing, conformance checking, and fuzzing of distributed networked systems. -->
