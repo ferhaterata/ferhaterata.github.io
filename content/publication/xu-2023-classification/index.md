@@ -4,11 +4,11 @@ authors:
 - Chuanqi Xu
 - admin 
 - Jakub Szefer
-date: '2023-01-01'
-publishDate: '2023-11-25T07:08:35.436119Z'
+date: '2024-01-01'
+publishDate: '2024-07-17T07:08:35.436119Z'
 publication_types:
 - article-journal
-publication: '*arXiv preprint arXiv:2309.05478*'
+publication: '*IEEE International Conference on Quantum Computing and Engineering (QCE)*'
 doi: 10.48550/arXiv.2309.05478
 abstract: The rapid growth of interest in quantum computing has brought about the
   need to secure these powerful machines against a range of physical attacks. As qubit
