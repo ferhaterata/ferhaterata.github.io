@@ -35,7 +35,8 @@ interests:
   - Program Synthesis 
   # - Property Synthesis
   - Neurosymbolic Computing
-  - Machine Learning
+  - Artificial Intelligence
+  # - Machine Learning
   - System Security
   - Software Engineering
   # - Quantum Computing
