@@ -10,7 +10,7 @@ publishDate: '2023-12-16'
 publication_types:
 - article-journal
 publication: '*IACR Transactions on Cryptographic Hardware and Embedded Systems (TCHES)*'
-# doi: 10.1145/3564785
+doi: 10.46586/tches.v2024.i2.735-768
 abstract: 'The interest in quantum computing has grown rapidly in recent years, and with it grows the importance of securing quantum circuits. A novel type of threat to quantum circuits that dedicated attackers could launch are power trace attacks. To address this threat, this paper presents first formalization and demonstration of using power traces to unlock and steal quantum circuit secrets. With access to power traces, attackers can recover information about the control pulses sent to quantum computers. From the control pulses, the gate level description of the circuits, and eventually the secret algorithms can be reverse engineered. This work demonstrates how and what information could be recovered. This work uses algebraic reconstruction from power traces to realize two new types of single trace attacks: per-channel and total power attacks. The former attack relies on per-channel measurements to perform a brute-force attack to reconstruct the quantum circuits. The latter attack performs a single-trace attack using Mixed-Integer Linear Programming optimization. Through the use of algebraic reconstruction, this work demonstrates that quantum circuit secrets can be stolen with high accuracy. Evaluation on 32 real benchmark quantum circuits shows that our technique is highly effective at reconstructing quantum circuits. The findings not only show the veracity of the potential attacks, but also the need to develop new means to protect quantum circuits from power trace attacks. Throughout this work real control pulse information from real quantum computers is used to demonstrate potential attacks based on simulation of collection of power traces.' 
 tags:
 - Quantum Circuits
@@ -20,6 +20,11 @@ tags:
 - Automated Reasoning
 - Mixed Integer Linear Programming
 - MILP
+links:
+- name: URL
+  url: https://tches.iacr.org/index.php/TCHES/article/view/11445
+
+url_slides: 'https://iacr.org/submit/files/slides/2024/tches/tches2024/2_68/slides.pdf'
 
 # Associated Projects (optional).
 #   Associate this publication with one or more of your projects.
