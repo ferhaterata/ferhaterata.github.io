@@ -33,9 +33,10 @@ bio: My research interests include automated reasoning, program synthesis, neuro
 interests:
   - Automated Reasoning
   - Program Synthesis 
+  - AI/ML for Code
   # - Property Synthesis
   - Neurosymbolic Computing
-  - Artificial Intelligence
+  # - Artificial Intelligence
   # - Machine Learning
   - System Security
   - Software Engineering

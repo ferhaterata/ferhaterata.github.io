@@ -85,7 +85,7 @@ sections:
 
               Teaching Asistant:
               * CS437--[Database Systems](https://codex.cs.yale.edu/avi/db-book/) (Avi Silberschatz)
-              * CS423--[Principles of Operating System](https://codex.cs.yale.edu/avi/os-book/OS10/index.html) (Avi Silberschatz)
+              * CS423--[Operating System](https://codex.cs.yale.edu/avi/os-book/OS10/index.html) (Avi Silberschatz)
               * CS440--Advanced Databases (Robert Soule)
 #              * C/C++, LLVM, Rust, and ARM Binaries -- Dynamic Analysis, Formal Verification, Property Synthesis, Symbolic Execution, Property-based Testing, Cryptographic Applications, Side-Channel analysis, Machine Learning.
         - title: Applied Scientist Intern 
@@ -136,7 +136,7 @@ sections:
           company_url: 'https://itea4.org/project/modelwriter.html'
           company_logo: itea
           location: Ege University, Izmir, TR 
-          date_start: '2015-01-01'
+          date_start: '2014-01-01'
           date_end: '2017-09-01'
           description: I led the development of [ModelWriter](https://ieeexplore.ieee.org/document/8115703)--Text and model-synchronization engineering platform. Published in [ASE 2017](https://doi.org/10.1109/ASE.2017.8115703).
 
