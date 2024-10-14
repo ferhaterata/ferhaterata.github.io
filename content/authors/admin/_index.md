@@ -17,14 +17,14 @@ status:
 superuser: true
 
 # Role/position/tagline
-role: PhD Candidate at Yale | Applied Scientist Intern at AWS
+role: PhD Candidate at Yale | Applied Scientist Intern at Amazon AI
 
 # Organizations/Affiliations to show in About widget
 organizations:
   - name: Yale University
     url: https://www.yale.edu/
-  # - name: Amazon Web Services
-  #   url: https://aws.amazon.com/
+  - name: Amazon AI
+    url: https://aws.amazon.com/ai/
 
 # Short bio (displayed in user profile at end of posts)
 bio: My research interests include automated reasoning, program synthesis, neurosymbolic approaches, security, and formal verification.

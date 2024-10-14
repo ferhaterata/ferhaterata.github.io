@@ -89,7 +89,7 @@ sections:
               * CS440--Advanced Databases (Robert Soule)
 #              * C/C++, LLVM, Rust, and ARM Binaries -- Dynamic Analysis, Formal Verification, Property Synthesis, Symbolic Execution, Property-based Testing, Cryptographic Applications, Side-Channel analysis, Machine Learning.
         - title: Applied Scientist Intern 
-          company: Amazon Web Services (AWS)
+          company: Amazon AI 
           company_url: 'https://www.amazon.science/research-areas/automated-reasoning'
           company_logo: aws
           location: New York, NY, US 
