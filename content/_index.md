@@ -217,7 +217,7 @@ sections:
     id: publications
     content:
       title: Publications
-      count: 14
+      count: 16
       text: |-
         {{% callout note %}}
         See all publications by [filtering](./publication/).
