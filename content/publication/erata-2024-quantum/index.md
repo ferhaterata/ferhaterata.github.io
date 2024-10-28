@@ -25,6 +25,7 @@ links:
   url: https://tches.iacr.org/index.php/TCHES/article/view/11445
 
 url_slides: 'https://iacr.org/submit/files/slides/2024/tches/tches2024/2_68/slides.pdf'
+url_video: 'https://youtu.be/HF_K3FhQT6I'
 
 # Associated Projects (optional).
 #   Associate this publication with one or more of your projects.

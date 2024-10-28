@@ -31,6 +31,9 @@ links:
 # - name: URL
 #   url: https://tches.iacr.org/index.php/TCHES/article/view/11445
 
+url_slides: '/slides/erata-2024-systematic.pdf'
+url_video: 'https://youtu.be/0Srjasg9eR8'
+
 # Associated Projects (optional).
 #   Associate this publication with one or more of your projects.
 #   Simply enter your project's folder or file name without extension.
