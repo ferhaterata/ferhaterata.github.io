@@ -1,5 +1,5 @@
 ---
-title: Systematic Use of Random Self-Reducibility against Physical Attacks
+title: Systematic Use of Random Self-Reducibility in Cryptographic Code against Physical Attacks
 authors:
 - admin 
 - TingHung Chiu
