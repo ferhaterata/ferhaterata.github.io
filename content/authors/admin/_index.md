@@ -17,7 +17,7 @@ status:
 superuser: true
 
 # Role/position/tagline
-role: PhD Candidate at Yale | Applied Scientist Intern at Amazon AI
+role: PhD Candidate @Yale | Applied Scientist Intern @Amazon AI 
 
 # Organizations/Affiliations to show in About widget
 organizations:
@@ -32,14 +32,14 @@ bio: My research interests include automated reasoning, program synthesis, neuro
 # Interests to show in About widget
 interests:
   - Automated Reasoning
-  - Program Synthesis 
-  - AI/ML for Code
+  - Neurosymbolic AI
+  # - AI/ML for Code
   # - Property Synthesis
-  - Neurosymbolic Computing
   # - Artificial Intelligence
   # - Machine Learning
-  - System Security
-  - Software Engineering
+  - Program Synthesis 
+  - Security & Privacy
+  # - Software Engineering
   # - Quantum Computing
 
 # Education to show in About widget
