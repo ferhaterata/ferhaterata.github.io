@@ -27,7 +27,7 @@ organizations:
     url: https://aws.amazon.com/ai/
 
 # Short bio (displayed in user profile at end of posts)
-bio: My research interests include automated reasoning, program synthesis, neurosymbolic approaches, security, and formal verification.
+bio: My research interests include neurosymbolic AI, program synthesis, and security & privacy.
 
 # Interests to show in About widget
 interests:
@@ -135,7 +135,7 @@ social:
 highlight_name: true
 ---
 
-I am pursuing a PhD in [Computer Science](https://cpsc.yale.edu) at Yale University under the guidance of [Ruzica Piskac](http://www.cs.yale.edu/homes/piskac/) and [Jakub Szefer](https://caslab.csl.yale.edu/~jakub/). My current research focuses on the automated inference of program properties and invariants by integrating _machine learning_ with _formal methods_. 
+I am pursuing a PhD in [Computer Science](https://cpsc.yale.edu) at Yale University under the guidance of [Ruzica Piskac](http://www.cs.yale.edu/homes/piskac/) and [Jakub Szefer](https://caslab.csl.yale.edu/~jakub/). My current research focuses on the learning of randomized reductions and program properties by integrating _machine learning_ with _formal methods_ (see [https://bitween.fun](https://bitween.fun)) and applying these techniques to multi-party secure computation, self-correcting programs, and quantum circuits.
 <!-- Additionally, I am conducting research on discrete program search to automatically solve abstraction and reasoning tasks. -->
 
 Currently, I am an Applied Scientist Intern at the [Automated Reasoning Group](https://www.amazon.science/research-areas/automated-reasoning) in AWS, working on _neurosymbolic programming_ to capture symbolic knowledge and mitigate hallucinations of LLMs in logical reasoning. Previously, I developed tools for model-based conformance checking of distributed networked systems at AWS.
