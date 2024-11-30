@@ -31,12 +31,12 @@ bio: My research interests include neurosymbolic AI, program synthesis, and secu
 
 # Interests to show in About widget
 interests:
-  - Automated Reasoning
+  # - Automated Reasoning
   - Neurosymbolic AI
   # - AI/ML for Code
   # - Property Synthesis
   # - Artificial Intelligence
-  # - Machine Learning
+  - Machine Learning
   - Program Synthesis 
   - Security & Privacy
   # - Software Engineering
@@ -143,5 +143,5 @@ Currently, I am an Applied Scientist Intern at the [Automated Reasoning Group](h
 <!-- My work aims to improve the reliability of AWS services by creating advanced tools for model-based testing, conformance checking, and randomized testing of distributed networked systems.  -->
 <!-- and [Nafi Diallo](https://linkedin.com/in/ndiallo).  -->
 
-During my PhD, I focused on verifying the side-channel insecurity of low-level Post-Quantum Cryptographic code ([EuroS&P 2023](https://ieeexplore.ieee.org/document/10190541)). My work included reverse engineering quantum circuits from power traces ([CHES 2024](https://tches.iacr.org/index.php/TCHES/article/view/11445/10950), [CCS 2023](https://dl.acm.org/doi/10.1145/3576915.3623118)), exploring quantum fault injections ([QCE 2024](https://arxiv.org/abs/2309.05478)), and detecting quantum computer viruses ([HOST 2023](https://ieeexplore.ieee.org/document/10133711)). Additionally, I developed a tool for analyzing the non-functional behaviors of intermittent programs ([TECS 2023](https://dl.acm.org/doi/10.1145/3563216)), developed a software countermeasure against physical attacks ([ICCAD 2024](papers/erata-2024-systematic.pdf)), and surveyed security verification techniques ([JETC 2023](https://doi.org/10.1145/3564785)). Before my PhD, I worked as a research software engineer in industry, applying formal methods to engineering problems ([COMPSAC 2019](https://ieeexplore.ieee.org/document/8754104), [FSE 2018](https://dl.acm.org/doi/10.1145/3236024.3264588), [FSE 2017](https://dl.acm.org/doi/10.1145/3106237.3122825), [ASE 2017](https://ieeexplore.ieee.org/document/8115703/), [SAC 2017](https://dl.acm.org/doi/10.1145/3019612.3019747)).
+During my PhD, I focused on verifying side-channel vulnerabilities in low-level Post-Quantum Cryptographic code ([EuroS&P 2023](https://ieeexplore.ieee.org/document/10190541)). My research included reverse engineering quantum circuits from power traces ([CHES 2024](https://tches.iacr.org/index.php/TCHES/article/view/11445/10950), [CCS 2023](https://dl.acm.org/doi/10.1145/3576915.3623118)), quantum fault injections and malware ([QCE 2024](https://arxiv.org/abs/2309.05478), [HOST 2023](https://ieeexplore.ieee.org/document/10133711)), analyzing non-functional behaviors of intermittent programs ([TECS 2023](https://dl.acm.org/doi/10.1145/3563216)), developing software countermeasures using randomized reductions ([ICCAD 2024](papers/erata-2024-systematic.pdf)), and surveying security verification techniques ([JETC 2023](https://doi.org/10.1145/3564785)). Prior to my PhD, I applied formal methods in industry as a research software engineer ([COMPSAC 2019](https://ieeexplore.ieee.org/document/8754104), [FSE 2018](https://dl.acm.org/doi/10.1145/3236024.3264588), [FSE 2017](https://dl.acm.org/doi/10.1145/3106237.3122825), [ASE 2017](https://ieeexplore.ieee.org/document/8115703/), [SAC 2017](https://dl.acm.org/doi/10.1145/3019612.3019747)).
 {style="text-align: left;"}
