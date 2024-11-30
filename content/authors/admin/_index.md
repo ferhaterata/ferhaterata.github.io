@@ -36,8 +36,8 @@ interests:
   # - AI/ML for Code
   # - Property Synthesis
   # - Artificial Intelligence
-  - Machine Learning
   - Program Synthesis 
+  - GenAI Anti-Hallucination
   - Security & Privacy
   # - Software Engineering
   # - Quantum Computing

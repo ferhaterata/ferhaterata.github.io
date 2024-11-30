@@ -58,6 +58,31 @@ sections:
   #   design:
   #     columns: '1'
 
+  - block: collection
+    id: publications
+    content:
+      title: Publications
+      count: 16
+      text: |-
+        {{% callout note %}}
+        See all publications by [filtering](./publication/).
+        {{% /callout %}}
+      filters:
+        category: "selected"
+        folders:
+          - publication
+        exclude_featured: false
+      archive:
+        enable: true
+        text: 'See all publications'
+        link: publication/
+    design:
+      columns: '2'
+      view: citation
+      spacing:
+        # Customize the section spacing. Order is top, right, bottom, left.
+        padding: ['20px', '0', '10px', '0']
+
   - block: experience
     id: experience
     content:
@@ -213,30 +238,6 @@ sections:
         padding: ['20px', '0', '10px', '0']
 
 
-  - block: collection
-    id: publications
-    content:
-      title: Publications
-      count: 16
-      text: |-
-        {{% callout note %}}
-        See all publications by [filtering](./publication/).
-        {{% /callout %}}
-      filters:
-        category: "selected"
-        folders:
-          - publication
-        exclude_featured: false
-      archive:
-        enable: true
-        text: 'See all publications'
-        link: publication/
-    design:
-      columns: '2'
-      view: citation
-      spacing:
-        # Customize the section spacing. Order is top, right, bottom, left.
-        padding: ['20px', '0', '10px', '0']
 
   # - block: collection
   #   id: posts
