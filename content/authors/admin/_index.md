@@ -32,11 +32,12 @@ bio: My research interests include neurosymbolic AI, program synthesis, and secu
 # Interests to show in About widget
 interests:
   # - Automated Reasoning
-  - Neurosymbolic AI
+  - Neuro-Symbolic AI
+  - Automated Reasoning
   # - AI/ML for Code
   # - Property Synthesis
   # - Artificial Intelligence
-  - Code Generation 
+  - AI4Code
   - GenAI Anti-Hallucination
   - Security & Privacy
   # - Software Engineering
@@ -138,7 +139,7 @@ highlight_name: true
 I am pursuing a PhD in [Computer Science](https://cpsc.yale.edu) at Yale University under the guidance of [Ruzica Piskac](http://www.cs.yale.edu/homes/piskac/) and [Jakub Szefer](https://caslab.csl.yale.edu/~jakub/). My current research focuses on the learning of randomized reductions and program properties by integrating _machine learning_ with _formal methods_ (see [https://bitween.fun](https://bitween.fun)) and applying these techniques to multi-party secure computation, self-correcting programs, and quantum circuits.
 <!-- Additionally, I am conducting research on discrete program search to automatically solve abstraction and reasoning tasks. -->
 
-Currently, I am an Applied Scientist Intern at the [Automated Reasoning Group](https://www.amazon.science/research-areas/automated-reasoning) in AWS, working on _neurosymbolic AI_ to capture symbolic knowledge and mitigate hallucinations of LLMs in logical reasoning. Previously, I developed tools for model-based conformance checking of distributed networked systems at AWS.
+Currently, I am an Applied Scientist Intern at the [Automated Reasoning Group](https://www.amazon.science/research-areas/automated-reasoning) in AWS, working on _Neuro-Symbolic AI_ to capture symbolic knowledge and mitigate hallucinations of LLMs in logical reasoning. Previously, I developed tools for model-based conformance checking of distributed networked systems at AWS.
 <!-- mentored by [Rupak Majumdar](https://people.mpi-sws.org/~rupak/). I am developing tools for model-based testing, conformance checking, and fuzzing of distributed networked systems. -->
 <!-- My work aims to improve the reliability of AWS services by creating advanced tools for model-based testing, conformance checking, and randomized testing of distributed networked systems.  -->
 <!-- and [Nafi Diallo](https://linkedin.com/in/ndiallo).  -->

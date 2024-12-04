@@ -120,7 +120,7 @@ sections:
           location: New York, NY, US 
           date_start: '2024-05-27'
           date_end: ''
-          description: Automated Reasoning Group (ARG) -- Working on Neurosymbolic Program Synthesis to capture symbolic knowledge and detect hallucinations of LLMs in logical reasoning.
+          description: Automated Reasoning Group (ARG) -- Working on a Neuro-Symbolic method to capture symbolic knowledge and detect hallucinations of LLMs in logical reasoning.
         - title: Applied Scientist Intern 
           company: Amazon Web Services (AWS)
           company_url: 'https://www.amazon.science/research-areas/automated-reasoning'
