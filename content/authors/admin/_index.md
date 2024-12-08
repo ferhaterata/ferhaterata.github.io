@@ -34,11 +34,12 @@ interests:
   # - Automated Reasoning
   - Neuro-Symbolic AI
   - Automated Reasoning
+  - Machine Learning
   # - AI/ML for Code
   # - Property Synthesis
   # - Artificial Intelligence
   - AI4Code
-  - GenAI Anti-Hallucination
+  # - GenAI Anti-Hallucination
   - Security & Privacy
   # - Software Engineering
   # - Quantum Computing
@@ -136,13 +137,16 @@ social:
 highlight_name: true
 ---
 
-I am pursuing a PhD in [Computer Science](https://cpsc.yale.edu) at Yale University under the guidance of [Ruzica Piskac](http://www.cs.yale.edu/homes/piskac/) and [Jakub Szefer](https://caslab.csl.yale.edu/~jakub/). My current research focuses on the learning of randomized reductions and program properties by integrating _machine learning_ with _formal methods_ (see [https://bitween.fun](https://bitween.fun)) and applying these techniques to multi-party secure computation, self-correcting programs, and quantum circuits.
+I am pursuing a PhD in [Computer Science](https://cpsc.yale.edu) at Yale University under the guidance of [Ruzica Piskac](http://www.cs.yale.edu/homes/piskac/) and [Jakub Szefer](https://caslab.csl.yale.edu/~jakub/). My current research focuses on the learning of randomized reductions and program properties (see [https://bitween.fun](https://bitween.fun)) and applying these techniques to hardware security, private computation, and quantum circuits.
 <!-- Additionally, I am conducting research on discrete program search to automatically solve abstraction and reasoning tasks. -->
+<!-- by integrating _machine learning_ with _formal methods_ -->
 
-Currently, I am an Applied Scientist Intern at the [Automated Reasoning Group](https://www.amazon.science/research-areas/automated-reasoning) in AWS, working on _Neuro-Symbolic AI_ to capture symbolic knowledge and mitigate hallucinations of LLMs in logical reasoning. Previously, I developed tools for model-based conformance checking of distributed networked systems at AWS.
+Currently, I am an Applied Scientist Intern at the [Automated Reasoning Group](https://www.amazon.science/research-areas/automated-reasoning) in AWS, working on Neuro-Symbolic AI to prevent factual errors from LLM hallucinations with mathematically sound Automated Reasoning checks in [Amazon Bedrock Guardrails](https://aws.amazon.com/blogs/aws/prevent-factual-errors-from-llm-hallucinations-with-mathematically-sound-automated-reasoning-checks-preview/). 
+<!-- Previously, I developed tools for model-based conformance checking of distributed networked systems at AWS. -->
 <!-- mentored by [Rupak Majumdar](https://people.mpi-sws.org/~rupak/). I am developing tools for model-based testing, conformance checking, and fuzzing of distributed networked systems. -->
 <!-- My work aims to improve the reliability of AWS services by creating advanced tools for model-based testing, conformance checking, and randomized testing of distributed networked systems.  -->
 <!-- and [Nafi Diallo](https://linkedin.com/in/ndiallo).  -->
+<!-- Working on Neuro-Symbolic AI to capture symbolic knowledge and prevent factual errors from LLM hallucinations with mathematically sound Automated Reasoning checks (see Amazon Bedrock Guardrails -- \href{https://aws.amazon.com/blogs/aws/prevent-factual-errors-from-llm-hallucinations-with-mathematically-sound-automated-reasoning-checks-preview/}{Automated Reasoning checks}). Co-inventor, along with Rémi Delmas, of a \textbf{US~Patent} filed on mitigating LLM hallucinations~(\textit{ICML 2025}~\cite{erata2025compass}). -->
 
 During my PhD, I focused on verifying side-channel vulnerabilities in low-level Post-Quantum Cryptographic code ([EuroS&P 2023](https://ieeexplore.ieee.org/document/10190541)). My research included reverse engineering quantum circuits from power traces ([CHES 2024](https://tches.iacr.org/index.php/TCHES/article/view/11445/10950), [CCS 2023](https://dl.acm.org/doi/10.1145/3576915.3623118)), quantum fault injections and malware ([QCE 2024](https://arxiv.org/abs/2309.05478), [HOST 2023](https://ieeexplore.ieee.org/document/10133711)), analyzing non-functional behaviors of intermittent programs ([TECS 2023](https://dl.acm.org/doi/10.1145/3563216)), developing software countermeasures using randomized reductions ([ICCAD 2024](papers/erata-2024-systematic.pdf)), and surveying security verification techniques ([JETC 2023](https://doi.org/10.1145/3564785)). Prior to my PhD, I applied formal methods in industry as a research software engineer ([COMPSAC 2019](https://ieeexplore.ieee.org/document/8754104), [FSE 2018](https://dl.acm.org/doi/10.1145/3236024.3264588), [FSE 2017](https://dl.acm.org/doi/10.1145/3106237.3122825), [ASE 2017](https://ieeexplore.ieee.org/document/8115703/), [SAC 2017](https://dl.acm.org/doi/10.1145/3019612.3019747)).
 {style="text-align: left;"}
