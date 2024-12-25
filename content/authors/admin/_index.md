@@ -137,7 +137,7 @@ social:
 highlight_name: true
 ---
 
-I am pursuing a PhD in [Computer Science](https://cpsc.yale.edu) at Yale University under the guidance of [Ruzica Piskac](http://www.cs.yale.edu/homes/piskac/) and [Jakub Szefer](https://caslab.csl.yale.edu/~jakub/). My research focuses on the learning of randomized reductions and program properties ([Bitween](https://bitween.fun)), with applications in hardware security, private computation, and quantum circuits.
+I am pursuing a PhD in [Computer Science](https://cpsc.yale.edu) at Yale University under the guidance of [Ruzica Piskac](http://www.cs.yale.edu/homes/piskac/) and [Jakub Szefer](https://caslab.csl.yale.edu/~jakub/). My research focuses on learning randomized reductions and program properties ([Bitween](https://bitween.fun)), with applications in hardware security, leakage resilience ML, and quantum circuits.
 <!-- Additionally, I am conducting research on discrete program search to automatically solve abstraction and reasoning tasks. -->
 <!-- by integrating _machine learning_ with _formal methods_ -->
 

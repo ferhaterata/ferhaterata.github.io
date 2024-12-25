@@ -26,10 +26,11 @@ tags:
 - Supervised learning by regression
 - Loop Invariants
 links:
+- name: Preprint
+  url: https://arxiv.org/abs/2412.18134
 - name: Tool Website
   url: https://bitween.fun
-- name: Preprint
-  url: https://arxiv.org/abs/xxxx.xxxxx
+
 projects:
 - randomized-reductions
 
