@@ -42,7 +42,7 @@ image:
 show_breadcrumb: false
 
 # Summary. An optional shortened abstract.
-# summary: "We introduce Bitween, a linear regression-based automated learning algorithm that effectively discovers complex nonlinear randomized (self)-reductions and other arbitrary program invariants (e.g., loop invariants and post conditions) in mixed integer and floating-point programs."
+summary: "Recent advances in reasoning models have improved performance in logic, mathematics, and programming but struggle with combinatorial reasoning tasks due to the vast search space. Existing neuro-symbolic techniques rely on formal translations and symbolic solvers but are limited and error-prone. We introduce CDCL-IC, a Chain-of-Thought (CoT) reasoning approach leveraging Conflict-Driven Clause Learning (CDCL) to prune search spaces via in-context learning. Applied to Sudoku, CDCL-IC significantly outperforms traditional CoT and o3-mini on 9x9 puzzles."
 
 # Associated Projects (optional).
 #   Associate this publication with one or more of your projects.

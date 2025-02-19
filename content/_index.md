@@ -96,13 +96,21 @@ sections:
       #   Leave `date_end` empty if it's your current employer.
       #   Begin multi-line descriptions with YAML's `|2-` multi-line prefix.
       items:
+        - title: Applied Scientist
+          company: AWS AI 
+          company_url: 'https://www.amazon.science/research-areas/automated-reasoning'
+          company_logo: aws
+          location: New York, NY, US 
+          date_start: '2025-02-17'
+          date_end: ''
+          description: Automated Reasoning Group (ARG) -- Model Evaluation and Verification of LLMs in Logical Reasoning.
         - title: Graduate Research Assistant & Teaching Fellow
           company: Yale University
           company_url: 'https://cpsc.yale.edu'
           company_logo: yale
           location: New Haven, CT, US
           date_start: '2020-06-01'
-          date_end: ''
+          date_end: '2025-01-15'
           description: |2-
               Research Asistant:
               * Member of [Rigorous Software Engineering (ROSE) Lab.](https://rose.yale.edu/)
@@ -114,13 +122,13 @@ sections:
               * CS440--Advanced Databases (Robert Soule)
 #              * C/C++, LLVM, Rust, and ARM Binaries -- Dynamic Analysis, Formal Verification, Property Synthesis, Symbolic Execution, Property-based Testing, Cryptographic Applications, Side-Channel analysis, Machine Learning.
         - title: Applied Scientist Intern 
-          company: Amazon AI 
+          company: AWS AI 
           company_url: 'https://www.amazon.science/research-areas/automated-reasoning'
           company_logo: aws
           location: New York, NY, US 
           date_start: '2024-05-27'
-          date_end: ''
-          description: Automated Reasoning Group (ARG) -- Working on a Neuro-Symbolic method to capture symbolic knowledge and detect hallucinations of LLMs in logical reasoning.
+          date_end: '2023-12-30'
+          description: Automated Reasoning Group (ARG) -- Worked on a Neuro-Symbolic method to capture symbolic knowledge and detect hallucinations of LLMs in logical reasoning.
         - title: Applied Scientist Intern 
           company: Amazon Web Services (AWS)
           company_url: 'https://www.amazon.science/research-areas/automated-reasoning'
