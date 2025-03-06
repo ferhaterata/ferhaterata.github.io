@@ -16,7 +16,9 @@ tags:
 - Neuro-symbolic Reasoning
 - Reward Modeling 
 - Inference Time
-# links:
+links:
+- name: Preprint
+  url: https://ferhat.ai/uploads/cdcl-ic-2025.pdf
 # - name: Preprint
 #   url: https://arxiv.org/abs/2412.18134
 # - name: Tool Website
