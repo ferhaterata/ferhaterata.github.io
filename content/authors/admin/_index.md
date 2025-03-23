@@ -136,7 +136,7 @@ social:
 # Highlight the author in author lists? (true/false)
 highlight_name: true
 ---
-I'm a soon-to-be PhD graduate in [Computer Science](https://cpsc.yale.edu) from Yale, advised by [Ruzica Piskac](http://www.cs.yale.edu/homes/piskac/) and [Jakub Szefer](https://caslab.csl.yale.edu/~jakub/). 
+I'm a PhD graduate in [Computer Science](https://cpsc.yale.edu) from Yale, advised by [Ruzica Piskac](http://www.cs.yale.edu/homes/piskac/) and [Jakub Szefer](https://caslab.csl.yale.edu/~jakub/). 
 My current research focuses on training transformers to solve NP-complete problems using reinforcement learning and improving test-time compute strategies for reasoning. My PhD thesis explores learning randomized reductions and program properties ([Bitween](https://bitween.fun)) for security, privacy, and side-channel resilience. 
 <!-- Additionally, I am conducting research on discrete program search to automatically solve abstraction and reasoning tasks. -->
 <!-- by integrating _machine learning_ with _formal methods_ -->
