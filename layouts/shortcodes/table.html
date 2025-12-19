@@ -1,0 +1,65 @@
+{{/* Table Shortcode for Hugo Blox Builder. */}}
+{{/* Load a CSV table from page dir falling back back to remote URL */}}
+{{/* Defaults to expecting a comma-separated CSV with a header row. */}}
+
+{{/*
+    Docs: https://docs.hugoblox.com/content/writing-markdown-latex/#csv-table
+
+    Parameters
+    ----------
+    src :
+        Path or url to the csv table. Path is relative to the folder where the shortcode is called.
+    delimiter : default ","
+        Field delimiter.
+    header : default "true"
+        If "true", the first row is rendered as the header.
+    caption : optional
+        Caption for the table.
+*/}}
+
+{{ $src := .Get "path" }}
+{{ $delimiter := .Get "delimiter" | default "," }}
+{{ $useHeaderRow := (eq (lower (.Get "header")) "true") | default true }}
+{{ $caption := .Get "caption" }}
+
+{{ $is_remote := strings.HasPrefix $src "http" }}
+{{ if not $is_remote }}
+  {{ $src = path.Join  "content" $.Page.File.Dir $src }}
+{{ end }}
+
+{{ $rows := slice }}
+{{ if $is_remote }}
+  {{ with resources.GetRemote $src }}
+    {{ with .Err }}
+      {{ errorf "%s" . }}
+    {{ else }}
+      {{ $rows = . | transform.Unmarshal (dict "delimiter" $delimiter) }}
+    {{ end }}
+  {{ else }}
+    {{ errorf "Unable to get remote resource %q" $src }}
+  {{ end }}
+{{ else }}
+  {{ $rows = readFile $src | transform.Unmarshal (dict "delimiter" $delimiter "format" "csv") }}
+{{ end }}
+
+<table class="table">
+  {{ if $useHeaderRow }}
+    {{ $headerRow := index $rows 0 }}
+    {{ $rows = after 1 $rows }}
+    <tr> {{ range $headerRow }} <th>{{ . | markdownify | emojify }}</th> {{ end }} </tr>
+  {{ end }}
+  {{ range $rows }}
+    <tr>
+      {{ range . }}
+        {{ if (findRE "^\\d+$" .) }}
+          <td data-table-dtype="number">{{ . }}</td>
+        {{ else }}
+          <td data-table-dtype="text">{{ . | markdownify | emojify }}</td>
+        {{ end }}
+      {{ end }}
+    </tr>
+  {{ end }}
+  {{ if $caption }}
+    <caption>{{ $caption | markdownify | emojify }}</caption>
+  {{ end }}
+</table>

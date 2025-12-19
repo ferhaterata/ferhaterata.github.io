@@ -9,6 +9,8 @@ node_modules/
 go.sum
 .hugo_build.lock
 
+_vendor
+
 conference-paper
 journal-article
 preprint
