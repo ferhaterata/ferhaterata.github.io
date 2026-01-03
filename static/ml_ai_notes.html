@@ -524,11 +524,12 @@
     
     document.addEventListener('DOMContentLoaded', function() {
         try {
-            // Global state
-            var isMobile = window.innerWidth <= 1024;
-            var isPaused = false;
+            // Detect mobile ONCE at load - don't recheck
+            var isMobile = window.innerWidth <= 1024 || 
+                          ('ontouchstart' in window) || 
+                          (navigator.maxTouchPoints > 0);
             
-            // Theme toggle functionality
+            // Theme toggle functionality - simple, works everywhere
             var themeToggle = document.querySelector('.theme-toggle');
             
             function setTheme(theme) {
@@ -544,86 +545,60 @@
             
             if (themeToggle) {
                 themeToggle.addEventListener('click', function() {
-                    var currentTheme = document.documentElement.getAttribute('data-theme');
-                    var newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-                    setTheme(newTheme);
+                    var currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
+                    setTheme(currentTheme === 'dark' ? 'light' : 'dark');
                 });
             }
             
-            // Listen for system theme changes
-            try {
-                window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(e) {
-                    if (!localStorage.getItem('theme')) {
-                        setTheme(e.matches ? 'dark' : 'light');
-                    }
-                });
-            } catch(e) {}
-            
-            // Mobile menu toggle
-            var menuToggle = document.querySelector('.menu-toggle');
-            var sidebar = document.querySelector('.sidebar');
-            var sidebarOverlay = document.querySelector('.sidebar-overlay');
-            var sidebarClose = document.querySelector('.sidebar-close');
-            
-            function openSidebar() {
-                if (sidebar) sidebar.classList.add('open');
-                if (sidebarOverlay) sidebarOverlay.classList.add('visible');
-                document.body.style.overflow = 'hidden';
-            }
-            
-            function closeSidebar() {
-                if (sidebar) sidebar.classList.remove('open');
-                if (sidebarOverlay) sidebarOverlay.classList.remove('visible');
-                document.body.style.overflow = '';
-            }
-            
-            if (menuToggle) menuToggle.addEventListener('click', openSidebar);
-            if (sidebarClose) sidebarClose.addEventListener('click', closeSidebar);
-            if (sidebarOverlay) sidebarOverlay.addEventListener('click', closeSidebar);
-            
-            // Close sidebar when clicking a link (mobile)
-            if (sidebar) {
-                var navLinks = sidebar.querySelectorAll('a[href^="#"]');
-                for (var i = 0; i < navLinks.length; i++) {
-                    navLinks[i].addEventListener('click', function() {
-                        if (window.innerWidth <= 1024) {
+            // Mobile: ONLY setup hamburger menu, nothing else
+            if (isMobile) {
+                var menuToggle = document.querySelector('.menu-toggle');
+                var sidebar = document.querySelector('.sidebar');
+                var sidebarOverlay = document.querySelector('.sidebar-overlay');
+                var sidebarClose = document.querySelector('.sidebar-close');
+                
+                function openSidebar() {
+                    if (sidebar) sidebar.classList.add('open');
+                    if (sidebarOverlay) sidebarOverlay.classList.add('visible');
+                }
+                
+                function closeSidebar() {
+                    if (sidebar) sidebar.classList.remove('open');
+                    if (sidebarOverlay) sidebarOverlay.classList.remove('visible');
+                }
+                
+                if (menuToggle) menuToggle.addEventListener('click', openSidebar);
+                if (sidebarClose) sidebarClose.addEventListener('click', closeSidebar);
+                if (sidebarOverlay) sidebarOverlay.addEventListener('click', closeSidebar);
+                
+                // Close on any nav link click
+                if (sidebar) {
+                    sidebar.addEventListener('click', function(e) {
+                        if (e.target.tagName === 'A') {
                             closeSidebar();
                         }
                     });
                 }
+                
+                // NO resize/orientation listeners on mobile - just let it reflow naturally
+                return; // Exit early - skip all desktop nav features
             }
             
-            // Handle orientation change - AGGRESSIVE pause
-            function handleOrientationChange() {
-                isPaused = true;
-                isMobile = window.innerWidth <= 1024;
-                closeSidebar();
-                // Pause ALL JavaScript processing for 1.5 seconds
-                setTimeout(function() {
-                    isPaused = false;
-                    isMobile = window.innerWidth <= 1024;
-                }, 1500);
-            }
-            
-            window.addEventListener('orientationchange', handleOrientationChange);
-            window.addEventListener('resize', function() {
-                isMobile = window.innerWidth <= 1024;
-                if (isMobile && sidebar && sidebar.classList.contains('open')) {
-                    closeSidebar();
-                }
-            }, { passive: true });
-            
-            // Mark which nav LIs have child ULs (expandable)
+            // DESKTOP ONLY: Advanced nav features
+            // Mark expandable items (avoid :scope for compatibility)
             var allLis = document.querySelectorAll('.sidebar li');
             for (var j = 0; j < allLis.length; j++) {
                 var li = allLis[j];
-                var childUl = li.querySelector(':scope > ul');
-                if (childUl && childUl.children.length > 0) {
-                    li.classList.add('has-children');
+                var children = li.children;
+                for (var c = 0; c < children.length; c++) {
+                    if (children[c].tagName === 'UL' && children[c].children.length > 0) {
+                        li.classList.add('has-children');
+                        break;
+                    }
                 }
             }
             
-            // Get all h1, h2, h3 headings with IDs
+            // Get all headings
             var headings = document.querySelectorAll('h1[id], h2[id], h3[id]');
             var headingsArray = [];
             for (var k = 0; k < headings.length; k++) {
@@ -632,27 +607,25 @@
             
             // Map heading IDs to nav links
             var navMap = {};
+            var sidebar = document.querySelector('.sidebar');
             var navLinksAll = document.querySelectorAll('.sidebar a[href^="#"]');
             for (var m = 0; m < navLinksAll.length; m++) {
                 var link = navLinksAll[m];
-                var id = link.getAttribute('href').slice(1);
-                navMap[id] = link;
+                var href = link.getAttribute('href');
+                if (href && href.length > 1) {
+                    navMap[href.slice(1)] = link;
+                }
             }
             
             var currentActive = null;
             
-            // On scroll, find the current section - ONLY on desktop
             function updateNav() {
-                // Skip on mobile or when paused
-                if (isMobile || isPaused) return;
-                
                 try {
                     var current = null;
                     for (var n = 0; n < headingsArray.length; n++) {
-                        var h = headingsArray[n];
-                        var rect = h.getBoundingClientRect();
+                        var rect = headingsArray[n].getBoundingClientRect();
                         if (rect.top <= 150) {
-                            current = h;
+                            current = headingsArray[n];
                         } else {
                             break;
                         }
@@ -661,92 +634,67 @@
                     if (!current && headingsArray.length > 0) {
                         current = headingsArray[0];
                     }
-                    
                     if (!current) return;
                     
-                    var currentId = current.id;
-                    var navLink = navMap[currentId];
-                    
+                    var navLink = navMap[current.id];
                     if (navLink && navLink !== currentActive) {
-                        if (currentActive) {
-                            currentActive.classList.remove('active');
-                        }
-                        
+                        if (currentActive) currentActive.classList.remove('active');
                         navLink.classList.add('active');
                         currentActive = navLink;
                         
+                        // Expand parent
                         var navLi = navLink.parentElement;
-                        var parentLi = null;
+                        var parentUl = navLi ? navLi.parentElement : null;
+                        var parentLi = (parentUl && parentUl.parentElement && parentUl.parentElement.tagName === 'LI') 
+                                       ? parentUl.parentElement : null;
                         
-                        var parentUl = navLi.parentElement;
-                        if (parentUl && parentUl.parentElement && parentUl.parentElement.tagName === 'LI') {
-                            parentLi = parentUl.parentElement;
-                        }
-                        
-                        var expandedItems = document.querySelectorAll('.sidebar li.expanded');
-                        for (var p = 0; p < expandedItems.length; p++) {
-                            expandedItems[p].classList.remove('expanded');
+                        var expanded = document.querySelectorAll('.sidebar li.expanded');
+                        for (var p = 0; p < expanded.length; p++) {
+                            expanded[p].classList.remove('expanded');
                         }
                         
                         if (parentLi && parentLi.classList.contains('has-children')) {
                             parentLi.classList.add('expanded');
-                        } else if (navLi.classList.contains('has-children')) {
+                        } else if (navLi && navLi.classList.contains('has-children')) {
                             navLi.classList.add('expanded');
                         }
                         
-                        // Scroll sidebar - desktop only, no smooth scroll
-                        if (sidebar && window.innerWidth > 1024) {
-                            var linkRect = navLink.getBoundingClientRect();
-                            var sidebarRect = sidebar.getBoundingClientRect();
-                            if (linkRect.top < sidebarRect.top + 50 || linkRect.bottom > sidebarRect.bottom - 50) {
-                                // Use scrollTop instead of scrollIntoView to avoid triggering events
-                                var scrollOffset = navLink.offsetTop - sidebar.offsetHeight / 2;
-                                sidebar.scrollTop = scrollOffset;
-                            }
+                        // Scroll sidebar
+                        if (sidebar) {
+                            var offset = navLink.offsetTop - sidebar.offsetHeight / 2;
+                            sidebar.scrollTop = offset;
                         }
                     }
-                } catch(e) {
-                    // Silently fail
+                } catch(e) {}
+            }
+            
+            var ticking = false;
+            window.addEventListener('scroll', function() {
+                if (!ticking) {
+                    requestAnimationFrame(function() {
+                        updateNav();
+                        ticking = false;
+                    });
+                    ticking = true;
                 }
-            }
+            }, { passive: true });
             
-            // Only attach scroll listener on desktop
-            if (!isMobile) {
-                var ticking = false;
-                window.addEventListener('scroll', function() {
-                    if (!ticking && !isPaused && !isMobile) {
-                        requestAnimationFrame(function() {
-                            updateNav();
-                            ticking = false;
-                        });
-                        ticking = true;
-                    }
-                }, { passive: true });
-            }
+            setTimeout(updateNav, 200);
             
-            // Initial update (desktop only)
-            if (!isMobile) {
-                setTimeout(updateNav, 200);
-            }
-            
-            // Expandable nav items
+            // Expandable nav click
             var hasChildrenLinks = document.querySelectorAll('.sidebar li.has-children > a');
             for (var q = 0; q < hasChildrenLinks.length; q++) {
                 hasChildrenLinks[q].addEventListener('click', function() {
                     var clickedLi = this.parentElement;
-                    var allExpanded = document.querySelectorAll('.sidebar li.expanded');
-                    for (var r = 0; r < allExpanded.length; r++) {
-                        if (allExpanded[r] !== clickedLi) {
-                            allExpanded[r].classList.remove('expanded');
-                        }
+                    var allExp = document.querySelectorAll('.sidebar li.expanded');
+                    for (var r = 0; r < allExp.length; r++) {
+                        if (allExp[r] !== clickedLi) allExp[r].classList.remove('expanded');
                     }
                     clickedLi.classList.add('expanded');
                 });
             }
-        } catch(globalError) {
-            // Prevent any script errors from causing issues
-            console.log('Navigation script error caught');
-        }
+            
+        } catch(e) {}
     });
     </script>
 </head>
