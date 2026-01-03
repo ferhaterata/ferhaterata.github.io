@@ -94,8 +94,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
+            /* backdrop-filter removed for iOS stability */
         }
         .theme-toggle:hover {
             transform: scale(1.05);
@@ -132,8 +131,7 @@
             cursor: pointer;
             box-shadow: 0 2px 12px var(--shadow);
             transition: all 0.2s ease;
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
+            /* backdrop-filter removed for iOS stability */
         }
         .menu-toggle:hover {
             border-color: var(--accent-color);
@@ -166,10 +164,12 @@
             top: 0;
             left: 0;
             width: 320px;
-            height: 100vh;
+            height: 100%;
+            height: 100dvh; /* dynamic viewport height - fallback above for older browsers */
             background: var(--bg-sidebar);
             color: #fff;
             overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
             padding: 20px 0;
             z-index: 1000;
             transition: transform 0.3s ease, background 0.3s;
@@ -490,196 +490,230 @@
     })();
     
     document.addEventListener('DOMContentLoaded', function() {
-        // Theme toggle functionality
-        const themeToggle = document.querySelector('.theme-toggle');
-        
-        function setTheme(theme) {
-            document.documentElement.setAttribute('data-theme', theme);
-            localStorage.setItem('theme', theme);
-            // Update highlight.js theme
-            document.getElementById('hljs-light').disabled = (theme === 'dark');
-            document.getElementById('hljs-dark').disabled = (theme !== 'dark');
-        }
-        
-        themeToggle.addEventListener('click', function() {
-            const currentTheme = document.documentElement.getAttribute('data-theme');
-            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-            setTheme(newTheme);
-        });
-        
-        // Listen for system theme changes
-        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
-            if (!localStorage.getItem('theme')) {
-                setTheme(e.matches ? 'dark' : 'light');
+        try {
+            // Global state
+            var isMobile = window.innerWidth <= 1024;
+            var isPaused = false;
+            
+            // Theme toggle functionality
+            var themeToggle = document.querySelector('.theme-toggle');
+            
+            function setTheme(theme) {
+                try {
+                    document.documentElement.setAttribute('data-theme', theme);
+                    localStorage.setItem('theme', theme);
+                    var hljsLight = document.getElementById('hljs-light');
+                    var hljsDark = document.getElementById('hljs-dark');
+                    if (hljsLight) hljsLight.disabled = (theme === 'dark');
+                    if (hljsDark) hljsDark.disabled = (theme !== 'dark');
+                } catch(e) {}
             }
-        });
-        
-        // Mobile menu toggle
-        const menuToggle = document.querySelector('.menu-toggle');
-        const sidebar = document.querySelector('.sidebar');
-        const sidebarOverlay = document.querySelector('.sidebar-overlay');
-        const sidebarClose = document.querySelector('.sidebar-close');
-        
-        function openSidebar() {
-            sidebar.classList.add('open');
-            sidebarOverlay.classList.add('visible');
-            document.body.style.overflow = 'hidden';
-        }
-        
-        function closeSidebar() {
-            sidebar.classList.remove('open');
-            sidebarOverlay.classList.remove('visible');
-            document.body.style.overflow = '';
-        }
-        
-        menuToggle.addEventListener('click', openSidebar);
-        sidebarClose.addEventListener('click', closeSidebar);
-        sidebarOverlay.addEventListener('click', closeSidebar);
-        
-        // Close sidebar when clicking a link (mobile)
-        sidebar.querySelectorAll('a[href^="#"]').forEach(link => {
-            link.addEventListener('click', function() {
-                if (window.innerWidth <= 1024) {
+            
+            if (themeToggle) {
+                themeToggle.addEventListener('click', function() {
+                    var currentTheme = document.documentElement.getAttribute('data-theme');
+                    var newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+                    setTheme(newTheme);
+                });
+            }
+            
+            // Listen for system theme changes
+            try {
+                window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(e) {
+                    if (!localStorage.getItem('theme')) {
+                        setTheme(e.matches ? 'dark' : 'light');
+                    }
+                });
+            } catch(e) {}
+            
+            // Mobile menu toggle
+            var menuToggle = document.querySelector('.menu-toggle');
+            var sidebar = document.querySelector('.sidebar');
+            var sidebarOverlay = document.querySelector('.sidebar-overlay');
+            var sidebarClose = document.querySelector('.sidebar-close');
+            
+            function openSidebar() {
+                if (sidebar) sidebar.classList.add('open');
+                if (sidebarOverlay) sidebarOverlay.classList.add('visible');
+                document.body.style.overflow = 'hidden';
+            }
+            
+            function closeSidebar() {
+                if (sidebar) sidebar.classList.remove('open');
+                if (sidebarOverlay) sidebarOverlay.classList.remove('visible');
+                document.body.style.overflow = '';
+            }
+            
+            if (menuToggle) menuToggle.addEventListener('click', openSidebar);
+            if (sidebarClose) sidebarClose.addEventListener('click', closeSidebar);
+            if (sidebarOverlay) sidebarOverlay.addEventListener('click', closeSidebar);
+            
+            // Close sidebar when clicking a link (mobile)
+            if (sidebar) {
+                var navLinks = sidebar.querySelectorAll('a[href^="#"]');
+                for (var i = 0; i < navLinks.length; i++) {
+                    navLinks[i].addEventListener('click', function() {
+                        if (window.innerWidth <= 1024) {
+                            closeSidebar();
+                        }
+                    });
+                }
+            }
+            
+            // Handle orientation change - AGGRESSIVE pause
+            function handleOrientationChange() {
+                isPaused = true;
+                isMobile = window.innerWidth <= 1024;
+                closeSidebar();
+                // Pause ALL JavaScript processing for 1.5 seconds
+                setTimeout(function() {
+                    isPaused = false;
+                    isMobile = window.innerWidth <= 1024;
+                }, 1500);
+            }
+            
+            window.addEventListener('orientationchange', handleOrientationChange);
+            window.addEventListener('resize', function() {
+                isMobile = window.innerWidth <= 1024;
+                if (isMobile && sidebar && sidebar.classList.contains('open')) {
                     closeSidebar();
                 }
-            });
-        });
-        
-        // Handle orientation change and resize - close sidebar and prevent scroll issues
-        let resizeTimeout = null;
-        let isResizing = false;
-        
-        function handleResize() {
-            isResizing = true;
-            // Close sidebar on resize/orientation change to prevent layout issues
-            if (window.innerWidth <= 1024 && sidebar.classList.contains('open')) {
-                closeSidebar();
-            }
-            // Clear any pending resize timeout
-            if (resizeTimeout) {
-                clearTimeout(resizeTimeout);
-            }
-            // Wait for resize to finish before allowing scrollIntoView again
-            resizeTimeout = setTimeout(function() {
-                isResizing = false;
-            }, 500);
-        }
-        
-        window.addEventListener('resize', handleResize, { passive: true });
-        window.addEventListener('orientationchange', handleResize, { passive: true });
-        
-        // Mark which nav LIs have child ULs (expandable)
-        document.querySelectorAll('.sidebar li').forEach(li => {
-            const childUl = li.querySelector(':scope > ul');
-            if (childUl && childUl.children.length > 0) {
-                li.classList.add('has-children');
-            }
-        });
-        
-        // Get all h1, h2, h3 headings with IDs
-        const headings = Array.from(document.querySelectorAll('h1[id], h2[id], h3[id]'));
-        
-        // Map heading IDs to nav links
-        const navMap = new Map();
-        document.querySelectorAll('.sidebar a[href^="#"]').forEach(link => {
-            const id = link.getAttribute('href').slice(1);
-            navMap.set(id, link);
-        });
-        
-        let currentActive = null;
-        let isScrollingToNav = false;
-        
-        // On scroll, find the current section
-        function updateNav(allowScrollIntoView) {
-            // Skip if we're in the middle of a programmatic scroll
-            if (isScrollingToNav) return;
+            }, { passive: true });
             
-            let current = null;
-            for (const h of headings) {
-                const rect = h.getBoundingClientRect();
-                if (rect.top <= 150) {
-                    current = h;
-                } else {
-                    break;
+            // Mark which nav LIs have child ULs (expandable)
+            var allLis = document.querySelectorAll('.sidebar li');
+            for (var j = 0; j < allLis.length; j++) {
+                var li = allLis[j];
+                var childUl = li.querySelector(':scope > ul');
+                if (childUl && childUl.children.length > 0) {
+                    li.classList.add('has-children');
                 }
             }
             
-            if (!current && headings.length > 0) {
-                current = headings[0];
+            // Get all h1, h2, h3 headings with IDs
+            var headings = document.querySelectorAll('h1[id], h2[id], h3[id]');
+            var headingsArray = [];
+            for (var k = 0; k < headings.length; k++) {
+                headingsArray.push(headings[k]);
             }
             
-            if (!current) return;
+            // Map heading IDs to nav links
+            var navMap = {};
+            var navLinksAll = document.querySelectorAll('.sidebar a[href^="#"]');
+            for (var m = 0; m < navLinksAll.length; m++) {
+                var link = navLinksAll[m];
+                var id = link.getAttribute('href').slice(1);
+                navMap[id] = link;
+            }
             
-            const id = current.id;
-            const link = navMap.get(id);
+            var currentActive = null;
             
-            if (link && link !== currentActive) {
-                if (currentActive) {
-                    currentActive.classList.remove('active');
-                }
+            // On scroll, find the current section - ONLY on desktop
+            function updateNav() {
+                // Skip on mobile or when paused
+                if (isMobile || isPaused) return;
                 
-                link.classList.add('active');
-                currentActive = link;
-                
-                let li = link.parentElement;
-                let parentLi = null;
-                
-                const parentUl = li.parentElement;
-                if (parentUl && parentUl.parentElement && parentUl.parentElement.tagName === 'LI') {
-                    parentLi = parentUl.parentElement;
-                }
-                
-                document.querySelectorAll('.sidebar li.expanded').forEach(el => {
-                    el.classList.remove('expanded');
-                });
-                
-                if (parentLi && parentLi.classList.contains('has-children')) {
-                    parentLi.classList.add('expanded');
-                } else if (li.classList.contains('has-children')) {
-                    li.classList.add('expanded');
-                }
-                
-                // Only scroll sidebar into view on desktop, when not resizing, and when allowed
-                if (allowScrollIntoView && !isResizing && window.innerWidth > 1024) {
-                    const sidebarEl = document.querySelector('.sidebar');
-                    const linkRect = link.getBoundingClientRect();
-                    const sidebarRect = sidebarEl.getBoundingClientRect();
-                    if (linkRect.top < sidebarRect.top + 50 || linkRect.bottom > sidebarRect.bottom - 50) {
-                        isScrollingToNav = true;
-                        // Use instant scroll instead of smooth to prevent loop
-                        link.scrollIntoView({ block: 'center', behavior: 'instant' });
-                        // Reset flag after a short delay
-                        setTimeout(function() {
-                            isScrollingToNav = false;
-                        }, 100);
+                try {
+                    var current = null;
+                    for (var n = 0; n < headingsArray.length; n++) {
+                        var h = headingsArray[n];
+                        var rect = h.getBoundingClientRect();
+                        if (rect.top <= 150) {
+                            current = h;
+                        } else {
+                            break;
+                        }
                     }
+                    
+                    if (!current && headingsArray.length > 0) {
+                        current = headingsArray[0];
+                    }
+                    
+                    if (!current) return;
+                    
+                    var currentId = current.id;
+                    var navLink = navMap[currentId];
+                    
+                    if (navLink && navLink !== currentActive) {
+                        if (currentActive) {
+                            currentActive.classList.remove('active');
+                        }
+                        
+                        navLink.classList.add('active');
+                        currentActive = navLink;
+                        
+                        var navLi = navLink.parentElement;
+                        var parentLi = null;
+                        
+                        var parentUl = navLi.parentElement;
+                        if (parentUl && parentUl.parentElement && parentUl.parentElement.tagName === 'LI') {
+                            parentLi = parentUl.parentElement;
+                        }
+                        
+                        var expandedItems = document.querySelectorAll('.sidebar li.expanded');
+                        for (var p = 0; p < expandedItems.length; p++) {
+                            expandedItems[p].classList.remove('expanded');
+                        }
+                        
+                        if (parentLi && parentLi.classList.contains('has-children')) {
+                            parentLi.classList.add('expanded');
+                        } else if (navLi.classList.contains('has-children')) {
+                            navLi.classList.add('expanded');
+                        }
+                        
+                        // Scroll sidebar - desktop only, no smooth scroll
+                        if (sidebar && window.innerWidth > 1024) {
+                            var linkRect = navLink.getBoundingClientRect();
+                            var sidebarRect = sidebar.getBoundingClientRect();
+                            if (linkRect.top < sidebarRect.top + 50 || linkRect.bottom > sidebarRect.bottom - 50) {
+                                // Use scrollTop instead of scrollIntoView to avoid triggering events
+                                var scrollOffset = navLink.offsetTop - sidebar.offsetHeight / 2;
+                                sidebar.scrollTop = scrollOffset;
+                            }
+                        }
+                    }
+                } catch(e) {
+                    // Silently fail
                 }
             }
-        }
-        
-        let ticking = false;
-        window.addEventListener('scroll', function() {
-            if (!ticking && !isResizing) {
-                requestAnimationFrame(function() {
-                    updateNav(true);
-                    ticking = false;
-                });
-                ticking = true;
+            
+            // Only attach scroll listener on desktop
+            if (!isMobile) {
+                var ticking = false;
+                window.addEventListener('scroll', function() {
+                    if (!ticking && !isPaused && !isMobile) {
+                        requestAnimationFrame(function() {
+                            updateNav();
+                            ticking = false;
+                        });
+                        ticking = true;
+                    }
+                }, { passive: true });
             }
-        }, { passive: true });
-        
-        // Initial update without scrollIntoView
-        setTimeout(function() { updateNav(false); }, 100);
-        
-        document.querySelectorAll('.sidebar li.has-children > a').forEach(link => {
-            link.addEventListener('click', function() {
-                const li = this.parentElement;
-                document.querySelectorAll('.sidebar li.expanded').forEach(el => {
-                    if (el !== li) el.classList.remove('expanded');
+            
+            // Initial update (desktop only)
+            if (!isMobile) {
+                setTimeout(updateNav, 200);
+            }
+            
+            // Expandable nav items
+            var hasChildrenLinks = document.querySelectorAll('.sidebar li.has-children > a');
+            for (var q = 0; q < hasChildrenLinks.length; q++) {
+                hasChildrenLinks[q].addEventListener('click', function() {
+                    var clickedLi = this.parentElement;
+                    var allExpanded = document.querySelectorAll('.sidebar li.expanded');
+                    for (var r = 0; r < allExpanded.length; r++) {
+                        if (allExpanded[r] !== clickedLi) {
+                            allExpanded[r].classList.remove('expanded');
+                        }
+                    }
+                    clickedLi.classList.add('expanded');
                 });
-                li.classList.add('expanded');
-            });
-        });
+            }
+        } catch(globalError) {
+            // Prevent any script errors from causing issues
+            console.log('Navigation script error caught');
+        }
     });
     </script>
 </head>
