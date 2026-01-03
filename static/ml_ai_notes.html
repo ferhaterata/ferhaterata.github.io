@@ -545,6 +545,29 @@
             });
         });
         
+        // Handle orientation change and resize - close sidebar and prevent scroll issues
+        let resizeTimeout = null;
+        let isResizing = false;
+        
+        function handleResize() {
+            isResizing = true;
+            // Close sidebar on resize/orientation change to prevent layout issues
+            if (window.innerWidth <= 1024 && sidebar.classList.contains('open')) {
+                closeSidebar();
+            }
+            // Clear any pending resize timeout
+            if (resizeTimeout) {
+                clearTimeout(resizeTimeout);
+            }
+            // Wait for resize to finish before allowing scrollIntoView again
+            resizeTimeout = setTimeout(function() {
+                isResizing = false;
+            }, 500);
+        }
+        
+        window.addEventListener('resize', handleResize, { passive: true });
+        window.addEventListener('orientationchange', handleResize, { passive: true });
+        
         // Mark which nav LIs have child ULs (expandable)
         document.querySelectorAll('.sidebar li').forEach(li => {
             const childUl = li.querySelector(':scope > ul');
@@ -564,9 +587,13 @@
         });
         
         let currentActive = null;
+        let isScrollingToNav = false;
         
         // On scroll, find the current section
-        function updateNav() {
+        function updateNav(allowScrollIntoView) {
+            // Skip if we're in the middle of a programmatic scroll
+            if (isScrollingToNav) return;
+            
             let current = null;
             for (const h of headings) {
                 const rect = h.getBoundingClientRect();
@@ -577,9 +604,11 @@
                 }
             }
             
-            if (!current) {
+            if (!current && headings.length > 0) {
                 current = headings[0];
             }
+            
+            if (!current) return;
             
             const id = current.id;
             const link = navMap.get(id);
@@ -610,29 +639,37 @@
                     li.classList.add('expanded');
                 }
                 
-                if (window.innerWidth > 1024) {
+                // Only scroll sidebar into view on desktop, when not resizing, and when allowed
+                if (allowScrollIntoView && !isResizing && window.innerWidth > 1024) {
                     const sidebarEl = document.querySelector('.sidebar');
                     const linkRect = link.getBoundingClientRect();
                     const sidebarRect = sidebarEl.getBoundingClientRect();
                     if (linkRect.top < sidebarRect.top + 50 || linkRect.bottom > sidebarRect.bottom - 50) {
-                        link.scrollIntoView({ block: 'center', behavior: 'smooth' });
+                        isScrollingToNav = true;
+                        // Use instant scroll instead of smooth to prevent loop
+                        link.scrollIntoView({ block: 'center', behavior: 'instant' });
+                        // Reset flag after a short delay
+                        setTimeout(function() {
+                            isScrollingToNav = false;
+                        }, 100);
                     }
                 }
             }
         }
         
         let ticking = false;
-        window.addEventListener('scroll', () => {
-            if (!ticking) {
-                requestAnimationFrame(() => {
-                    updateNav();
+        window.addEventListener('scroll', function() {
+            if (!ticking && !isResizing) {
+                requestAnimationFrame(function() {
+                    updateNav(true);
                     ticking = false;
                 });
                 ticking = true;
             }
-        });
+        }, { passive: true });
         
-        setTimeout(updateNav, 100);
+        // Initial update without scrollIntoView
+        setTimeout(function() { updateNav(false); }, 100);
         
         document.querySelectorAll('.sidebar li.has-children > a').forEach(link => {
             link.addEventListener('click', function() {
