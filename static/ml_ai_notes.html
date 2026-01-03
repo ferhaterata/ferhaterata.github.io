@@ -469,9 +469,42 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/python.min.js"></script>
     <script>hljs.highlightAll();</script>
     
-        <script
-        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js"
-        type="text/javascript"></script>
+        
+    <!-- MathJax Configuration - BEFORE loading MathJax -->
+    <script>
+    // MathJax config - note: dollar signs escaped for pandoc template
+    window.MathJax = {
+        tex: {
+            inlineMath: [[String.fromCharCode(36), String.fromCharCode(36)], ["\\(", "\\)"]],
+            displayMath: [[String.fromCharCode(36)+String.fromCharCode(36), String.fromCharCode(36)+String.fromCharCode(36)], ["\\[", "\\]"]]
+        },
+        svg: {
+            fontCache: "global"
+        },
+        options: {
+            enableMenu: false,
+            renderActions: {
+                addMenu: [],
+                checkLoading: []
+            }
+        },
+        startup: {
+            pageReady: function() {
+                return MathJax.startup.defaultPageReady().then(function() {
+                    if (window.MathJax && window.MathJax.startup && window.MathJax.startup.document) {
+                        var doc = window.MathJax.startup.document;
+                        if (doc.menu) {
+                            doc.menu.resizeObserver = null;
+                        }
+                    }
+                });
+            }
+        }
+    };
+    </script>
+    <script
+    src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js"
+    type="text/javascript"></script>
     
     <script>
     // Theme management - runs before DOM ready to prevent flash
