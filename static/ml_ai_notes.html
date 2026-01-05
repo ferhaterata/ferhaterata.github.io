@@ -2,10 +2,36 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- iOS-optimized viewport: prevent orientation reflow issues -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <!-- TODO: Remove this noindex tag when ready to make page publicly searchable -->
     <meta name="robots" content="noindex, nofollow">
     <title>Ferhat Erata's ML/AI Study Notes</title>
+    
+    <!-- CRITICAL: Early mobile detection and ResizeObserver stub - MUST be first script -->
+    <script>
+    (function() {
+        // Detect mobile devices early
+        var ua = navigator.userAgent || '';
+        var isMobile = /iPhone|iPod/i.test(ua) || 
+                       (window.innerWidth <= 1024 && 'ontouchstart' in window);
+        window.__isMobile = isMobile;
+        window.__isIOS = /iPhone|iPad|iPod/i.test(ua);
+        
+        // On mobile: stub ResizeObserver to prevent MathJax memory issues
+        // This MUST happen before MathJax loads
+        if (isMobile && window.__isIOS) {
+            window.__OriginalResizeObserver = window.ResizeObserver;
+            window.ResizeObserver = class {
+                constructor(callback) {}
+                observe(target) {}
+                unobserve(target) {}
+                disconnect() {}
+            };
+        }
+    })();
+    </script>
+    
     <style>
         /* CSS Variables for theming */
         :root {
@@ -73,6 +99,9 @@
             background: var(--bg-primary);
             color: var(--text-primary);
             transition: background 0.3s, color 0.3s;
+            /* iOS safe area support */
+            padding-left: env(safe-area-inset-left);
+            padding-right: env(safe-area-inset-right);
         }
         
         /* Theme Toggle Button */
@@ -94,7 +123,8 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            /* backdrop-filter removed for iOS stability */
+            /* iOS safe area */
+            right: max(15px, env(safe-area-inset-right));
         }
         .theme-toggle:hover {
             transform: scale(1.05);
@@ -123,7 +153,8 @@
             cursor: pointer;
             box-shadow: 0 2px 12px var(--shadow);
             transition: all 0.2s ease;
-            /* backdrop-filter removed for iOS stability */
+            /* iOS safe area */
+            left: max(15px, env(safe-area-inset-left));
         }
         .menu-toggle:hover {
             border-color: var(--accent-color);
@@ -157,7 +188,6 @@
             left: 0;
             width: 320px;
             height: 100%;
-            /* Removed 100dvh - causes memory issues on iOS */
             background: var(--bg-sidebar);
             color: #fff;
             overflow-y: auto;
@@ -366,13 +396,22 @@
             text-align: center;
             margin: 1em 0;
         }
+        /* MathJax CHTML styling (used on mobile) */
+        mjx-container[jax="CHTML"] {
+            direction: ltr;
+        }
+        mjx-container[jax="CHTML"][display="true"] {
+            display: block;
+            text-align: center;
+            margin: 1em 0;
+        }
         
         /* Mobile & Tablet Styles */
         @media (max-width: 1024px) {
             /* Reposition theme toggle */
             .theme-toggle {
                 top: 15px;
-                right: 15px;
+                right: max(15px, env(safe-area-inset-right));
             }
             
             /* Show hamburger button */
@@ -454,6 +493,16 @@
                 padding: 6px 8px;
             }
         }
+        
+        /* iOS landscape specific fixes */
+        @media (max-width: 1024px) and (orientation: landscape) {
+            .main-content {
+                padding-top: 60px;
+            }
+            .content {
+                padding: 20px;
+            }
+        }
     </style>
     
     <!-- Inline SVG icons instead of Google Fonts (reduces memory on iOS) -->
@@ -472,11 +521,20 @@
         
     <!-- MathJax Configuration - BEFORE loading MathJax -->
     <script>
-    // MathJax config - note: dollar signs escaped for pandoc template
+    // MathJax config - optimized for iOS
+    // Using CHTML on mobile (less memory than SVG), SVG on desktop (better quality)
     window.MathJax = {
         tex: {
             inlineMath: [[String.fromCharCode(36), String.fromCharCode(36)], ["\\(", "\\)"]],
             displayMath: [[String.fromCharCode(36)+String.fromCharCode(36), String.fromCharCode(36)+String.fromCharCode(36)], ["\\[", "\\]"]]
+        },
+        // Use CHTML on mobile for memory efficiency, SVG on desktop for quality
+        output: window.__isIOS ? 'chtml' : 'svg',
+        chtml: {
+            scale: 1,
+            minScale: 0.5,
+            matchFontHeight: false,
+            mtextInheritFont: true
         },
         svg: {
             fontCache: "global"
@@ -486,21 +544,130 @@
             renderActions: {
                 addMenu: [],
                 checkLoading: []
-            }
+            },
+            skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            ignoreHtmlClass: 'tex2jax_ignore'
         },
         startup: {
+            // On iOS: disable initial full-page typeset to save memory
+            typeset: !window.__isIOS,
             pageReady: function() {
-                return MathJax.startup.defaultPageReady().then(function() {
-                    if (window.MathJax && window.MathJax.startup && window.MathJax.startup.document) {
-                        var doc = window.MathJax.startup.document;
-                        if (doc.menu) {
-                            doc.menu.resizeObserver = null;
-                        }
-                    }
-                });
+                if (window.__isIOS) {
+                    // Lazy loading: only typeset what's visible
+                    initLazyMath();
+                    return Promise.resolve();
+                } else {
+                    return MathJax.startup.defaultPageReady();
+                }
             }
         }
     };
+    
+    // Lazy math rendering for iOS - only render what's visible
+    function initLazyMath() {
+        if (typeof IntersectionObserver === 'undefined') {
+            // Fallback: just typeset everything (older browsers)
+            if (typeof MathJax !== 'undefined' && MathJax.typesetPromise) {
+                MathJax.typesetPromise();
+            }
+            return;
+        }
+        
+        var content = document.querySelector('.content');
+        if (!content) return;
+        
+        // Find all elements that might contain math
+        var mathSpans = [];
+        content.querySelectorAll('.math').forEach(function(el) {
+            mathSpans.push(el);
+        });
+        
+        // Also find paragraphs and list items that might contain inline math
+        var dollarSign = String.fromCharCode(36);
+        content.querySelectorAll('p, li, td, th').forEach(function(el) {
+            if (el.textContent && (el.textContent.indexOf(dollarSign) !== -1 || el.textContent.indexOf('\\(') !== -1)) {
+                mathSpans.push(el);
+            }
+        });
+        
+        if (mathSpans.length === 0) {
+            // Typeset everything if no specific math elements found
+            if (typeof MathJax !== 'undefined' && MathJax.typesetPromise) {
+                MathJax.typesetPromise([content]);
+            }
+            return;
+        }
+        
+        var pending = new Set();
+        var typesetScheduled = false;
+        
+        // Batch typeset for efficiency
+        function scheduleTypeset() {
+            if (typesetScheduled) return;
+            typesetScheduled = true;
+            
+            requestAnimationFrame(function() {
+                typesetScheduled = false;
+                if (pending.size === 0) return;
+                
+                var elements = Array.from(pending);
+                pending.clear();
+                
+                // Typeset in small batches to avoid memory spikes
+                var batchSize = 15;
+                function processBatch(start) {
+                    var batch = elements.slice(start, start + batchSize);
+                    if (batch.length === 0) return;
+                    
+                    if (typeof MathJax !== 'undefined' && MathJax.typesetPromise) {
+                        MathJax.typesetPromise(batch).then(function() {
+                            if (start + batchSize < elements.length) {
+                                setTimeout(function() {
+                                    processBatch(start + batchSize);
+                                }, 150); // Delay between batches for memory recovery
+                            }
+                        }).catch(function() {});
+                    }
+                }
+                
+                processBatch(0);
+            });
+        }
+        
+        var observer = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+                if (entry.isIntersecting) {
+                    pending.add(entry.target);
+                    observer.unobserve(entry.target);
+                    scheduleTypeset();
+                }
+            });
+        }, {
+            rootMargin: '100px 0px', // Start rendering before element is visible
+            threshold: 0
+        });
+        
+        mathSpans.forEach(function(el) {
+            observer.observe(el);
+        });
+        
+        // Initial typeset for visible content
+        var visibleRect = {
+            top: 0,
+            bottom: window.innerHeight + 100
+        };
+        
+        mathSpans.forEach(function(el) {
+            var rect = el.getBoundingClientRect();
+            if (rect.top < visibleRect.bottom && rect.bottom > visibleRect.top) {
+                pending.add(el);
+            }
+        });
+        
+        if (pending.size > 0) {
+            scheduleTypeset();
+        }
+    }
     </script>
     <script
     src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js"
@@ -509,25 +676,25 @@
     <script>
     // Theme management - runs before DOM ready to prevent flash
     (function() {
-        const savedTheme = localStorage.getItem('theme');
-        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        const theme = savedTheme || (prefersDark ? 'dark' : 'light');
+        var savedTheme = localStorage.getItem('theme');
+        var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        var theme = savedTheme || (prefersDark ? 'dark' : 'light');
         document.documentElement.setAttribute('data-theme', theme);
         
         // Update highlight.js theme
         function updateHljsTheme(isDark) {
-            document.getElementById('hljs-light').disabled = isDark;
-            document.getElementById('hljs-dark').disabled = !isDark;
+            var light = document.getElementById('hljs-light');
+            var dark = document.getElementById('hljs-dark');
+            if (light) light.disabled = isDark;
+            if (dark) dark.disabled = !isDark;
         }
         updateHljsTheme(theme === 'dark');
     })();
     
     document.addEventListener('DOMContentLoaded', function() {
         try {
-            // Detect mobile ONCE at load - don't recheck
-            var isMobile = window.innerWidth <= 1024 || 
-                          ('ontouchstart' in window) || 
-                          (navigator.maxTouchPoints > 0);
+            // Use the mobile flag we set earlier
+            var isMobile = window.__isMobile || window.innerWidth <= 1024;
             
             // Theme toggle functionality - simple, works everywhere
             var themeToggle = document.querySelector('.theme-toggle');
@@ -580,7 +747,7 @@
                     });
                 }
                 
-                // NO resize/orientation listeners on mobile - just let it reflow naturally
+                // NO resize/orientation listeners on mobile - causes iOS memory issues
                 return; // Exit early - skip all desktop nav features
             }
             
@@ -659,7 +826,7 @@
                             navLi.classList.add('expanded');
                         }
                         
-                        // Scroll sidebar
+                        // Scroll sidebar to show active link
                         if (sidebar) {
                             var offset = navLink.offsetTop - sidebar.offsetHeight / 2;
                             sidebar.scrollTop = offset;
