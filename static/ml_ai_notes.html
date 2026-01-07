@@ -23923,12 +23923,16 @@ Decoder:                                    [LSTM] → [LSTM] → [LSTM]
             fundamental insight is simple: <strong>when generating each
             output word, let the model learn WHERE to look in the
             input</strong>.</p>
-            <p>Consider translating “I love cats” → “J’aime les chats”:
-            - When generating “J’aime” (French for “I love”), the model
-            should focus on “I” and “love” - When generating “chats”
-            (French for “cats”), the model should focus on “cats” - The
-            word “les” (the plural article) depends on “cats” being
-            plural</p>
+            <p>Consider translating “I love cats” → “J’aime les
+            chats”:</p>
+            <ul>
+            <li>When generating “J’aime” (French for “I love”), the
+            model should focus on “I” and “love”</li>
+            <li>When generating “chats” (French for “cats”), the model
+            should focus on “cats”</li>
+            <li>The word “les” (the plural article) depends on “cats”
+            being plural</li>
+            </ul>
             <p>Without attention, all this information must squeeze
             through a single fixed-size vector. With attention, the
             decoder can <strong>dynamically shift its focus</strong> to
@@ -24361,13 +24365,17 @@ softmax → [0.28, 0.24, 0.05, 0.31, ...]  ← smooth distribution</code></pre>
             Some Other Value?</h4>
             <p>The choice of <span
             class="math inline">\(\sqrt{d_k}\)</span> isn’t arbitrary —
-            it’s derived from the statistics of the dot product: - If
-            entries are unit variance, sum of <span
+            it’s derived from the statistics of the dot product:</p>
+            <ul>
+            <li>If entries are unit variance, sum of <span
             class="math inline">\(n\)</span> terms has variance <span
-            class="math inline">\(n\)</span> - Standard deviation is
-            <span class="math inline">\(\sqrt{n}\)</span> - Dividing by
-            <span class="math inline">\(\sqrt{n}\)</span> normalizes to
-            unit variance</p>
+            class="math inline">\(n\)</span></li>
+            <li>Standard deviation is <span
+            class="math inline">\(\sqrt{n}\)</span></li>
+            <li>Dividing by <span
+            class="math inline">\(\sqrt{n}\)</span> normalizes to unit
+            variance</li>
+            </ul>
             <p>This is the same principle behind Xavier/Glorot
             initialization — keeping variances stable across layers.</p>
             <h4
