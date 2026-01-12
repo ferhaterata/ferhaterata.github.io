@@ -1224,6 +1224,9 @@
                 Gradients</a></li>
                 <li><a href="#solutions"
                 id="toc-solutions">Solutions</a></li>
+                <li><a href="#how-modern-deep-learning-fights-it"
+                id="toc-how-modern-deep-learning-fights-it">How modern
+                deep learning fights it</a></li>
                 <li><a href="#gradient-clipping"
                 id="toc-gradient-clipping">Gradient Clipping</a></li>
                 <li><a href="#skip-connections-resnet"
@@ -8297,6 +8300,15 @@ Contextual embedding (BERT, GPT):
             <hr />
             <h2 id="vanishing-and-exploding-gradients">1.19 Vanishing
             and Exploding Gradients</h2>
+            <blockquote>
+            <p>Vanishing/exploding gradients happen because backprop
+            through depth/time multiplies many Jacobians. If their norms
+            are &lt;1, gradients shrink exponentially; if &gt;1, they
+            blow up. We mitigate with good init (Xavier/He),
+            normalization (LayerNorm), residual connections (identity
+            gradient path), gating (LSTM/GRU), and gradient clipping for
+            explosions</p>
+            </blockquote>
             <h3 id="the-problem-1">The Problem</h3>
             <p>In deep networks, gradients must flow through many layers
             during backpropagation. At each layer, the gradient is
@@ -8312,12 +8324,20 @@ Contextual embedding (BERT, GPT):
 
 Gradient at layer 1 is 1000x smaller than at layer 10!
 → Early layers learn extremely slowly</code></pre>
-            <p><strong>Causes</strong>: - Sigmoid/Tanh activations
-            (derivatives &lt; 1 in most regions) - Small weight
-            initialization - Very deep networks</p>
-            <p><strong>Symptoms</strong>: - Early layers don’t learn -
-            Loss decreases very slowly - Weights near input barely
-            change</p>
+            <p><strong>Causes</strong>:</p>
+            <ul>
+            <li>Sigmoid/Tanh activations (derivatives &lt; 1 in most
+            regions)</li>
+            <li>Small weight initialization</li>
+            <li>Very deep networks</li>
+            </ul>
+            <p><strong>Symptoms</strong>:</p>
+            <ul>
+            <li>Early layers don’t learn</li>
+            <li>Loss decreases very slowly (Training is slow, especially
+            for early layers.)</li>
+            <li>Weights near input barely change</li>
+            </ul>
             <h3 id="exploding-gradients">Exploding Gradients</h3>
             <p>If weights are large (&gt; 1), gradients grow
             <strong>exponentially</strong>:</p>
@@ -8326,11 +8346,29 @@ Gradient at layer 1 is 1000x smaller than at layer 10!
 
 Gradient at layer 1 is 1024x larger than at layer 10!
 → Huge, unstable weight updates</code></pre>
-            <p><strong>Causes</strong>: - Large weight initialization -
-            Unstable architecture - No normalization</p>
-            <p><strong>Symptoms</strong>: - Loss becomes NaN or Inf -
-            Weights explode to very large values - Training completely
-            fails</p>
+            <p><strong>Causes</strong>:</p>
+            <ul>
+            <li>Large weight initialization</li>
+            <li>Unstable architecture</li>
+            <li>No normalization</li>
+            </ul>
+            <p><strong>Symptoms</strong>:</p>
+            <ul>
+            <li>Loss becomes NaN or Inf, or spikes wildly</li>
+            <li>Weights explode to very large values</li>
+            <li>Optimizer steps become unstable</li>
+            <li>Training completely fails</li>
+            </ul>
+            <p><strong>Why activations matter (classic
+            culprit)</strong></p>
+            <ul>
+            <li>Sigmoid/tanh saturate: derivative max is &lt; 1 and
+            often near 0 when inputs are large ⇒ repeated multiplication
+            shrinks gradients.</li>
+            <li>ReLU helps vanishing (derivative is 1 on the positive
+            side), but can create dead ReLUs (derivative 0 if stuck
+            negative).</li>
+            </ul>
             <h3 id="solutions">Solutions</h3>
             <table>
             <colgroup>
@@ -8357,6 +8395,51 @@ Gradient at layer 1 is 1024x larger than at layer 10!
             </tr>
             </tbody>
             </table>
+            <h3 id="how-modern-deep-learning-fights-it">How modern deep
+            learning fights it</h3>
+            <ol type="1">
+            <li><p>Better initialization</p>
+            <p>Goal: keep variance of activations and gradients roughly
+            constant across depth.</p></li>
+            </ol>
+            <ul>
+            <li>Xavier/Glorot (tanh-ish nets)</li>
+            <li>He/Kaiming (ReLU-ish nets)</li>
+            </ul>
+            <ol start="2" type="1">
+            <li>Normalization</li>
+            </ol>
+            <p>BatchNorm / LayerNorm / RMSNorm keep activations in a
+            nice range, reducing Jacobian chaos.</p>
+            <ol start="3" type="1">
+            <li>Residual connections (ResNets, Transformers)</li>
+            </ol>
+            <p>Residual block: <span class="math inline">\(h_{l+1} = h_l
+            + F(h_l)\)</span></p>
+            <p>Backprop derivative includes an identity path: <span
+            class="math inline">\(\frac{\partial h_{l+1}}{\partial h_l}
+            = I + \frac{\partial F}{\partial h_l}\)</span> That <span
+            class="math inline">\(I\)</span> is huge: gradients can flow
+            even if <span class="math inline">\(F\)</span> is messy.</p>
+            <ol start="4" type="1">
+            <li>Gradient clipping (mostly for exploding)</li>
+            </ol>
+            <p>Clip global norm: <span class="math inline">\(g
+            \leftarrow g \cdot \min\left(1,
+            \frac{\tau}{\|g\|}\right)\)</span> Prevents rare giant steps
+            from blowing training up.</p>
+            <ol start="5" type="1">
+            <li>Gating mechanisms (LSTM/GRU)</li>
+            </ol>
+            <p>They add near-identity “memory highways” so gradients
+            don’t have to be multiplied by unstable transforms every
+            step.</p>
+            <ol start="6" type="1">
+            <li>Optimizer/schedule choices</li>
+            </ol>
+            <p>AdamW + warmup often stabilizes early training; but
+            clipping + residuals + normalization do the heavy
+            lifting.</p>
             <h3 id="gradient-clipping">Gradient Clipping</h3>
             <p>Cap the gradient norm to prevent explosion:</p>
             <div class="sourceCode" id="cb66"><pre
@@ -8390,6 +8473,29 @@ Gradient at layer 1 is 1024x larger than at layer 10!
             layers.</p>
             <hr />
             <h2 id="numerical-stability">1.20 Numerical Stability</h2>
+            <blockquote>
+            <p>Numerical stability is about designing computations so
+            rounding error, overflow, and underflow don’t blow up the
+            result. In floating-point, operations like exp, log,
+            subtracting nearly equal numbers, summing long lists, and
+            dividing by small values can be unstable.</p>
+            </blockquote>
+            <blockquote>
+            <p>A stable approach typically means reparameterizing (work
+            in log space), shifting/scaling (e.g., softmax with
+            max-subtraction), using special functions (log1p, expm1),
+            stable accumulators (Welford/Kahan), and adding eps/clamps
+            where appropriate—especially under mixed precision.</p>
+            </blockquote>
+            <blockquote>
+            <p>Numerical stability is controlling floating-point
+            error/overflow/underflow. I watch for exp/log, subtracting
+            close numbers, and large reductions. I use stable
+            reformulations like max-shifted softmax and log-sum-exp,
+            BCE-with-logits, Welford variance, log1p/expm1, and
+            Kahan/pairwise summation; in mixed precision I keep critical
+            ops in fp32 and use loss scaling/clipping.</p>
+            </blockquote>
             <h3 id="what-is-numerical-stability">What is Numerical
             Stability?</h3>
             <p><strong>Numerical stability</strong> in neural networks
@@ -8522,10 +8628,14 @@ The &quot;34&quot; is lost!</code></pre>
             individual requests become nondeterministic—even though the
             kernel itself is “deterministic.”</p>
             <p><strong>Why this happens:</strong> Different batch sizes
-            may trigger different: - Parallelization strategies
-            (data-parallel vs split-k) - Tile sizes in matrix
-            multiplication<br />
-            - Reduction orderings in attention</p>
+            may trigger different:</p>
+            <ul>
+            <li>Parallelization strategies (data-parallel vs
+            split-k)</li>
+            <li>Tile sizes in matrix multiplication<br />
+            </li>
+            <li>Reduction orderings in attention</li>
+            </ul>
             <p>To achieve true determinism, kernels must be
             <strong>batch-invariant</strong>: using fixed reduction
             strategies regardless of batch size. This is an active area
@@ -8631,11 +8741,14 @@ The &quot;34&quot; is lost!</code></pre>
             <p>In Section 1.3, we introduced vanilla gradient descent:
             <span class="math display">\[w \leftarrow w - \alpha \nabla
             L(w)\]</span></p>
-            <p>This works but has problems: - <strong>Gets
-            stuck</strong> in ravines (oscillates back and forth) -
-            <strong>Same learning rate</strong> for all parameters
-            (suboptimal) - <strong>Sensitive</strong> to learning rate
-            choice</p>
+            <p>This works but has problems:</p>
+            <ul>
+            <li><strong>Gets stuck</strong> in ravines (oscillates back
+            and forth)</li>
+            <li><strong>Same learning rate</strong> for all parameters
+            (suboptimal)</li>
+            <li><strong>Sensitive</strong> to learning rate choice</li>
+            </ul>
             <p>Different optimizers address these issues.</p>
             <h3 id="sgd-with-momentum">SGD with Momentum</h3>
             <p><strong>The problem</strong>: Vanilla SGD oscillates in
@@ -8649,11 +8762,13 @@ The &quot;34&quot; is lost!</code></pre>
             \alpha v_t\]</span></p>
             <p>where <span class="math inline">\(\beta\)</span>
             (typically 0.9) controls how much past gradients matter.</p>
-            <p><strong>Why it works</strong>: - Gradients that
-            consistently point the same direction
-            <strong>accumulate</strong> → faster progress - Gradients
-            that oscillate <strong>cancel out</strong> → dampens
-            oscillations</p>
+            <p><strong>Why it works</strong>:</p>
+            <ul>
+            <li>Gradients that consistently point the same direction
+            <strong>accumulate</strong> → faster progress</li>
+            <li>Gradients that oscillate <strong>cancel out</strong> →
+            dampens oscillations</li>
+            </ul>
             <div class="sourceCode" id="cb76"><pre
             class="sourceCode python"><code class="sourceCode python"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Momentum SGD (simplified)</span></span>
 <span id="cb76-2"><a href="#cb76-2" aria-hidden="true" tabindex="-1"></a>v <span class="op">=</span> <span class="dv">0</span></span>
@@ -8668,10 +8783,13 @@ The &quot;34&quot; is lost!</code></pre>
             Moment Estimation</h3>
             <p><strong>Key insight</strong>: Different parameters need
             different learning rates!</p>
-            <p>Adam combines two ideas: 1. <strong>Momentum</strong>
-            (first moment): Accumulate gradient direction 2.
-            <strong>RMSprop</strong> (second moment): Adapt learning
-            rate per parameter based on gradient magnitude</p>
+            <p>Adam combines two ideas:</p>
+            <ol type="1">
+            <li><strong>Momentum</strong> (first moment): Accumulate
+            gradient direction</li>
+            <li><strong>RMSprop</strong> (second moment): Adapt learning
+            rate per parameter based on gradient magnitude</li>
+            </ol>
             <p><span class="math display">\[m_t = \beta_1 m_{t-1} +
             (1-\beta_1) g_t \quad \text{(momentum/first
             moment)}\]</span> <span class="math display">\[v_t = \beta_2
@@ -8687,11 +8805,15 @@ The &quot;34&quot; is lost!</code></pre>
             class="math inline">\(\beta_1 = 0.9\)</span>, <span
             class="math inline">\(\beta_2 = 0.999\)</span>, <span
             class="math inline">\(\epsilon = 10^{-8}\)</span></p>
-            <p><strong>Why it works</strong>: - Parameters with
-            consistently large gradients get smaller effective learning
-            rate (denominator is big) - Parameters with small gradients
-            get larger effective learning rate (denominator is small) -
-            This “adapts” to each parameter’s scale automatically</p>
+            <p><strong>Why it works</strong>:</p>
+            <ul>
+            <li>Parameters with consistently large gradients get smaller
+            effective learning rate (denominator is big)</li>
+            <li>Parameters with small gradients get larger effective
+            learning rate (denominator is small)</li>
+            <li>This “adapts” to each parameter’s scale
+            automatically</li>
+            </ul>
             <p><img src="figures/adam_intuition.png"
             alt="Adam Intuition" /> <em>Figure: Adam combines momentum
             (accumulating gradient direction) with adaptive learning
@@ -8795,9 +8917,12 @@ The &quot;34&quot; is lost!</code></pre>
             often finds solutions that <strong>generalize
             better</strong> than Adam, particularly for vision
             models.</p>
-            <p><strong>Hypotheses</strong>: - Adam converges to sharper
-            minima (overfit) - SGD’s noise helps escape bad minima -
-            Adam’s adaptivity can be too aggressive</p>
+            <p><strong>Hypotheses</strong>:</p>
+            <ul>
+            <li>Adam converges to sharper minima (overfit)</li>
+            <li>SGD’s noise helps escape bad minima</li>
+            <li>Adam’s adaptivity can be too aggressive</li>
+            </ul>
             <p><strong>In practice</strong>: For LLMs, AdamW wins. For
             vision, try both.</p>
             <blockquote>
