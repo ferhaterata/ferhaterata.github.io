@@ -37,7 +37,7 @@
   // ---------- fetch helper (works from filesystem too) ----------
   // Append a version query so the browser doesn't serve a stale
   // JSON body when the file has changed.
-  const JSON_VERSION = "2026-06-28";
+  const JSON_VERSION = "2026-06-29";
   const fetchJSON = async (path) => {
     try {
       const sep = path.includes("?") ? "&" : "?";
