@@ -1336,7 +1336,8 @@ graph TD
     flowchart: { curve: 'basis', padding: 15, htmlLabels: true, nodeSpacing: 18, rankSpacing: 30 }
   };
 
-  mermaid.initialize(mermaidDark);
+  // (renderAllMermaid below calls mermaid.initialize with the right
+  // theme, so no eager initialize here.)
 
   // Store original graph sources and their parent containers
   const mermaidSources = [];
@@ -1874,11 +1875,15 @@ graph TD
   }
 
   // ── Theme Toggle ──
-  let isLightMode = localStorage.getItem('fm-theme') === 'light';
-  if (isLightMode) {
-    document.documentElement.classList.add('light');
-    document.getElementById('themeToggle').innerHTML = '&#9788;';
-  }
+  // Initial theme: localStorage wins if set, otherwise honor whatever
+  // class is already on <html> (e.g. class="light" hardcoded in the
+  // markup so the deck defaults to light when embedded in the site).
+  const stored = localStorage.getItem('fm-theme');
+  let isLightMode = stored
+    ? stored === 'light'
+    : document.documentElement.classList.contains('light');
+  document.documentElement.classList.toggle('light', isLightMode);
+  document.getElementById('themeToggle').innerHTML = isLightMode ? '&#9788;' : '&#9789;';
 
   async function toggleTheme() {
     const html = document.documentElement;
