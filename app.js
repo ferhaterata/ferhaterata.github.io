@@ -367,7 +367,7 @@
         ? (/^([a-z]+:|\/)/i.test(p.url) ? p.url : `posts/${p.url}`)
         : `posts/#${p.slug}`;
       writingList.innerHTML = posts
-        .slice(0, 2)
+        .slice(0, 3)
         .map(
           (p) => `
         <a class="post-card" href="${escapeAttr(postHref(p))}">
