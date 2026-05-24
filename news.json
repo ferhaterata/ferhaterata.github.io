@@ -36,19 +36,19 @@
       "html": "Defended my PhD in Computer Science at Yale: <em>Learning Randomized Reductions for Security, Privacy, and Side-Channel Resilience</em>. Thesis committee: Ruzica Piskac, Jakub Szefer, <strong>Shafi Goldwasser</strong> (Turing Award, 2012), <strong>Byron Cook</strong> (VP, AWS), Zhong Shao, and Scott J. Shapiro."
     },
     {
-      "date": "2024-09",
-      "tag": "CHES 2024",
-      "image": "news/ches-2024-quantum/side-channel-threats.png",
-      "href": "news/ches-2024-quantum/",
-      "html": "<em>Quantum Circuit Reconstruction from Power Side-Channel Attacks on Quantum Computer Controllers</em> appeared in IACR TCHES 2024. Joint work with Chuanqi Xu, Ruzica Piskac, and Jakub Szefer (Yale)."
-    },
-    {
       "date": "2025-01",
       "tag": "Award",
       "award": true,
       "image": "news/distinguished-teaching-award/certificate.jpeg",
       "href": "news/distinguished-teaching-award/",
       "html": "Received Yale CS Graduate <em><a href=\"https://engineering.yale.edu/news-and-events/news/graduate-student-awards-2023-24-announced\">Distinguished Teaching Award</a></em> for 2023–2024."
+    },
+    {
+      "date": "2024-09",
+      "tag": "CHES 2024",
+      "image": "news/ches-2024-quantum/side-channel-threats.png",
+      "href": "news/ches-2024-quantum/",
+      "html": "<em>Quantum Circuit Reconstruction from Power Side-Channel Attacks on Quantum Computer Controllers</em> appeared in IACR TCHES 2024. Joint work with Chuanqi Xu, Ruzica Piskac, and Jakub Szefer (Yale)."
     }
   ]
 }
