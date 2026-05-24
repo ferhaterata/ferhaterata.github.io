@@ -914,12 +914,12 @@ main#top { scroll-margin-top: 5rem; }
 /* ====================================================
    News detail pages (/news/<slug>/) & long-form posts
    ==================================================== */
-.post-container { max-width: 46rem; padding: 1rem 0 4rem; }
-.post-back { margin: 1.5rem 0 0; font-size: .85rem; }
+.post-container { max-width: 46rem; padding: 0 0 4rem; }
+.post-back { margin: .75rem 0 0; font-size: .85rem; }
 .post-back a { color: var(--ink-faint); }
 .post-back a:hover { color: var(--accent); }
 
-.post-header { margin: 2rem 0 2.5rem; }
+.post-header { margin: .75rem 0 2.5rem; }
 .post-disclaimer {
   font-size: .82rem;
   line-height: 1.5;

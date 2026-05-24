@@ -6,55 +6,6 @@ Catching them after the fact is expensive. Catching them in the spec, before eng
 
 This post is about **fidelity probes** — a small, loud diagnostic for the gap between a program and its specification — and the statistical machinery that makes them trustworthy rather than vibes-based.
 
-<figure class="post-figure">
-<img src="figures/loop-diagram.png" alt="Schematic of the fidelity-probe loop. A reference program is statically analysed (CFG/DFG/SDG) and fed to a probe generator that emits Q&A pairs; a judge answers the same questions from the candidate spec, producing per-probe verdicts (agree, contradict, gap); a revision operator turns disagreements into targeted spec edits and the loop iterates until the fidelity fixed point F† is reached." />
-<figcaption>The fidelity-probe loop. A reference program is statically analysed; a probe generator emits Q&A pairs whose answers can be read off the code; a judge answers the same questions from the candidate spec; per-probe verdicts (agree / contradict / gap) drive a revision operator that emits targeted edits until the loop reaches its fidelity fixed point.</figcaption>
-</figure>
-
-## The probe
-
-A probe is the simplest thing we could think of. It's a natural-language **question** whose ground-truth answer can be read off the code, paired with a judge that tries to answer the same question using only the specification.
-
-- If the specification answers correctly → **agree**.
-- If it answers something else → **contradict**.
-- If it is silent → **coverage gap**.
-
-Aggregate the outcomes and you get the **fidelity** score $F$ — the agreement rate. Two failure decompositions, contradiction rate $c$ and gap rate $g$, fall out for free, and each one points at a different kind of spec edit: fix a wrong requirement, add a missing one, remove a spurious one.
-
-Three probes from one of our test programs (`CBACT02C`, the card-file batch reader) give the flavour:
-
-| Category | Question | Answer (from code) |
-|---|---|---|
-| Output | What is the primary business function of this batch program? | It reads all card records from the card data file sequentially and outputs each card record. |
-| Boundary | What happens if the card data file is empty? | The program opens the file, attempts to read the first record, encounters end-of-file immediately, outputs no records, and closes normally. |
-| Branching | What are the three distinct file operations that can each independently cause the program to terminate abnormally? | Opening the card file, reading a record from it, and closing it. |
-
-Each is a question whose answer is mechanically determinable from the COBOL — by inspecting the control-flow graph, the data-flow graph, or the system-dependence graph. The judge tries to answer the same question using only the modernization spec; the gap between the two is what fidelity measures.
-
-Because probes ride on code-derived ground truth, they are i.i.d. samples from a probe distribution $\mathcal{D}_A$. That i.i.d.-ness is what lets us do statistics: concentration bounds, a fixed-point prediction for where the loop converges, and a frozen-test protocol that actively falsifies bad generators.
-
-## Where probes come from
-
-We define the probe distribution as a two-level mixture:
-
-$$
-\mathcal{D}_A^{\mathrm{sym}} = \beta_{\mathrm{cfg}}\mathcal{D}^{\mathrm{cfg}} + \beta_{\mathrm{dfg}}\mathcal{D}^{\mathrm{dfg}} + \beta_{\mathrm{sdg}}\mathcal{D}^{\mathrm{sdg}}
-$$
-
-$$
-\mathcal{D}_A(\alpha, \beta) = \alpha\,\mathcal{D}_A^{\mathrm{llm}} + (1-\alpha)\,\mathcal{D}_A^{\mathrm{sym}}
-$$
-
-One channel is a **pure LLM** reading the code and asking questions about it. The other three are **symbolic** — deterministic samplers over graphs a static-analysis pipeline extracts from the source:
-
-| Channel | The question the channel uniquely asks |
-|---|---|
-| Control-flow graph (CFG) | *What observable effect follows when condition $X$ holds?* (guard) |
-| Data-flow graph (DFG) | *Which input, under what transformation, produces observable output $Y$?* (data) |
-| System-dependence graph (SDG) | *After event $X$, what happens next (screen, output, handoff)?* (flow) |
-
-The mixture parameter $\alpha$ lets you dial from pure-LLM ($\alpha = 1$) to pure-symbolic ($\alpha = 0$); $\beta$ balances between the three symbolic channels.
-
 ## A taste of the setup
 
 The loop juggles three artifacts: the **source code**, a set of **behavioural requirements** (the candidate specification), and the **three symbolic projections** the CFG/DFG/SDG channels sample from. Here's `CALCDISC`, a paragraph-structured variant of a small discount routine adapted from AWS CardDemo:
@@ -146,6 +97,57 @@ MAIN-PARA.
 
 *Real CardDemo programs are an order of magnitude more tangled — `PERFORM … THRU`, fall-through between paragraphs, `GO TO`, nested `EVALUATE`, `COPY`-book expansion — which is exactly why graph-grounded probes pay rent.*
 
+## The workflow
+
+<figure class="post-figure">
+<img src="figures/loop-diagram.png" alt="Schematic of the fidelity-probe loop. A reference program is statically analysed (CFG/DFG/SDG) and fed to a probe generator that emits Q&A pairs; a judge answers the same questions from the candidate spec, producing per-probe verdicts (agree, contradict, gap); a revision operator turns disagreements into targeted spec edits and the loop iterates until the fidelity fixed point F† is reached." />
+<figcaption>The fidelity-probe loop. A reference program is statically analysed; a probe generator emits Q&A pairs whose answers can be read off the code; a judge answers the same questions from the candidate spec; per-probe verdicts (agree / contradict / gap) drive a revision operator that emits targeted edits until the loop reaches its fidelity fixed point.</figcaption>
+</figure>
+
+## The probe
+
+A probe is the simplest thing we could think of. It's a natural-language **question** whose ground-truth answer can be read off the code, paired with a judge that tries to answer the same question using only the specification.
+
+- If the specification answers correctly → **agree**.
+- If it answers something else → **contradict**.
+- If it is silent → **coverage gap**.
+
+Aggregate the outcomes and you get the **fidelity** score $F$ — the agreement rate. Two failure decompositions, contradiction rate $c$ and gap rate $g$, fall out for free, and each one points at a different kind of spec edit: fix a wrong requirement, add a missing one, remove a spurious one.
+
+Five probes from `CBACT02C` (a card-file batch reader, larger than the `CALCDISC` toy above) give the flavour. Each row pairs a question whose answer is mechanically determinable from the COBOL with the actual code evidence the static-analysis pipeline pulled to back the answer:
+
+| Category | Question | Answer (from code) | Code evidence |
+|---|---|---|---|
+| Output | What is the primary business function of this batch program? | Reads all card records from the card data file sequentially and outputs each card record. | `PERFORM UNTIL END-OF-FILE = 'Y' … DISPLAY CARD-RECORD … END-PERFORM.` |
+| Computation | In what order are card records processed and output? | Sequential order based on the card number key. | `SELECT CARDFILE-FILE … ORGANIZATION IS INDEXED … RECORD KEY IS FD-CARD-NUM` |
+| Boundary | What happens if the card data file is empty? | Opens the file, attempts to read the first record, encounters end-of-file immediately, outputs no records, and closes normally. | `OPEN INPUT CARDFILE-FILE` → `1000-CARDFILE-GET-NEXT` → `IF APPL-EOF MOVE 'Y' TO END-OF-FILE` |
+| Branching | What happens when end-of-file is reached during processing? | The program stops reading further records and proceeds to close the file normally. No error is raised. | `IF CARDFILE-STATUS = '10' MOVE 16 TO APPL-RESULT … IF APPL-EOF MOVE 'Y' TO END-OF-FILE` |
+| Negative | Does the program modify or update any card records in the file? | No. The program only reads the card data file; it does not write, update, or delete any records. | `OPEN INPUT CARDFILE-FILE` (input-only mode; no `WRITE` or `REWRITE` anywhere) |
+
+The judge tries to answer the same question using only the modernization spec; the gap between the two is what fidelity measures. Because probes ride on code-derived ground truth, they are i.i.d. samples from a probe distribution $\mathcal{D}_A$ — and that i.i.d.-ness is what lets us do statistics: concentration bounds, a fixed-point prediction for where the loop converges, and a frozen-test protocol that actively falsifies bad generators.
+
+## Where probes come from
+
+We define the probe distribution as a two-level mixture:
+
+$$
+\mathcal{D}_A^{\mathrm{sym}} = \beta_{\mathrm{cfg}}\mathcal{D}^{\mathrm{cfg}} + \beta_{\mathrm{dfg}}\mathcal{D}^{\mathrm{dfg}} + \beta_{\mathrm{sdg}}\mathcal{D}^{\mathrm{sdg}}
+$$
+
+$$
+\mathcal{D}_A(\alpha, \beta) = \alpha\,\mathcal{D}_A^{\mathrm{llm}} + (1-\alpha)\,\mathcal{D}_A^{\mathrm{sym}}
+$$
+
+One channel is a **pure LLM** reading the code and asking questions about it. The other three are **symbolic** — deterministic samplers over graphs a static-analysis pipeline extracts from the source:
+
+| Channel | The question the channel uniquely asks |
+|---|---|
+| Control-flow graph (CFG) | *What observable effect follows when condition $X$ holds?* (guard) |
+| Data-flow graph (DFG) | *Which input, under what transformation, produces observable output $Y$?* (data) |
+| System-dependence graph (SDG) | *After event $X$, what happens next (screen, output, handoff)?* (flow) |
+
+The mixture parameter $\alpha$ lets you dial from pure-LLM ($\alpha = 1$) to pure-symbolic ($\alpha = 0$); $\beta$ balances between the three symbolic channels.
+
 ## The headline number
 
 On 15 programs from AWS CardDemo (≈12k lines of COBOL), the pure-LLM regime raises **frozen-test fidelity from 0.63 to 0.94** over eight iterations. Three graph-grounded mixtures lift that by another **+16 to +30 points**.
@@ -155,12 +157,7 @@ On 15 programs from AWS CardDemo (≈12k lines of COBOL), the pure-LLM regime ra
 <figcaption>Average fidelity (left) and error-rate decomposition (right) across 15 programs over eight iterations. Train (solid) vs frozen test (dashed), 95% Wilson bands, per-program traces in grey. The two stubborn low-plateau traces are the outliers (<code>CBACT01C</code>, <code>CORPT00C</code>) — both diagnosed in the paper's appendix.</figcaption>
 </figure>
 
-The aggregate hides what every program does individually. A per-program × per-iteration heatmap is more honest:
-
-<figure class="post-figure">
-<img src="figures/fidelity-heatmap.jpg" alt="Per-program fidelity heatmap. Rows are programs sorted by final test fidelity descending, columns are iterations 0 through 7, each iteration shows a train and test cell side-by-side. Most cells turn green (>0.85) by iteration 4. The two bottom rows (CORPT00C, CBACT01C) stay yellow-orange." />
-<figcaption>Per-program fidelity over 8 iterations. Train (Tr) and frozen-test (Te) cells sit side-by-side per iteration; near-identical adjacency confirms the train/test symmetry the theory requires. Thirteen of fifteen programs converge to <em>F</em> ≥ 0.80 by iteration 4. The two outliers at the bottom are diagnosed separately — <code>CORPT00C</code> needs cross-file graph stitching the current channels can't reach; <code>CBACT01C</code> is mostly file-handling infrastructure that the modernization spec legitimately doesn't have to describe.</figcaption>
-</figure>
+Thirteen of fifteen programs converge to fidelity $\ge 0.80$ by iteration 4; two outliers (`CBACT01C`, `CORPT00C`) plateau lower for reasons we diagnose separately in the paper.
 
 Two pieces of theory make the headline number trustworthy:
 
