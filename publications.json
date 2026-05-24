@@ -36,6 +36,75 @@
       "status": "accepted"
     },
     {
+      "key": "erata2026cnc",
+      "title": "Learning How to Cube",
+      "authors": [
+        "Ferhat Erata",
+        "Sam Kouteili",
+        "Thanos Typaldos",
+        "Timos Antonopoulos",
+        "Robert B. Jones",
+        "Byron Cook",
+        "Ruzica Piskac"
+      ],
+      "year": 2026,
+      "links": [
+        {
+          "label": "arXiv",
+          "url": "https://arxiv.org/abs/2605.16632"
+        }
+      ],
+      "tags": [
+        "neuro-symbolic",
+        "ml-for-reasoning",
+        "sat",
+        "reinforcement-learning"
+      ],
+      "selected": true,
+      "doubleBlind": true
+    },
+    {
+      "key": "erata2026fidelity",
+      "title": "Fidelity Probes for Specification–Code Alignment",
+      "authors": [
+        "Ferhat Erata",
+        "Hao Zhou",
+        "Jun Huan"
+      ],
+      "year": 2026,
+      "links": [
+        {
+          "label": "arXiv",
+          "url": "https://arxiv.org/abs/2605.17246"
+        }
+      ],
+      "tags": [
+        "ai-safety",
+        "program-analysis"
+      ],
+      "selected": true,
+      "doubleBlind": true
+    },
+    {
+      "key": "erata2026selfbrier",
+      "title": "Self-Brier and Formal Semantic Entropy: Regime-Aware Uncertainty for LLM Judges",
+      "authors": [
+        "Ferhat Erata",
+        "Florian Felice",
+        "Jose Daniel Ramirez Soto",
+        "Rémi Delmas",
+        "Ségolène Dessertine Panhard"
+      ],
+      "year": 2026,
+      "links": [],
+      "tags": [
+        "ai-safety",
+        "uncertainty"
+      ],
+      "selected": true,
+      "doubleBlind": true
+    },
+    {
       "key": "bayless2025neurosymbolic",
       "title": "A Neurosymbolic Approach to Natural Language Formalization and Verification",
       "authors": [
@@ -83,6 +152,44 @@
         "embedded"
       ],
       "selected": true
+    },
+    {
+      "key": "hou2026stratified",
+      "title": "Stratified Consistency Distillation for Natural Language Formalization",
+      "authors": [
+        "Zhichao Hou",
+        "Ferhat Erata",
+        "Joseph Lilien",
+        "Ali Torkamani"
+      ],
+      "year": 2026,
+      "links": [],
+      "tags": [
+        "ai-safety",
+        "neuro-symbolic",
+        "post-training"
+      ],
+      "status": "in preparation",
+      "doubleBlind": true
+    },
+    {
+      "key": "erata2026eaft",
+      "title": "Enhancing Logical Translation via Equivalent-Augmented Fine-Tuning",
+      "authors": [
+        "Zhichao Hou",
+        "Ferhat Erata",
+        "Joseph Lilien",
+        "Ali Torkamani"
+      ],
+      "year": 2026,
+      "links": [],
+      "tags": [
+        "neuro-symbolic",
+        "ai-safety",
+        "post-training"
+      ],
+      "status": "in preparation",
+      "doubleBlind": true
     },
     {
       "key": "TakashimaErata2025",
