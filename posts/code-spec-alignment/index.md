@@ -6,6 +6,11 @@ Catching them after the fact is expensive. Catching them in the spec, before eng
 
 This post is about **fidelity probes** — a small, loud diagnostic for the gap between a program and its specification — and the statistical machinery that makes them trustworthy rather than vibes-based.
 
+<figure class="post-figure">
+<img src="figures/loop-diagram.png" alt="Schematic of the fidelity-probe loop. A reference program is statically analysed (CFG/DFG/SDG) and fed to a probe generator that emits Q&A pairs; a judge answers the same questions from the candidate spec, producing per-probe verdicts (agree, contradict, gap); a revision operator turns disagreements into targeted spec edits and the loop iterates until the fidelity fixed point F† is reached." />
+<figcaption>The fidelity-probe loop. A reference program is statically analysed; a probe generator emits Q&A pairs whose answers can be read off the code; a judge answers the same questions from the candidate spec; per-probe verdicts (agree / contradict / gap) drive a revision operator that emits targeted edits until the loop reaches its fidelity fixed point.</figcaption>
+</figure>
+
 ## The probe
 
 A probe is the simplest thing we could think of. It's a natural-language **question** whose ground-truth answer can be read off the code, paired with a judge that tries to answer the same question using only the specification.
@@ -15,6 +20,16 @@ A probe is the simplest thing we could think of. It's a natural-language **quest
 - If it is silent → **coverage gap**.
 
 Aggregate the outcomes and you get the **fidelity** score $F$ — the agreement rate. Two failure decompositions, contradiction rate $c$ and gap rate $g$, fall out for free, and each one points at a different kind of spec edit: fix a wrong requirement, add a missing one, remove a spurious one.
+
+Three probes from one of our test programs (`CBACT02C`, the card-file batch reader) give the flavour:
+
+| Category | Question | Answer (from code) |
+|---|---|---|
+| Output | What is the primary business function of this batch program? | It reads all card records from the card data file sequentially and outputs each card record. |
+| Boundary | What happens if the card data file is empty? | The program opens the file, attempts to read the first record, encounters end-of-file immediately, outputs no records, and closes normally. |
+| Branching | What are the three distinct file operations that can each independently cause the program to terminate abnormally? | Opening the card file, reading a record from it, and closing it. |
+
+Each is a question whose answer is mechanically determinable from the COBOL — by inspecting the control-flow graph, the data-flow graph, or the system-dependence graph. The judge tries to answer the same question using only the modernization spec; the gap between the two is what fidelity measures.
 
 Because probes ride on code-derived ground truth, they are i.i.d. samples from a probe distribution $\mathcal{D}_A$. That i.i.d.-ness is what lets us do statistics: concentration bounds, a fixed-point prediction for where the loop converges, and a frozen-test protocol that actively falsifies bad generators.
 
@@ -135,11 +150,28 @@ MAIN-PARA.
 
 On 15 programs from AWS CardDemo (≈12k lines of COBOL), the pure-LLM regime raises **frozen-test fidelity from 0.63 to 0.94** over eight iterations. Three graph-grounded mixtures lift that by another **+16 to +30 points**.
 
-Two pieces of theory make the number trustworthy:
+<figure class="post-figure">
+<img src="figures/dashboard-duo.jpg" alt="Two side-by-side panels. Left: average fidelity across 15 programs over eight iterations, with train (solid) vs frozen test (dashed), 95% Wilson confidence bands, per-program traces in grey. Train rises 59% → 89%, test rises 62% → 89%, with a tight band by iteration 3. Right: error-rate decomposition — contradictions drop from 35% to 11%, coverage gaps drop from 27% to 8%." />
+<figcaption>Average fidelity (left) and error-rate decomposition (right) across 15 programs over eight iterations. Train (solid) vs frozen test (dashed), 95% Wilson bands, per-program traces in grey. The two stubborn low-plateau traces are the outliers (<code>CBACT01C</code>, <code>CORPT00C</code>) — both diagnosed in the paper's appendix.</figcaption>
+</figure>
+
+The aggregate hides what every program does individually. A per-program × per-iteration heatmap is more honest:
+
+<figure class="post-figure">
+<img src="figures/fidelity-heatmap.jpg" alt="Per-program fidelity heatmap. Rows are programs sorted by final test fidelity descending, columns are iterations 0 through 7, each iteration shows a train and test cell side-by-side. Most cells turn green (>0.85) by iteration 4. The two bottom rows (CORPT00C, CBACT01C) stay yellow-orange." />
+<figcaption>Per-program fidelity over 8 iterations. Train (Tr) and frozen-test (Te) cells sit side-by-side per iteration; near-identical adjacency confirms the train/test symmetry the theory requires. Thirteen of fifteen programs converge to <em>F</em> ≥ 0.80 by iteration 4. The two outliers at the bottom are diagnosed separately — <code>CORPT00C</code> needs cross-file graph stitching the current channels can't reach; <code>CBACT01C</code> is mostly file-handling infrastructure that the modernization spec legitimately doesn't have to describe.</figcaption>
+</figure>
+
+Two pieces of theory make the headline number trustworthy:
 
 1. **A Markov fixed-point prediction.** Model the per-probe state ∈ {agree, contradict, gap} as a two-state recursion with contradiction-repair rate $r$ and coverage-add rate $\pi$. The fidelity converges to
 $$F^\dagger = \frac{\pi}{\pi + r}$$
 out-of-sample from **four iterations of rate data** — and our measured plateau sits within 1 pp of $F^\dagger$ on three held-out iterations. This is what it looks like to have a non-trivial theoretical prediction about an LLM-in-the-loop system that actually lands.
+
+<figure class="post-figure">
+<img src="figures/pi-r-trajectory.jpg" alt="Three side-by-side line charts. Left: π̂ (strict-improvement rate) trajectory across iterations B0→B1 through B6→B7, with 95% Wilson confidence bands. Middle: r̂ (regression rate) — uniformly low, mostly under 5%. Right: observed test fidelity (solid blue, train; dashed orange, test) overlaid on the predicted F† band; F†_3 = 0.931 predicted from iteration-0 data lines up with the observed plateau within 1 pp." />
+<figcaption>Per-transition Markov rates. Left and middle: strict-improvement rate <em>π̂</em> and regression rate <em>r̂</em> across the seven transitions, with 95% Wilson bands. <em>r̂</em> stays uniformly low (≤ 5%); the loop's revision operator does not systematically regress held probes. Right: observed train (solid) and frozen-test (dashed) fidelity against the predicted <em>F</em><sup>†</sup> band fitted from the first four iterations of rate data — the prediction lands within ~1pp on the three held-out iterations.</figcaption>
+</figure>
 
 2. **A Hoeffding-bounded overfitting discriminant.** Re-sample probes on a frozen held-out split. If the train/test gap grows faster than the Hoeffding envelope $\sqrt{\log(2/\delta) / 2n}$, the generator is overfitting to its own critiques. In a five-lineage sweep (Anthropic, DeepSeek, Google, Alibaba, OpenAI), the discriminant actively **falsified** two generators whose probe distributions drifted across iterations. This is the opposite of what most iterative-refinement papers offer: instead of a scalar that always goes up, we ship the rule that tells you when to stop trusting the scalar.
 
