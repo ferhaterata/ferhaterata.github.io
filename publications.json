@@ -19,10 +19,6 @@
       "awardDetail": "Top 2.2% of 23,918 submissions",
       "links": [
         {
-          "label": "PDF",
-          "url": "papers/erata-2025-learning.pdf"
-        },
-        {
           "label": "arXiv",
           "url": "https://arxiv.org/abs/2412.18134"
         }
