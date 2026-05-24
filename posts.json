@@ -1,0 +1,26 @@
+{
+  "posts": [
+    {
+      "slug": "learning-how-to-cube",
+      "date": "2026-05",
+      "kicker": "Essay",
+      "title": "Learning How to Cube: when a 4B transformer ties decades of SAT craft",
+      "excerpt": "A neuro-symbolic post-training recipe that lets a small transformer match the best symbolic cubing heuristic on hard SAT benchmarks — and why SFT-unlocks-diversity is the real story."
+    },
+    {
+      "slug": "code-spec-alignment",
+      "date": "2026-05",
+      "kicker": "Essay",
+      "title": "Fidelity Probes: Measuring the gap between code and its specification",
+      "excerpt": "Fidelity probes — a small, loud diagnostic for specification–code alignment — and the statistical machinery that makes them trustworthy rather than vibes-based."
+    },
+    {
+      "slug": "tutorial-formal-methods",
+      "date": "2026-03",
+      "kicker": "Tutorial",
+      "title": "Lightweight Formal Methods for LLM-Generated Code",
+      "excerpt": "An interactive slide deck walking through symbolic testing, concolic execution, property-based checking, and the lightweight-verification toolchain we use to keep LLM-generated code honest.",
+      "url": "tutorial-formal-methods.html"
+    }
+  ]
+}

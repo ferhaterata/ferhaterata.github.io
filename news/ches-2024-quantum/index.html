@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Quantum Circuit Reconstruction from Power Side-Channel Attacks — CHES 2024 — Ferhat Erata</title>
+<meta name="description" content="IACR TCHES 2024 paper on reconstructing quantum circuits from power traces of quantum computer controllers. Joint work with Chuanqi Xu, Ruzica Piskac, and Jakub Szefer." />
+<link rel="icon" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%23ffffff'/><text x='50%25' y='55%25' font-size='18' text-anchor='middle' dominant-baseline='middle' font-family='system-ui, sans-serif' fill='%231a73e8' font-weight='700'>ƒe</text></svg>" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wdth,wght@8..144,75..125,300..800&family=Roboto+Mono:wght@400;500&display=swap" />
+<link rel="stylesheet" href="../../styles.css?v=2026-06-27" />
+<link rel="canonical" href="https://ferhat.ai/news/ches-2024-quantum/" />
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-LHSH4FCVBC"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-LHSH4FCVBC');
+</script>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="nav">
+    <a href="../../#top" class="nav-brand">Ferhat <em>Erata</em></a>
+    <nav class="nav-links" aria-label="Primary">
+      <a href="../../#about">About</a>
+      <a href="../../#news">News</a>
+      <a href="../../posts/">Writing</a>
+      <a href="../../#experience">Experience</a>
+      <a href="../../#education">Education</a>
+      <a href="../../#publications">Publications</a>
+      <a href="../../#contact">Contact</a>
+    </nav>
+    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle colour scheme">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+    </button>
+  </div>
+</header>
+
+<main class="page">
+<div class="container post-container">
+
+<article class="post">
+  <p class="post-back"><a href="../../#news">← All news</a></p>
+
+  <header class="post-header">
+    <p class="post-kicker">September 2024 · CHES 2024 (IACR TCHES)</p>
+    <h1 class="post-title">Quantum Circuit Reconstruction from Power Side-Channel Attacks</h1>
+    <p class="post-lede">
+      <em>Quantum Circuit Reconstruction from Power Side-Channel Attacks on Quantum Computer Controllers</em> appeared in <strong>IACR TCHES 2024</strong>. Joint work with Chuanqi Xu, Ruzica Piskac, and Jakub Szefer (Yale).
+    </p>
+  </header>
+
+  <figure class="post-figure">
+    <img src="side-channel-threats.png" alt="Typical operation of a cloud-based quantum computer, with red arrows highlighting power-trace threat points along the path from job management to controller to qubits." />
+    <figcaption>Typical operation of a cloud-based quantum computer. Red arrows highlight potential power-trace threats — the controller electronics between the job-management server and the superconducting qubits are the surface this work targets.</figcaption>
+  </figure>
+
+  <div class="post-body">
+    <p>
+      Quantum computers currently reach users as cloud services — IBM Quantum, Amazon Braket, Microsoft Azure. Users have no control over the physical space where the machines sit, and the threat of malicious insiders inside a data centre is well-established in classical security. What we show in this paper is that the <strong>controller electronics</strong> — the microwave arbitrary-waveform generators that sit between the classical job-management server and the superconducting qubits — are a practical physical-side-channel surface. Measure their power consumption, and you can recover the quantum circuit being executed.
+    </p>
+    <p>
+      Unlike direct measurement of the qubits (which would destroy the quantum state and therefore self-defeat), the control pulses are fully classical signals. They can be spied on. This paper formalises the attack, then demonstrates two concrete single-trace reconstruction methods.
+    </p>
+
+    <h3>Two attacker models</h3>
+    <figure class="post-figure">
+      <img src="attack-types.png" alt="Two attacker types considered: a per-channel attacker with per-channel power measurements and a total-power attacker with a single aggregate trace." />
+      <figcaption>The two attacker models. <strong>Left:</strong> per-channel attacker — has access to individual channel power traces, recovers gates by brute-force channel-by-channel matching. <strong>Right:</strong> total-power attacker — has access only to one aggregate trace, recovers gates by MILP optimization over a Linear Mixed Integer Real Arithmetic (LIRA) formulation.</figcaption>
+    </figure>
+    <p>
+      The <strong>per-channel attack</strong> assumes the adversary can physically tap each qubit's control channel. It decomposes the recovery into independent single-channel problems and is essentially a brute-force match against a gate-pulse library.
+    </p>
+    <p>
+      The <strong>total-power attack</strong> is the tighter threat model: the adversary sees <em>one</em> aggregated power trace for the whole machine. We formulate recovery as a Mixed-Integer Linear Program (MILP) over a LIRA constraint system that captures when each gate could be active and which qubits it touches. Solving the MILP yields the most likely circuit schedule consistent with the observed trace.
+    </p>
+
+    <h3>Results</h3>
+    <p>
+      We evaluated both attacks on 32 circuits from the <a href="https://github.com/pnnl/QASMBench/">QASMBench</a> benchmark suite, using real control-pulse information from IBM quantum computers. Both attacks reconstruct circuits with high fidelity. The total-power attack is the more surprising result: the adversary only needs a single scalar-valued power trace to reverse-engineer the algorithm running on the machine.
+    </p>
+    <h3>Why it matters</h3>
+    <p>
+      Quantum circuits encapsulate both the algorithm and its hard-coded inputs. An attacker who can recover portions of the circuit misappropriates the intellectual property <em>and</em> the data. Variational algorithms like QAOA are especially sensitive: even leaking the qubit count and circuit depth tells an attacker a lot about what is being computed. A 2022 National Quantum Coordination Office workshop explicitly flagged formal methods as a tool to address this class of threat, and this work operationalizes that direction: the reconstruction is driven by SMT solving (LIRA) and MILP, not heuristics, so we can characterize when the attack succeeds and what it takes to defeat it.
+    </p>
+    <p>
+      Lessons from classical systems suggest unchecked side-channel vulnerabilities compound over time. Speculative-execution attacks (Spectre, Meltdown) were operational since the 1990s but not publicly recognized until 2018. Identifying quantum controller side-channels in the infancy of cloud quantum computing gives the community a chance to design in countermeasures rather than retrofit them.
+    </p>
+    <p class="post-tags">
+      <span class="tag">#CHES2024</span>
+      <span class="tag">#QuantumSecurity</span>
+      <span class="tag">#SideChannel</span>
+      <span class="tag">#FormalMethods</span>
+    </p>
+    <p style="margin-top: 1.5rem;">
+      <a class="pub-link" href="https://tches.iacr.org/index.php/TCHES/article/view/11445/10950">TCHES <span aria-hidden="true">↗</span></a>
+      <a class="pub-link" href="https://arxiv.org/abs/2401.15869">arXiv <span aria-hidden="true">↗</span></a>
+      <a class="pub-link" href="../../papers/erata-2024-quantum.pdf">PDF <span aria-hidden="true">↗</span></a>
+    </p>
+  </div>
+</article>
+
+</div>
+</main>
+
+<footer class="site-footer">
+  <div class="container" style="display:flex; justify-content:space-between; width:100%; gap:1rem; flex-wrap:wrap">
+    <span>© <span id="year"></span> Ferhat Erata</span>
+    <span class="colophon">Set in Roboto Flex</span>
+  </div>
+</footer>
+
+<script src="../../app.js?v=2026-06-27"></script>
+</body>
+</html>

@@ -1,0 +1,1971 @@
+<!DOCTYPE html>
+<html lang="en" class="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Formal Methods — Tutorial</title>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body, {delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]});"></script>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap');
+
+  :root {
+    --bg: #0a0a0f;
+    --surface: #13131a;
+    --border: #2a2a3a;
+    --text: #e8e8f0;
+    --dim: #8888a0;
+    --accent: #6c8cff;
+    --accent2: #ff6c8c;
+    --green: #4cde80;
+    --orange: #ffaa44;
+    --yellow: #ffe066;
+  }
+
+  html.light {
+    --bg: #f4f4f9;
+    --surface: #ffffff;
+    --border: #c8c8d8;
+    --text: #1a1a2e;
+    --dim: #5a5a78;
+    --accent: #4060d8;
+    --accent2: #d03058;
+    --green: #1a8848;
+    --orange: #b06818;
+    --yellow: #8a6800;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    overflow: hidden;
+  }
+
+  .deck { width: 100vw; height: 100vh; position: relative; }
+
+  .slide {
+    position: absolute;
+    inset: 0;
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    padding: 5vh 6vw;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
+  .slide.active { display: flex; opacity: 1; }
+
+  h1 {
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    font-weight: 900;
+    line-height: 1.15;
+    margin-bottom: 0.3em;
+  }
+  h2 {
+    font-size: clamp(1.4rem, 2.8vw, 2.3rem);
+    font-weight: 700;
+    margin-bottom: 0.6em;
+    color: var(--accent);
+  }
+  h3 {
+    font-size: clamp(1rem, 1.8vw, 1.4rem);
+    font-weight: 600;
+    color: var(--dim);
+    margin-bottom: 1.2em;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  .subtitle {
+    font-size: clamp(1rem, 2vw, 1.6rem);
+    color: var(--dim);
+    margin-top: 0.5em;
+    font-weight: 400;
+  }
+  .author {
+    font-size: clamp(0.9rem, 1.5vw, 1.2rem);
+    color: var(--text);
+    margin-top: 1.2em;
+  }
+
+  ul { list-style: none; font-size: clamp(0.95rem, 1.6vw, 1.35rem); line-height: 1.8; }
+  ul li::before { content: "\25b8"; color: var(--accent); margin-right: 0.6em; font-weight: 700; }
+
+  .highlight { color: var(--accent); font-weight: 700; }
+  .warn { color: var(--accent2); font-weight: 700; }
+  .ok { color: var(--green); font-weight: 700; }
+
+  .quote {
+    font-size: clamp(1.1rem, 2vw, 1.6rem);
+    font-style: italic;
+    color: var(--dim);
+    border-left: 4px solid var(--accent);
+    padding: 0.6em 1.2em;
+    margin-top: 1.2em;
+  }
+
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    max-width: 950px;
+    font-size: clamp(0.85rem, 1.3vw, 1.1rem);
+    margin-top: 0.6em;
+  }
+  th { text-align: left; padding: 0.5em 0.8em; color: var(--accent); border-bottom: 2px solid var(--border); font-weight: 700; }
+  td { padding: 0.45em 0.8em; border-bottom: 1px solid var(--border); vertical-align: top; }
+  tr td:first-child { color: var(--dim); font-weight: 600; }
+
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3vw;
+    align-items: start;
+    margin-top: 0.5em;
+  }
+
+  .three-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 2vw;
+    align-items: start;
+    margin-top: 0.5em;
+  }
+
+  code, .code {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: clamp(0.65rem, 1.05vw, 0.9rem);
+    line-height: 1.6;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0.8em 1em;
+    display: block;
+    white-space: pre;
+    overflow-x: auto;
+    max-height: 60vh;
+  }
+
+  .code .kw { color: var(--accent); font-weight: 700; }
+  .code .cm { color: var(--dim); font-style: italic; }
+  .code .str { color: var(--green); }
+  .code .fn { color: var(--orange); }
+  .code .reg { color: var(--green); }
+  .code .warn { color: var(--accent2); font-weight: 700; }
+
+  .callout {
+    background: var(--surface);
+    border: 1px solid var(--accent);
+    border-radius: 8px;
+    padding: 0.7em 0.9em;
+    font-size: clamp(0.85rem, 1.2vw, 1rem);
+    line-height: 1.5;
+    overflow-wrap: break-word;
+  }
+
+  .info-box {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0.7em 0.9em;
+    font-size: clamp(0.85rem, 1.2vw, 1rem);
+    line-height: 1.6;
+    overflow-wrap: break-word;
+  }
+
+  .info-box .label {
+    color: var(--accent);
+    font-weight: 700;
+    margin-bottom: 0.4em;
+    text-transform: uppercase;
+    font-size: 0.8em;
+    letter-spacing: 0.1em;
+  }
+
+  .tag {
+    display: inline-block;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 0.15em 0.5em;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8em;
+    color: var(--dim);
+    margin-right: 0.3em;
+  }
+
+  /* Mermaid container */
+  .mermaid-wrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1.5em;
+    overflow: auto;
+    max-height: 55vh;
+  }
+  .mermaid-wrap svg { max-width: 98%; height: auto; }
+
+  /* --- Alloy animated callouts --- */
+  .alloy-container {
+    position: relative;
+    flex: 1;
+  }
+
+  .alloy-container .code {
+    position: relative;
+    z-index: 1;
+  }
+
+  /* code line highlight zones */
+  .code-hl {
+    position: relative;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background 0.3s;
+  }
+  .code-hl:hover { background: rgba(108, 140, 255, 0.1); }
+  .code-hl.active-hl { background: rgba(108, 140, 255, 0.15); }
+
+  /* pop-up callout bubbles */
+  .pop-callout {
+    position: absolute;
+    width: 320px;
+    background: var(--surface);
+    border: 2px solid var(--accent);
+    border-radius: 10px;
+    padding: 0.7em 0.9em;
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: clamp(0.75rem, 1.05vw, 0.9rem);
+    line-height: 1.5;
+    color: var(--text);
+    opacity: 0;
+    transform: translateX(12px);
+    transition: opacity 0.35s ease, transform 0.35s ease;
+    pointer-events: none;
+    z-index: 10;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.5);
+  }
+  .pop-callout.visible {
+    opacity: 1;
+    transform: translateX(0);
+    pointer-events: auto;
+  }
+  .pop-callout .pop-title {
+    font-weight: 700;
+    color: var(--accent);
+    margin-bottom: 0.3em;
+    font-size: 0.9em;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  .pop-callout.pop-warn { border-color: var(--accent2); }
+  .pop-callout.pop-warn .pop-title { color: var(--accent2); }
+  .pop-callout.pop-ok { border-color: var(--green); }
+  .pop-callout.pop-ok .pop-title { color: var(--green); }
+  .pop-callout.pop-orange { border-color: var(--orange); }
+  .pop-callout.pop-orange .pop-title { color: var(--orange); }
+
+  /* connector arrow */
+  .pop-callout::before {
+    content: '';
+    position: absolute;
+    left: -8px;
+    top: 50%;
+    transform: translateY(-50%);
+    border: 8px solid transparent;
+    border-right-color: var(--accent);
+  }
+  .pop-callout.pop-warn::before { border-right-color: var(--accent2); }
+  .pop-callout.pop-ok::before { border-right-color: var(--green); }
+  .pop-callout.pop-orange::before { border-right-color: var(--orange); }
+
+  /* step indicator pills */
+  .alloy-steps {
+    display: flex;
+    gap: 0.5em;
+    margin-top: 0.8em;
+    flex-wrap: wrap;
+  }
+  .alloy-step-btn {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 0.3em 0.8em;
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(0.7rem, 1vw, 0.85rem);
+    color: var(--dim);
+    cursor: pointer;
+    transition: all 0.25s;
+  }
+  .alloy-step-btn:hover { border-color: var(--accent); color: var(--text); }
+  .alloy-step-btn.active-step { border-color: var(--accent); color: var(--accent); background: rgba(108,140,255,0.1); font-weight: 600; }
+
+  /* IR mapping animation */
+  .ir-map { transition: background 0.3s, opacity 0.3s; cursor: pointer; border-radius: 3px; }
+  .ir-map:hover { background: rgba(108, 140, 255, 0.1); }
+  .ir-map.ir-active { background: rgba(108, 140, 255, 0.2); }
+  .ir-map.ir-dim { opacity: 0.25; }
+
+  /* DFG mapping animation */
+  .dfg-map { transition: background 0.3s, opacity 0.3s; cursor: pointer; border-radius: 3px; }
+  .dfg-map:hover { background: rgba(108, 140, 255, 0.1); }
+  .dfg-map.dfg-active { background: rgba(108, 140, 255, 0.2); }
+  .dfg-map.dfg-dim { opacity: 0.25; }
+
+  /* Loop highlighting */
+  .loop-outer, .loop-inner { transition: background 0.3s, opacity 0.3s; border-radius: 3px; }
+  .loop-hl-outer { background: rgba(108, 140, 255, 0.15); }
+  .loop-hl-inner { background: rgba(255, 108, 140, 0.15); }
+  .loop-dim { opacity: 0.25; }
+
+  /* animation dim */
+  .dim-inactive { opacity: 0.35 !important; }
+
+  /* Light mode: mermaid wrapper background */
+  html.light .mermaid-wrap { background: #ffffff; border-color: #c8c8d8; }
+  html.light .mermaid-wrap .edgeLabel rect,
+  html.light .mermaid-wrap .edgeLabel .label-container { fill: #ffffff !important; }
+
+  /* Light mode: soften code block backgrounds */
+  html.light code, html.light .code { background: #eeeef4; border-color: var(--border); }
+
+  /* Light mode: pop-callout shadow */
+  html.light .pop-callout { box-shadow: 0 4px 24px rgba(0,0,0,0.12); }
+
+  /* Light mode: interactive highlight adjustments */
+  html.light .code-hl:hover { background: rgba(64, 96, 216, 0.1); }
+  html.light .code-hl.active-hl { background: rgba(64, 96, 216, 0.15); }
+  html.light .ir-map.ir-active { background: rgba(64, 96, 216, 0.15); }
+  html.light .dfg-map.dfg-active { background: rgba(64, 96, 216, 0.15); }
+  html.light .loop-hl-outer { background: rgba(64, 96, 216, 0.12); }
+  html.light .loop-hl-inner { background: rgba(208, 48, 88, 0.12); }
+
+  /* Theme toggle button */
+  .theme-toggle {
+    position: fixed;
+    top: 1.2em;
+    right: 2em;
+    z-index: 200;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0.35em 0.6em;
+    font-size: 1.1rem;
+    cursor: pointer;
+    color: var(--dim);
+    transition: background 0.3s, border-color 0.3s, color 0.3s;
+    line-height: 1;
+  }
+  .theme-toggle:hover {
+    border-color: var(--accent);
+    color: var(--text);
+  }
+
+  /* progress */
+  .progress { position: fixed; bottom: 0; left: 0; height: 3px; background: var(--accent); transition: width 0.4s ease; z-index: 100; }
+  .slide-num { position: fixed; bottom: 1.2em; right: 2em; font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; color: var(--dim); z-index: 100; }
+</style>
+</head>
+<body>
+
+<div class="deck">
+
+  <!-- ==================== SLIDE 1: TITLE ==================== -->
+  <div class="slide active" id="s0">
+    <h3>Tutorial &mdash; 30 min</h3>
+    <h1><span class="highlight">Formal Methods</span></h1>
+    <div class="subtitle" style="color: var(--text);">Understanding Software Through Mathematical Eyes</div>
+    <div class="author">Ferhat Erata</div>
+    <div style="margin-top: 2.5em; display: flex; gap: 0.5em; flex-wrap: wrap;">
+      <span class="tag">CFG</span>
+      <span class="tag">DFG</span>
+      <span class="tag">PDG</span>
+      <span class="tag">Slicing</span>
+      <span class="tag">Alloy</span>
+      <span class="tag">Hypothesis</span>
+      <span class="tag">KLEE</span>
+    </div>
+    <div style="margin-top: 2em; font-size: clamp(0.75rem, 1vw, 0.9rem); color: var(--dim); font-family: 'JetBrains Mono', monospace;">
+      code &rarr; graph &rarr; analysis &rarr; understanding
+    </div>
+  </div>
+
+  <!-- ==================== SLIDE 2: THE PROBLEM ==================== -->
+  <div class="slide" id="s1">
+    <h3>The Problem</h3>
+    <h2>We write code. But do we <span class="warn">understand</span> it?</h2>
+    <ul>
+      <li>Humans write code in a programming language</li>
+      <li>Semantics tells us what each statement <span class="highlight">means</span> &mdash; but not what the whole program <span class="highlight">does</span></li>
+      <li>We need <span class="highlight">mathematical models</span> that make invisible structure visible</li>
+      <li>This talk: code &rarr; mathematical model &rarr; tool-supported analysis</li>
+    </ul>
+    <div class="quote">"Take one step back. What is your mental image of software?"</div>
+  </div>
+
+  <!-- ==================== SLIDE 3: ROADMAP ==================== -->
+  <div class="slide" id="s2">
+    <h3>Roadmap</h3>
+    <h2>Six lenses in 30 minutes</h2>
+    <table>
+      <tr><th>Time</th><th>Topic</th><th>Key Question</th></tr>
+      <tr><td>5 min</td><td><span class="highlight">Control Flow Graph (CFG)</span></td><td>What <em>paths</em> can execution take?</td></tr>
+      <tr><td>5 min</td><td><span class="highlight">Data Flow Graph (DFG)</span></td><td>Where do values <em>come from</em> and <em>go to</em>?</td></tr>
+      <tr><td>5 min</td><td><span class="highlight">Program Dependence Graph (PDG)</span></td><td>What <em>depends</em> on what? &rarr; Slicing</td></tr>
+      <tr><td>5 min</td><td><span class="highlight">Property-Based Testing (Hypothesis)</span></td><td>Does it hold for <em>many random</em> inputs?</td></tr>
+      <tr><td>5 min</td><td><span class="highlight">Concolic Testing (KLEE)</span></td><td>Can we <em>explore every path</em>?</td></tr>
+      <tr><td>5 min</td><td><span class="highlight">Formal Specification (Alloy)</span></td><td>What <em>should</em> the system do?</td></tr>
+    </table>
+  </div>
+
+  <!-- ==================== SLIDE 3a: BIG PICTURE (preview) ==================== -->
+  <div class="slide" id="s2a" style="padding-top: 1.5vh; justify-content: flex-start;">
+    <div style="display:flex; align-items:baseline; gap:1em; margin-bottom:0.4em;">
+      <h3 style="margin-bottom:0;">The Big Picture</h3>
+      <h2 style="margin-bottom:0; font-size:clamp(1.2rem,2.2vw,1.8rem);">A stack of <span class="highlight">mathematical lenses</span></h2>
+    </div>
+    <div style="display:grid; grid-template-columns:3fr 1fr; gap:2vw; flex:1; align-items:start;">
+      <div>
+        <div class="mermaid-wrap" id="bp-graph-preview" style="max-height: 75vh;">
+          <pre class="mermaid">
+graph TD
+    SRC["Source Code&lt;br&gt;what humans write&ensp;&ensp;"] --> CFG
+    CFG["CFG&lt;br&gt;what paths exist?&ensp;&ensp;"] --> DFG
+    DFG["DFG&lt;br&gt;where do values flow?&ensp;&ensp;"] --> PDG
+    PDG["PDG&lt;br&gt;what depends on what?&ensp;&ensp;"] --> SLC["Slicing&lt;br&gt;minimal relevant subset&ensp;&ensp;"]
+
+    SRC --> SPEC["Formal Spec — Alloy&lt;br&gt;is the design consistent?&ensp;&ensp;"]
+    SRC --> PROP["Property Testing — Hypothesis&lt;br&gt;do invariants hold?&ensp;&ensp;"]
+    SRC --> CONC["Concolic Testing — KLEE&lt;br&gt;what does every path do?&ensp;&ensp;"]
+
+    style SRC fill:#1a1a2e,stroke:#6c8cff,color:#e8e8f0
+    style CFG fill:#1a1a2e,stroke:#4cde80,color:#e8e8f0
+    style DFG fill:#1a1a2e,stroke:#4cde80,color:#e8e8f0
+    style PDG fill:#1a1a2e,stroke:#4cde80,color:#e8e8f0
+    style SLC fill:#1a1a2e,stroke:#ffaa44,color:#e8e8f0
+    style SPEC fill:#1a1a2e,stroke:#ff6c8c,color:#e8e8f0
+    style PROP fill:#1a1a2e,stroke:#ff6c8c,color:#e8e8f0
+    style CONC fill:#1a1a2e,stroke:#ff6c8c,color:#e8e8f0
+          </pre>
+        </div>
+        <div class="alloy-steps" style="margin-top:0.5em;">
+          <span class="alloy-step-btn active-step bp-pre-btn" onclick="bpHighlight('all',this,'bp-graph-preview')">All</span>
+          <span class="alloy-step-btn bp-pre-btn" onclick="bpHighlight('graphs',this,'bp-graph-preview')">Graph Analysis</span>
+          <span class="alloy-step-btn bp-pre-btn" onclick="bpHighlight('alloy',this,'bp-graph-preview')">Alloy</span>
+          <span class="alloy-step-btn bp-pre-btn" onclick="bpHighlight('hypothesis',this,'bp-graph-preview')">Hypothesis</span>
+          <span class="alloy-step-btn bp-pre-btn" onclick="bpHighlight('klee',this,'bp-graph-preview')">KLEE</span>
+        </div>
+      </div>
+      <div>
+        <div class="info-box" style="margin-bottom: 1em;">
+          <div class="label">Graph-Based Analysis</div>
+          <span class="ok">CFG</span> &rarr; <span class="ok">DFG</span> &rarr; <span class="ok">PDG</span> &rarr; <span class="highlight">Slicing</span><br><br>
+          Build the graph. Traverse the graph. Answer the question.<br>
+          Each layer adds a new kind of edge.
+        </div>
+        <div class="info-box" style="margin-bottom: 1em;">
+          <div class="label">Specification &amp; Testing</div>
+          <span class="warn">Alloy</span> &mdash; check designs before code exists<br>
+          <span class="warn">Hypothesis</span> &mdash; check properties across many random inputs<br>
+          <span class="warn">KLEE</span> &mdash; systematically explore every path
+        </div>
+        <div class="callout">
+          We'll go through each of these one by one &mdash; then return to this picture at the end.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== SLIDE 3b: COMPILER PIPELINE ==================== -->
+  <div class="slide" id="s2b" style="justify-content: center;">
+    <div style="display:flex; align-items:baseline; gap:1em; margin-bottom:0.8em;">
+      <h3 style="margin-bottom:0;">The Compiler Pipeline</h3>
+      <h2 style="margin-bottom:0; font-size:clamp(1.2rem,2.2vw,1.8rem);">Where do these <span class="highlight">representations</span> live?</h2>
+    </div>
+    <!-- Pipeline diagram -->
+    <div class="mermaid-wrap" style="max-height: 30vh; margin-bottom: 1em;">
+      <pre class="mermaid">
+graph LR
+    SRC["Source Code&lt;br&gt;Python, C, Java, ...&ensp;&ensp;"] --> LEX["Lexer /&lt;br&gt;Parser&ensp;&ensp;"]
+    LEX --> AST["AST&ensp;&ensp;"]
+    AST --> SEM["Semantic&lt;br&gt;Analysis&ensp;&ensp;"]
+    SEM --> IR["IR / SSA&lt;br&gt;LLVM IR, GCC GIMPLE&ensp;&ensp;"]
+    IR --> OPT["Optimizer&ensp;&ensp;"]
+    OPT --> CG["Code Gen&ensp;&ensp;"]
+    CG --> BIN["Machine Code&lt;br&gt;x86, ARM, WASM&ensp;&ensp;"]
+
+    style SRC fill:#1a1a2e,stroke:#6c8cff,color:#e8e8f0
+    style LEX fill:#1a1a2e,stroke:#2a2a3a,color:#8888a0
+    style AST fill:#1a1a2e,stroke:#4cde80,color:#e8e8f0
+    style SEM fill:#1a1a2e,stroke:#2a2a3a,color:#8888a0
+    style IR fill:#1a1a2e,stroke:#ffaa44,color:#e8e8f0
+    style OPT fill:#1a1a2e,stroke:#ff6c8c,color:#e8e8f0
+    style CG fill:#1a1a2e,stroke:#2a2a3a,color:#8888a0
+    style BIN fill:#1a1a2e,stroke:#6c8cff,color:#e8e8f0
+      </pre>
+    </div>
+    <!-- Annotations row -->
+    <div style="display:grid; grid-template-columns:1fr 1fr 1fr 1fr; gap:1.5vw; align-items:start; margin-top:0.5em;">
+      <div class="info-box">
+        <div class="label" style="color:var(--green);">Front-End</div>
+        Source &rarr; <strong>AST</strong><br>
+        (Abstract Syntax Tree)<br><br>
+        Lexing, parsing, type checking.<br>
+        The AST is the first <span class="highlight">structured</span> representation of your code.<br><br>
+        <span style="color:var(--dim); font-size:0.9em;">Tools: tree-sitter, clang, javac</span>
+      </div>
+      <div class="info-box" style="border-color: var(--orange);">
+        <div class="label" style="color:var(--orange);">Middle-End (IR)</div>
+        AST &rarr; <strong>CFG + SSA</strong><br><br>
+        The IR is where <span class="highlight">analysis happens</span>:<br>
+        <span class="ok">CFG</span> = control flow structure<br>
+        <span class="ok">DFG</span> = data flow (def-use chains)<br>
+        <span class="ok">PDG</span> = dependence &rarr; slicing<br><br>
+        <span style="color:var(--dim); font-size:0.9em;">This is what we'll study today.</span>
+      </div>
+      <div class="info-box" style="border-color: var(--yellow);">
+        <div class="label" style="color:var(--yellow);">SSA Form</div>
+        <strong>Static Single Assignment</strong><br><br>
+        Every variable is assigned <span class="highlight">exactly once</span>.<br>
+        Multiple assignments &rarr; distinct names.<br><br>
+        <strong style="color:var(--yellow);">&phi; nodes</strong> merge values at join points:<br>
+        <code style="display:inline; padding:0.1em 0.3em; font-size:0.85em;">%x = &phi;(v₁, v₂)</code><br><br>
+        <span style="color:var(--dim); font-size:0.9em;">Makes def-use chains <strong>explicit</strong> &mdash; the DFG is built into the IR.</span>
+      </div>
+      <div class="info-box">
+        <div class="label" style="color:var(--accent2);">Back-End</div>
+        IR &rarr; <strong>Machine Code</strong><br><br>
+        Register allocation, instruction selection, scheduling.<br>
+        The optimizer transforms the IR using the <span class="highlight">same graphs</span> we'll see.<br><br>
+        <span style="color:var(--dim); font-size:0.9em;">Tools: LLVM, GCC, V8 TurboFan</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== SLIDE 4: CFG ==================== -->
+  <div class="slide" id="s3" style="justify-content: center; padding-left: 10vw; padding-right: 10vw;">
+    <div style="display:flex; align-items:baseline; gap:1em; margin-bottom:0.4em;">
+      <h3 style="margin-bottom:0;">Control Flow Graph</h3>
+      <h2 style="margin-bottom:0; font-size:clamp(1.2rem,2.2vw,1.8rem);">What <span class="highlight">paths</span> can execution take?</h2>
+    </div>
+    <div class="two-col" style="flex:1; align-items:stretch;">
+      <div>
+        <div class="code"><span class="kw">def</span> <span class="fn">fee</span>(age, dist):
+    <span class="kw">if</span> age &lt; 25:
+        rate = 3
+    <span class="kw">else</span>:
+        rate = 2
+
+    <span class="kw">if</span> dist &gt; 100:
+        surcharge = 20
+    <span class="kw">else</span>:
+        surcharge = 0
+
+    <span class="kw">return</span> dist * rate + surcharge</div>
+        <div class="info-box" style="margin-top: 1em;">
+          <div class="label">Key Concepts</div>
+          <strong>Nodes</strong> = basic blocks (straight-line code)<br>
+          <strong>Edges</strong> = possible transfers of control<br>
+          <strong>Path</strong> = one possible execution<br>
+          <strong>4 paths</strong> = 2 binary decisions = 2² leaves
+        </div>
+      </div>
+      <div class="mermaid-wrap" style="max-height: 80vh; flex: 1;">
+        <pre class="mermaid">
+graph TD
+    A["entry: age, dist&ensp;&ensp;"] --> B{"age &lt; 25 ?"}
+    B -- T --> C["rate = 3&ensp;&ensp;"]
+    B -- F --> D["rate = 2&ensp;&ensp;"]
+    C --> E{"dist > 100 ?"}
+    D --> E
+    E -- T --> F["surcharge = 20&ensp;&ensp;"]
+    E -- F --> G["surcharge = 0&ensp;&ensp;"]
+    F --> H["return dist*rate&lt;br&gt;+ surcharge&ensp;&ensp;"]
+    G --> H
+
+    style A fill:#1a1a2e,stroke:#6c8cff,color:#e8e8f0
+    style B fill:#1a1a2e,stroke:#ffaa44,color:#e8e8f0
+    style C fill:#1a1a2e,stroke:#4cde80,color:#e8e8f0
+    style D fill:#1a1a2e,stroke:#4cde80,color:#e8e8f0
+    style E fill:#1a1a2e,stroke:#ffaa44,color:#e8e8f0
+    style F fill:#1a1a2e,stroke:#4cde80,color:#e8e8f0
+    style G fill:#1a1a2e,stroke:#4cde80,color:#e8e8f0
+    style H fill:#1a1a2e,stroke:#6c8cff,color:#e8e8f0
+        </pre>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== SLIDE 4b: CFG WITH NESTED LOOPS ==================== -->
+  <div class="slide" id="s3b" style="justify-content: center; padding-left: 10vw; padding-right: 10vw;">
+    <div style="display:flex; align-items:baseline; gap:1em; margin-bottom:0.4em;">
+      <h3 style="margin-bottom:0;">CFG with Nested Loops</h3>
+      <h2 style="margin-bottom:0; font-size:clamp(1.2rem,2.2vw,1.8rem);"><span class="highlight">Back-edges</span> reveal loop structure</h2>
+    </div>
+    <div class="two-col" style="flex:1; align-items:stretch;">
+      <!-- Left column: source + info boxes stacked -->
+      <div>
+        <div class="code"><span class="kw">def</span> <span class="fn">matrix_search</span>(matrix, target):
+<span class="loop-outer">    <span class="kw">for</span> i <span class="kw">in</span> range(len(matrix)):
+<span class="loop-inner">        <span class="kw">for</span> j <span class="kw">in</span> range(len(matrix[i])):
+            <span class="kw">if</span> matrix[i][j] == target:
+                <span class="kw">return</span> (i, j)</span></span>
+    <span class="kw">return</span> (-1, -1)</div>
+        <div class="alloy-steps" style="margin-top:0.5em;">
+          <span class="alloy-step-btn active-step loop-btn" onclick="loopHighlight('all',this)">All</span>
+          <span class="alloy-step-btn loop-btn" onclick="loopHighlight('outer',this)">Outer Loop</span>
+          <span class="alloy-step-btn loop-btn" onclick="loopHighlight('inner',this)">Inner Loop</span>
+        </div>
+        <div class="info-box" style="margin-top: 0.8em;">
+          <div class="label">Nested Loop Structure</div>
+          <strong>Outer back-edge</strong>: G &rarr; B <span style="color:var(--accent);">(outer loop)</span><br>
+          <strong>Inner back-edge</strong>: F &rarr; C <span style="color:var(--accent2);">(inner loop)</span><br>
+          <strong>Outer header</strong>: B &mdash; dominates everything inside<br>
+          <strong>Inner header</strong>: C &mdash; dominates D, E, F<br>
+          <strong>Early exit</strong>: E breaks out of <em>both</em> loops
+        </div>
+        <div class="info-box" style="margin-top: 0.6em;">
+          <div class="label">Why It Matters</div>
+          <strong>Loop nesting depth</strong> drives complexity analysis<br>
+          <strong>Dominance tree</strong>: B dom C dom D dom E<br>
+          <strong>Loop-invariant code motion</strong>: hoist from inner<br>
+          to outer, or out of both loops entirely
+        </div>
+      </div>
+      <!-- Right column: CFG graph -->
+      <div class="mermaid-wrap" id="loop-graph" style="max-height: 85vh; flex: 1;">
+        <pre class="mermaid">
+graph TD
+    A["A: entry&ensp;&ensp;"] --> B{"B: i &lt; rows ?"}
+    B -- F --> H["H: return (-1,-1)&ensp;&ensp;"]
+    B -- T --> C{"C: j &lt; cols ?"}
+    C -- F --> G["G: i += 1&ensp;&ensp;"]
+    C -- T --> D{"D: matrix[i][j]&lt;br&gt;== target ?"}
+    D -- T --> E["E: return (i,j)&ensp;&ensp;"]
+    D -- F --> F["F: j += 1&ensp;&ensp;"]
+    F -->|"inner back-edge"| C
+    G -->|"outer back-edge"| B
+
+    style A fill:#1a1a2e,stroke:#6c8cff,color:#e8e8f0
+    style B fill:#1a1a2e,stroke:#ffaa44,color:#e8e8f0
+    style C fill:#1a1a2e,stroke:#ff6c8c,color:#e8e8f0
+    style D fill:#1a1a2e,stroke:#ffaa44,color:#e8e8f0
+    style E fill:#1a1a2e,stroke:#4cde80,color:#e8e8f0
+    style F fill:#1a1a2e,stroke:#ff6c8c,color:#e8e8f0
+    style G fill:#1a1a2e,stroke:#4cde80,color:#e8e8f0
+    style H fill:#1a1a2e,stroke:#4cde80,color:#e8e8f0
+        </pre>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== SLIDE 4c: LLVM IR ==================== -->
+  <div class="slide" id="s3c" style="justify-content: center;">
+    <div style="display:flex; align-items:baseline; gap:1em; margin-bottom:0.4em;">
+      <h3 style="margin-bottom:0;">LLVM IR</h3>
+      <h2 style="margin-bottom:0; font-size:clamp(1.2rem,2.2vw,1.8rem);">The CFG in the <span class="highlight">compiler's</span> representation</h2>
+    </div>
+    <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:1.5vw; flex:1; align-items:start;">
+      <div>
+        <div style="font-size:clamp(0.7rem,0.9vw,0.8rem); color:var(--dim); margin-bottom:0.3em; text-transform:uppercase; letter-spacing:0.08em; font-weight:600;">Source (Python)</div>
+        <div class="code" style="font-size:clamp(0.7rem,1.1vw,0.95rem);"><span class="ir-map" data-ir="entry"><span class="kw">def</span> <span class="fn">fee</span>(age, dist):</span>
+<span class="ir-map" data-ir="cmp1">    <span class="kw">if</span> age &lt; 25:</span>
+<span class="ir-map" data-ir="young">        rate = 3</span>
+<span class="ir-map" data-ir="older">    <span class="kw">else</span>:
+        rate = 2</span>
+
+<span class="ir-map" data-ir="cmp2">    <span class="kw">if</span> dist &gt; 100:</span>
+<span class="ir-map" data-ir="far">        surcharge = 20</span>
+<span class="ir-map" data-ir="near">    <span class="kw">else</span>:
+        surcharge = 0</span>
+
+<span class="ir-map" data-ir="compute">    <span class="kw">return</span> dist * rate + surcharge</span></div>
+
+        <div style="font-size:clamp(0.7rem,0.9vw,0.8rem); color:var(--dim); margin:0.6em 0 0.3em; text-transform:uppercase; letter-spacing:0.08em; font-weight:600;">Source (C)</div>
+        <div class="code" style="font-size:clamp(0.7rem,1.1vw,0.95rem);"><span class="ir-map" data-ir="entry"><span class="kw">int</span> <span class="fn">fee</span>(<span class="kw">int</span> age, <span class="kw">int</span> dist) {</span>
+<span class="ir-map" data-ir="cmp1">    <span class="kw">int</span> rate;</span>
+<span class="ir-map" data-ir="young">    <span class="kw">if</span> (age &lt; 25) rate = 3;</span>
+<span class="ir-map" data-ir="older">    <span class="kw">else</span> rate = 2;</span>
+
+<span class="ir-map" data-ir="cmp2">    <span class="kw">int</span> surcharge;</span>
+<span class="ir-map" data-ir="far">    <span class="kw">if</span> (dist &gt; 100) surcharge = 20;</span>
+<span class="ir-map" data-ir="near">    <span class="kw">else</span> surcharge = 0;</span>
+
+<span class="ir-map" data-ir="compute">    <span class="kw">return</span> dist * rate + surcharge;</span>
+}</div>
+        <div class="callout" style="margin-top:0.6em; font-size:clamp(0.7rem,0.9vw,0.85rem); padding:0.5em 0.7em;">
+          Different frontends, <span class="highlight">same IR</span> &rarr; same analyses
+        </div>
+      </div>
+      <div>
+        <div style="display:flex; align-items:center; gap:0.8em; margin-bottom:0.3em;">
+          <div style="font-size:clamp(0.7rem,0.9vw,0.8rem); color:var(--dim); text-transform:uppercase; letter-spacing:0.08em; font-weight:600;">LLVM IR</div>
+          <button class="alloy-step-btn active-step" onclick="toggleIrOpt(this)" style="font-size:clamp(0.6rem,0.8vw,0.7rem); padding:0.2em 0.6em;">-O0 (unoptimized)</button>
+        </div>
+        <div id="ir-unopt" class="code" style="font-size:clamp(0.65rem,1vw,0.88rem); line-height:1.5; max-height:75vh;"><span class="ir-map" data-ir="entry"><span class="kw">define</span> i32 <span class="fn">@fee</span>(i32 <span class="reg">%age</span>, i32 <span class="reg">%dist</span>) {</span>
+
+<span class="ir-map" data-ir="cmp1"><span style="color:var(--yellow);">entry:</span>
+  <span class="reg">%cmp1</span> = <span class="kw">icmp</span> slt i32 <span class="reg">%age</span>, 25
+  <span class="kw">br</span> i1 <span class="reg">%cmp1</span>, label <span style="color:var(--yellow);">%young</span>, label <span style="color:var(--yellow);">%older</span></span>
+
+<span class="ir-map" data-ir="young"><span style="color:var(--yellow);">young:</span>
+  <span class="kw">br</span> label <span style="color:var(--yellow);">%check_dist</span></span>
+
+<span class="ir-map" data-ir="older"><span style="color:var(--yellow);">older:</span>
+  <span class="kw">br</span> label <span style="color:var(--yellow);">%check_dist</span></span>
+
+<span class="ir-map" data-ir="cmp2"><span style="color:var(--yellow);">check_dist:</span>
+  <span class="reg">%rate</span> = <span class="kw">phi</span> i32 [3, <span style="color:var(--yellow);">%young</span>], [2, <span style="color:var(--yellow);">%older</span>]
+  <span class="reg">%cmp2</span> = <span class="kw">icmp</span> sgt i32 <span class="reg">%dist</span>, 100
+  <span class="kw">br</span> i1 <span class="reg">%cmp2</span>, label <span style="color:var(--yellow);">%far</span>, label <span style="color:var(--yellow);">%near</span></span>
+
+<span class="ir-map" data-ir="far"><span style="color:var(--yellow);">far:</span>
+  <span class="kw">br</span> label <span style="color:var(--yellow);">%compute</span></span>
+
+<span class="ir-map" data-ir="near"><span style="color:var(--yellow);">near:</span>
+  <span class="kw">br</span> label <span style="color:var(--yellow);">%compute</span></span>
+
+<span class="ir-map" data-ir="compute"><span style="color:var(--yellow);">compute:</span>
+  <span class="reg">%sur</span> = <span class="kw">phi</span> i32 [20, <span style="color:var(--yellow);">%far</span>], [0, <span style="color:var(--yellow);">%near</span>]
+  <span class="reg">%base</span> = <span class="kw">mul</span> i32 <span class="reg">%dist</span>, <span class="reg">%rate</span>
+  <span class="reg">%total</span> = <span class="kw">add</span> i32 <span class="reg">%base</span>, <span class="reg">%sur</span>
+  <span class="kw">ret</span> i32 <span class="reg">%total</span></span>
+}</div>
+        <div id="ir-opt" class="code" style="font-size:clamp(0.65rem,1vw,0.88rem); line-height:1.5; max-height:75vh; display:none;"><span class="ir-map" data-ir="entry"><span class="kw">define</span> i32 <span class="fn">@fee</span>(i32 <span class="reg">%age</span>, i32 <span class="reg">%dist</span>) {</span>
+
+<span class="ir-map" data-ir="cmp1"><span style="color:var(--yellow);">entry:</span>
+  <span class="reg">%cmp1</span> = <span class="kw">icmp</span> slt i32 <span class="reg">%age</span>, 25</span>
+<span class="ir-map" data-ir="young"><span class="ir-map" data-ir="older">  <span class="reg">%rate</span> = <span class="kw">select</span> i1 <span class="reg">%cmp1</span>, i32 3, i32 2</span></span>
+<span class="ir-map" data-ir="cmp2">  <span class="reg">%cmp2</span> = <span class="kw">icmp</span> sgt i32 <span class="reg">%dist</span>, 100</span>
+<span class="ir-map" data-ir="far"><span class="ir-map" data-ir="near">  <span class="reg">%sur</span> = <span class="kw">select</span> i1 <span class="reg">%cmp2</span>, i32 20, i32 0</span></span>
+<span class="ir-map" data-ir="compute">  <span class="reg">%base</span> = <span class="kw">mul</span> i32 <span class="reg">%dist</span>, <span class="reg">%rate</span>
+  <span class="reg">%total</span> = <span class="kw">add</span> i32 <span class="reg">%base</span>, <span class="reg">%sur</span>
+  <span class="kw">ret</span> i32 <span class="reg">%total</span></span>
+}</div>
+      </div>
+      <div>
+        <div style="font-size:clamp(0.7rem,0.9vw,0.8rem); color:var(--dim); margin-bottom:0.3em; text-transform:uppercase; letter-spacing:0.08em; font-weight:600;">What to Notice</div>
+        <div class="info-box" style="margin-bottom:0.8em;">
+          <div class="label">Basic Blocks = CFG Nodes</div>
+          Each <span style="color:var(--yellow);">label:</span> is a basic block.<br>
+          Straight-line instructions, ending<br>
+          with a <span class="kw" style="font-size:0.95em;">br</span> (branch) or <span class="kw" style="font-size:0.95em;">ret</span>.
+        </div>
+        <div class="info-box" style="margin-bottom:0.8em;">
+          <div class="label">SSA = Explicit Data Flow</div>
+          Every <span class="reg" style="font-size:0.95em;">%var</span> is assigned <strong>exactly once</strong>.<br>
+          <span class="kw" style="font-size:0.95em;">phi</span> nodes merge values from different incoming edges &mdash; the DFG is <span class="highlight">built into the IR</span>.
+        </div>
+        <div class="info-box" style="margin-bottom:0.8em;">
+          <div class="label">Two Independent phi Nodes</div>
+          <span class="reg" style="font-size:0.95em;">%rate</span> merges from young/older<br>
+          <span class="reg" style="font-size:0.95em;">%sur</span> merges from far/near<br>
+          Two <span class="highlight">independent data flows</span><br>
+          that converge in <span style="color:var(--yellow);">%compute</span>.
+        </div>
+        <div class="callout">
+          The CFG and DFG aren't abstractions you draw on a whiteboard &mdash; they're <span class="highlight">the actual compiler IR</span>.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== SLIDE 5: DFG ==================== -->
+  <div class="slide" id="s4" style="padding-top: 1.5vh; padding-bottom: 2vh; justify-content: flex-start;">
+    <div style="display:flex; align-items:baseline; gap:1em; margin-bottom:0.4em;">
+      <h3 style="margin-bottom:0;">Data Flow Graph</h3>
+      <h2 style="margin-bottom:0; font-size:clamp(1.2rem,2.2vw,1.8rem);">Where do values <span class="highlight">come from</span> and <span class="highlight">go to</span>?</h2>
+    </div>
+    <div style="display:grid; grid-template-columns:auto 1fr; gap:1.5vw; flex:1; align-items:start;">
+      <!-- Left: source code + info -->
+      <div style="min-width:0;">
+        <div class="code" style="font-size:clamp(0.65rem,1vw,0.85rem); line-height:1.6; margin-bottom:0.6em;"><span class="dfg-map" data-dfg="DA,DD"><span class="kw">def</span> <span class="fn">fee</span>(age, dist):</span>
+<span class="dfg-map" data-dfg="UA">    <span class="kw">if</span> age &lt; 25:</span>
+<span class="dfg-map" data-dfg="DR1">        rate = 3</span>
+    <span class="kw">else</span>:
+<span class="dfg-map" data-dfg="DR2">        rate = 2</span>
+
+<span class="dfg-map" data-dfg="UD1">    <span class="kw">if</span> dist &gt; 100:</span>
+<span class="dfg-map" data-dfg="DS1">        surcharge = 20</span>
+    <span class="kw">else</span>:
+<span class="dfg-map" data-dfg="DS2">        surcharge = 0</span>
+
+<span class="dfg-map" data-dfg="UR,UD2,US">    <span class="kw">return</span> dist * rate + surcharge</span></div>
+        <div class="info-box" style="margin-bottom:0.6em;">
+          <div class="label">Key Concepts</div>
+          <strong>DEF</strong> = variable is assigned a value<br>
+          <strong>USE</strong> = variable is read<br>
+          <strong>Def-use chain</strong> = which DEFs reach a USE?<br>
+          <strong>Reaching defs</strong> = at <code style="display:inline; padding:0.1em 0.3em; font-size:0.9em;">return</code>, <code style="display:inline; padding:0.1em 0.3em; font-size:0.9em;">rate</code> could be 3 OR 2
+        </div>
+        <div class="callout">
+          <strong>Why it matters:</strong><br>
+          <span class="highlight">Constant propagation</span> &mdash; replace var with known value<br>
+          <span class="highlight">Dead code elimination</span> &mdash; DEF with no USE<br>
+          <span class="warn">Uninitialized variable</span> &mdash; USE with no DEF<br>
+          <span style="color:var(--dim);">Two <strong>independent</strong> def-use chains visible here!</span>
+        </div>
+      </div>
+      <!-- Right: graph + buttons -->
+      <div>
+      <div class="mermaid-wrap" id="dfg-graph" style="flex:1; max-height: 70vh;">
+      <pre class="mermaid">
+graph LR
+    subgraph age_rate ["age → rate channel"]
+        DA["DEF(age)&lt;br&gt;@ param&ensp;&ensp;"] -.->|def-use| UA["USE(age)&lt;br&gt;@ age &lt; 25&ensp;&ensp;"]
+        DR1["DEF(rate)&lt;br&gt;@ rate = 3&ensp;&ensp;"] -.->|def-use| UR["USE(rate)&lt;br&gt;@ return&ensp;&ensp;"]
+        DR2["DEF(rate)&lt;br&gt;@ rate = 2&ensp;&ensp;"] -.->|def-use| UR
+    end
+    subgraph dist_surcharge ["dist → surcharge channel"]
+        DD["DEF(dist)&lt;br&gt;@ param&ensp;&ensp;"] -.->|def-use| UD1["USE(dist)&lt;br&gt;@ dist > 100&ensp;&ensp;"]
+        DD -.->|def-use| UD2["USE(dist)&lt;br&gt;@ return&ensp;&ensp;"]
+        DS1["DEF(surcharge)&lt;br&gt;@ surcharge = 20&ensp;&ensp;"] -.->|def-use| US["USE(surcharge)&lt;br&gt;@ return&ensp;&ensp;"]
+        DS2["DEF(surcharge)&lt;br&gt;@ surcharge = 0&ensp;&ensp;"] -.->|def-use| US
+    end
+
+    style DA fill:#1a1a2e,stroke:#6c8cff,color:#e8e8f0
+    style DR1 fill:#1a1a2e,stroke:#6c8cff,color:#e8e8f0
+    style DR2 fill:#1a1a2e,stroke:#6c8cff,color:#e8e8f0
+    style DD fill:#1a1a2e,stroke:#ff6c8c,color:#e8e8f0
+    style DS1 fill:#1a1a2e,stroke:#ff6c8c,color:#e8e8f0
+    style DS2 fill:#1a1a2e,stroke:#ff6c8c,color:#e8e8f0
+    style UA fill:#13131a,stroke:#2a2a3a,color:#8888a0
+    style UR fill:#13131a,stroke:#ffaa44,color:#e8e8f0
+    style UD1 fill:#13131a,stroke:#2a2a3a,color:#8888a0
+    style UD2 fill:#13131a,stroke:#ffaa44,color:#e8e8f0
+    style US fill:#13131a,stroke:#ffaa44,color:#e8e8f0
+      </pre>
+      </div>
+      <div class="alloy-steps" style="margin-top:0.5em;">
+        <span class="alloy-step-btn active-step dfg-btn" onclick="dfgStep('all',this)">All</span>
+        <span class="alloy-step-btn dfg-btn" onclick="dfgStep('age',this)">age → rate</span>
+        <span class="alloy-step-btn dfg-btn" onclick="dfgStep('dist',this)">dist → surcharge</span>
+        <span class="alloy-step-btn dfg-btn" onclick="dfgStep('return',this)">return (all USEs)</span>
+      </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== SLIDE 6: PDG + SLICING ==================== -->
+  <div class="slide" id="s5" style="padding-top: 1.5vh; padding-bottom: 2vh; justify-content: center;">
+    <div style="display:flex; align-items:baseline; gap:1em; margin-bottom:0.4em;">
+      <h3 style="margin-bottom:0;">Program Dependence Graph &amp; Slicing</h3>
+      <h2 style="margin-bottom:0; font-size:clamp(1.2rem,2.2vw,1.8rem);">What <span class="highlight">depends</span> on what?</h2>
+    </div>
+    <div class="two-col" style="flex:1; align-items:stretch;">
+      <div>
+        <div class="mermaid-wrap" id="pdg-graph" style="max-height: 70vh;">
+          <pre class="mermaid">
+graph TD
+    Entry["entry&ensp;&ensp;"] ==>|ctrl| P1{"age &lt; 25 ?"}
+    Entry ==>|ctrl| P2{"dist > 100 ?"}
+    Entry ==>|ctrl| RET["return&lt;br&gt;dist*rate+surcharge&ensp;&ensp;"]
+    P1 ==>|ctrl| S1["rate = 3&ensp;&ensp;"]
+    P1 ==>|ctrl| S2["rate = 2&ensp;&ensp;"]
+    P2 ==>|ctrl| S3["surcharge = 20&ensp;&ensp;"]
+    P2 ==>|ctrl| S4["surcharge = 0&ensp;&ensp;"]
+    Entry -.->|data| P1
+    Entry -.->|data| P2
+    Entry -.->|data| RET
+    S1 -.->|data| RET
+    S2 -.->|data| RET
+    S3 -.->|data| RET
+    S4 -.->|data| RET
+
+    style Entry fill:#1a1a2e,stroke:#6c8cff,color:#e8e8f0
+    style P1 fill:#1a1a2e,stroke:#ffaa44,color:#e8e8f0
+    style P2 fill:#1a1a2e,stroke:#ffaa44,color:#e8e8f0
+    style S1 fill:#1a1a2e,stroke:#4cde80,color:#e8e8f0
+    style S2 fill:#1a1a2e,stroke:#4cde80,color:#e8e8f0
+    style S3 fill:#1a1a2e,stroke:#4cde80,color:#e8e8f0
+    style S4 fill:#1a1a2e,stroke:#4cde80,color:#e8e8f0
+    style RET fill:#1a1a2e,stroke:#6c8cff,color:#e8e8f0
+          </pre>
+        </div>
+        <div class="alloy-steps" style="margin-top:0.5em;">
+          <span class="alloy-step-btn active-step slice-btn" onclick="pdgSlice('all',this)">All</span>
+          <span class="alloy-step-btn slice-btn" onclick="pdgSlice('bk-rate',this)">Backward: rate = 3</span>
+          <span class="alloy-step-btn slice-btn" onclick="pdgSlice('bk-sur',this)">Backward: surcharge = 20</span>
+          <span class="alloy-step-btn slice-btn" onclick="pdgSlice('fw-p1',this)">Forward: age &lt; 25?</span>
+          <span class="alloy-step-btn slice-btn" onclick="pdgSlice('fw-p2',this)">Forward: dist > 100?</span>
+        </div>
+      </div>
+      <div>
+        <div class="callout">
+          <strong>PDG = Control deps + Data deps</strong><br>
+          <span style="color:var(--accent);">Solid &rArr;</span> = control dependence<br>
+          <span style="color:var(--dim);">Dashed &dash;&dash;&gt;</span> = data dependence
+        </div>
+        <div class="info-box" style="margin-top: 0.8em;" id="pdg-slice-info">
+          <div class="label">Program Slicing</div>
+          <em>"What is the minimal subset of the program that could affect variable v at line n?"</em><br><br>
+          <strong>Backward slice</strong>: trace deps backwards &mdash; what contributed to this value?<br>
+          <strong>Forward slice</strong>: trace deps forward &mdash; what does this statement affect?<br><br>
+          <span style="color:var(--dim); font-size:0.9em;">Click the buttons below the graph to visualize slices.</span>
+        </div>
+        <div class="info-box" style="margin-top: 0.8em;">
+          <div class="label">Extensions</div>
+          <strong>SDG</strong> (System Dependence Graph) &mdash; PDG + interprocedural edges (call/return) for whole-program slicing
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== SLIDE 8: HYPOTHESIS ==================== -->
+  <div class="slide" id="s7">
+    <h3>Property-Based Testing</h3>
+    <h2>Hypothesis: Does it hold for <span class="highlight">many</span> inputs?</h2>
+    <div class="two-col" style="grid-template-columns: 3fr 2fr;">
+      <div class="code" style="max-height:80vh;"><span class="kw">from</span> hypothesis <span class="kw">import</span> given, strategies <span class="kw">as</span> st
+
+<span class="cm"># Property: fee is always non-negative</span>
+<span class="fn">@given</span>(st.integers(0, 120), st.integers(0, 1000))
+<span class="kw">def</span> <span class="fn">test_fee_non_negative</span>(age, dist):
+    <span class="kw">assert</span> fee(age, dist) >= 0
+
+<span class="cm"># Property: young drivers always pay more</span>
+<span class="fn">@given</span>(st.integers(0, 1000))
+<span class="kw">def</span> <span class="fn">test_young_pay_more</span>(dist):
+    young = fee(20, dist)
+    older = fee(30, dist)
+    <span class="kw">assert</span> young >= older
+
+<span class="cm"># Property: fee is linear in distance</span>
+<span class="fn">@given</span>(st.integers(0, 120), st.integers(1, 998))
+<span class="kw">def</span> <span class="fn">test_fee_linear</span>(age, dist):
+    step = fee(age, dist + 1) - fee(age, dist)
+    prev = fee(age, dist) - fee(age, dist - 1)
+    <span class="kw">assert</span> step == prev
+
+<span class="cm"># Hypothesis generates 100s of inputs</span>
+<span class="cm"># and SHRINKS failures to minimal cases</span>
+<span class="cm">#</span>
+<span class="cm"># <span class="warn">Found: fee(20,101)−fee(20,100) = 23</span></span>
+<span class="cm"># <span class="warn">but   fee(20,100)−fee(20, 99) = 3</span></span>
+<span class="cm"># <span class="warn">surcharge jump breaks linearity!</span></span></div>
+      <div>
+        <div class="info-box" style="white-space:nowrap;">
+          <div class="label">Key Idea</div>
+          You write <span class="highlight">properties</span> (invariants), not examples.<br>
+          The framework <span class="highlight">generates inputs</span> &mdash; including edge cases you'd never think of.<br>
+          Failing inputs are <span class="ok">shrunk</span> to the simplest counterexample.
+        </div>
+
+        <!-- Hypothesis animation: live input generation -->
+        <div id="hyp-anim" style="margin-top:0.8em;">
+          <div class="info-box" style="font-family:'JetBrains Mono',monospace; font-size:clamp(0.65rem,1vw,0.8rem); line-height:1.7; min-height:10em;">
+            <div class="label" style="display:flex; justify-content:space-between; align-items:center;">
+              <span>Live Generation</span>
+              <span id="hyp-status" style="font-size:0.85em; letter-spacing:0; text-transform:none; font-weight:400; color:var(--green);">&#9679; running</span>
+            </div>
+            <div id="hyp-log" style="overflow:hidden;"></div>
+          </div>
+        </div>
+
+        <div class="callout" style="margin-top: 0.8em;">
+          <strong>The gap it bridges:</strong><br><br>
+          <span class="tag">Example tests</span> "works on <em>my</em> cases"<br>
+          <span style="font-size:1.3em; color:var(--dim);">&darr;</span><br>
+          <span class="tag" style="border-color:var(--green);">Property tests</span> "works for <em>many</em> random inputs"<br>
+          <span style="font-size:1.3em; color:var(--dim);">&darr;</span><br>
+          <span class="tag" style="border-color:var(--accent);">Formal proof</span> "works for <em>all</em> inputs, <em>proven</em>"
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== SLIDE 9: KLEE ==================== -->
+  <div class="slide" id="s8" style="justify-content: center;">
+    <div style="display:flex; align-items:baseline; gap:1em; margin-bottom:0.4em;">
+      <h3 style="margin-bottom:0;">Concolic Testing</h3>
+      <h2 style="margin-bottom:0; font-size:clamp(1.2rem,2.2vw,1.8rem);">KLEE: Concrete + Symbolic = <span class="highlight">every path</span></h2>
+    </div>
+    <div style="display:grid; grid-template-columns:1fr 2fr 1.5fr; gap:1.5vw; flex:1; align-items:start;">
+      <div>
+        <div class="code" style="font-size:clamp(0.65rem,1vw,0.85rem); line-height:1.5;"><span class="kw">def</span> <span class="fn">fee</span>(age, dist):
+  <span class="kw">if</span> age &lt; 25:
+    rate = 3
+  <span class="kw">else</span>:
+    rate = 2
+
+  <span class="kw">if</span> dist &gt; 100:
+    surcharge = 20
+  <span class="kw">else</span>:
+    surcharge = 0
+
+  <span class="kw">return</span> dist*rate+surcharge</div>
+      </div>
+      <div>
+        <div class="mermaid-wrap" id="klee-graph" style="max-height: 70vh;">
+          <pre class="mermaid">
+graph TD
+    R["fee(age, dist)&ensp;&ensp;"] --> A{"age &lt; 25 ?"}
+    A -- "T: age&lt;25" --> B1{"dist > 100 ?"}
+    A -- "F: age≥25" --> B2{"dist > 100 ?"}
+    B1 -- T --> P1["path 1:&lt;br&gt;3×dist + 20&ensp;&ensp;"]
+    B1 -- F --> P2["path 2:&lt;br&gt;3×dist&ensp;&ensp;"]
+    B2 -- T --> P3["path 3:&lt;br&gt;2×dist + 20&ensp;&ensp;"]
+    B2 -- F --> P4["path 4:&lt;br&gt;2×dist&ensp;&ensp;"]
+
+    style R fill:#1a1a2e,stroke:#6c8cff,color:#e8e8f0
+    style A fill:#1a1a2e,stroke:#ffaa44,color:#e8e8f0
+    style B1 fill:#1a1a2e,stroke:#ffaa44,color:#e8e8f0
+    style B2 fill:#1a1a2e,stroke:#ffaa44,color:#e8e8f0
+    style P1 fill:#1a1a2e,stroke:#4cde80,color:#e8e8f0
+    style P2 fill:#1a1a2e,stroke:#4cde80,color:#e8e8f0
+    style P3 fill:#1a1a2e,stroke:#4cde80,color:#e8e8f0
+    style P4 fill:#1a1a2e,stroke:#4cde80,color:#e8e8f0
+          </pre>
+        </div>
+        <div class="alloy-steps" style="margin-top:0.5em;">
+          <span class="alloy-step-btn active-step klee-btn" onclick="kleeStep(0,this)">Overview</span>
+          <span class="alloy-step-btn klee-btn" onclick="kleeStep(1,this)">1. Concrete Run</span>
+          <span class="alloy-step-btn klee-btn" onclick="kleeStep(2,this)">2. Collect &pi;</span>
+          <span class="alloy-step-btn klee-btn" onclick="kleeStep(3,this)">3. Negate</span>
+          <span class="alloy-step-btn klee-btn" onclick="kleeStep(4,this)">4. New Path</span>
+          <span class="alloy-step-btn klee-btn" onclick="kleeStep(5,this)">5. All Explored</span>
+        </div>
+      </div>
+      <div>
+        <div class="info-box" id="klee-info">
+          <div class="label">How Concolic Works</div>
+          <div id="klee-step-content">
+            <strong>1.</strong> Run concretely: $age{=}30,\; dist{=}50$<br>
+            &nbsp;&nbsp;&nbsp;&rarr; takes path F, F<br><br>
+            <strong>2.</strong> Collect path constraint:<br>
+            &nbsp;&nbsp;&nbsp;$(age \ge 25) \;\land\; (dist \le 100)$<br><br>
+            <strong>3.</strong> <span class="highlight">Negate</span> last conjunct:<br>
+            &nbsp;&nbsp;&nbsp;$(age \ge 25) \;\land\; \color{#ff6c8c}{(dist > 100)}$<br><br>
+            <strong>4.</strong> Solve &rarr; $age{=}30,\; dist{=}150$<br><br>
+            <strong>5.</strong> Run with new input &rarr; new path<br><br>
+            <strong>6.</strong> Repeat until <span class="ok">all 4 paths explored</span>
+          </div>
+        </div>
+        <!-- Constraint store (shown during animation) -->
+        <div class="info-box" id="klee-constraint" style="display:none; margin-top:0.8em; border-color:var(--orange);">
+          <div class="label" style="color:var(--orange);">Path Condition Store</div>
+          <div id="klee-pc" style="font-family:'JetBrains Mono',monospace; font-size:clamp(0.65rem,0.95vw,0.82rem); line-height:1.7;"></div>
+        </div>
+        <!-- SMT-LIB formulation (shown during animation) -->
+        <div class="info-box" id="klee-smt" style="display:none; margin-top:0.8em; border-color:var(--green);">
+          <div class="label" style="color:var(--green);">SMT-LIB Query</div>
+          <div id="klee-smt-content" style="font-family:'JetBrains Mono',monospace; font-size:clamp(0.65rem,0.95vw,0.82rem); line-height:1.6; white-space:pre; color:var(--text);"></div>
+        </div>
+        <div class="callout" id="klee-coreutils" style="margin-top: 0.8em;">
+          <strong>KLEE</strong> found bugs in <span class="warn">all UNIX coreutils</span><br>
+          (cat, echo, ls, ...) that were there for decades.
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ==================== SLIDE 7: ALLOY (animated) ==================== -->
+  <div class="slide" id="s6" style="justify-content: center;">
+    <h3>Formal Specification (Bounded Model Checking)</h3>
+    <h2>Alloy: What <span class="highlight">should</span> the system do?</h2>
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:2vw; align-items:start;">
+
+      <!-- LEFT: code with clickable zones -->
+      <div>
+        <div class="code" style="white-space: pre; overflow-x: auto; max-height: 80vh;"><span class="code-hl" data-step="1" style="display:block;"><span class="cm">-- A simple access control model</span>
+<span class="kw">sig</span> User {}
+<span class="kw">sig</span> Resource {}
+<span class="kw">sig</span> Permission {
+    user: <span class="kw">one</span> User,
+    resource: <span class="kw">one</span> Resource,
+    level: <span class="kw">one</span> Level
+}
+<span class="kw">enum</span> Level { Read, Write, Admin }</span><span class="code-hl" data-step="2" style="display:block;">
+<span class="cm">-- No user can have Write without Read</span>
+<span class="kw">fact</span> escalation {
+    <span class="kw">all</span> p: Permission |
+        p.level = Write <span class="kw">implies</span>
+        <span class="kw">some</span> q: Permission |
+            q.user = p.user
+            <span class="kw">and</span> q.resource = p.resource
+            <span class="kw">and</span> q.level = Read
+}</span><span class="code-hl" data-step="3" style="display:block;">
+<span class="cm">-- Can a user get Admin on everything?</span>
+<span class="kw">run</span> find_omnipotent {
+    <span class="kw">some</span> u: User | <span class="kw">all</span> r: Resource |
+        <span class="kw">some</span> p: Permission |
+            p.user = u <span class="kw">and</span> p.resource = r
+            <span class="kw">and</span> p.level = Admin
+} <span class="kw">for</span> 4</span></div>
+
+        <!-- Step buttons -->
+        <div class="alloy-steps">
+          <span class="alloy-step-btn" data-step="0" onclick="alloyStep(0)">Overview</span>
+          <span class="alloy-step-btn" data-step="1" onclick="alloyStep(1)">1. Signatures</span>
+          <span class="alloy-step-btn" data-step="2" onclick="alloyStep(2)">2. Constraints</span>
+          <span class="alloy-step-btn" data-step="3" onclick="alloyStep(3)">3. Analysis</span>
+          <span class="alloy-step-btn" data-step="4" onclick="alloyStep(4)">4. Counterexample</span>
+        </div>
+      </div>
+
+      <!-- RIGHT: annotation panel (swaps content with steps) -->
+      <div style="display:flex; flex-direction:column; gap:0.8em;" id="alloy-right">
+        <!-- Callout panels for steps 1-3 -->
+        <div class="info-box" id="pop1" style="display:none; border-color:var(--green);">
+          <div class="label" style="color:var(--green);">sig = Signature (a type)</div>
+          Each <code style="display:inline;padding:0.1em 0.3em;font-size:0.9em;">sig</code> declares a <strong>set of atoms</strong>. Think of it like a class, but with no methods &mdash; only structure.<br><br>
+          <code style="display:inline;padding:0.1em 0.3em;font-size:0.9em;">one</code> = exactly one relation. Alloy is <strong>relational</strong>: fields are binary relations, not values.
+        </div>
+        <div class="info-box" id="pop2" style="display:none; border-color:var(--orange);">
+          <div class="label" style="color:var(--orange);">fact = Invariant (always true)</div>
+          This is a <strong>constraint</strong>, not code. It doesn't <em>execute</em> &mdash; it <em>restricts</em> which instances are valid.<br><br>
+          <span class="highlight">all/some</span> = first-order quantifiers. Read as: "for every permission with Write level, there must exist a Read permission for the same user+resource."<br><br>
+          <span style="color:var(--orange);">The Analyzer will refuse to generate any world that violates this.</span>
+        </div>
+        <div class="info-box" id="pop3" style="display:none; border-color:var(--accent2);">
+          <div class="label" style="color:var(--accent2);">run = "Find me an example"</div>
+          The Analyzer searches <strong>all possible worlds</strong> with up to 4 atoms per sig.<br><br>
+          <code style="display:inline;padding:0.1em 0.3em;font-size:0.9em;">for 4</code> = scope bound. Alloy checks <em>every</em> combination within this bound. Small scope hypothesis: most bugs show up in small instances.<br><br>
+          <span class="warn">If it finds one &rarr; your spec allows it.<br>If no instance exists &rarr; your constraints prevent it.</span><br><br>
+          This is <strong>bounded model checking</strong> via SAT solving under the hood.
+        </div>
+
+        <!-- Overview (default) -->
+        <div class="info-box" id="alloy-info">
+          <div class="label">Key Idea</div>
+          <span class="highlight">Declarative</span>: say <em>what</em> you want, not <em>how</em><br><br>
+          The <strong>Alloy Analyzer</strong> exhaustively checks all instances up to a bound.<br><br>
+          Finds <span class="warn">counterexamples</span> automatically &mdash; "here's a state your spec allows but you didn't intend."
+        </div>
+        <div class="callout" id="alloy-detail">
+          <strong>Used for:</strong> Protocol design, API modeling, architecture validation, security policy checking
+        </div>
+
+        <!-- Counterexample box (hidden until step 4) -->
+        <div class="info-box" id="alloy-cex" style="display:none; border-color: var(--accent2);">
+          <div class="label" style="color:var(--accent2);">Counterexample Found</div>
+          <div style="font-family:'JetBrains Mono',monospace; font-size:clamp(0.65rem,0.95vw,0.82rem); line-height:1.7; white-space:pre; color:var(--text);">
+<span style="color:var(--accent2);">Instance found:</span>
+
+User = {Alice, Bob}
+Resource = {DB, API}
+
+Permission = {
+  <span style="color:var(--green);">Alice &rarr; DB  &rarr; Read</span>
+  <span style="color:var(--green);">Alice &rarr; DB  &rarr; Write</span>
+  <span style="color:var(--accent2);">Alice &rarr; DB  &rarr; Admin</span>
+  <span style="color:var(--accent2);">Alice &rarr; API &rarr; Admin</span>  <span style="color:var(--yellow);">&larr; no Read!</span>
+}
+
+<span style="color:var(--accent2);">Gap in escalation fact!</span>
+<span style="color:var(--yellow);">Your fact requires Read before
+Write, but says nothing about Admin.</span>
+<span style="color:var(--yellow);">Spec bug found automatically.</span></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ==================== SLIDE 10: BIG PICTURE ==================== -->
+  <div class="slide" id="s9" style="padding-top: 1.5vh; justify-content: flex-start;">
+    <div style="display:flex; align-items:baseline; gap:1em; margin-bottom:0.4em;">
+      <h3 style="margin-bottom:0;">The Big Picture</h3>
+      <h2 style="margin-bottom:0; font-size:clamp(1.2rem,2.2vw,1.8rem);">A stack of <span class="highlight">mathematical lenses</span></h2>
+    </div>
+    <div style="display:grid; grid-template-columns:3fr 1fr; gap:2vw; flex:1; align-items:start;">
+      <div>
+        <div class="mermaid-wrap" id="bp-graph" style="max-height: 75vh;">
+          <pre class="mermaid">
+graph TD
+    SRC["Source Code&lt;br&gt;what humans write&ensp;&ensp;"] --> CFG
+    CFG["CFG&lt;br&gt;what paths exist?&ensp;&ensp;"] --> DFG
+    DFG["DFG&lt;br&gt;where do values flow?&ensp;&ensp;"] --> PDG
+    PDG["PDG&lt;br&gt;what depends on what?&ensp;&ensp;"] --> SLC["Slicing&lt;br&gt;minimal relevant subset&ensp;&ensp;"]
+
+    SRC --> SPEC["Formal Spec — Alloy&lt;br&gt;is the design consistent?&ensp;&ensp;"]
+    SRC --> PROP["Property Testing — Hypothesis&lt;br&gt;do invariants hold?&ensp;&ensp;"]
+    SRC --> CONC["Concolic Testing — KLEE&lt;br&gt;what does every path do?&ensp;&ensp;"]
+
+    style SRC fill:#1a1a2e,stroke:#6c8cff,color:#e8e8f0
+    style CFG fill:#1a1a2e,stroke:#4cde80,color:#e8e8f0
+    style DFG fill:#1a1a2e,stroke:#4cde80,color:#e8e8f0
+    style PDG fill:#1a1a2e,stroke:#4cde80,color:#e8e8f0
+    style SLC fill:#1a1a2e,stroke:#ffaa44,color:#e8e8f0
+    style SPEC fill:#1a1a2e,stroke:#ff6c8c,color:#e8e8f0
+    style PROP fill:#1a1a2e,stroke:#ff6c8c,color:#e8e8f0
+    style CONC fill:#1a1a2e,stroke:#ff6c8c,color:#e8e8f0
+          </pre>
+        </div>
+        <div class="alloy-steps" style="margin-top:0.5em;">
+          <span class="alloy-step-btn active-step bp-btn" onclick="bpHighlight('all',this)">All</span>
+          <span class="alloy-step-btn bp-btn" onclick="bpHighlight('graphs',this)">Graph Analysis</span>
+          <span class="alloy-step-btn bp-btn" onclick="bpHighlight('alloy',this)">Alloy</span>
+          <span class="alloy-step-btn bp-btn" onclick="bpHighlight('hypothesis',this)">Hypothesis</span>
+          <span class="alloy-step-btn bp-btn" onclick="bpHighlight('klee',this)">KLEE</span>
+        </div>
+      </div>
+      <div>
+        <div class="info-box" style="margin-bottom: 1em;" id="bp-info-graphs">
+          <div class="label">Graph-Based Analysis</div>
+          <span class="ok">CFG</span> &rarr; <span class="ok">DFG</span> &rarr; <span class="ok">PDG</span> &rarr; <span class="highlight">Slicing</span><br><br>
+          Build the graph. Traverse the graph. Answer the question.<br>
+          Each layer adds a new kind of edge.
+        </div>
+        <div class="info-box" style="margin-bottom: 1em;" id="bp-info-tools">
+          <div class="label">Specification &amp; Testing</div>
+          <span class="warn">Alloy</span> &mdash; check designs before code exists<br>
+          <span class="warn">Hypothesis</span> &mdash; check properties across many random inputs<br>
+          <span class="warn">KLEE</span> &mdash; systematically explore every path
+        </div>
+        <div class="callout" id="bp-info-closing">
+          Mathematical models make the <span class="highlight">invisible</span> visible.<br>
+          Tools automate what humans <span class="warn">can't do</span> by hand.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== SLIDE 11: FORMAL METHODS × LLMs ==================== -->
+  <div class="slide" id="s10" style="justify-content: flex-start; padding-top: 2vh;">
+    <h3>Why Now?</h3>
+    <h2>Formal Methods &times; <span class="highlight">Large Language Models</span></h2>
+    <div class="two-col" style="margin-top:0.8em;">
+      <div>
+        <div class="info-box" style="margin-bottom:0.8em;">
+          <div class="label">LLM Inference &mdash; Context Window</div>
+          LLMs have a <span class="warn">finite context window</span>. You can't feed an entire codebase into a prompt.<br><br>
+          <span class="highlight">Program slicing</span> gives the principled answer: the backward slice is exactly the minimal code the model needs to reason about a bug or feature.<br><br>
+          <span style="color:var(--dim);">Slicing turns a whole-program problem into a focused, context-window-sized problem.</span>
+        </div>
+        <div class="info-box">
+          <div class="label">LLM Inference &mdash; Structured Generation</div>
+          CFGs and formal specs can <span class="highlight">constrain</span> LLM output at decode time &mdash; ensuring generated code follows valid control flow or satisfies type/API contracts.
+        </div>
+      </div>
+      <div>
+        <div class="info-box" style="margin-bottom:0.8em;">
+          <div class="label">Training &mdash; Data Quality</div>
+          <span class="highlight">Property-based testing</span> can validate training data at scale &mdash; checking that code examples satisfy invariants before they enter the training set.<br><br>
+          <span style="color:var(--dim);">Garbage in, garbage out &mdash; formal properties are a filter.</span>
+        </div>
+        <div class="info-box" style="margin-bottom:0.8em;">
+          <div class="label">Training &mdash; Reward &amp; Verification</div>
+          Formal specifications can serve as <span class="highlight">automatic reward signals</span> for RLHF &mdash; did the generated code satisfy the spec?<br><br>
+          <span class="ok">KLEE</span> and <span class="ok">Alloy</span> can verify LLM-generated code <span class="highlight">without running user tests</span>.
+        </div>
+        <div class="callout">
+          Formal methods aren't replaced by LLMs &mdash; they're the <span class="highlight">missing verification layer</span> that makes LLM-generated code trustworthy.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== SLIDE 12: CLOSING ==================== -->
+  <div class="slide" id="s11">
+    <h3>Takeaway</h3>
+    <h1>We don't just write code.</h1>
+    <h1 style="margin-top: 0.2em;">We build <span class="highlight">mathematical models</span> of code &mdash;</h1>
+    <h1 style="margin-top: 0.2em;">and let <span class="ok">tools</span> reason for us.</h1>
+    <ul style="margin-top: 1.5em;">
+      <li>CFGs are in <span class="highlight">every compiler</span></li>
+      <li>Slicing is in <span class="highlight">every modern IDE</span> &mdash; and the key to fitting code into <span class="highlight">LLM context windows</span></li>
+      <li>KLEE found bugs in coreutils that were there for <span class="warn">decades</span></li>
+      <li>Formal specs can be <span class="highlight">reward signals</span> and <span class="highlight">verification oracles</span> for LLM-generated code</li>
+      <li>These aren't academic curiosities &mdash; they're <span class="highlight">already in your tools</span></li>
+    </ul>
+    <div class="quote" style="margin-top: 1.5em;">"The mathematical models are already under the hood. Now you know what's there."</div>
+  </div>
+
+</div>
+
+<!-- back to writing -->
+<a href="./" class="deck-back" title="Back to Writing" style="position: fixed; top: 1rem; left: 1rem; z-index: 100; font: 500 0.85rem/1 'Inter', system-ui, sans-serif; color: var(--dim); text-decoration: none; padding: .4rem .7rem; border: 1px solid var(--border); border-radius: 4px; background: var(--surface); letter-spacing: .02em;">← Writing</a>
+
+<!-- theme toggle -->
+<button class="theme-toggle" id="themeToggle" title="Toggle light/dark mode" onclick="toggleTheme()">&#9789;</button>
+
+<!-- progress bar + slide number -->
+<div class="progress" id="progress"></div>
+<div class="slide-num" id="slideNum"></div>
+
+<script>
+  // ── Mermaid theme configs ──
+  const mermaidDark = {
+    startOnLoad: false,
+    theme: 'dark',
+    themeVariables: {
+      darkMode: true,
+      background: '#13131a',
+      primaryColor: '#1a1a2e',
+      primaryTextColor: '#e8e8f0',
+      primaryBorderColor: '#6c8cff',
+      lineColor: '#6c8cff',
+      secondaryColor: '#1a1a2e',
+      tertiaryColor: '#1a1a2e',
+      fontFamily: 'Inter, system-ui, sans-serif',
+      fontSize: '14px',
+      edgeLabelBackground: '#13131a',
+      clusterBkg: 'transparent',
+      clusterBorder: '#2a2a3a'
+    },
+    flowchart: { curve: 'basis', padding: 15, htmlLabels: true, nodeSpacing: 18, rankSpacing: 30 }
+  };
+  const mermaidLight = {
+    startOnLoad: false,
+    theme: 'default',
+    themeVariables: {
+      darkMode: false,
+      background: '#ffffff',
+      primaryColor: '#e4ecff',
+      primaryTextColor: '#1a1a2e',
+      primaryBorderColor: '#4060d8',
+      lineColor: '#5a6a9a',
+      secondaryColor: '#e2f7eb',
+      tertiaryColor: '#fff2e0',
+      fontFamily: 'Inter, system-ui, sans-serif',
+      fontSize: '14px',
+      edgeLabelBackground: '#ffffff',
+      clusterBkg: 'transparent',
+      clusterBorder: '#c8c8d8'
+    },
+    flowchart: { curve: 'basis', padding: 15, htmlLabels: true, nodeSpacing: 18, rankSpacing: 30 }
+  };
+
+  mermaid.initialize(mermaidDark);
+
+  // Store original graph sources and their parent containers
+  const mermaidSources = [];
+  document.querySelectorAll('pre.mermaid').forEach((el, i) => {
+    mermaidSources.push({ index: i, source: el.textContent, parent: el.parentElement });
+  });
+
+  let renderCounter = 0;
+
+  // Render (or re-render) all mermaid diagrams with given config
+  async function renderAllMermaid(config) {
+    mermaid.initialize(config);
+    renderCounter++;
+    const batch = renderCounter;
+
+    const allSlides = document.querySelectorAll('.slide');
+    allSlides.forEach(s => { s.style.display = 'flex'; s.style.opacity = '0'; s.style.position = 'absolute'; });
+
+    for (let i = 0; i < mermaidSources.length; i++) {
+      const { source, parent } = mermaidSources[i];
+      // For light mode, rewrite inline node fills to match tinted backgrounds
+      let graphDef = source;
+      if (config === mermaidLight) {
+        graphDef = graphDef
+          .replace(/fill:#1a1a2e,stroke:#6c8cff,color:#e8e8f0/g, 'fill:#e4ecff,stroke:#4060d8,color:#1a1a2e')
+          .replace(/fill:#1a1a2e,stroke:#ffaa44,color:#e8e8f0/g, 'fill:#fff2e0,stroke:#b06818,color:#1a1a2e')
+          .replace(/fill:#1a1a2e,stroke:#4cde80,color:#e8e8f0/g, 'fill:#e2f7eb,stroke:#1a8848,color:#1a1a2e')
+          .replace(/fill:#1a1a2e,stroke:#ff6c8c,color:#e8e8f0/g, 'fill:#ffe6ed,stroke:#d03058,color:#1a1a2e')
+          .replace(/fill:#1a1a2e,stroke:#2a2a3a,color:#8888a0/g, 'fill:#eeeef4,stroke:#c8c8d8,color:#5a5a78')
+          .replace(/fill:#13131a,stroke:#2a2a3a,color:#8888a0/g, 'fill:#eeeef4,stroke:#c8c8d8,color:#5a5a78')
+          .replace(/fill:#13131a,stroke:#ffaa44,color:#e8e8f0/g, 'fill:#fff2e0,stroke:#b06818,color:#1a1a2e');
+      }
+
+      const id = 'mermaid-r' + batch + '-' + i;
+      try {
+        const { svg } = await mermaid.render(id, graphDef);
+        const wrapper = document.createElement('div');
+        wrapper.innerHTML = svg;
+        const svgEl = wrapper.querySelector('svg');
+        if (svgEl) {
+          svgEl.querySelectorAll('[class*="node"] rect.label-container').forEach(r => {
+            const w = parseFloat(r.getAttribute('width') || 0);
+            r.setAttribute('width', w + 12);
+            r.setAttribute('x', parseFloat(r.getAttribute('x') || 0) - 6);
+          });
+          svgEl.querySelectorAll('[class*="node"] foreignObject').forEach(fo => {
+            const w = parseFloat(fo.getAttribute('width') || 0);
+            fo.setAttribute('width', w + 12);
+          });
+          const vb = svgEl.getAttribute('viewBox');
+          if (vb) {
+            const parts = vb.split(/[\s,]+/).map(Number);
+            const pad = 10;
+            parts[0] -= pad; parts[1] -= pad;
+            parts[2] += pad * 2; parts[3] += pad * 2;
+            svgEl.setAttribute('viewBox', parts.join(' '));
+          }
+        }
+        // Replace existing SVG (or leftover pre) in the parent
+        const existing = parent.querySelector('svg') || parent.querySelector('pre.mermaid');
+        if (existing) existing.replaceWith(svgEl || wrapper.firstChild);
+      } catch (e) {
+        console.error('Mermaid render error for diagram ' + i, e);
+      }
+    }
+
+    allSlides.forEach(s => { s.style.display = ''; s.style.opacity = ''; s.style.position = ''; });
+  }
+
+  const slides = document.querySelectorAll('.slide');
+  const progress = document.getElementById('progress');
+  const slideNum = document.getElementById('slideNum');
+  let current = 0;
+
+  function show(n) {
+    slides[current].classList.remove('active');
+    current = Math.max(0, Math.min(n, slides.length - 1));
+    slides[current].classList.add('active');
+    progress.style.width = ((current / (slides.length - 1)) * 100) + '%';
+    slideNum.textContent = (current + 1) + ' / ' + slides.length;
+  }
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') { e.preventDefault(); show(current + 1); }
+    if (e.key === 'ArrowLeft' || e.key === 'Backspace' || e.key === 'PageUp') { e.preventDefault(); show(current - 1); }
+    if (e.key === 'Home') { e.preventDefault(); show(0); }
+    if (e.key === 'End') { e.preventDefault(); show(slides.length - 1); }
+    if (e.key === 'f' || e.key === 'F') {
+      if (!document.fullscreenElement) document.documentElement.requestFullscreen();
+      else document.exitFullscreen();
+    }
+  });
+
+  let touchX = 0;
+  document.addEventListener('touchstart', e => { touchX = e.touches[0].clientX; });
+  document.addEventListener('touchend', e => {
+    const dx = e.changedTouches[0].clientX - touchX;
+    if (Math.abs(dx) > 50) show(current + (dx < 0 ? 1 : -1));
+  });
+
+  // ── Alloy animated callouts ──
+  let alloyActive = -1;
+
+  function alloyStep(step) {
+    // clear all highlights
+    document.querySelectorAll('.code-hl').forEach(h => h.classList.remove('active-hl'));
+    document.querySelectorAll('.alloy-step-btn[data-step]').forEach(b => b.classList.remove('active-step'));
+
+    const cex = document.getElementById('alloy-cex');
+    const info = document.getElementById('alloy-info');
+    const detail = document.getElementById('alloy-detail');
+    const pop1 = document.getElementById('pop1');
+    const pop2 = document.getElementById('pop2');
+    const pop3 = document.getElementById('pop3');
+
+    // hide all right-panel items
+    [pop1, pop2, pop3, cex, info, detail].forEach(el => el.style.display = 'none');
+
+    alloyActive = step;
+
+    // activate button
+    const btn = document.querySelector(`.alloy-step-btn[data-step="${step}"]`);
+    if (btn) btn.classList.add('active-step');
+
+    if (step === 0) {
+      info.style.display = '';
+      detail.style.display = '';
+    } else if (step >= 1 && step <= 3) {
+      const hl = document.querySelector(`.code-hl[data-step="${step}"]`);
+      const pop = document.getElementById('pop' + step);
+      if (hl) hl.classList.add('active-hl');
+      if (pop) pop.style.display = '';
+      info.style.display = '';
+    } else if (step === 4) {
+      const hl = document.querySelector('.code-hl[data-step="3"]');
+      if (hl) hl.classList.add('active-hl');
+      cex.style.display = '';
+    }
+  }
+
+  // also allow clicking code zones directly
+  document.querySelectorAll('.code-hl').forEach(el => {
+    el.addEventListener('click', () => {
+      const s = parseInt(el.dataset.step);
+      alloyStep(s === alloyActive ? 0 : s);
+    });
+  });
+
+  // ── Edge-label sync helper ──
+  // Mermaid v11 edge labels often lack IDs, so the ID-based dimming
+  // in animation functions skips them.  This correlates labels with
+  // their edge paths by index (Mermaid renders them in the same order).
+  // Uses querySelectorAll to handle subgraph graphs where containers
+  // may be split or nested, with a fallback to individual elements.
+  function syncEdgeLabels(svg) {
+    if (!svg) return;
+    let paths = [];
+    let labels = [];
+    // Collect from ALL .edgePaths / .edgeLabels containers (handles subgraphs)
+    svg.querySelectorAll('.edgePaths').forEach(c => paths.push(...c.children));
+    svg.querySelectorAll('.edgeLabels').forEach(c => labels.push(...c.children));
+    // Fallback: match individual elements directly
+    if (!paths.length || !labels.length) {
+      paths = [...svg.querySelectorAll('[class*="edge-pattern"]')].filter(e => e.id);
+      labels = [...svg.querySelectorAll('.edgeLabel')];
+    }
+    for (let i = 0; i < labels.length; i++) {
+      if (i < paths.length) {
+        const dimmed = paths[i].classList.contains('dim-inactive') ||
+                       !!paths[i].querySelector('.dim-inactive');
+        if (dimmed) labels[i].classList.add('dim-inactive');
+        else labels[i].classList.remove('dim-inactive');
+      }
+    }
+  }
+
+  // ── PDG Slice Animation ──
+  function pdgSlice(which, btn) {
+    const container = document.getElementById('pdg-graph');
+    if (!container) return;
+    const svg = container.querySelector('svg');
+    if (!svg) return;
+
+    const slices = {
+      'all': null,
+      'bk-rate': ['Entry','P1','S1'],
+      'bk-sur':  ['Entry','P2','S3'],
+      'fw-p1':   ['P1','S1','S2','RET'],
+      'fw-p2':   ['P2','S3','S4','RET']
+    };
+
+    const sliceDesc = {
+      'all': '<em>"What is the minimal subset of the program that could affect variable v at line n?"</em><br><br><strong>Backward slice</strong>: trace deps backwards — what contributed to this value?<br><strong>Forward slice</strong>: trace deps forward — what does this statement affect?<br><br><span style="color:var(--dim); font-size:0.9em;">Click the buttons below the graph to visualize slices.</span>',
+      'bk-rate': '<strong>Backward slice</strong> from <code style="display:inline;padding:0.1em 0.3em;font-size:0.9em;">rate = 3</code><br><br>Trace all dependencies backwards:<br><span class="ok">rate = 3</span> ← ctrl <span style="color:var(--orange);">age &lt; 25?</span> ← ctrl <span style="color:var(--accent);">entry</span><br><br><span style="color:var(--dim);">Only 3 nodes! Nothing about <code style="display:inline;padding:0.1em 0.3em;font-size:0.85em;">dist</code> or <code style="display:inline;padding:0.1em 0.3em;font-size:0.85em;">surcharge</code> — they are completely independent.</span>',
+      'bk-sur': '<strong>Backward slice</strong> from <code style="display:inline;padding:0.1em 0.3em;font-size:0.9em;">surcharge = 20</code><br><br>Trace all dependencies backwards:<br><span class="warn">surcharge = 20</span> ← ctrl <span style="color:var(--orange);">dist > 100?</span> ← ctrl <span style="color:var(--accent);">entry</span><br><br><span style="color:var(--dim);">Only 3 nodes! Completely disjoint from the rate slice — the two computation channels are <strong>independent</strong>.</span>',
+      'fw-p1': '<strong>Forward slice</strong> from <code style="display:inline;padding:0.1em 0.3em;font-size:0.9em;">age &lt; 25?</code><br><br>What does this predicate affect?<br><span style="color:var(--orange);">age&lt;25?</span> → ctrl <span class="ok">rate=3</span>, <span class="ok">rate=2</span><br><span class="ok">rate</span> → data <span class="highlight">return</span><br><br><span style="color:var(--dim);">4 nodes. Changing the age threshold affects rate selection and the final result — but NOT the surcharge.</span>',
+      'fw-p2': '<strong>Forward slice</strong> from <code style="display:inline;padding:0.1em 0.3em;font-size:0.9em;">dist > 100?</code><br><br>What does this predicate affect?<br><span style="color:var(--orange);">dist>100?</span> → ctrl <span class="warn">sur=20</span>, <span class="warn">sur=0</span><br><span class="warn">surcharge</span> → data <span class="highlight">return</span><br><br><span style="color:var(--dim);">4 nodes. Symmetric to the age channel — completely independent data flows.</span>'
+    };
+
+    const active = slices[which];
+
+    svg.querySelectorAll('[class*="node"]').forEach(node => {
+      if (!node.id || !node.id.includes('flowchart-')) return;
+      const match = node.id.match(/flowchart-(\w+)-\d+/);
+      if (!match) return;
+      const nodeId = match[1];
+      const inSlice = !active || active.includes(nodeId);
+      if (inSlice) node.classList.remove('dim-inactive'); else node.classList.add('dim-inactive');
+    });
+
+    svg.querySelectorAll('[class*="edgePath"], [class*="edge-pattern"], [class*="edgeLabel"]').forEach(e => {
+      if (!e.id) return;
+      if (e.classList.contains('dim-inactive')) e.classList.remove('dim-inactive');
+      if (active) {
+        const eid = e.id;
+        const inRegion = active.some((a, i) => active.some((b, j) => i !== j && eid.includes(a) && eid.includes(b)));
+        if (!inRegion) e.classList.add('dim-inactive');
+      }
+    });
+
+    syncEdgeLabels(svg);
+
+    // Update info panel
+    const info = document.getElementById('pdg-slice-info');
+    if (info && sliceDesc[which]) {
+      info.innerHTML = '<div class="label">Program Slicing</div>' + sliceDesc[which];
+    }
+
+    // Update buttons
+    document.querySelectorAll('.slice-btn').forEach(b => b.classList.remove('active-step'));
+    if (btn) btn.classList.add('active-step');
+  }
+
+  // ── KLEE Concolic Animation ──
+  const kleePaths = {
+    0: null,
+    1: { nodes: ['R','A','B2','P4'], label: 'Path 4: F → F', input: 'age=30, dist=50', pc: '<span style="color:var(--green);">(age ≥ 25)</span> ∧ <span style="color:var(--green);">(dist ≤ 100)</span>', result: '2×50 + 0 = 100',
+      smt: '<span style="color:var(--dim);">; path 4 constraint</span>\n(<span class="kw">declare-const</span> age Int)\n(<span class="kw">declare-const</span> dist Int)\n(<span class="kw">assert</span> (<span class="fn">>=</span> age 25))\n(<span class="kw">assert</span> (<span class="fn"><=</span> dist 100))\n(<span class="kw">check-sat</span>)  <span style="color:var(--green);">; → sat</span>' },
+    2: { nodes: ['R','A','B2','P4'], label: 'Path 4: F → F', input: 'age=30, dist=50', pc: '<span style="color:var(--text);">(age ≥ 25)</span> ∧ <span style="color:var(--text);">(dist ≤ 100)</span>', result: 'Constraint collected ✓',
+      smt: '<span style="color:var(--dim);">; collected from execution</span>\n<span style="color:var(--yellow);">π = {</span>\n  (<span class="fn">>=</span> age 25)\n  (<span class="fn"><=</span> dist 100)\n<span style="color:var(--yellow);">}</span>' },
+    3: { nodes: ['R','A','B2','P3'], label: 'Path 3: F → T', input: '? → solve SAT', pc: '<span style="color:var(--text);">(age ≥ 25)</span> ∧ <span style="color:var(--accent2);">(dist > 100)</span> <span style="color:var(--yellow);">← negated!</span>', result: 'Solver → age=30, dist=150',
+      smt: '<span style="color:var(--dim);">; negate last conjunct</span>\n(<span class="kw">declare-const</span> age Int)\n(<span class="kw">declare-const</span> dist Int)\n(<span class="kw">assert</span> (<span class="fn">>=</span> age 25))\n(<span class="kw">assert</span> (<span class="fn">></span> dist 100))  <span style="color:var(--accent2);">; negated!</span>\n(<span class="kw">check-sat</span>)  <span style="color:var(--green);">; → sat</span>\n(<span class="kw">get-model</span>) <span style="color:var(--green);">; → age=30, dist=150</span>' },
+    4: { nodes: ['R','A','B2','P3'], label: 'Path 3: F → T', input: 'age=30, dist=150', pc: '<span style="color:var(--text);">(age ≥ 25)</span> ∧ <span style="color:var(--green);">(dist > 100)</span>', result: '2×150 + 20 = 320  ✓ new path!',
+      smt: '<span style="color:var(--dim);">; solver output</span>\n(<span class="kw">model</span>\n  (<span class="kw">define-fun</span> age () Int <span class="fn">30</span>)\n  (<span class="kw">define-fun</span> dist () Int <span class="fn">150</span>)\n)\n<span style="color:var(--green);">; → run fee(30, 150) → new path!</span>' },
+    5: null
+  };
+
+  const kleeStepDesc = {
+    0: '<strong>1.</strong> Run concretely: $age{=}30,\\; dist{=}50$<br>&nbsp;&nbsp;&nbsp;→ takes path F, F<br><br><strong>2.</strong> Collect path constraint:<br>&nbsp;&nbsp;&nbsp;$(age \\ge 25) \\;\\land\\; (dist \\le 100)$<br><br><strong>3.</strong> <span class="highlight">Negate</span> last conjunct:<br>&nbsp;&nbsp;&nbsp;$(age \\ge 25) \\;\\land\\; \\color{#ff6c8c}{(dist > 100)}$<br><br><strong>4.</strong> Solve → $age{=}30,\\; dist{=}150$<br><br><strong>5.</strong> Run with new input → new path<br><br><strong>6.</strong> Repeat until <span class="ok">all 4 paths explored</span>',
+    5: '<span class="ok" style="font-size:1.2em;">All 4 paths explored ✓</span><br><br>2 binary decisions = 2² = 4 paths<br><br>For each path, KLEE:<br>• Generated a <span class="highlight">concrete test input</span><br>• Verified the path is <span class="highlight">feasible</span><br>• Checked for errors along the path<br><br><span style="color:var(--dim);">Pure random testing might miss rare paths.<br>Concolic testing <strong>guarantees</strong> coverage.</span>'
+  };
+
+  function kleeStep(step, btn) {
+    const container = document.getElementById('klee-graph');
+    if (!container) return;
+    const svg = container.querySelector('svg');
+    if (!svg) return;
+
+    // Show coreutils callout only at overview (0) and final (5)
+    const coreutils = document.getElementById('klee-coreutils');
+    if (coreutils) coreutils.style.display = (step === 0 || step === 5) ? '' : 'none';
+
+    const pathData = kleePaths[step];
+    const activeNodes = pathData ? pathData.nodes : null;
+
+    svg.querySelectorAll('[class*="node"]').forEach(node => {
+      if (!node.id || !node.id.includes('flowchart-')) return;
+      const match = node.id.match(/flowchart-(\w+)-\d+/);
+      if (!match) return;
+      const nodeId = match[1];
+      const inPath = !activeNodes || activeNodes.includes(nodeId);
+      if (inPath) node.classList.remove('dim-inactive'); else node.classList.add('dim-inactive');
+    });
+
+    svg.querySelectorAll('[class*="edgePath"], [class*="edge-pattern"], [class*="edgeLabel"]').forEach(e => {
+      if (!e.id) return;
+      if (e.classList.contains('dim-inactive')) e.classList.remove('dim-inactive');
+      if (activeNodes) {
+        const eid = e.id;
+        const inRegion = activeNodes.some((a, i) => i < activeNodes.length - 1 && eid.includes(a) && eid.includes(activeNodes[i + 1]));
+        if (!inRegion) e.classList.add('dim-inactive');
+      }
+    });
+
+    syncEdgeLabels(svg);
+
+    // Update info panel
+    const info = document.getElementById('klee-step-content');
+    if (info) {
+      if (kleeStepDesc[step]) {
+        info.innerHTML = kleeStepDesc[step];
+        // Re-render KaTeX in the updated content
+        if (typeof renderMathInElement === 'function') {
+          renderMathInElement(info, {delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]});
+        }
+      } else if (pathData) {
+        info.innerHTML = '<strong>Input:</strong> ' + pathData.input + '<br><br><strong>Path:</strong> ' + pathData.label + '<br><br><strong>Result:</strong> ' + pathData.result;
+      }
+    }
+
+    // Update constraint store
+    const pcBox = document.getElementById('klee-constraint');
+    const pcContent = document.getElementById('klee-pc');
+    if (pcBox && pcContent) {
+      if (pathData && pathData.pc) {
+        pcBox.style.display = '';
+        pcContent.innerHTML = '<strong>π =</strong> ' + pathData.pc;
+      } else {
+        pcBox.style.display = 'none';
+      }
+    }
+
+    // Update SMT-LIB box
+    const smtBox = document.getElementById('klee-smt');
+    const smtContent = document.getElementById('klee-smt-content');
+    if (smtBox && smtContent) {
+      if (pathData && pathData.smt) {
+        smtBox.style.display = '';
+        smtContent.innerHTML = pathData.smt;
+      } else {
+        smtBox.style.display = 'none';
+      }
+    }
+
+    // Update buttons
+    document.querySelectorAll('.klee-btn').forEach(b => b.classList.remove('active-step'));
+    if (btn) btn.classList.add('active-step');
+  }
+
+  // ── DFG ↔ Source mapping ──
+  let dfgLocked = null;
+  document.querySelectorAll('.dfg-map').forEach(el => {
+    el.addEventListener('mouseenter', () => { if (!dfgLocked) dfgHighlight(el.dataset.dfg); });
+    el.addEventListener('mouseleave', () => { if (!dfgLocked) dfgClear(); });
+    el.addEventListener('click', () => {
+      const key = el.dataset.dfg;
+      if (dfgLocked === key) { dfgLocked = null; dfgClear(); }
+      else { dfgLocked = key; dfgHighlight(key); }
+    });
+  });
+
+  function dfgHighlight(key) {
+    const nodeIds = key.split(',');
+    // Highlight code spans
+    document.querySelectorAll('.dfg-map').forEach(el => {
+      const elNodes = el.dataset.dfg.split(',');
+      const overlap = elNodes.some(n => nodeIds.includes(n));
+      if (overlap) { el.classList.add('dfg-active'); el.classList.remove('dfg-dim'); }
+      else { el.classList.remove('dfg-active'); el.classList.add('dfg-dim'); }
+    });
+    // Highlight mermaid nodes
+    const container = document.getElementById('dfg-graph');
+    if (!container) return;
+    const svg = container.querySelector('svg');
+    if (!svg) return;
+    svg.querySelectorAll('[class*="node"]').forEach(node => {
+      if (!node.id || !node.id.includes('flowchart-')) return;
+      const match = node.id.match(/flowchart-(\w+)-\d+/);
+      if (!match) return;
+      const nodeId = match[1];
+      const inSet = nodeIds.includes(nodeId);
+      if (inSet) node.classList.remove('dim-inactive'); else node.classList.add('dim-inactive');
+    });
+    svg.querySelectorAll('[class*="edgePath"], [class*="edge-pattern"], [class*="edgeLabel"]').forEach(e => {
+      if (!e.id) return;
+      if (e.classList.contains('dim-inactive')) e.classList.remove('dim-inactive');
+      const eid = e.id;
+      const connected = nodeIds.some(nid => eid.includes(nid));
+      if (!connected) e.classList.add('dim-inactive');
+    });
+    syncEdgeLabels(svg);
+  }
+
+  function dfgClear() {
+    document.querySelectorAll('.dfg-map').forEach(el => {
+      el.classList.remove('dfg-active', 'dfg-dim');
+    });
+    const container = document.getElementById('dfg-graph');
+    if (!container) return;
+    const svg = container.querySelector('svg');
+    if (!svg) return;
+    svg.querySelectorAll('[class*="node"]').forEach(node => { node.classList.remove('dim-inactive'); });
+    svg.querySelectorAll('[class*="edgePath"], [class*="edge-pattern"], [class*="edgeLabel"]').forEach(e => { e.classList.remove('dim-inactive'); });
+  }
+
+  // ── DFG Button Animation ──
+  const dfgGroups = {
+    age: ['DA','UA','DR1','DR2','UR'],
+    dist: ['DD','UD1','UD2','DS1','DS2','US'],
+    return: ['DR1','DR2','UR','DD','UD2','DS1','DS2','US']
+  };
+
+  function dfgStep(which, btn) {
+    dfgLocked = null;
+    if (which === 'all') {
+      dfgClear();
+    } else {
+      const key = dfgGroups[which].join(',');
+      dfgHighlight(key);
+    }
+    document.querySelectorAll('.dfg-btn').forEach(b => b.classList.remove('active-step'));
+    if (btn) btn.classList.add('active-step');
+  }
+
+  // ── Nested Loop Highlight ──
+  const loopNodes = {
+    outer: ['B','C','D','E','F','G'],  // all nodes in outer loop body
+    inner: ['C','D','E','F']           // inner loop nodes only
+  };
+
+  function loopHighlight(which, btn) {
+    const container = document.getElementById('loop-graph');
+    if (!container) return;
+    const svg = container.querySelector('svg');
+    if (!svg) return;
+
+    // Reset code highlights
+    document.querySelectorAll('.loop-outer, .loop-inner').forEach(el => {
+      el.classList.remove('loop-hl-outer', 'loop-hl-inner', 'loop-dim');
+    });
+
+    const active = which === 'all' ? null : loopNodes[which];
+
+    if (which === 'outer') {
+      document.querySelector('.loop-outer').classList.add('loop-hl-outer');
+    } else if (which === 'inner') {
+      document.querySelector('.loop-inner').classList.add('loop-hl-inner');
+    }
+
+    // Highlight mermaid nodes
+    svg.querySelectorAll('[class*="node"]').forEach(node => {
+      if (!node.id || !node.id.includes('flowchart-')) return;
+      const match = node.id.match(/flowchart-(\w+)-\d+/);
+      if (!match) return;
+      const nodeId = match[1];
+      const inLoop = !active || active.includes(nodeId);
+
+      if (inLoop) node.classList.remove('dim-inactive'); else node.classList.add('dim-inactive');
+    });
+
+    svg.querySelectorAll('[class*="edgePath"], [class*="edge-pattern"], [class*="edgeLabel"]').forEach(e => {
+      if (!e.id) return;
+      if (e.classList.contains('dim-inactive')) e.classList.remove('dim-inactive');
+      if (active) {
+        const eid = e.id;
+        const inRegion = active.some((a, i) => active.some((b, j) => i !== j && eid.includes(a) && eid.includes(b)));
+        if (!inRegion) e.classList.add('dim-inactive');
+      }
+    });
+
+    syncEdgeLabels(svg);
+
+    // Update buttons
+    document.querySelectorAll('.loop-btn').forEach(b => b.classList.remove('active-step'));
+    if (btn) btn.classList.add('active-step');
+  }
+
+  // ── LLVM IR ↔ Source mapping ──
+  let irLocked = null;
+
+  // ── LLVM IR optimization toggle ──
+  let irOptimized = false;
+  function toggleIrOpt(btn) {
+    irOptimized = !irOptimized;
+    document.getElementById('ir-unopt').style.display = irOptimized ? 'none' : '';
+    document.getElementById('ir-opt').style.display = irOptimized ? '' : 'none';
+    btn.textContent = irOptimized ? '-O2 (optimized)' : '-O0 (unoptimized)';
+    irLocked = null; irClear();
+  }
+
+  document.querySelectorAll('.ir-map').forEach(el => {
+    el.addEventListener('mouseenter', () => { if (!irLocked) irHighlight(el.dataset.ir); });
+    el.addEventListener('mouseleave', () => { if (!irLocked) irClear(); });
+    el.addEventListener('click', () => {
+      const key = el.dataset.ir;
+      if (irLocked === key) { irLocked = null; irClear(); }
+      else { irLocked = key; irHighlight(key); }
+    });
+  });
+
+  function irHighlight(key) {
+    document.querySelectorAll('.ir-map').forEach(el => {
+      if (el.dataset.ir === key) { el.classList.add('ir-active'); el.classList.remove('ir-dim'); }
+      else { el.classList.remove('ir-active'); el.classList.add('ir-dim'); }
+    });
+  }
+
+  function irClear() {
+    document.querySelectorAll('.ir-map').forEach(el => {
+      el.classList.remove('ir-active', 'ir-dim');
+    });
+  }
+
+  // ── Big Picture Animation ──
+  const bpGroups = {
+    graphs: ['SRC','CFG','DFG','PDG','SLC'],
+    alloy: ['SRC','SPEC'],
+    hypothesis: ['SRC','PROP'],
+    klee: ['SRC','CONC']
+  };
+
+  function bpHighlight(which, btn, containerId) {
+    containerId = containerId || 'bp-graph';
+    const container = document.getElementById(containerId);
+    if (!container) return;
+    const svg = container.querySelector('svg');
+    if (!svg) return;
+
+    const active = which === 'all' ? null : bpGroups[which];
+
+    svg.querySelectorAll('[class*="node"]').forEach(node => {
+      if (!node.id || !node.id.includes('flowchart-')) return;
+      const match = node.id.match(/flowchart-(\w+)-\d+/);
+      if (!match) return;
+      const nodeId = match[1];
+      const inGroup = !active || active.includes(nodeId);
+      if (inGroup) node.classList.remove('dim-inactive'); else node.classList.add('dim-inactive');
+    });
+
+    svg.querySelectorAll('[class*="edgePath"], [class*="edge-pattern"], [class*="edgeLabel"]').forEach(e => {
+      if (!e.id) return;
+      if (e.classList.contains('dim-inactive')) e.classList.remove('dim-inactive');
+      if (active) {
+        const eid = e.id;
+        const inRegion = active.some((a, i) => active.some((b, j) => i !== j && eid.includes(a) && eid.includes(b)));
+        if (!inRegion) e.classList.add('dim-inactive');
+      }
+    });
+
+    syncEdgeLabels(svg);
+
+    const btnClass = containerId === 'bp-graph-preview' ? '.bp-pre-btn' : '.bp-btn';
+    document.querySelectorAll(btnClass).forEach(b => b.classList.remove('active-step'));
+    if (btn) btn.classList.add('active-step');
+  }
+
+  // ── Theme Toggle ──
+  let isLightMode = localStorage.getItem('fm-theme') === 'light';
+  if (isLightMode) {
+    document.documentElement.classList.add('light');
+    document.getElementById('themeToggle').innerHTML = '&#9788;';
+  }
+
+  async function toggleTheme() {
+    const html = document.documentElement;
+    isLightMode = html.classList.toggle('light');
+    const btn = document.getElementById('themeToggle');
+    btn.innerHTML = isLightMode ? '&#9788;' : '&#9789;';
+    localStorage.setItem('fm-theme', isLightMode ? 'light' : 'dark');
+    await renderAllMermaid(isLightMode ? mermaidLight : mermaidDark);
+  }
+
+  // ── Hypothesis Live Generation Animation ──
+  (function() {
+    const fee = (age, dist) => {
+      const rate = age < 25 ? 3 : 2;
+      const surcharge = dist > 100 ? 20 : 0;
+      return dist * rate + surcharge;
+    };
+
+    const props = [
+      { name: 'test_fee_non_negative',
+        gen: () => { const a = Math.floor(Math.random()*121), d = Math.floor(Math.random()*1001); return { args: `age=${a}, dist=${d}`, result: fee(a,d), pass: fee(a,d) >= 0, detail: `fee(${a},${d}) = ${fee(a,d)} >= 0` }; }},
+      { name: 'test_young_pay_more',
+        gen: () => { const d = Math.floor(Math.random()*1001); const y=fee(20,d), o=fee(30,d); return { args: `dist=${d}`, result: y, pass: y >= o, detail: `fee(20,${d})=${y} >= fee(30,${d})=${o}` }; }},
+      { name: 'test_fee_linear',
+        gen: () => { const a = Math.floor(Math.random()*121), d = 1+Math.floor(Math.random()*998); const s1=fee(a,d+1)-fee(a,d), s2=fee(a,d)-fee(a,d-1); return { args: `age=${a}, dist=${d}`, result: s1, pass: s1===s2, detail: `step=${s1}, prev=${s2}` + (s1!==s2 ? ' \u2718 FAIL' : '') }; }}
+    ];
+
+    let hypTimer = null;
+    let count = 0;
+    const maxLines = 8;
+
+    function hypTick() {
+      const log = document.getElementById('hyp-log');
+      if (!log) return;
+      const p = props[count % props.length];
+      const r = p.gen();
+      count++;
+      const color = r.pass ? 'var(--green)' : 'var(--accent2)';
+      const icon = r.pass ? '\u2714' : '\u2718';
+      const line = document.createElement('div');
+      line.style.opacity = '0';
+      line.style.transition = 'opacity 0.3s';
+      line.innerHTML = `<span style="color:var(--dim);">#${count}</span> <span style="color:var(--accent);">${p.name}</span>(${r.args}) <span style="color:${color};">${icon} ${r.detail}</span>`;
+      log.appendChild(line);
+      requestAnimationFrame(() => { line.style.opacity = '1'; });
+
+      // Keep only last N lines
+      while (log.children.length > maxLines) log.removeChild(log.firstChild);
+
+      // If we find a failure (linearity), pause briefly then highlight
+      if (!r.pass) {
+        const status = document.getElementById('hyp-status');
+        if (status) { status.style.color = 'var(--accent2)'; status.innerHTML = '&#9679; FAILURE FOUND &mdash; shrinking...'; }
+        clearInterval(hypTimer);
+        setTimeout(() => {
+          const shrunk = document.createElement('div');
+          shrunk.style.opacity = '0';
+          shrunk.style.transition = 'opacity 0.4s';
+          shrunk.innerHTML = `<span style="color:var(--orange);">\u2192 Shrunk to minimal case:</span> <span style="color:var(--accent2);">fee(20,101)\u2212fee(20,100)=23 but fee(20,100)\u2212fee(20,99)=3</span>`;
+          log.appendChild(shrunk);
+          while (log.children.length > maxLines + 1) log.removeChild(log.firstChild);
+          requestAnimationFrame(() => { shrunk.style.opacity = '1'; });
+          // Resume after pause
+          setTimeout(() => {
+            if (status) { status.style.color = 'var(--green)'; status.innerHTML = '&#9679; running'; }
+            hypTimer = setInterval(hypTick, 700);
+          }, 2500);
+        }, 1200);
+      }
+    }
+
+    // Start/stop animation when slide becomes active
+    const origShow = show;
+    show = function(n) {
+      origShow(n);
+      const hypSlide = document.getElementById('s7');
+      if (hypSlide && hypSlide.classList.contains('active')) {
+        if (!hypTimer) { count = 0; const log = document.getElementById('hyp-log'); if (log) log.innerHTML = ''; hypTimer = setInterval(hypTick, 700); hypTick(); }
+      } else {
+        if (hypTimer) { clearInterval(hypTimer); hypTimer = null; }
+      }
+    };
+  })();
+
+  // Render mermaid diagrams with correct theme, then show first slide
+  renderAllMermaid(isLightMode ? mermaidLight : mermaidDark).then(() => show(0));
+</script>
+
+</body>
+</html>

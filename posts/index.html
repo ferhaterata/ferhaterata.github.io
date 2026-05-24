@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Writing — Ferhat Erata</title>
+<meta name="description" content="Essays by Ferhat Erata — notes on neuro-symbolic AI, automated reasoning, and research craft." />
+<link rel="icon" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%23ffffff'/><text x='50%25' y='55%25' font-size='18' text-anchor='middle' dominant-baseline='middle' font-family='system-ui, sans-serif' fill='%231a73e8' font-weight='700'>ƒe</text></svg>" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wdth,wght@8..144,75..125,300..800&family=Roboto+Mono:wght@400;500&display=swap" />
+<link rel="stylesheet" href="../styles.css?v=2026-06-27" />
+<!-- KaTeX for math in Markdown essays (loaded only on-demand by essay view) -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" />
+<link rel="canonical" href="https://ferhat.ai/posts/" />
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-LHSH4FCVBC"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-LHSH4FCVBC');
+</script>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="nav">
+    <a href="../#top" class="nav-brand">Ferhat <em>Erata</em></a>
+    <nav class="nav-links" aria-label="Primary">
+      <a href="../#about">About</a>
+      <a href="../#news">News</a>
+      <a href="./" aria-current="page" style="color:var(--accent)">Writing</a>
+      <a href="../#experience">Experience</a>
+      <a href="../#education">Education</a>
+      <a href="../#publications">Publications</a>
+      <a href="../#contact">Contact</a>
+    </nav>
+    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle colour scheme">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+    </button>
+  </div>
+</header>
+
+<main class="page">
+<div class="container post-container">
+
+<!-- LISTING VIEW (shown when no hash is present) -->
+<section id="posts-listing">
+  <header class="post-header">
+    <p class="post-kicker">Writing</p>
+    <h1 class="post-title">Notes &amp; essays</h1>
+    <p class="post-lede">Occasional writing on neuro-symbolic AI, automated reasoning, and the craft of research. Opinions are my own.</p>
+  </header>
+  <div id="posts-list"></div>
+</section>
+
+<!-- ESSAY VIEW (shown when #slug is in the URL) -->
+<section id="essay-view" hidden>
+  <p class="post-back"><a href="./">← All essays</a></p>
+  <article class="post">
+    <header class="post-header">
+      <p class="post-kicker" id="essay-kicker"></p>
+      <h1 class="post-title" id="essay-title"></h1>
+      <p class="post-lede" id="essay-lede"></p>
+    </header>
+    <div class="essay" id="essay-body"></div>
+  </article>
+</section>
+
+</div>
+</main>
+
+<footer class="site-footer">
+  <div class="container" style="display:flex; justify-content:space-between; width:100%; gap:1rem; flex-wrap:wrap">
+    <span>© <span id="year"></span> Ferhat Erata</span>
+    <span class="colophon">Set in Roboto Flex</span>
+  </div>
+</footer>
+
+<script src="../app.js?v=2026-06-27"></script>
+<!-- marked.js converts Markdown → HTML; KaTeX auto-render finds $...$ and $$...$$ and renders TeX. -->
+<script src="https://cdn.jsdelivr.net/npm/marked@12.0.2/marked.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+<!-- highlight.js core + COBOL grammar for syntax highlighting in code fences.
+     COBOL isn't in the @highlightjs/cdn-assets bundle, and the
+     highlightjs-cobol package is ESM-only — so fetch it via dynamic
+     import and register it after hljs is loaded. -->
+<script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets@11.9.0/highlight.min.js"></script>
+<script type="module">
+  try {
+    const mod = await import("https://cdn.jsdelivr.net/npm/highlightjs-cobol/src/cobol.js");
+    if (window.hljs && mod.default) {
+      // The upstream grammar assumes fixed-format COBOL and treats
+      // columns 1–6 as a sequence-number comment, which mangles our
+      // free-format snippets. Wrap the language factory to drop those
+      // rules before hljs sees them.
+      const factory = (hljs) => {
+        const def = mod.default(hljs);
+        def.contains = (def.contains || []).filter((r) => {
+          const src = r?.begin?.source ?? String(r?.begin ?? "");
+          return !src.startsWith("(^[ 0-9a-zA-Z]{1,6}");
+        });
+        return def;
+      };
+      window.hljs.registerLanguage("cobol", factory);
+      // If the essay renderer already ran before this module resolved,
+      // the elements will be marked as highlighted (`data-highlighted`
+      // and `hljs` class) — reset them so hljs re-highlights with the
+      // now-registered cobol grammar.
+      document.querySelectorAll(".essay pre code.language-cobol").forEach((el) => {
+        el.removeAttribute("data-highlighted");
+        el.classList.remove("hljs");
+        el.textContent = el.textContent;
+        try { window.hljs.highlightElement(el); } catch (_) {}
+      });
+    }
+  } catch (_) { /* grammar is a progressive enhancement */ }
+</script>
+<script>
+(async function () {
+  // Version-pin the JSON fetch so browsers see updates. Bump when
+  // posts.json changes — matches the JSON_VERSION convention used by
+  // app.js's fetchJSON helper.
+  const res = await fetch("../posts.json?v=2026-06-27").then((r) => r.json()).catch(() => ({ posts: [] }));
+  const posts = res.posts || [];
+
+  const listEl = document.getElementById("posts-list");
+  const listingView = document.getElementById("posts-listing");
+  const essayView = document.getElementById("essay-view");
+
+  const renderListing = () => {
+    essayView.hidden = true;
+    listingView.hidden = false;
+    if (!posts.length) {
+      listEl.innerHTML = `<p class="empty-state">No essays yet. Check back soon.</p>`;
+      return;
+    }
+    // Entries with `url` are external artifacts (slide decks, demos)
+    // — link straight at them; otherwise route into the hash-based
+    // markdown renderer.
+    listEl.innerHTML = posts.map((p) => {
+      const href = p.url ? p.url : `#${p.slug}`;
+      const dateLine = `${p.date || ""}${p.kicker ? ` · ${p.kicker}` : ""}`;
+      return `
+      <a class="post-card" href="${href}">
+        <span class="post-card-date">${dateLine}</span>
+        <h3 class="post-card-title">${p.title}</h3>
+        <p class="post-card-excerpt">${p.excerpt || ""}</p>
+      </a>`;
+    }).join("");
+  };
+
+  const renderEssay = async (slug) => {
+    const meta = posts.find((p) => p.slug === slug);
+    if (!meta) { renderListing(); return; }
+    // External artifacts (slide decks etc.) don't route through
+    // the markdown renderer — just navigate.
+    if (meta.url) { window.location.href = meta.url; return; }
+    const md = await fetch(`${slug}/index.md`).then((r) => r.ok ? r.text() : "").catch(() => "");
+    if (!md) { renderListing(); return; }
+
+    document.getElementById("essay-kicker").textContent = `${meta.date || ""}${meta.kicker ? " · " + meta.kicker : ""}`;
+    document.getElementById("essay-title").textContent = meta.title;
+    document.getElementById("essay-lede").textContent = meta.excerpt || "";
+    const body = document.getElementById("essay-body");
+
+    // Protect math from Markdown — replace $$…$$ and $…$ with placeholders,
+    // run marked, then swap placeholders back in before KaTeX renders.
+    const stash = [];
+    const protect = (src) => src
+      .replace(/\$\$([\s\S]+?)\$\$/g, (_, tex) => {
+        stash.push({ display: true, tex });
+        return `@@MATH${stash.length - 1}@@`;
+      })
+      .replace(/(?<!\\)\$([^$\n]+?)\$/g, (_, tex) => {
+        stash.push({ display: false, tex });
+        return `@@MATH${stash.length - 1}@@`;
+      });
+
+    const rendered = window.marked.parse(protect(md));
+    body.innerHTML = rendered.replace(/@@MATH(\d+)@@/g, (_, i) => {
+      const { display, tex } = stash[Number(i)];
+      try {
+        return window.katex.renderToString(tex, { displayMode: display, throwOnError: false });
+      } catch (e) {
+        return `<code>${tex}</code>`;
+      }
+    });
+    // Rewrite relative image/figure paths so they resolve inside the
+    // essay's own folder (posts/<slug>/…) rather than against /posts/.
+    body.querySelectorAll("img[src], a[href]").forEach((el) => {
+      const attr = el.tagName === "IMG" ? "src" : "href";
+      const v = el.getAttribute(attr);
+      if (!v) return;
+      // Leave absolute URLs, site-relative paths, anchors, and protocol URLs alone.
+      if (/^([a-z]+:|\/|#)/i.test(v)) return;
+      el.setAttribute(attr, `${slug}/${v}`);
+    });
+    // Syntax-highlight code fences (COBOL, etc.) via highlight.js.
+    if (window.hljs) {
+      body.querySelectorAll("pre code[class*='language-']").forEach((el) => {
+        try { window.hljs.highlightElement(el); } catch (_) {}
+      });
+    }
+    listingView.hidden = true;
+    essayView.hidden = false;
+    window.scrollTo(0, 0);
+  };
+
+  const route = () => {
+    const slug = location.hash.replace(/^#/, "");
+    if (slug) renderEssay(slug);
+    else renderListing();
+  };
+
+  window.addEventListener("hashchange", route);
+  route();
+})();
+</script>
+</body>
+</html>

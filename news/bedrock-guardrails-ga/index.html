@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Bedrock Guardrails Automated Reasoning checks — GA — Ferhat Erata</title>
+<meta name="description" content="Amazon Bedrock Guardrails Automated Reasoning checks reach general availability, delivering up to 99% verification accuracy." />
+<link rel="icon" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%23ffffff'/><text x='50%25' y='55%25' font-size='18' text-anchor='middle' dominant-baseline='middle' font-family='system-ui, sans-serif' fill='%231a73e8' font-weight='700'>ƒe</text></svg>" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wdth,wght@8..144,75..125,300..800&family=Roboto+Mono:wght@400;500&display=swap" />
+<link rel="stylesheet" href="../../styles.css?v=2026-06-27" />
+<link rel="canonical" href="https://ferhat.ai/news/bedrock-guardrails-ga/" />
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-LHSH4FCVBC"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-LHSH4FCVBC');
+</script>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="nav">
+    <a href="../../#top" class="nav-brand">Ferhat <em>Erata</em></a>
+    <nav class="nav-links" aria-label="Primary">
+      <a href="../../#about">About</a>
+      <a href="../../#news">News</a>
+      <a href="../../posts/">Writing</a>
+      <a href="../../#experience">Experience</a>
+      <a href="../../#education">Education</a>
+      <a href="../../#publications">Publications</a>
+      <a href="../../#contact">Contact</a>
+    </nav>
+    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle colour scheme">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+    </button>
+  </div>
+</header>
+
+<main class="page">
+<div class="container post-container">
+
+<article class="post">
+  <p class="post-back"><a href="../../#news">← All news</a></p>
+
+  <header class="post-header">
+    <p class="post-kicker">June 2025 · AWS</p>
+    <h1 class="post-title">Bedrock Guardrails Automated Reasoning checks — GA</h1>
+    <p class="post-lede">
+      <a href="https://aws.amazon.com/bedrock/guardrails/">Amazon Bedrock Guardrails</a>' Automated Reasoning checks reach general availability — now delivering up to <strong>99% verification accuracy</strong> for enterprise customers. This is the first production AI-safety system with mathematically sound verification.
+    </p>
+    <p class="post-disclaimer">
+      Opinions expressed in this post are my own and do not necessarily reflect the views of my employer. Information here is limited to what has been publicly announced by AWS.
+    </p>
+  </header>
+
+  <div class="post-body">
+    <p>
+      Enterprise AI hallucinations aren't a UX bug — they're a risk-management problem. When a language model confidently produces an incorrect policy interpretation, an incorrect benefits eligibility decision, or an incorrect tax calculation, the downstream cost of that error scales with the customer's operation. Traditional mitigations — RAG, self-consistency, fine-tuning — move the needle statistically, but they don't give you a <strong>guarantee</strong>.
+    </p>
+    <p>
+      Automated Reasoning checks for Bedrock Guardrails work differently: we translate a customer's ground-truth policy into a formal logical representation, then use a <strong>theorem prover</strong> to verify that a model's output is consistent with that policy. If the output is correct, the check returns <em>VALID</em>. If there is a logical contradiction, it returns <em>INVALID</em> with a machine-checkable counterexample. If the policy does not cover the case, the check returns <em>NO DATA</em>. These are <em>deterministic verdicts</em>, not soft confidence scores.
+    </p>
+    <p>
+      The general availability launch crossed a threshold: customers who bring a policy and a set of representative questions see up to 99% verification accuracy on the enterprise benchmarks we evaluate. That's not 99% of hallucinations caught — it's 99% agreement between the prover's verdict and the ground-truth answer on the policy. The remaining 1% is almost always a policy-autoformalization gap, not a reasoning gap.
+    </p>
+    <p>
+      I co-invented several of the underlying techniques during my three AWS internships and first year as an Applied Scientist: stabilizing LLM autoformalization output, semantic uncertainty estimation for flagging unreliable policy translations, and fidelity measurement.
+    </p>
+    <p class="post-tags">
+      <span class="tag">#AWS</span>
+      <span class="tag">#BedrockGuardrails</span>
+      <span class="tag">#AutomatedReasoning</span>
+      <span class="tag">#AISafety</span>
+    </p>
+    <p style="margin-top: 1.5rem;">
+      <a class="pub-link" href="https://aws.amazon.com/bedrock/guardrails/">Product page <span aria-hidden="true">↗</span></a>
+      <a class="pub-link" href="https://aws.amazon.com/blogs/aws/prevent-factual-errors-from-llm-hallucinations-with-mathematically-sound-automated-reasoning-checks-preview/">AWS blog (preview) <span aria-hidden="true">↗</span></a>
+    </p>
+  </div>
+</article>
+
+</div>
+</main>
+
+<footer class="site-footer">
+  <div class="container" style="display:flex; justify-content:space-between; width:100%; gap:1rem; flex-wrap:wrap">
+    <span>© <span id="year"></span> Ferhat Erata</span>
+    <span class="colophon">Set in Roboto Flex</span>
+  </div>
+</footer>
+
+<script src="../../app.js?v=2026-06-27"></script>
+</body>
+</html>

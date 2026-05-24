@@ -1,0 +1,623 @@
+{
+  "publications": [
+    {
+      "key": "erata2025learning",
+      "title": "Learning Randomized Reductions",
+      "authors": [
+        "Ferhat Erata",
+        "Orr Paradise",
+        "Thanos Typaldos",
+        "Timos Antonopoulos",
+        "ThanhVu Nguyen",
+        "Shafi Goldwasser",
+        "Ruzica Piskac"
+      ],
+      "venue": "ICML",
+      "venueFull": "International Conference on Machine Learning",
+      "year": 2026,
+      "award": "Spotlight",
+      "awardDetail": "Top 2.2% of 23,918 submissions",
+      "links": [
+        {
+          "label": "PDF",
+          "url": "papers/erata-2025-learning.pdf"
+        },
+        {
+          "label": "arXiv",
+          "url": "https://arxiv.org/abs/2412.18134"
+        }
+      ],
+      "tags": [
+        "neuro-symbolic",
+        "ml-for-reasoning",
+        "cryptography"
+      ],
+      "selected": true,
+      "status": "accepted"
+    },
+    {
+      "key": "bayless2025neurosymbolic",
+      "title": "A Neurosymbolic Approach to Natural Language Formalization and Verification",
+      "authors": [
+        "Automated Reasoning checks Team"
+      ],
+      "venue": "CAV",
+      "venueFull": "International Conference on Computer Aided Verification",
+      "year": 2026,
+      "links": [
+        {
+          "label": "arXiv",
+          "url": "https://arxiv.org/abs/2511.09008"
+        }
+      ],
+      "tags": [
+        "neuro-symbolic",
+        "ai-safety"
+      ],
+      "selected": true,
+      "status": "accepted"
+    },
+    {
+      "key": "etim2026tinyml",
+      "title": "Fault Injection Attacks and Countermeasures on TinyML Algorithms",
+      "authors": [
+        "Anthony Etim",
+        "Srilalith Nampally",
+        "Aubtin Rasouli",
+        "Dustin Mazza",
+        "Krishna Chilakapati",
+        "Tinghung Chiu",
+        "Ferhat Erata",
+        "Leyla Nazhandali",
+        "Wenjie Xiong",
+        "Jakub Szefer"
+      ],
+      "venue": "HOST",
+      "venueFull": "IEEE International Symposium on Hardware Oriented Security and Trust",
+      "year": 2026,
+      "award": "Best Student Paper",
+      "links": [],
+      "tags": [
+        "security",
+        "ml-safety",
+        "embedded"
+      ],
+      "selected": true
+    },
+    {
+      "key": "TakashimaErata2025",
+      "title": "Scaling Combinatorial Reasoning with Conflict-Driven Clause Learning In-Context",
+      "authors": [
+        "Yoshiki Takashima",
+        "Ferhat Erata"
+      ],
+      "venue": "Preprint",
+      "year": 2025,
+      "links": [
+        {
+          "label": "PDF",
+          "url": "papers/takashima-2025-scaling.pdf"
+        }
+      ],
+      "tags": [
+        "ml-for-reasoning",
+        "sat",
+        "reinforcement-learning"
+      ]
+    },
+    {
+      "key": "erata2024iccad",
+      "title": "Systematic Use of Random Self-Reducibility in Cryptographic Code against Physical Attacks",
+      "authors": [
+        "Ferhat Erata",
+        "TingHung Chiu",
+        "Anthony Etim",
+        "Srilalith Nampally",
+        "Tejas Raju",
+        "Rajashree Ramu",
+        "Ruzica Piskac",
+        "Timos Antonopoulos",
+        "Wenjie Xiong",
+        "Jakub Szefer"
+      ],
+      "venue": "ICCAD",
+      "venueFull": "IEEE/ACM International Conference on Computer-Aided Design",
+      "year": 2024,
+      "links": [
+        {
+          "label": "PDF",
+          "url": "papers/erata-2024-systematic.pdf"
+        }
+      ],
+      "tags": [
+        "security",
+        "cryptography"
+      ],
+      "selected": true
+    },
+    {
+      "key": "erata2024quantum",
+      "title": "Quantum Circuit Reconstruction from Power Side-Channel Attacks on Quantum Computer Controllers",
+      "authors": [
+        "Ferhat Erata",
+        "Chuanqi Xu",
+        "Ruzica Piskac",
+        "Jakub Szefer"
+      ],
+      "venue": "TCHES",
+      "venueFull": "IACR Transactions on Cryptographic Hardware and Embedded Systems",
+      "year": 2024,
+      "links": [
+        {
+          "label": "PDF",
+          "url": "papers/erata-2024-quantum.pdf"
+        },
+        {
+          "label": "TCHES",
+          "url": "https://tches.iacr.org/index.php/TCHES/article/view/11445/10950"
+        }
+      ],
+      "tags": [
+        "security",
+        "quantum"
+      ],
+      "selected": true
+    },
+    {
+      "key": "miner2024scheherazade",
+      "title": "Scheherazade: Evaluating Chain-of-Thought Math Reasoning in LLMs with Chain-of-Problems",
+      "authors": [
+        "Stephen Miner",
+        "Yoshiki Takashima",
+        "Simeng Han",
+        "Samuel Kouteili",
+        "Ferhat Erata",
+        "Timos Antonopoulos",
+        "Ruzica Piskac",
+        "Scott J. Shapiro"
+      ],
+      "venue": "arXiv",
+      "year": 2024,
+      "links": [
+        {
+          "label": "arXiv",
+          "url": "https://arxiv.org/abs/2410.00151"
+        }
+      ],
+      "tags": [
+        "reasoning",
+        "evaluation"
+      ]
+    },
+    {
+      "key": "xu2023exploration",
+      "title": "Exploration of Power Side-Channel Vulnerabilities in Quantum Computer Controllers",
+      "authors": [
+        "Chuanqi Xu",
+        "Ferhat Erata",
+        "Jakub Szefer"
+      ],
+      "venue": "CCS",
+      "venueFull": "ACM Conference on Computer and Communications Security",
+      "year": 2023,
+      "links": [
+        {
+          "label": "PDF",
+          "url": "papers/xu-2023-exploration.pdf"
+        },
+        {
+          "label": "ACM",
+          "url": "https://dl.acm.org/doi/10.1145/3576915.3623118"
+        }
+      ],
+      "tags": [
+        "security",
+        "quantum"
+      ],
+      "selected": true
+    },
+    {
+      "key": "erata2023towards",
+      "title": "Towards Automated Detection of Single-Trace Side-Channel Vulnerabilities in Constant-Time Cryptographic Code",
+      "authors": [
+        "Ferhat Erata",
+        "Ruzica Piskac",
+        "Victor Mateu",
+        "Jakub Szefer"
+      ],
+      "venue": "EuroS&P",
+      "venueFull": "IEEE European Symposium on Security and Privacy",
+      "year": 2023,
+      "links": [
+        {
+          "label": "PDF",
+          "url": "papers/erata-2023-towards.pdf"
+        },
+        {
+          "label": "IEEE",
+          "url": "https://ieeexplore.ieee.org/document/10190541"
+        }
+      ],
+      "tags": [
+        "security",
+        "cryptography"
+      ],
+      "selected": true
+    },
+    {
+      "key": "erata2023survey",
+      "title": "Survey of Approaches and Techniques for Security Verification of Computer Systems",
+      "authors": [
+        "Ferhat Erata",
+        "Shuwen Deng",
+        "Faisal Zaghloul",
+        "Wenjie Xiong",
+        "Onur Demir",
+        "Jakub Szefer"
+      ],
+      "venue": "ACM JETC",
+      "venueFull": "ACM Journal on Emerging Technologies in Computing Systems",
+      "year": 2023,
+      "links": [
+        {
+          "label": "PDF",
+          "url": "papers/erata-2023-survey.pdf"
+        },
+        {
+          "label": "ACM",
+          "url": "https://doi.org/10.1145/3564785"
+        }
+      ],
+      "tags": [
+        "security"
+      ]
+    },
+    {
+      "key": "erata2023etap",
+      "title": "ETAP: Energy-aware Timing Analysis of Intermittent Programs",
+      "authors": [
+        "Ferhat Erata",
+        "Eren Yildiz",
+        "Arda Goknil",
+        "Kasim Sinan Yildirim",
+        "Jakub Szefer",
+        "Ruzica Piskac",
+        "Gokcin Sezgin"
+      ],
+      "venue": "ACM TECS",
+      "venueFull": "ACM Transactions on Embedded Computing Systems",
+      "year": 2023,
+      "links": [
+        {
+          "label": "PDF",
+          "url": "papers/erata-2023-etap.pdf"
+        },
+        {
+          "label": "ACM",
+          "url": "https://dl.acm.org/doi/10.1145/3563216"
+        }
+      ],
+      "tags": [
+        "program-analysis",
+        "embedded"
+      ]
+    },
+    {
+      "key": "deshpande2023design",
+      "title": "Design of Quantum Computer Antivirus",
+      "authors": [
+        "Sanjay Deshpande",
+        "Chuanqi Xu",
+        "Theodoros Trochatos",
+        "Hanrui Wang",
+        "Ferhat Erata",
+        "Song Han",
+        "Yongshan Ding",
+        "Jakub Szefer"
+      ],
+      "venue": "HOST",
+      "venueFull": "IEEE International Symposium on Hardware Oriented Security and Trust",
+      "year": 2023,
+      "links": [
+        {
+          "label": "PDF",
+          "url": "papers/deshpande-2023-design.pdf"
+        },
+        {
+          "label": "IEEE",
+          "url": "https://ieeexplore.ieee.org/document/10133711"
+        }
+      ],
+      "tags": [
+        "security",
+        "quantum"
+      ]
+    },
+    {
+      "key": "xu2023classification",
+      "title": "Classification of Quantum Computer Fault Injection Attacks",
+      "authors": [
+        "Chuanqi Xu",
+        "Ferhat Erata",
+        "Jakub Szefer"
+      ],
+      "venue": "QCE",
+      "venueFull": "IEEE International Conference on Quantum Computing and Engineering",
+      "year": 2023,
+      "links": [
+        {
+          "label": "PDF",
+          "url": "papers/xu-2024-quantum.pdf"
+        },
+        {
+          "label": "arXiv",
+          "url": "https://arxiv.org/abs/2309.05478"
+        }
+      ],
+      "tags": [
+        "security",
+        "quantum"
+      ]
+    },
+    {
+      "key": "azimi2023adaptv",
+      "title": "AdapTV: A Model-Based Test Adaptation Approach for End-to-End User Interface Testing of Smart TVs",
+      "authors": [
+        "Mohammad Yusaf Azimi",
+        "Celal Cagin Elgun",
+        "Atil Firat",
+        "Ferhat Erata",
+        "Cemal Yilmaz"
+      ],
+      "venue": "IEEE Access",
+      "year": 2023,
+      "links": [
+        {
+          "label": "PDF",
+          "url": "papers/azimi-2023-adaptv.pdf"
+        },
+        {
+          "label": "IEEE",
+          "url": "https://doi.org/10.1109/ACCESS.2023.3262746"
+        }
+      ],
+      "tags": [
+        "software-engineering",
+        "testing"
+      ]
+    },
+    {
+      "key": "ozkaya2020survey",
+      "title": "A Survey on the Practical Use of UML for Different Software Architecture Viewpoints",
+      "authors": [
+        "Mert Ozkaya",
+        "Ferhat Erata"
+      ],
+      "venue": "IST",
+      "venueFull": "Information and Software Technology",
+      "year": 2020,
+      "links": [
+        {
+          "label": "PDF",
+          "url": "papers/ozkaya-2020-survey.pdf"
+        },
+        {
+          "label": "Elsevier",
+          "url": "https://www.sciencedirect.com/science/article/pii/S0950584920300252"
+        }
+      ],
+      "tags": [
+        "software-engineering"
+      ]
+    },
+    {
+      "key": "ozkaya2020understanding",
+      "title": "Understanding Practitioners' Challenges on Software Modeling: A Survey",
+      "authors": [
+        "Mert Ozkaya",
+        "Ferhat Erata"
+      ],
+      "venue": "JCL",
+      "venueFull": "Journal of Computer Languages",
+      "year": 2020,
+      "links": [
+        {
+          "label": "PDF",
+          "url": "papers/ozkaya-2020-understanding.pdf"
+        },
+        {
+          "label": "Elsevier",
+          "url": "https://www.sciencedirect.com/science/article/pii/S259011842030023X"
+        }
+      ],
+      "tags": [
+        "software-engineering"
+      ]
+    },
+    {
+      "key": "tekinerdogan2020automated",
+      "title": "Automated Reasoning Framework for Traceability Management of System of Systems",
+      "authors": [
+        "Bedir Tekinerdogan",
+        "Ferhat Erata"
+      ],
+      "venue": "SCP",
+      "venueFull": "Science of Computer Programming",
+      "year": 2020,
+      "links": [
+        {
+          "label": "PDF",
+          "url": "papers/tekinerdogan-2020-automated.pdf"
+        },
+        {
+          "label": "Elsevier",
+          "url": "https://www.sciencedirect.com/science/article/pii/S0167642320300277"
+        }
+      ],
+      "tags": [
+        "formal-methods",
+        "software-engineering"
+      ]
+    },
+    {
+      "key": "kern2019integrating",
+      "title": "Integrating Static Code Analysis Toolchains",
+      "authors": [
+        "Matthias Kern",
+        "Ferhat Erata",
+        "Markus Iser",
+        "Carsten Sinz",
+        "Frédéric Loiret",
+        "Stefan Otten",
+        "Eric Sax"
+      ],
+      "venue": "COMPSAC",
+      "venueFull": "IEEE Computer Software and Applications Conference",
+      "year": 2019,
+      "links": [
+        {
+          "label": "PDF",
+          "url": "papers/kern-2019-integrating.pdf"
+        },
+        {
+          "label": "IEEE",
+          "url": "https://ieeexplore.ieee.org/document/8754104"
+        }
+      ],
+      "tags": [
+        "program-analysis",
+        "software-engineering"
+      ]
+    },
+    {
+      "key": "erata2018alloyinecore",
+      "title": "AlloyInEcore: Embedding of First-Order Relational Logic into Meta-Object Facility",
+      "authors": [
+        "Ferhat Erata",
+        "Arda Goknil",
+        "Ivan Kurtev",
+        "Bedir Tekinerdogan"
+      ],
+      "venue": "ESEC/FSE",
+      "venueFull": "ACM Symposium on the Foundations of Software Engineering",
+      "year": 2018,
+      "links": [
+        {
+          "label": "PDF",
+          "url": "papers/erata-2018-alloyinecore.pdf"
+        },
+        {
+          "label": "ACM",
+          "url": "https://dl.acm.org/doi/10.1145/3236024.3264588"
+        }
+      ],
+      "tags": [
+        "formal-methods"
+      ]
+    },
+    {
+      "key": "erata2017modelwriter",
+      "title": "ModelWriter: Text and Model-Synchronized Document Engineering Platform",
+      "authors": [
+        "Ferhat Erata",
+        "Claire Gardent",
+        "Bikash Gyawali",
+        "Anastasia Shimorina",
+        "Yvan Lussaud",
+        "Bedir Tekinerdogan",
+        "Geylani Kardas",
+        "Anne Monceaux"
+      ],
+      "venue": "ASE",
+      "venueFull": "IEEE/ACM International Conference on Automated Software Engineering",
+      "year": 2017,
+      "links": [
+        {
+          "label": "PDF",
+          "url": "papers/erata-2017-modelwriter.pdf"
+        },
+        {
+          "label": "IEEE",
+          "url": "https://ieeexplore.ieee.org/document/8115703"
+        }
+      ],
+      "tags": [
+        "formal-methods"
+      ]
+    },
+    {
+      "key": "erata2017tool",
+      "title": "A Tool for Automated Reasoning about Traces Based on Configurable Formal Semantics",
+      "authors": [
+        "Ferhat Erata",
+        "Arda Goknil",
+        "Bedir Tekinerdogan",
+        "Geylani Kardas"
+      ],
+      "venue": "ESEC/FSE",
+      "venueFull": "ACM Symposium on the Foundations of Software Engineering",
+      "year": 2017,
+      "links": [
+        {
+          "label": "PDF",
+          "url": "papers/erata-2017-tool.pdf"
+        },
+        {
+          "label": "ACM",
+          "url": "https://dl.acm.org/doi/10.1145/3106237.3122825"
+        }
+      ],
+      "tags": [
+        "formal-methods"
+      ]
+    },
+    {
+      "key": "erata2017tarski",
+      "title": "Tarski: A Platform for Automated Analysis of Dynamically Configurable Traceability Semantics",
+      "authors": [
+        "Ferhat Erata",
+        "Moharram Challenger",
+        "Bedir Tekinerdogan",
+        "Anne Monceaux",
+        "Eray Tüzün",
+        "Geylani Kardas"
+      ],
+      "venue": "SAC",
+      "venueFull": "ACM Symposium on Applied Computing",
+      "year": 2017,
+      "links": [
+        {
+          "label": "ACM",
+          "url": "https://dl.acm.org/doi/10.1145/3019612.3019747"
+        }
+      ],
+      "tags": [
+        "formal-methods"
+      ]
+    },
+    {
+      "key": "tekinerdogan2017modeling",
+      "title": "Modeling Traceability in System of Systems",
+      "authors": [
+        "Bedir Tekinerdogan",
+        "Ferhat Erata"
+      ],
+      "venue": "SAC",
+      "venueFull": "ACM Symposium on Applied Computing",
+      "year": 2017,
+      "links": [
+        {
+          "label": "PDF",
+          "url": "papers/tekinerdogan-2017-modeling.pdf"
+        },
+        {
+          "label": "ACM",
+          "url": "https://doi.org/10.1145/3019612.3019908"
+        }
+      ],
+      "tags": [
+        "software-engineering"
+      ]
+    }
+  ]
+}
