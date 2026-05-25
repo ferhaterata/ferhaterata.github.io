@@ -23,6 +23,13 @@
       "html": "<em>Fault Injection Attacks and Countermeasures on TinyML Algorithms</em> received the <strong>Best Student Paper Award</strong> at IEEE HOST 2026. The ML countermeasure in this work partly relies on a property discovered in <a href=\"https://arxiv.org/abs/2412.18134\">Learning Randomized Reductions</a> — great to see RSRs hardening TinyML against fault injection attacks."
     },
     {
+      "date": "2025-12",
+      "tag": "Patents",
+      "image": "news/amazon-inventor/puzzle.jpeg",
+      "href": "news/amazon-inventor/",
+      "html": "<em>The pieces are coming together</em> — twelve Amazon patent filings across neuro-symbolic systems and automated reasoning, thanks to incredible collaborators."
+    },
+    {
       "date": "2025-08",
       "tag": "JHU AI2AI",
       "html": "Served as <strong>Amazon Research Liaison</strong> at the <a href=\"https://ai2ai.engineering.jhu.edu/2025-ai2ai-research-festival/\">JHU AI2AI 2025 Research Festival</a> for <a href=\"https://engineering.jhu.edu/faculty/carey-priebe/\">Prof. Carey Priebe</a>'s project on representing collections of LLMs as Gaussian mixtures in data-kernel perspective space, and gave an invited talk on automated reasoning at AWS."

@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wdth,wght@8..144,75..125,300..800&family=Roboto+Mono:wght@400;500&display=swap" />
-<link rel="stylesheet" href="../styles.css?v=2026-07-09" />
+<link rel="stylesheet" href="../styles.css?v=2026-07-10" />
 <!-- KaTeX for math in Markdown essays (loaded only on-demand by essay view) -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" />
 <link rel="canonical" href="https://ferhat.ai/posts/" />
@@ -77,7 +77,7 @@
   </div>
 </footer>
 
-<script src="../app.js?v=2026-07-09"></script>
+<script src="../app.js?v=2026-07-10"></script>
 <!-- marked.js converts Markdown → HTML; KaTeX auto-render finds $...$ and $$...$$ and renders TeX. -->
 <script src="https://cdn.jsdelivr.net/npm/marked@12.0.2/marked.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
@@ -122,7 +122,7 @@
   // Version-pin the JSON fetch so browsers see updates. Bump when
   // posts.json changes — matches the JSON_VERSION convention used by
   // app.js's fetchJSON helper.
-  const res = await fetch("../posts.json?v=2026-07-09").then((r) => r.json()).catch(() => ({ posts: [] }));
+  const res = await fetch("../posts.json?v=2026-07-10").then((r) => r.json()).catch(() => ({ posts: [] }));
   const posts = res.posts || [];
 
   const listEl = document.getElementById("posts-list");
