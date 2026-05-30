@@ -12,7 +12,7 @@
       "award": true,
       "image": "news/icml-spotlight/icml-spotlight.jpeg",
       "href": "news/icml-spotlight/",
-      "html": "<em>Learning Randomized Reductions</em> accepted as <strong>Spotlight</strong> paper at ICML 2026 — top 2.2% of 23,918 submissions. With <strong>Shafi Goldwasser</strong> (UC Berkeley) and wonderful collaborators."
+      "html": "<em>Learning Randomized Reductions</em> accepted as <strong>Spotlight</strong> paper at ICML 2026 — top 2.2% of 23,918 submissions. With <a href=\"https://en.wikipedia.org/wiki/Shafi_Goldwasser\">Shafi Goldwasser</a> (UC Berkeley) and wonderful collaborators."
     },
     {
       "date": "2026-05",
@@ -45,7 +45,7 @@
       "tag": "Yale",
       "image": "news/phd-defense/defense.jpeg",
       "href": "news/phd-defense/",
-      "html": "Defended my PhD in Computer Science at Yale: <em>Learning Randomized Reductions for Security, Privacy, and Side-Channel Resilience</em>. Thesis committee: Ruzica Piskac, Jakub Szefer, <strong>Shafi Goldwasser</strong> (Turing Award, 2012), <strong>Byron Cook</strong> (VP, AWS), Zhong Shao, and Scott J. Shapiro."
+      "html": "Defended my PhD in Computer Science at Yale: <em>Learning Randomized Reductions for Security, Privacy, and Side-Channel Resilience</em>. Thesis committee: <a href=\"http://www.cs.yale.edu/homes/piskac/\">Ruzica Piskac</a>, <a href=\"https://caslab.csl.yale.edu/~jakub/\">Jakub Szefer</a>, <a href=\"https://en.wikipedia.org/wiki/Shafi_Goldwasser\">Shafi Goldwasser</a> (Turing Award, 2012), <a href=\"https://en.wikipedia.org/wiki/Byron_Cook\">Byron Cook</a> (VP, AWS), <a href=\"https://flint.cs.yale.edu/shao/\">Zhong Shao</a>, and <a href=\"https://law.yale.edu/scott-j-shapiro\">Scott J. Shapiro</a>."
     },
     {
       "date": "2025-01",
@@ -53,7 +53,7 @@
       "award": true,
       "image": "news/distinguished-teaching-award/certificate.jpeg",
       "href": "news/distinguished-teaching-award/",
-      "html": "Received Yale CS Graduate <em><a href=\"https://engineering.yale.edu/news-and-events/news/graduate-student-awards-2023-24-announced\">Distinguished Teaching Award</a></em> for 2023–2024."
+      "html": "Received Yale CS Graduate <a href=\"https://engineering.yale.edu/news-and-events/news/graduate-student-awards-2023-24-announced\">Distinguished Teaching Award</a> for 2023–2024."
     },
     {
       "date": "2024-09",

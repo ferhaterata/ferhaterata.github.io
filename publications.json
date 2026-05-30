@@ -21,6 +21,11 @@
         {
           "label": "arXiv",
           "url": "https://arxiv.org/abs/2412.18134"
+        },
+        {
+          "label": "GitHub",
+          "url": "https://github.com/ferhaterata/learning-randomized-reductions",
+          "icon": "github"
         }
       ],
       "tags": [
