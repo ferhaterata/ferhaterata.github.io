@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="robots" content="noindex,nofollow,noarchive">
+<title>Verbalized Confidence vs. Logit-Expected Confidence</title>
+<script>
+window.MathJax = {
+  tex: {
+    inlineMath: [['$', '$'], ['\\(', '\\)']],
+    displayMath: [['$$', '$$'], ['\\[', '\\]']]
+  },
+  svg: { fontCache: 'global' }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+<style>
+  :root {
+    --color-fg-default: #1f2328;
+    --color-fg-muted: #59636e;
+    --color-canvas-default: #ffffff;
+    --color-canvas-subtle: #f6f8fa;
+    --color-border-default: #d1d9e0;
+    --color-border-muted: #d8dee4;
+    --color-accent-fg: #0969da;
+    --color-neutral-muted: rgba(175, 184, 193, 0.2);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --color-fg-default: #f0f6fc;
+      --color-fg-muted: #9198a1;
+      --color-canvas-default: #0d1117;
+      --color-canvas-subtle: #151b23;
+      --color-border-default: #3d444d;
+      --color-border-muted: #2a313c;
+      --color-accent-fg: #4493f8;
+      --color-neutral-muted: rgba(110, 118, 129, 0.4);
+    }
+  }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans",
+                 Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+    font-size: 16px;
+    line-height: 1.5;
+    color: var(--color-fg-default);
+    background-color: var(--color-canvas-default);
+    margin: 0;
+    padding: 32px 16px;
+  }
+  .markdown-body {
+    max-width: 1012px;
+    margin: 0 auto;
+    padding: 32px 48px;
+    background-color: var(--color-canvas-default);
+    border: 1px solid var(--color-border-default);
+    border-radius: 6px;
+  }
+  @media (max-width: 767px) {
+    .markdown-body { padding: 16px; }
+  }
+  .markdown-body h1, .markdown-body h2, .markdown-body h3, .markdown-body h4 {
+    margin-top: 24px;
+    margin-bottom: 16px;
+    font-weight: 600;
+    line-height: 1.25;
+  }
+  .markdown-body h1 {
+    padding-bottom: 0.3em;
+    font-size: 2em;
+    border-bottom: 1px solid var(--color-border-muted);
+  }
+  .markdown-body h2 {
+    padding-bottom: 0.3em;
+    font-size: 1.5em;
+    border-bottom: 1px solid var(--color-border-muted);
+  }
+  .markdown-body h3 { font-size: 1.25em; }
+  .markdown-body h4 { font-size: 1em; }
+  .markdown-body p, .markdown-body ul, .markdown-body ol {
+    margin-top: 0;
+    margin-bottom: 16px;
+  }
+  .markdown-body ul, .markdown-body ol {
+    padding-left: 2em;
+  }
+  .markdown-body li + li {
+    margin-top: 0.25em;
+  }
+  .markdown-body strong { font-weight: 600; }
+  .markdown-body code {
+    padding: 0.2em 0.4em;
+    margin: 0;
+    font-size: 85%;
+    background-color: var(--color-neutral-muted);
+    border-radius: 6px;
+    font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas,
+                 "Liberation Mono", monospace;
+  }
+  .markdown-body a {
+    color: var(--color-accent-fg);
+    text-decoration: none;
+  }
+  .markdown-body a:hover { text-decoration: underline; }
+  .markdown-body blockquote {
+    padding: 0 1em;
+    color: var(--color-fg-muted);
+    border-left: 0.25em solid var(--color-border-default);
+    margin: 0 0 16px 0;
+  }
+  mjx-container[display="true"] {
+    margin: 1em 0 !important;
+    overflow-x: auto;
+    overflow-y: hidden;
+  }
+</style>
+</head>
+<body>
+<article class="markdown-body">
+
+<h1>Verbalized Confidence vs. Logit-Expected Confidence</h1>
+
+<h2>The clean question</h2>
+
+<p>You ask the model "rate your confidence 0&ndash;100" and it emits some number $c$.
+At that emission position, the model also has a full distribution
+$p(\text{token} \mid \text{context})$ over what it <em>could</em> have said. Define</p>
+
+$$c_E = \sum_k p_k \cdot v_k$$
+
+<p>where $v_k$ is the numeric value of token $k$. Question: does $c$ correlate with $c_E$?</p>
+
+<h2>What we'd actually expect to see</h2>
+
+<p>Three regimes, each interesting:</p>
+
+<h3>Regime 1: Near-deterministic emission ($H_c \approx 0$)</h3>
+
+<p>The distribution is a delta on one token. $c = c_E$ trivially, correlation = 1.0,
+no information beyond the sample. This is what greedy decoding or temperature=0
+gives you. Likely common on strong instruction-tuned models that have been RLHF'd
+to emit "85" or "95" confidently.</p>
+
+<h3>Regime 2: Peaked but stochastic</h3>
+
+<p>The distribution puts ~70% on "85", ~20% on "90", ~10% on "80". Sampled $c$ is
+usually 85, sometimes 80 or 90. $c_E \approx 84.5$, stable across samples.
+Per-instance $\mathrm{corr}(c, c_E)$ across $n$ samples is moderate; <em>across
+instances</em> the correlation between mean sampled $c$ and $c_E$ is very high.</p>
+
+<h3>Regime 3: Diffuse / bimodal</h3>
+
+<p>Distribution is spread over $\{30, 50, 80, 95\}$ or has two modes. $c$ jumps
+around per sample; $c_E$ is some weighted average that may not even be in the
+support. Here $c$ and $c_E$ <em>diverge</em> &mdash; and that divergence is the signal.</p>
+
+<p>So the right framing isn't "are they correlated" (yes, trivially, in regimes 1&ndash;2)
+but <strong>"where do they diverge, and does the divergence carry information?"</strong></p>
+
+<h2>Concrete experiment to run</h2>
+
+<p>Pick one open-weight model (Llama-3.3-70B is convenient; vLLM exposes top-k
+logprobs cleanly), one benchmark with verbalized confidence in the prompt
+template, ~500 instances.</p>
+
+<p>For each instance:</p>
+
+<ol>
+  <li>Run the prompt, get the trace + confidence emission.</li>
+  <li>At the confidence position, capture top-20 logprobs.</li>
+  <li>Filter to numeric continuations, renormalize, compute $c_E$.</li>
+  <li>Record $(c, c_E, H_c)$.</li>
+</ol>
+
+<p>Then plot:</p>
+
+<ul>
+  <li><strong>Scatter of $c$ vs. $c_E$</strong>: across all instances. Pearson $r$ and the residual structure.</li>
+  <li><strong>Histogram of $\Delta = c - c_E$</strong>: is it centered at zero, or systematically biased
+    (e.g., model emits 95 but its distribution averages to 80 &mdash; overconfident sampling)?</li>
+  <li><strong>$H_c$ vs. $|\Delta|$</strong>: high entropy positions should be where $c$ and $c_E$ disagree most.</li>
+</ul>
+
+<h2>What the answer tells you</h2>
+
+<ul>
+  <li><strong>$r \approx 1.0$, $\Delta \approx 0$</strong>: verbalized confidence is just a
+    deterministic readout of the underlying distribution. Logits add nothing the
+    sampled number doesn't already give you. (Sampling once is enough.)</li>
+  <li><strong>$r$ high, $\Delta$ biased</strong>: there's a <em>systematic</em> gap between what the
+    model would "average" to and what it emits. This is the most interesting
+    outcome &mdash; it says the sampling distribution has a mode the model's expectation
+    disagrees with, which is a kind of self-inconsistency you can detect from one
+    forward pass.</li>
+  <li><strong>$r$ moderate, $H_c$ predicts $|\Delta|$</strong>: $H_c$ is a useful per-instance
+    signal. The model knowing-it-doesn't-know shows up as distributional spread,
+    not just a low number.</li>
+</ul>
+
+<h2>The tokenization wrinkle (real but tractable)</h2>
+
+<p>"95" might be one token in some tokenizers, "9" + "5" in others, " 95" with a
+leading space in others. Three options:</p>
+
+<ol>
+  <li><strong>Constrain the prompt</strong>: ask for confidence as a single token from
+    $\{$"0", "5", "10", ..., "100"$\}$. Now the position is unambiguous.</li>
+  <li><strong>Marginalize</strong>: at position $t$, for each top-K token, complete greedily
+    (or beam-search) until you hit a non-numeric token, parse the number, weight
+    by $p_t(\text{token})$. Approximate but works for any tokenizer.</li>
+  <li><strong>Digit-by-digit logits</strong>: capture $p(d_1)$, $p(d_2 \mid d_1)$, etc. and
+    reconstruct the full distribution over numeric strings. Most faithful, most
+    engineering.</li>
+</ol>
+
+<p>For a first pass, option 1 gets you a clean answer in an afternoon.</p>
+
+</article>
+</body>
+</html>
