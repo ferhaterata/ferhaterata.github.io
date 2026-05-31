@@ -112,6 +112,25 @@ window.MathJax = {
     overflow-x: auto;
     overflow-y: hidden;
   }
+  .markdown-body table {
+    border-collapse: collapse;
+    margin: 0 0 16px 0;
+    display: block;
+    width: max-content;
+    max-width: 100%;
+    overflow: auto;
+  }
+  .markdown-body table th, .markdown-body table td {
+    padding: 6px 13px;
+    border: 1px solid var(--color-border-default);
+  }
+  .markdown-body table th {
+    font-weight: 600;
+    background-color: var(--color-canvas-subtle);
+  }
+  .markdown-body table tr:nth-child(2n) td {
+    background-color: var(--color-canvas-subtle);
+  }
 </style>
 </head>
 <body>
@@ -127,7 +146,32 @@ $p(\text{token} \mid \text{context})$ over what it <em>could</em> have said. Def
 
 $$c_E = \sum_k p_k \cdot v_k$$
 
-<p>where $v_k$ is the numeric value of token $k$. Question: does $c$ correlate with $c_E$?</p>
+<p>where $v_k$ is the numeric value of token $k$. The subscript $E$ stands for
+<em>expectation</em>: $c_E = \mathbb{E}[v]$ is the mean of the model's own
+distribution over confidence numbers, whereas $c$ is a single sample drawn from
+it. Question: does $c$ correlate with $c_E$?</p>
+
+<p>As a <em>toy</em> example, suppose the numeric mass at the emission position is:</p>
+
+<table>
+  <thead>
+    <tr><th>token</th><th>$p_k$</th><th>$v_k$</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>"90"</td><td>0.6</td><td>90</td></tr>
+    <tr><td>"85"</td><td>0.3</td><td>85</td></tr>
+    <tr><td>"95"</td><td>0.1</td><td>95</td></tr>
+  </tbody>
+</table>
+
+<p>then the model <em>emits</em> $c = 90$ (the most likely draw), but
+$c_E = 0.6(90) + 0.3(85) + 0.1(95) = 89.0$. Same position, same forward pass:
+$c$ is what came out, $c_E$ is what it would average to.</p>
+
+<p>The three rows are just for intuition. The real distribution is a heavy-tailed
+softmax over the whole vocabulary, so in practice we keep the numeric tokens
+(from the top-K logprobs the API returns) and renormalize them to sum to one
+before taking the expectation.</p>
 
 <h2>What we'd actually expect to see</h2>
 
@@ -156,11 +200,35 @@ support. Here $c$ and $c_E$ <em>diverge</em> &mdash; and that divergence is the 
 <p>So the right framing isn't "are they correlated" (yes, trivially, in regimes 1&ndash;2)
 but <strong>"where do they diverge, and does the divergence carry information?"</strong></p>
 
+<h2>What this does and doesn't measure</h2>
+
+<p>One caveat to be explicit about: the distribution over confidence <em>tokens</em>
+is a distribution about a <strong>report</strong>, not about the <strong>task</strong>.
+$c_E$ and $H_c$ describe how sure the model is about <em>what number to say</em>,
+not how sure it is about the <em>answer</em>. The two come apart:</p>
+
+<ul>
+  <li>Certain the answer is "B" but fuzzy about whether to call it 85 or 90 &rarr;
+    high $H_c$, yet low task uncertainty.</li>
+  <li>Torn between two answers but trained to always stamp "95" &rarr; low $H_c$,
+    yet high task uncertainty.</li>
+</ul>
+
+<p>So $H_c$ and $\Delta = c - c_E$ are best read as signals of the <strong>internal
+consistency of the self-report</strong>, not as direct read-outs of "the model
+knows it doesn't know." Whether that consistency <em>predicts correctness</em> is
+the empirical question &mdash; plausible (an inconsistent self-reporter may also
+be a worse judge), but a hypothesis to test, not assume.</p>
+
 <h2>Concrete experiment to run</h2>
 
 <p>Pick one open-weight model (Llama-3.3-70B is convenient; vLLM exposes top-k
 logprobs cleanly), one benchmark with verbalized confidence in the prompt
-template, ~500 instances.</p>
+template, ~500 instances. <strong>Use a temperature where the confidence
+distribution actually moves</strong> &mdash; on near-greedy decoding many RLHF'd
+models mode-collapse onto a handful of values ("90", "95", "100") and the whole
+thing flattens into Regime 1, where there is nothing to study (see caveat
+below).</p>
 
 <p>For each instance:</p>
 
@@ -168,7 +236,8 @@ template, ~500 instances.</p>
   <li>Run the prompt, get the trace + confidence emission.</li>
   <li>At the confidence position, capture top-20 logprobs.</li>
   <li>Filter to numeric continuations, renormalize, compute $c_E$.</li>
-  <li>Record $(c, c_E, H_c)$.</li>
+  <li>Record $(c, c_E, H_c)$ &mdash; <strong>and the gold label</strong>, so each
+    instance also carries whether the answer was actually correct.</li>
 </ol>
 
 <p>Then plot:</p>
@@ -178,6 +247,11 @@ template, ~500 instances.</p>
   <li><strong>Histogram of $\Delta = c - c_E$</strong>: is it centered at zero, or systematically biased
     (e.g., model emits 95 but its distribution averages to 80 &mdash; overconfident sampling)?</li>
   <li><strong>$H_c$ vs. $|\Delta|$</strong>: high entropy positions should be where $c$ and $c_E$ disagree most.</li>
+  <li><strong>Correctness link</strong> (the one that matters): do $|\Delta|$ and
+    $H_c$ separate correct from incorrect instances? An AUROC of $H_c$ (or
+    $|\Delta|$) against the binary error label closes the loop &mdash; it tells
+    you whether self-report inconsistency is just noise or an actual error
+    signal.</li>
 </ul>
 
 <h2>What the answer tells you</h2>
@@ -192,8 +266,10 @@ template, ~500 instances.</p>
     disagrees with, which is a kind of self-inconsistency you can detect from one
     forward pass.</li>
   <li><strong>$r$ moderate, $H_c$ predicts $|\Delta|$</strong>: $H_c$ is a useful per-instance
-    signal. The model knowing-it-doesn't-know shows up as distributional spread,
-    not just a low number.</li>
+    signal of self-report inconsistency &mdash; the model's uncertainty about
+    <em>what to say</em> shows up as distributional spread, not just a low number.
+    Whether that spread also tracks <em>being wrong</em> is the correctness check
+    above.</li>
 </ul>
 
 <h2>The tokenization wrinkle (real but tractable)</h2>
