@@ -26,6 +26,10 @@
           "label": "GitHub",
           "url": "https://github.com/ferhaterata/learning-randomized-reductions",
           "icon": "github"
+        },
+        {
+          "label": "Slides",
+          "url": "slides/erata-2026-learning-randomized-reductions.html"
         }
       ],
       "tags": [

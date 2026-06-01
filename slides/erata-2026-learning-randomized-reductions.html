@@ -1,0 +1,1264 @@
+<!DOCTYPE html>
+<html lang="en" class="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Learning Randomized Reductions — Bitween (MacBook)</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body, {delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]});"></script>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap');
+
+  :root {
+    --bg: #ffffff;
+    --surface: #ffffff;
+    --border: #c8c8d8;
+    --text: #1a1a2e;
+    --dim: #5a5a78;
+    --accent: #4060d8;
+    --accent2: #d03058;
+    --green: #1a8848;
+    --orange: #b06818;
+    --yellow: #8a6800;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    overflow: hidden;
+  }
+
+  .deck { width: 100vw; height: 100vh; position: relative; }
+
+  .slide {
+    position: absolute;
+    inset: 0;
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    padding: 5vh 6vw;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    zoom: 1.0; /* MacBook edition: scaled down to fit a laptop display (vs. 1.2 for 1080p+) */
+  }
+  .slide.active { display: flex; opacity: 1; }
+
+  h1 {
+    font-size: clamp(2.4rem, 5vw, 4.4rem);
+    font-weight: 900;
+    line-height: 1.15;
+    margin-bottom: 0.3em;
+  }
+  h2 {
+    font-size: clamp(1.7rem, 3.5vw, 2.9rem);
+    font-weight: 700;
+    margin-bottom: 0.6em;
+    color: var(--accent);
+  }
+  h3 {
+    font-size: clamp(1.15rem, 2.2vw, 1.75rem);
+    font-weight: 600;
+    color: var(--dim);
+    margin-bottom: 1.2em;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  .subtitle {
+    font-size: clamp(1.2rem, 2.5vw, 2rem);
+    color: var(--dim);
+    margin-top: 0.5em;
+    font-weight: 400;
+  }
+  .author {
+    font-size: clamp(1.05rem, 1.9vw, 1.5rem);
+    color: var(--text);
+    margin-top: 1.2em;
+  }
+
+  ul { list-style: none; font-size: clamp(1.15rem, 2vw, 1.7rem); line-height: 1.8; }
+  ul li::before { content: "\25b8"; color: var(--accent); margin-right: 0.6em; font-weight: 700; }
+
+  .highlight { color: var(--accent); font-weight: 700; }
+  .warn { color: var(--accent2); font-weight: 700; }
+  .ok { color: var(--green); font-weight: 700; }
+
+  .quote {
+    font-size: clamp(1.35rem, 2.5vw, 2rem);
+    font-style: italic;
+    color: var(--dim);
+    border-left: 4px solid var(--accent);
+    padding: 0.6em 1.2em;
+    margin-top: 1.2em;
+  }
+
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    max-width: 1200px;
+    font-size: clamp(1.05rem, 1.6vw, 1.35rem);
+    margin-top: 0.6em;
+  }
+  th { text-align: left; padding: 0.5em 0.8em; color: var(--accent); border-bottom: 2px solid var(--border); font-weight: 700; }
+  td { padding: 0.45em 0.8em; border-bottom: 1px solid var(--border); vertical-align: top; }
+  tr td:first-child { color: var(--dim); font-weight: 600; }
+
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3vw;
+    align-items: start;
+    margin-top: 0.5em;
+  }
+
+  .three-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 2vw;
+    align-items: start;
+    margin-top: 0.5em;
+  }
+
+  code, .code {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: clamp(0.8rem, 1.25vw, 1.1rem);
+    line-height: 1.6;
+    background: #eeeef4;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0.8em 1em;
+    display: block;
+    white-space: pre;
+    overflow-x: auto;
+    max-height: 60vh;
+  }
+
+  .code .kw { color: var(--accent); font-weight: 700; }
+  .code .cm { color: var(--dim); font-style: italic; }
+  .code .str { color: var(--green); }
+  .code .fn { color: var(--orange); }
+  .code .warn { color: var(--accent2); font-weight: 700; }
+
+  .callout {
+    background: var(--surface);
+    border: 1px solid var(--accent);
+    border-radius: 8px;
+    padding: 0.7em 0.9em;
+    font-size: clamp(1.05rem, 1.5vw, 1.3rem);
+    line-height: 1.5;
+    overflow-wrap: break-word;
+  }
+
+  .info-box {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0.7em 0.9em;
+    font-size: clamp(1.05rem, 1.5vw, 1.3rem);
+    line-height: 1.6;
+    overflow-wrap: break-word;
+  }
+
+  .info-box .label {
+    color: var(--accent);
+    font-weight: 700;
+    margin-bottom: 0.4em;
+    text-transform: uppercase;
+    font-size: 0.8em;
+    letter-spacing: 0.1em;
+  }
+
+  .tag {
+    display: inline-block;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 0.15em 0.5em;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8em;
+    color: var(--dim);
+    margin-right: 0.3em;
+  }
+
+  /* animated slide steps */
+  .step { opacity: 0; transition: opacity 0.5s ease, transform 0.5s ease; transform: translateY(10px); }
+  .step.visible { opacity: 1; transform: translateY(0); }
+  .pipe-box { transition: box-shadow 0.3s ease, transform 0.3s ease, background 0.3s ease; }
+  .pipe-box.pipe-active { box-shadow: 0 0 0 3px var(--accent2), 0 4px 14px rgba(0,0,0,0.18); transform: translateY(-3px); background: #fff7ee; }
+  .arch-pane { animation: archFade 0.4s ease; }
+  @keyframes archFade { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* SVG animation canvas */
+  .svg-canvas {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    width: 100%;
+    max-height: 55vh;
+  }
+
+  /* progress */
+  .progress { position: fixed; bottom: 0; left: 0; height: 3px; background: var(--accent); transition: width 0.4s ease; z-index: 100; }
+  .slide-num { position: fixed; bottom: 1.2em; right: 2em; font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; color: var(--dim); z-index: 100; }
+
+  /* slide nav bar */
+  .nav-pill {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    padding: 2px 7px;
+    border-radius: 4px;
+    cursor: pointer;
+    color: var(--dim);
+    background: transparent;
+    border: 1px solid transparent;
+    transition: all 0.2s;
+    user-select: none;
+    line-height: 1.4;
+  }
+  .nav-pill:hover { background: #eeeef4; color: var(--text); }
+  .nav-pill.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+
+  /* Section label */
+  .section-label {
+    position: fixed;
+    bottom: 1.2em;
+    left: 2em;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--dim);
+    opacity: 0.6;
+    z-index: 100;
+  }
+
+  /* Turing badge */
+  .turing-badge {
+    display: inline-block;
+    background: #e8e4e0;
+    color: #5a5a78;
+    font-size: 0.7em;
+    font-weight: 700;
+    padding: 0.1em 0.5em;
+    border-radius: 4px;
+    vertical-align: middle;
+    margin-left: 0.3em;
+  }
+
+  /* gap bridge visual */
+  .bridge-visual {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2vw;
+    margin-top: 1.5em;
+  }
+  .bridge-col {
+    flex: 1;
+    max-width: 400px;
+  }
+  .bridge-arrow {
+    font-size: 3rem;
+    color: var(--accent);
+    font-weight: 900;
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 0.3; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.15); }
+  }
+
+  /* app boxes */
+  .app-boxes {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1.5vw;
+    margin-top: 1em;
+  }
+  .app-box {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1em;
+    text-align: center;
+  }
+  .app-box .app-icon {
+    font-size: 2rem;
+    margin-bottom: 0.3em;
+  }
+  .app-box .app-title {
+    font-weight: 700;
+    color: var(--accent);
+    font-size: clamp(1.05rem, 1.5vw, 1.3rem);
+    margin-bottom: 0.3em;
+  }
+  .app-box .app-desc {
+    font-size: clamp(0.95rem, 1.25vw, 1.15rem);
+    color: var(--dim);
+    line-height: 1.4;
+  }
+
+  /* Timeline items */
+  .timeline-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.8em;
+    margin-bottom: 0.6em;
+    font-size: clamp(1.05rem, 1.5vw, 1.3rem);
+  }
+  .timeline-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--accent);
+    margin-top: 0.4em;
+    flex-shrink: 0;
+  }
+
+  /* University affiliation logo strip — inline, under the affiliation text */
+  .affil-logos {
+    display: flex;
+    align-items: center;
+    gap: 3.5em;
+    margin-top: 1em;
+  }
+  .affil-logos img {
+    height: clamp(54px, 7.5vh, 86px);
+    width: auto;
+    opacity: 0.95;
+  }
+
+  /* ICML logo, fixed top-right on every slide */
+  .icml-logo {
+    position: fixed;
+    top: 2.2vh;
+    right: 2.2vw;
+    height: clamp(72px, 9.5vh, 112px);
+    width: auto;
+    z-index: 150;
+    opacity: 0.92;
+    pointer-events: none;
+  }
+</style>
+</head>
+<body>
+
+<!-- ICML logo (local SVG primary; falls back to hosted PNG). Shown on every slide. -->
+<img class="icml-logo" src="assets/ICML-logo.svg"
+     alt="ICML"
+     onerror="this.onerror=null; this.src='https://icml.cc/media/Press/ICML-logo.png';">
+
+<div class="deck">
+
+  <!-- ==================== SLIDE 1: TITLE ==================== -->
+  <div class="slide active" id="s0" data-section="Opening">
+    <h3>&nbsp;</h3>
+    <h1><span class="highlight">Learning</span> Randomized Reductions</h1>
+    <div class="subtitle">Bridging Theoretical Computer Science, Machine Learning, and AI Agents</div>
+    <div style="margin-top: 1.2em;">
+      <span class="turing-badge" style="background: #f3e6c0; color: #8a6800; font-size: 0.95em; padding: 0.25em 0.7em;">&#127942; ICML 2026 Spotlight</span>
+    </div>
+    <div style="margin-top: 1.6em; font-size: clamp(0.9rem, 1.4vw, 1.15rem); color: var(--text); line-height: 2;">
+      <strong style="color: var(--accent);">Ferhat Erata</strong><sup>1</sup> &middot;
+      Orr Paradise<sup>2</sup> &middot;
+      Thanos Typaldos<sup>1</sup> &middot;
+      Timos Antonopoulos<sup>1</sup> &middot;
+      ThanhVu Nguyen<sup>3</sup> &middot;
+      <strong>Shafi Goldwasser</strong><sup>2</sup> &middot;
+      <strong>Ruzica Piskac</strong><sup>1</sup>
+    </div>
+    <div style="margin-top: 0.6em; font-size: clamp(0.78rem, 1.1vw, 0.95rem); color: var(--dim);">
+      <sup>1</sup>Yale University &nbsp;&middot;&nbsp;
+      <sup>2</sup>UC Berkeley &nbsp;&middot;&nbsp;
+      <sup>3</sup>George Mason University
+    </div>
+    <div class="affil-logos">
+      <img src="assets/yale.svg" alt="Yale University">
+      <img src="assets/berkeley.svg" alt="UC Berkeley">
+      <img src="assets/gmu.svg" alt="George Mason University">
+    </div>
+    <div style="margin-top: 2.4em; display: flex; gap: 0.5em; flex-wrap: wrap;">
+      <span class="tag">RSR</span>
+      <span class="tag">Self-Correction</span>
+      <span class="tag">Neuro-Symbolic</span>
+      <span class="tag">LLM Agents</span>
+      <a class="tag" href="https://openreview.net/forum?id=hCAEcqig2C" target="_blank" style="text-decoration:none;">ICML 2026</a>
+    </div>
+  </div>
+
+  <!-- ==================== SLIDE: WHAT IS AN RSR? + QUADRATIC BUILD (FUSED) ==================== -->
+  <div class="slide" id="s4" data-section="Background" style="padding: 2.5vh 4vw;">
+    <h3>Background</h3>
+    <h2>What is a Randomized Self-Reduction?</h2>
+    <div class="callout" style="margin-bottom: 0.7em; text-align: center; font-size: clamp(0.9rem, 1.35vw, 1.15rem);">
+      Recover $f(x)$ from $f$ evaluated at <span class="highlight">random correlated points</span> &mdash; each query point is uniformly random, revealing nothing about $x$.
+    </div>
+    <div style="display: grid; grid-template-columns: 0.85fr 1.15fr; gap: 2vw; align-items: center;">
+      <div>
+        <!-- x=1, r=2: f(x)=1, f(x+r)=9, f(x-r)=1, f(r)=4 -->
+        <!-- Check: 9+1-2*4=2=2*1 ✓ -->
+        <!-- viewBox 700x380, x_range[-3,3.5], y_range[0,10] -->
+        <!-- x_px=100+(x+3)/6.5*580, y_px=340-y/10*300 -->
+        <svg id="svg-quad" class="svg-canvas" viewBox="-20 0 770 380">
+          <defs>
+            <marker id="aUq" markerWidth="7" markerHeight="7" refX="7" refY="3.5" orient="auto" markerUnits="userSpaceOnUse"><path d="M0,0.5 L6,3.5 L0,6.5 Z" fill="#4060d8"/></marker>
+            <marker id="aDq" markerWidth="7" markerHeight="7" refX="7" refY="3.5" orient="auto" markerUnits="userSpaceOnUse"><path d="M0,0.5 L6,3.5 L0,6.5 Z" fill="#1a8848"/></marker>
+            <marker id="aDr" markerWidth="7" markerHeight="7" refX="7" refY="3.5" orient="auto" markerUnits="userSpaceOnUse"><path d="M0,0.5 L6,3.5 L0,6.5 Z" fill="#d03058"/></marker>
+          </defs>
+          <!-- axes -->
+          <line x1="100" y1="340" x2="670" y2="340" stroke="#c8c8d8" stroke-width="1.5"/>
+          <text x="675" y="344" fill="#5a5a78" font-size="14" font-family="Inter">x</text>
+          <line x1="368" y1="340" x2="368" y2="30" stroke="#c8c8d8" stroke-width="1.5"/>
+          <!-- parabola (revealed on first click) -->
+          <g class="step">
+            <path d="M100,70 L110,89 L120,108 L129,126 L139,143 L149,160 L159,176 L169,191 L179,205 L188,219 L198,232 L208,244 L218,256 L228,266 L238,276 L247,286 L257,294 L267,302 L277,309 L287,315 L297,321 L306,326 L316,330 L326,333 L336,336 L346,338 L356,339 L365,340 L375,340 L385,339 L395,337 L405,335 L415,332 L424,328 L434,323 L444,318 L454,312 L464,305 L474,298 L483,290 L493,281 L503,271 L513,261 L523,249 L533,238 L542,225 L552,212 L562,198 L572,183 L582,167 L592,151 L601,134 L611,117 L621,98 L631,79 L641,59 L651,39" fill="none" stroke="#4060d8" stroke-width="3"/>
+            <text x="135" y="95" fill="#4060d8" font-size="16" font-weight="700" font-family="Inter">f(x) = x&sup2;</text>
+          </g>
+          <!-- click 2: correlated query points ON the x-axis (x-r, x, r, x+r) -->
+          <g class="step">
+            <!-- x-r=-1 → 278 -->
+            <circle cx="278" cy="340" r="4" fill="#4060d8"/>
+            <text x="278" y="358" fill="#4060d8" font-size="14" font-weight="600" font-family="Inter" text-anchor="middle">x&minus;r</text>
+            <!-- x=1 → 457 -->
+            <circle cx="457" cy="340" r="4" fill="#d03058"/>
+            <text x="457" y="358" fill="#d03058" font-size="15" font-weight="700" font-family="Inter" text-anchor="middle">x</text>
+            <!-- r=2 → 546 -->
+            <circle cx="546" cy="340" r="4" fill="#1a8848"/>
+            <text x="546" y="358" fill="#1a8848" font-size="15" font-weight="700" font-family="Inter" text-anchor="middle">r</text>
+            <!-- x+r=3 → 635 -->
+            <circle cx="635" cy="340" r="4" fill="#4060d8"/>
+            <text x="635" y="358" fill="#4060d8" font-size="14" font-weight="600" font-family="Inter" text-anchor="middle">x+r</text>
+          </g>
+          <!-- click 3: recover the values (project up to the curve) -->
+          <g class="step">
+            <!-- f(x)=1 → (457, 310) -->
+            <line x1="457" y1="340" x2="457" y2="310" stroke="#d03058" stroke-width="1.2" stroke-dasharray="5,4"/>
+            <circle cx="457" cy="310" r="5" fill="#d03058"/>
+            <text x="472" y="322" fill="#d03058" font-size="14" font-weight="600" font-family="Inter">f(x)=1</text>
+            <!-- f(x+r)=9 → (635, 70) -->
+            <line x1="635" y1="340" x2="635" y2="70" stroke="#4060d8" stroke-width="1.2" stroke-dasharray="5,4"/>
+            <circle cx="635" cy="70" r="5" fill="#4060d8"/>
+            <text x="650" y="205" fill="#4060d8" font-size="14" font-weight="600" font-family="Inter">f(x+r)=9</text>
+            <!-- f(x-r)=1 → (278, 310) -->
+            <line x1="278" y1="340" x2="278" y2="310" stroke="#4060d8" stroke-width="1.2" stroke-dasharray="5,4"/>
+            <circle cx="278" cy="310" r="5" fill="#4060d8"/>
+            <text x="247" y="322" fill="#4060d8" font-size="14" font-weight="600" font-family="Inter" text-anchor="end">f(x&minus;r)=1</text>
+            <!-- f(r)=4 → (546, 220) -->
+            <line x1="546" y1="340" x2="546" y2="220" stroke="#1a8848" stroke-width="1.2" stroke-dasharray="5,4"/>
+            <circle cx="546" cy="220" r="5" fill="#1a8848"/>
+            <text x="564" y="234" fill="#1a8848" font-size="14" font-weight="600" font-family="Inter">f(r)=4</text>
+          </g>
+          <!-- click 4: vector arrows fanning out left (each at separate x) -->
+          <!-- f(x+r)=9→y70, f(x-r)=1→y310, sum=10→y40, 2f(r)=8→240px, 2f(x)=2→y280, f(x)=1→y310 -->
+          <g class="step">
+            <!-- Arrow 1 (blue): 0→+f(x+r)=9 at x=88 -->
+            <line x1="88" y1="338" x2="88" y2="74" stroke="#4060d8" stroke-width="2.5" marker-end="url(#aUq)"/>
+            <text x="76" y="185" fill="#4060d8" font-size="11" font-weight="700" font-family="Inter" text-anchor="middle" transform="rotate(-90,76,185)">+ f(x+r) = 9</text>
+            <!-- connector y=70, x:88→55 -->
+            <line x1="88" y1="70" x2="55" y2="70" stroke="#c8c8d8" stroke-width="0.8" stroke-dasharray="3,3"/>
+            <!-- Arrow 2 (blue): +f(x-r)=1 at x=55, up 30px -->
+            <line x1="55" y1="70" x2="55" y2="44" stroke="#4060d8" stroke-width="2.5" marker-end="url(#aUq)"/>
+            <text x="67" y="50" fill="#4060d8" font-size="11" font-weight="700" font-family="Inter">+ f(x&minus;r) = 1</text>
+            <!-- connector y=40, x:55→22 -->
+            <line x1="55" y1="40" x2="22" y2="40" stroke="#c8c8d8" stroke-width="0.8" stroke-dasharray="3,3"/>
+            <!-- Arrow 3 (green): -2f(r)=-8 at x=22, down 240px -->
+            <line x1="22" y1="40" x2="22" y2="276" stroke="#1a8848" stroke-width="2.5" marker-end="url(#aDq)"/>
+            <text x="10" y="140" fill="#1a8848" font-size="11" font-weight="700" font-family="Inter" text-anchor="middle" transform="rotate(-90,10,140)">&minus; 2f(r) = &minus;8</text>
+            <!-- orange dot: = 2f(x) = 2 at y=280 -->
+            <circle cx="22" cy="280" r="4" fill="#b06818"/>
+            <text x="30" y="284" fill="#b06818" font-size="11" font-weight="700" font-family="Inter">= 2f(x) = 2</text>
+          </g>
+          <!-- click 5: ÷2 → f(x) -->
+          <g class="step">
+            <line x1="22" y1="290" x2="22" y2="306" stroke="#d03058" stroke-width="2" stroke-dasharray="4,3" marker-end="url(#aDr)"/>
+            <text x="10" y="302" fill="#d03058" font-size="11" font-weight="700" font-family="Inter" text-anchor="end">÷2</text>
+            <circle cx="22" cy="310" r="5" fill="#d03058"/>
+            <line x1="22" y1="310" x2="457" y2="310" stroke="#d03058" stroke-width="1" stroke-dasharray="5,4" opacity="0.4"/>
+            <text x="26" y="326" fill="#d03058" font-size="11" font-weight="700" font-family="Inter">= f(x) = 1</text>
+          </g>
+        </svg>
+      </div>
+      <div>
+        <div class="step info-box">
+          <div class="label">Example &mdash; quadratic $f(x) = x^2$</div>
+          Three query points give a <strong>linear</strong> recovery:
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.2em; margin-top: 0.7em; align-items: center;">
+            <div style="text-align: center;">
+              <div style="font-weight: 700; margin-bottom: 0.4em;">Queries</div>
+              $f(x{+}r)$, $f(x{-}r)$, $f(r)$
+            </div>
+            <div style="text-align: center; border-left: 1px solid var(--border, #d8d8e4); padding-left: 1.2em;">
+              <div style="font-weight: 700; margin-bottom: 0.4em;">Recover</div>
+              $f(x) = \frac{f(x{+}r) + f(x{-}r) - 2f(r)}{2}$
+            </div>
+          </div>
+          <div style="font-size: 0.85em; color: var(--dim); margin-top: 0.6em;"><strong>Lipton (1989):</strong> works for <em>all</em> low-degree polynomials.</div>
+        </div>
+      </div>
+    </div>
+    <!-- three classical applications -->
+    <div class="step app-boxes" style="margin-top: 1em;">
+      <div class="app-box">
+        <div class="app-title">Complexity Theory</div>
+        <div class="app-desc">
+          Worst-case &rarr; average-case reductions<br>
+          <span style="font-size: 0.85em; color: var(--dim);">Goldwasser & Micali 1984</span>
+        </div>
+      </div>
+      <div class="app-box">
+        <div class="app-title">Instance-Hiding Protocols</div>
+        <div class="app-desc">
+          Compute $f(x)$ without revealing $x$<br>
+          <span style="font-size: 0.85em; color: var(--dim);">Abadi et al. 1987</span>
+        </div>
+      </div>
+      <div class="app-box">
+        <div class="app-title">Self-Correcting Programs</div>
+        <div class="app-desc">
+          90%-correct oracle &rarr; <span class="ok">99.99%</span><br>
+          <span style="font-size: 0.85em; color: var(--dim);">Blum, Luby, Rubinfeld 1993</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== SLIDE 3: THE GAP ==================== -->
+  <div class="slide" id="s2" data-section="Motivation">
+    <div style="max-width: 1500px;">
+    <h3>The Motivation</h3>
+    <h2>Two worlds, <span class="warn">no bridge</span></h2>
+    <div class="two-col" style="grid-template-columns: 1.12fr 1fr; gap: 2.5em; font-size: 0.92em;">
+      <!-- click 1: TCS box -->
+      <div class="step">
+        <div class="info-box" style="border-left: 4px solid var(--accent);">
+          <div class="label">TCS (Since 1984)</div>
+          <div class="timeline-item"><div class="timeline-dot"></div><div><strong>Goldwasser & Micali (1984)</strong> &mdash; RSRs first introduced</div></div>
+          <div class="timeline-item"><div class="timeline-dot"></div><div><strong>Lipton (1989)</strong> &mdash; all low-degree polynomials over finite fields</div></div>
+          <div class="timeline-item"><div class="timeline-dot"></div><div><strong>Blum, Luby, Rubinfeld (1993)</strong> &mdash; self-correcting programs</div></div>
+          <div class="timeline-item"><div class="timeline-dot" style="background: var(--accent2);"></div><div><span class="warn">40 years of manual expert derivation</span></div></div>
+          <div class="timeline-item"><div class="timeline-dot" style="background: var(--accent2);"></div><div><span class="warn">Handful of fixed queries: $x{+}r,\; x{-}r,\; x{\cdot}r,\; r$</span></div></div>
+        </div>
+      </div>
+      <!-- click 2: ML box -->
+      <div class="step">
+        <div class="info-box" style="border-left: 4px solid var(--green);">
+          <div class="label">ML & AI (NOW)</div>
+          <div class="timeline-item"><div class="timeline-dot" style="background: var(--green);"></div><div>Powerful <strong>regression</strong> (linear, symbolic, MILP)</div></div>
+          <div class="timeline-item"><div class="timeline-dot" style="background: var(--green);"></div><div><strong>Symbolic solvers</strong> (SymPy, Mathematica)</div></div>
+          <div class="timeline-item"><div class="timeline-dot" style="background: var(--green);"></div><div><strong>LLM agents</strong> with tool use & reasoning</div></div>
+          <div class="timeline-item"><div class="timeline-dot" style="background: var(--green);"></div><div><strong>Neuro-symbolic</strong> reasoning loops</div></div>
+          <div class="timeline-item"><div class="timeline-dot" style="background: var(--green);"></div><div>AI for <strong>mathematical discovery</strong></div></div>
+        </div>
+      </div>
+    </div>
+    <!-- click 3: punchline -->
+    <div class="step" style="text-align: center; margin-top: 1.5em;">
+      <span style="font-size: clamp(1.2rem, 2.2vw, 1.8rem); font-weight: 900; color: var(--accent);">
+        Can we bridge them?
+      </span>
+    </div>
+    </div>
+  </div>
+
+
+  <!-- ==================== SLIDE 6: THE QUESTION ==================== -->
+  <div class="slide" id="s5" data-section="Geometric Intuition">
+    <h3>The Challenge</h3>
+    <h2>What about <span class="warn">non-polynomial</span> functions?</h2>
+    <div style="max-width: 900px;">
+      <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 0.8em; margin-top: 1em;">
+        <div class="info-box" style="text-align: center; padding: 0.8em 0.5em;"><div style="font-size: 1.3em; font-weight: 700; color: var(--accent2);">sigmoid</div><div style="font-size: 0.8em; color: var(--dim);">$\sigma(x)$</div></div>
+        <div class="info-box" style="text-align: center; padding: 0.8em 0.5em;"><div style="font-size: 1.3em; font-weight: 700; color: var(--accent2);">ReLU</div><div style="font-size: 0.8em; color: var(--dim);">$\max(0,x)$</div></div>
+        <div class="info-box" style="text-align: center; padding: 0.8em 0.5em;"><div style="font-size: 1.3em; font-weight: 700; color: var(--accent2);">GELU</div><div style="font-size: 0.8em; color: var(--dim);">$x\Phi(x)$</div></div>
+        <div class="info-box" style="text-align: center; padding: 0.8em 0.5em;"><div style="font-size: 1.3em; font-weight: 700; color: var(--accent2);">softmax</div><div style="font-size: 0.8em; color: var(--dim);">$e^x/\sum$</div></div>
+        <div class="info-box" style="text-align: center; padding: 0.8em 0.5em;"><div style="font-size: 1.3em; font-weight: 700; color: var(--accent2);">tanh</div><div style="font-size: 0.8em; color: var(--dim);">$\frac{e^x-e^{-x}}{e^x+e^{-x}}$</div></div>
+        <div class="info-box" style="text-align: center; padding: 0.8em 0.5em;"><div style="font-size: 1.3em; font-weight: 700; color: var(--accent2);">log</div><div style="font-size: 0.8em; color: var(--dim);">$\ln(x)$</div></div>
+        <div class="info-box" style="text-align: center; padding: 0.8em 0.5em;"><div style="font-size: 1.3em; font-weight: 700; color: var(--accent2);">gamma</div><div style="font-size: 0.8em; color: var(--dim);">$\Gamma(x)$</div></div>
+        <div class="info-box" style="text-align: center; padding: 0.8em 0.5em;"><div style="font-size: 1.3em; font-weight: 700; color: var(--accent2);">erf</div><div style="font-size: 0.8em; color: var(--dim);">$\mathrm{erf}(x)$</div></div>
+        <div class="info-box" style="text-align: center; padding: 0.8em 0.5em;"><div style="font-size: 1.3em; font-weight: 700; color: var(--accent2);">Gudermannian</div><div style="font-size: 0.8em; color: var(--dim);">$\mathrm{gd}(x)$</div></div>
+        <div class="info-box" style="text-align: center; padding: 0.8em 0.5em;"><div style="font-size: 1.3em; font-weight: 700; color: var(--accent2);">sinc</div><div style="font-size: 0.8em; color: var(--dim);">$\frac{\sin x}{x}$</div></div>
+      </div>
+      <div style="text-align: center; margin-top: 1.5em;">
+        <span style="font-size: clamp(1.4rem, 2.5vw, 2rem); font-weight: 900; color: var(--accent2);">
+          No known RSRs for many of these.
+        </span>
+      </div>
+      <div style="text-align: center; margin-top: 0.5em; font-size: clamp(0.9rem, 1.4vw, 1.15rem); color: var(--dim);">
+        For 40 years, nobody found them &mdash; because nobody <span class="highlight">automated the search</span>.
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== SLIDE 7b: HIGHER DIMENSIONS ==================== -->
+  <div class="slide" id="s6b" data-section="Geometric Intuition">
+    <h3>Scaling Up</h3>
+    <h2>What about <span class="highlight">higher dimensions</span>?</h2>
+    <div style="max-width: 1100px;">
+      <div class="step" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.2em; margin-top: 1em;">
+        <!-- 1D -->
+        <div class="info-box" style="border-top: 4px solid var(--accent); padding: 1em;">
+          <div style="font-size: 1.5em; font-weight: 900; color: var(--accent); margin-bottom: 0.3em;">1D</div>
+          <code style="font-size: 0.8em; padding: 0.4em; background: #1a1a2e; color: #e0e0e8; border: none;"><span style="color:#6ab0f3;">def</span> <span style="color:#d19a66;">f</span>(x):
+  <span style="color:#c678dd;">return</span> 1/(1+exp(-x))</code>
+          <div style="font-size: 0.85em; color: var(--dim); margin-top: 0.5em;">sigmoid<br>curve in 2D</div>
+        </div>
+        <!-- 2D -->
+        <div class="info-box" style="border-top: 4px solid var(--accent); padding: 1em;">
+          <div style="font-size: 1.5em; font-weight: 900; color: var(--accent); margin-bottom: 0.3em;">2D</div>
+          <code style="font-size: 0.8em; padding: 0.4em; background: #1a1a2e; color: #e0e0e8; border: none;"><span style="color:#6ab0f3;">def</span> <span style="color:#d19a66;">f</span>(x, y):
+  <span style="color:#c678dd;">return</span> x**2 - y**2</code>
+          <div style="font-size: 0.85em; color: var(--dim); margin-top: 0.5em;">saddle surface<br>surface in 3D</div>
+        </div>
+        <!-- 4D -->
+        <div class="info-box" style="border-top: 4px solid var(--green); padding: 1em;">
+          <div style="font-size: 1.5em; font-weight: 900; color: var(--green); margin-bottom: 0.3em;">4D</div>
+          <code style="font-size: 0.8em; padding: 0.4em; background: #1a1a2e; color: #e0e0e8; border: none;"><span style="color:#6ab0f3;">def</span> <span style="color:#d19a66;">f</span>(a, b, c, d):
+  <span style="color:#c678dd;">return</span> a**2+b**2+c**2+d**2</code>
+          <div style="font-size: 0.85em; color: var(--dim); margin-top: 0.5em;">quaternion norm<br><em>can't visualize!</em></div>
+        </div>
+        <!-- 8D -->
+        <div class="info-box" style="border-top: 4px solid var(--orange); padding: 1em;">
+          <div style="font-size: 1.5em; font-weight: 900; color: var(--orange); margin-bottom: 0.3em;">8D</div>
+          <code style="font-size: 0.8em; padding: 0.4em; background: #1a1a2e; color: #e0e0e8; border: none;"><span style="color:#6ab0f3;">def</span> <span style="color:#d19a66;">f</span>(a,b,c,d,e,f,g,h):
+  <span style="color:#c678dd;">return</span> a**2+...+h**2</code>
+          <div style="font-size: 0.85em; color: var(--dim); margin-top: 0.5em;">octonion norm<br><em>non-associative!</em></div>
+        </div>
+      </div>
+      <div class="step" style="margin-top: 1.5em;">
+        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.2em;">
+          <div style="text-align: center; font-size: 0.85em; color: var(--dim);">$\det(A)$<br>matrices</div>
+          <div style="text-align: center; font-size: 0.85em; color: var(--dim);">$e_2, e_3, p_2$<br>sym. polynomials</div>
+          <div style="text-align: center; font-size: 0.85em; color: var(--dim);">$\mathrm{Cl}(3,0)$<br>Clifford algebras</div>
+          <div style="text-align: center; font-size: 0.85em; color: var(--dim);">$\mathrm{tr}([A,B]^2)$<br>Lie algebras</div>
+        </div>
+      </div>
+      <div class="step callout" style="margin-top: 1em; text-align: center;">
+        Bitween only needs <span class="highlight">black-box oracle access</span> &mdash; pass in a Python function, get RSRs back.
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== SLIDE: BITWEEN VARIANTS ==================== -->
+  <div class="slide" id="s8b" data-section="Bitween">
+    <h3>The System</h3>
+    <h2>Bitween &mdash; <span class="highlight">Three Variants</span></h2>
+    <div class="three-col" style="margin-top: 1em;">
+      <div class="step info-box" style="border-top: 4px solid var(--accent); padding: 1.2em;">
+        <div style="font-size: 1.3em; font-weight: 900; color: var(--accent); margin-bottom: 0.5em;">V-Bitween</div>
+        <div style="font-size: 0.95em; color: var(--dim); margin-bottom: 0.8em;">Vanilla Bitween</div>
+        <ul style="font-size: 0.9em;">
+          <li><strong>No LLM</strong> &mdash; pure regression</li>
+          <li>Fixed queries: $\{x{+}r,\; x{-}r,\; x{\cdot}r,\; r\}$</li>
+          <li>Backends: LR, PySR, GPLearn, MILP</li>
+          <li><strong>Verifier</strong> (symbolic_verify_tool)</li>
+        </ul>
+        <div class="callout" style="margin-top: 0.8em; font-size: 0.85em;">
+          <strong>43/80</strong> functions (54%)<br>
+          <span style="color: var(--dim);">LR backend wins</span>
+        </div>
+      </div>
+      <div class="step info-box" style="border-top: 4px solid var(--dim); padding: 1.2em;">
+        <div style="font-size: 1.3em; font-weight: 900; color: var(--dim); margin-bottom: 0.5em;">N-Research</div>
+        <div style="font-size: 0.95em; color: var(--dim); margin-bottom: 0.8em;">Neural Research (baseline)</div>
+        <ul style="font-size: 0.9em;">
+          <li><strong>LLM</strong> &mdash; no regression</li>
+          <li>sequential_thinking</li>
+          <li>Relies on parametric knowledge</li>
+          <li><strong>Verifier</strong> (symbolic_verify_tool)</li>
+        </ul>
+        <div class="callout" style="margin-top: 0.8em; font-size: 0.85em; border-color: var(--accent2);">
+          <strong>250 RSRs</strong> but <span class="warn">172 unverified</span><br>
+          <span style="color: var(--dim);">Many false positives</span>
+        </div>
+      </div>
+      <div class="step info-box" style="border-top: 4px solid var(--green); padding: 1.2em;">
+        <div style="font-size: 1.3em; font-weight: 900; color: var(--green); margin-bottom: 0.5em;">A-Bitween</div>
+        <div style="font-size: 0.95em; color: var(--dim); margin-bottom: 0.8em;">Agentic Bitween</div>
+        <ul style="font-size: 0.9em;">
+          <li><strong>LLM + V-Bitween tools</strong></li>
+          <li>infer_property_tool (regression)</li>
+          <li>Novel query function discovery</li>
+          <li><strong>Verifier</strong> (symbolic_verify_tool)</li>
+        </ul>
+        <div class="callout" style="margin-top: 0.8em; font-size: 0.85em; border-color: var(--green);">
+          <strong>793 RSRs</strong>, only <span class="ok">26 unverified</span><br>
+          <span style="color: var(--dim);"><strong>64/80</strong> functions (80%)</span>
+        </div>
+      </div>
+    </div>
+    <div class="step" style="text-align: center; margin-top: 1em; font-size: clamp(0.95rem, 1.4vw, 1.15rem); color: var(--dim);">
+      V-Bitween discovers with fixed queries. N-Research lacks Bitween, only accesses verifier. <span class="highlight">A-Bitween uses LLM's math prior + V-Bitween and Verifier as tools.</span>
+    </div>
+  </div>
+
+  <div class="slide" id="s9" data-section="Vanilla Bitween">
+    <h3>Under the Hood</h3>
+    <h2>Vanilla Bitween &mdash; <span class="highlight">Architecture</span></h2>
+    <!-- Outer container: centers entire group -->
+    <div style="width: fit-content; margin: 0 auto;">
+    <!-- Input → Pipeline → Output (tight gaps) -->
+    <div style="display: flex; align-items: center; gap: 0.3em; margin-bottom: 0.8em;">
+      <!-- INPUT -->
+      <div style="flex-shrink: 0;">
+        <div style="font-size: 0.7em; font-weight: 700; color: var(--dim); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.3em;">Input</div>
+        <code style="font-size: 0.75em; padding: 0.6em 1em; background: #1a1a2e; color: #e0e0e8; border-color: #333; line-height: 1.5;"><span style="color:#6ab0f3;">def</span> <span style="color:#d19a66;">f</span>(x):
+    <span style="color:#c678dd;">return</span> 1/(1+math.exp(-x))
+
+bitween.evaluate(
+    infer_funcs  = [f],
+    domain       = Domain.Real,
+    distribution = Uniform(-5, 5),
+    queries = [x+r, x-r, x*r, r],
+    n=30, max_degree=2,
+)</code>
+      </div>
+      <!-- PIPELINE -->
+      <span style="color:var(--accent); font-weight:900; font-size:1.2em;">&rarr;</span>
+      <div id="pbox-1" class="info-box pipe-box" style="padding: 0.3em 0.5em; border: 2px solid var(--accent); text-align: center; font-size: 0.85em;"><strong>&#9312;</strong> Queries</div>
+      <span style="color:var(--accent);">&rarr;</span>
+      <div id="pbox-2" class="info-box pipe-box" style="padding: 0.3em 0.5em; text-align: center; font-size: 0.85em;"><strong>&#9313;</strong> Sample</div>
+      <span style="color:var(--accent);">&rarr;</span>
+      <div id="pbox-3" class="info-box pipe-box" style="padding: 0.3em 0.5em; text-align: center; font-size: 0.85em;"><strong>&#9314;</strong> Monomials</div>
+      <span style="color:var(--accent);">&rarr;</span>
+      <div id="pbox-4" class="info-box pipe-box" style="padding: 0.3em 0.5em; border: 2px solid var(--green); text-align: center; font-size: 0.85em;"><strong>&#9315;</strong> Regression</div>
+      <span style="color:var(--accent);">&rarr;</span>
+      <div id="pbox-5" class="info-box pipe-box" style="padding: 0.3em 0.5em; text-align: center; font-size: 0.85em;"><strong>&#9316;</strong> Sparsify</div>
+      <span style="color:var(--accent);">&rarr;</span>
+      <div id="pbox-6" class="info-box pipe-box" style="padding: 0.3em 0.5em; border: 2px solid var(--green); text-align: center; font-size: 0.85em;"><strong>&#9317;</strong> Verify</div>
+      <span style="color:var(--accent); font-weight:900; font-size:1.2em;">&rarr;</span>
+      <!-- OUTPUT -->
+      <div style="flex-shrink: 0;">
+        <div style="font-size: 0.7em; font-weight: 700; color: var(--dim); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.3em;">Output</div>
+        <div style="background: var(--surface); border: 2px solid var(--green); border-radius: 8px; padding: 0.4em 0.6em; text-align: center;">
+          <div style="font-size: clamp(0.7rem, 1vw, 0.9rem); font-weight: 700; color: var(--green);">
+            $$\sigma(x) = \frac{\sigma(x{+}r)(\sigma(r){-}1)}{2\sigma(x{+}r)\sigma(r){-}\sigma(x{+}r){-}\sigma(r)}$$
+          </div>
+          <div style="font-size: 0.65em; color: var(--dim);">0.4s, 15 samples</div>
+        </div>
+      </div>
+    </div>
+    <!-- Synchronized detail pane: each click lights a pipeline box and swaps in its pane -->
+    <div style="max-width: 640px; margin: 0 auto;">
+      <!-- hidden click-counter markers (1-8); JS reads visible count to drive the animation -->
+      <span class="step" style="display:none;"></span>
+      <span class="step" style="display:none;"></span>
+      <span class="step" style="display:none;"></span>
+      <span class="step" style="display:none;"></span>
+      <span class="step" style="display:none;"></span>
+      <span class="step" style="display:none;"></span>
+      <span class="step" style="display:none;"></span>
+      <span class="step" style="display:none;"></span>
+
+      <!-- swapping pane region (fixed height + top-aligned so a tall pane never pushes the pipeline up) -->
+      <div id="arch-panes" style="height: 330px; overflow: hidden; display: flex; align-items: flex-start; justify-content: center;">
+
+        <div id="arch-pane-1" class="arch-pane info-box" style="display:none; width:100%; font-size: 0.85em;">
+          <div class="label">Key Trick &mdash; Unsupervised &rarr; Supervised</div>
+          Give Bitween the query set $\{x{+}r,\; x{-}r,\; x{\cdot}r,\; r\}$. Build a <span class="highlight">feature matrix</span> of monomials over the query values. Finding the RSR = finding a <strong>sparse null vector</strong>.
+        </div>
+
+        <div id="arch-pane-2" class="arch-pane info-box" style="display:none; width:100%;">
+          <div class="label">&#9313; Sample &amp; Evaluate</div>
+          <code style="font-size: 0.82em; background: transparent; border: none; padding: 0;"><span class="cm">  (x, r)      &sigma;(x)    &sigma;(x+r)  &sigma;(r)</span>
+  (2.0, -3.5)  0.881   0.182   0.029
+  (0.5,  1.2)  0.622   0.845   0.769
+  (-1.0, 0.8)  0.269   0.450   0.690
+  ...          ...     ...     ...</code>
+        </div>
+
+        <div id="arch-pane-3" class="arch-pane info-box" style="display:none; width:100%;">
+          <div class="label">&#9314; Expand Monomials (degree 2)</div>
+          <code style="font-size: 0.78em; background: transparent; border: none; padding: 0;"><span class="cm">  &sigma;(x) &sigma;(x+r) &sigma;(r) &sigma;(x)&sigma;(x+r) &sigma;(x)&sigma;(r) &sigma;(x+r)&sigma;(r) ...</span>
+  0.881 0.182  0.029  0.161     0.026    0.005    ...
+  0.622 0.845  0.769  0.526     0.479    0.650    ...
+  0.269 0.450  0.690  0.121     0.186    0.311    ...</code>
+        </div>
+
+        <div id="arch-pane-4" class="arch-pane info-box" style="display:none; width:100%;">
+          <div class="label">&#9315; Regression finds null vector</div>
+          <div style="display: grid; grid-template-columns: auto auto; gap: 0 0.8em; font-family: 'JetBrains Mono', monospace; font-size: 0.75em; line-height: 1.5;">
+            <div style="grid-column: 1 / -1; font-weight: 700; color: var(--accent);">Raw coefficients (10 terms):</div>
+            <div>f(x):</div><div><span style="color:var(--dim);">-0.00002</span></div>
+            <div>f(x+r):</div><div><span class="ok">+0.99998</span></div>
+            <div>f(r):</div><div><span style="color:var(--dim);">+0.00001</span></div>
+            <div>f(x)&middot;f(x+r):</div><div><span class="ok">-1.00001</span></div>
+            <div>f(x)&middot;f(r):</div><div><span class="ok">-0.99997</span></div>
+            <div>f(x+r)&middot;f(r):</div><div><span class="ok">+1.99999</span></div>
+            <div style="grid-column: 1 / -1; color:var(--dim);">+ 4 near-zero terms&hellip;</div>
+          </div>
+        </div>
+
+        <div id="arch-pane-5" class="arch-pane info-box" style="display:none; width:100%;">
+          <div class="label">&#9316; Sparsify &amp; Rationalize</div>
+          <!-- same coefficient table as &#9315;, now snapped: near-zero &rarr; 0, rest &rarr; clean rationals -->
+          <div style="display: grid; grid-template-columns: auto auto auto auto; gap: 0 0.7em; font-family: 'JetBrains Mono', monospace; font-size: 0.75em; line-height: 1.3; align-items: center;">
+            <div style="grid-column: 1 / -1; font-weight: 700; color: var(--accent);">Threshold &lt; &epsilon; &rarr; 0, round to rationals:</div>
+            <div>f(x):</div><div style="color:var(--dim);">-0.00002</div><div style="color:var(--dim);">&rarr;</div><div style="color:var(--dim);">0</div>
+            <div>f(x+r):</div><div style="color:var(--dim);">+0.99998</div><div style="color:var(--dim);">&rarr;</div><div><span class="ok" style="font-weight:700;">+1</span></div>
+            <div>f(r):</div><div style="color:var(--dim);">+0.00001</div><div style="color:var(--dim);">&rarr;</div><div style="color:var(--dim);">0</div>
+            <div>f(x)&middot;f(x+r):</div><div style="color:var(--dim);">-1.00001</div><div style="color:var(--dim);">&rarr;</div><div><span class="ok" style="font-weight:700;">-1</span></div>
+            <div>f(x)&middot;f(r):</div><div style="color:var(--dim);">-0.99997</div><div style="color:var(--dim);">&rarr;</div><div><span class="ok" style="font-weight:700;">-1</span></div>
+            <div>f(x+r)&middot;f(r):</div><div style="color:var(--dim);">+1.99999</div><div style="color:var(--dim);">&rarr;</div><div><span class="ok" style="font-weight:700;">+2</span></div>
+            <div style="grid-column: 1 / -1; color:var(--dim);">+ 4 near-zero terms &rarr; 0</div>
+          </div>
+          <div style="margin-top: 0.5em; padding-top: 0.45em; border-top: 1px dashed var(--border, #d8d8e4);">
+            <div style="font-weight: 700; color: var(--green); font-size: 0.8em; margin-bottom: 0.15em;">Solve for f(x):</div>
+            <code style="font-size: 0.78em; background: transparent; border: none; padding: 0;"><span class="kw">&sigma;(x)</span> = &sigma;(x+r)(&sigma;(r)-1) / (2&sigma;(x+r)&sigma;(r) - &sigma;(x+r) - &sigma;(r))</code>
+          </div>
+        </div>
+
+        <div id="arch-pane-6" class="arch-pane info-box" style="display:none; width:100%;">
+          <div class="label">&#9317; Formal Verification</div>
+          <code style="font-size: 0.78em; background: transparent; border: none; padding: 0;"><span class="kw">sympy.simplify(</span>
+  sigma(x)*(2*sigma(x+r)*sigma(r) - sigma(x+r) - sigma(r))
+  - sigma(x+r)*(sigma(r) - 1)
+<span class="kw">)</span>  <span class="ok">&rarr; 0  &#10003; Verified!</span></code>
+        </div>
+
+        <!-- click 7: jump back to box 4 -->
+        <div id="arch-table" class="info-box" style="display:none; width:100%; font-size: 0.85em;">
+          <div class="label">&#9315; Modular Regression Backend</div>
+          <table style="width:100%; font-size:0.9em; margin-top:0.4em;">
+            <tr><th style="padding:0.3em 0.5em;">Regression</th><th style="text-align:center;padding:0.3em 0.5em;">RSRs</th><th style="text-align:center;padding:0.3em 0.5em;">Coverage</th><th style="text-align:center;padding:0.3em 0.5em;">Time</th></tr>
+            <tr><td style="padding:0.25em 0.5em;">PySR</td><td style="text-align:center;background:#e8ecf8;padding:0.25em 0.5em;">61</td><td style="text-align:center;background:#e8ecf8;padding:0.25em 0.5em;">38%</td><td style="text-align:center;background:#f0f0f8;padding:0.25em 0.5em;">335s</td></tr>
+            <tr><td style="padding:0.25em 0.5em;">GPLearn</td><td style="text-align:center;background:#f0f0f8;padding:0.25em 0.5em;">48</td><td style="text-align:center;background:#f0f0f8;padding:0.25em 0.5em;">32%</td><td style="text-align:center;background:#d8e4f8;padding:0.25em 0.5em;">140s</td></tr>
+            <tr><td style="padding:0.25em 0.5em;">MILP</td><td style="text-align:center;background:#d8e4f8;padding:0.25em 0.5em;">74</td><td style="text-align:center;background:#c8daf8;padding:0.25em 0.5em;">51%</td><td style="text-align:center;background:#c8daf8;padding:0.25em 0.5em;">11s</td></tr>
+            <tr><td style="padding:0.25em 0.5em;font-weight:700;color:var(--green);">LR</td><td style="text-align:center;background:#90b0e8;font-weight:700;padding:0.25em 0.5em;">87</td><td style="text-align:center;background:#90b0e8;font-weight:700;padding:0.25em 0.5em;">54%</td><td style="text-align:center;background:#90b0e8;font-weight:700;padding:0.25em 0.5em;">5s</td></tr>
+          </table>
+          <div style="margin-top:0.4em;"><span class="highlight">Linear regression wins.</span> 43/80 (54%).</div>
+        </div>
+      </div>
+
+      <!-- click 8: callout -->
+      <div id="arch-callout" class="callout" style="display:none; font-size: 0.85em; border-color: var(--accent2); margin-top: 0.6em;">
+        But <span class="warn">37 functions remain</span>. They need <em>novel query functions</em> beyond $\{x{+}r,\; x{-}r,\; x{\cdot}r,\; r\}$.<br><br>
+        <strong>What if the LLM could propose new queries?</strong>
+      </div>
+    </div>
+    </div>
+  </div>
+
+
+  <!-- ==================== SLIDE 13: A-BITWEEN ARCHITECTURE ==================== -->
+  <div class="slide" id="s12" data-section="Agentic Bitween">
+    <h3>Neuro-Symbolic</h3>
+    <h2>Agentic Bitween &mdash; <span class="highlight">LLM + Tools</span></h2>
+    <div style="width: fit-content;">
+      <div style="display: flex; gap: 2em; align-items: center; margin: 1em 0;">
+        <!-- Left: Tools -->
+        <div style="display: flex; flex-direction: column; gap: 0.8em;">
+          <div class="info-box" style="border: 2px solid var(--green); padding: 0.6em 1em; text-align: center;">
+            <div style="font-weight: 700; color: var(--green); font-family: 'JetBrains Mono', monospace; font-size: 0.9em;">infer_property_tool</div>
+            <div style="font-size: 0.8em; color: var(--dim);">V-Bitween regression backend</div>
+          </div>
+          <div class="info-box" style="border: 2px solid var(--accent2); padding: 0.6em 1em; text-align: center;">
+            <div style="font-weight: 700; color: var(--accent2); font-family: 'JetBrains Mono', monospace; font-size: 0.9em;">symbolic_verify_tool</div>
+            <div style="font-size: 0.8em; color: var(--dim);">Formal verification</div>
+          </div>
+          <div class="info-box" style="border: 2px solid var(--orange); padding: 0.6em 1em; text-align: center;">
+            <div style="font-weight: 700; color: var(--orange); font-family: 'JetBrains Mono', monospace; font-size: 0.9em;">sequential_thinking</div>
+            <div style="font-size: 0.8em; color: var(--dim);">Reasoning journal</div>
+          </div>
+        </div>
+        <!-- Center: Agent (proposes novel queries INTO the tools on the left) -->
+        <div>
+          <div style="font-size: 2em; color: var(--accent);">&larr;&nbsp;&rarr;</div>
+          <div style="font-size: 0.75em; color: var(--dim); text-align: center;">novel queries<br>&amp; feedback</div>
+        </div>
+        <div style="background: var(--accent); color: white; border-radius: 16px; padding: 1.5em 2em; text-align: center; min-width: 200px;">
+          <div style="font-size: 1.5em; font-weight: 900;">LLM Agent</div>
+          <div style="font-size: 0.9em; opacity: 0.9; margin-top: 0.3em;">e.g., Claude Opus 4.1</div>
+          <div style="font-size: 0.75em; opacity: 0.7; margin-top: 0.2em;">propose &rarr; infer &rarr; verify &rarr; refine</div>
+        </div>
+        <!-- Right: Output (revealed on click) -->
+        <div class="step" style="display: flex; align-items: center; gap: 2em;">
+          <div>
+            <div style="font-size: 2em; color: var(--green);">&rarr;</div>
+            <div style="font-size: 0.75em; color: var(--dim); text-align: center;">verified<br>RSRs</div>
+          </div>
+          <div class="info-box" style="border: 2px solid var(--accent); padding: 0.8em 1.2em; text-align: center;">
+            <div style="font-weight: 700; color: var(--accent); font-size: 1.1em;">Discovered RSRs</div>
+            <div style="font-size: 0.8em; color: var(--dim);">formally verified properties</div>
+          </div>
+        </div>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 0.5em; margin-top: 2.5em;">
+        <div class="step callout">
+          <strong>LLM proposes hypotheses</strong> (novel query functions). <strong>Tools ground them</strong> (regression + formal verification).
+        </div>
+        <div class="step callout" style="border-color: var(--green);">
+          <strong>3x more RSRs</strong> than N-Research (same LLM, no tools) with significantly <span class="ok">fewer false positives</span>.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== SLIDE 15: NOVEL QUERY FUNCTIONS ==================== -->
+  <div class="slide" id="s14" data-section="Agentic Bitween">
+    <h3>Discovery</h3>
+    <h2>Novel Query Functions &mdash; <span class="highlight">beyond</span> $\{x{+}r,\; x{-}r,\; x{\cdot}r,\; r\}$</h2>
+    <div style="max-width: fit-content;">
+    <table style="font-size: clamp(0.78rem, 1.1vw, 0.95rem);">
+      <tr>
+        <th>Function</th>
+        <th>Fixed queries V-Bitween uses</th>
+        <th>A-Bitween adds (novel queries + properties)</th>
+      </tr>
+      <tr>
+        <td><span class="highlight">Sigmoid</span></td>
+        <td>$f(x{+}r), f(r)$</td>
+        <td>$f(x{+}\log k) - \frac{k \cdot f(x)}{1+(k{-}1)f(x)} = 0$ &emsp;|&emsp; $f(nx) - \frac{f^n(x)}{(1{-}f(x))^n + f^n(x)} = 0$</td>
+      </tr>
+      <tr>
+        <td><span class="highlight">Logarithm</span></td>
+        <td>$f(x{\cdot}r), f(r)$</td>
+        <td>$f(x^n) - n \cdot f(x) = 0$ &emsp;|&emsp; $f(\sqrt{x \cdot y}) - \frac{f(x)+f(y)}{2} = 0$</td>
+      </tr>
+      <tr>
+        <td><span class="highlight">Modulo</span></td>
+        <td>$f(x{+}y)$</td>
+        <td>$f(x{+}y) - f(f(x) + f(y)) = 0$ &emsp;|&emsp; $f(x{\cdot}y) - f(f(x) \cdot f(y)) = 0$</td>
+      </tr>
+      <tr>
+        <td><span class="highlight">Gudermannian</span></td>
+        <td><span class="warn">No RSR found</span></td>
+        <td>$f(x{+}y) - \arctan(\sinh x \cosh y + \cosh x \sinh y) = 0$</td>
+      </tr>
+      <tr>
+        <td><span class="highlight">Softmax</span></td>
+        <td>$f(x{+}r, y)$</td>
+        <td>$(ae^x + e^y) \cdot f(x{+}\log a,\, y) - e^y = 0$</td>
+      </tr>
+      <tr>
+        <td><span class="highlight">Inverse</span></td>
+        <td>$f(x{\cdot}y)$</td>
+        <td>$f(rx) - f^2(x) \cdot f(r/x) = 0$</td>
+      </tr>
+    </table>
+    <div class="callout" style="margin-top: 0.8em;">
+      The LLM proposes <span class="highlight">creative query functions</span> ($x{+}\log k$, $\sqrt{xy}$, $f(x){+}f(y)$) that the fixed query set could never reach.
+    </div>
+    <div class="callout" style="margin-top: 0.5em; border-color: var(--green);">
+      Regression discovers; formal verification. <strong>All properties above are symbolically verified.</strong>
+    </div>
+    </div>
+  </div>
+
+  <!-- ==================== SLIDE 16: RESULTS 64/80 ==================== -->
+  <div class="slide" id="s15" data-section="Agentic Bitween">
+    <h3>Results</h3>
+    <h2>A-Bitween: <span class="highlight">64/80</span> functions (80%)</h2>
+    <div style="display: grid; grid-template-columns: auto 1fr 1fr; gap: 1.5em; max-width: 1500px; margin: 0 auto; align-items: center;">
+      <!-- Left: dramatic bar comparison -->
+      <div style="display: flex; align-items: flex-end; gap: 1.4em; justify-content: center; height: 260px;">
+        <div style="text-align: center;">
+          <div style="font-weight: 700; font-size: 1.1em; margin-bottom: 0.3em;">54%</div>
+          <div style="width: 90px; height: 140px; background: var(--border); border-radius: 6px 6px 0 0;"></div>
+          <div style="font-size: 0.85em; color: var(--dim); margin-top: 0.3em; font-weight: 600;">V-Bitween<br>43/80</div>
+        </div>
+        <div style="text-align: center;">
+          <div style="font-weight: 700; font-size: 1.1em; margin-bottom: 0.3em; color: var(--dim);">64%</div>
+          <div style="width: 90px; height: 166px; background: var(--dim); border-radius: 6px 6px 0 0; opacity: 0.5;"></div>
+          <div style="font-size: 0.85em; color: var(--dim); margin-top: 0.3em; font-weight: 600;">N-Research<br>Opus</div>
+        </div>
+        <div style="text-align: center;">
+          <div style="font-weight: 900; font-size: 1.3em; margin-bottom: 0.3em; color: var(--accent);">80%</div>
+          <div style="width: 90px; height: 208px; background: linear-gradient(180deg, var(--accent) 0%, #2848b0 100%); border-radius: 6px 6px 0 0;"></div>
+          <div style="font-size: 0.85em; color: var(--accent); margin-top: 0.3em; font-weight: 700;">A-Bitween<br>Opus</div>
+        </div>
+      </div>
+      <!-- Right: two explanation boxes, side by side -->
+      <div class="info-box" style="align-self: stretch;">
+        <div class="label">What the tools add</div>
+        <table style="font-size: 0.9em;">
+          <tr><th></th><th>N-Research</th><th>A-Bitween</th></tr>
+          <tr><td>RSRs found</td><td>250</td><td><span class="ok">793 (3.2x)</span></td></tr>
+          <tr><td>Unverified</td><td><span class="warn">172</span></td><td><span class="ok">26</span></td></tr>
+          <tr><td>Coverage</td><td>64%</td><td><span class="ok">80%</span></td></tr>
+        </table>
+        <div style="font-size: 0.85em; color: var(--dim); margin-top: 0.5em;">Same LLM (Claude Opus 4.1). The difference is <span class="highlight">structured tools</span>.</div>
+      </div>
+      <div class="info-box" style="align-self: stretch;">
+        <div class="label">Where the 21 new functions come from</div>
+        V-Bitween finds 43/80 with fixed queries.<br>
+        A-Bitween finds 21 more via <span class="highlight">novel query functions</span> proposed by the LLM.<br><br>
+        <strong>The gap = LLM's mathematical creativity.</strong><br>
+        <strong>The grounding = regression + verification.</strong>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== SLIDE 20: TRANSITION ==================== -->
+  <div class="slide" id="s19" data-section="">
+    <div style="text-align: center; margin-top: 2em;">
+      <h1 style="margin-bottom: 0.5em;"><span class="highlight">Learning</span> Randomized Reductions</h1>
+      <div style="display: flex; gap: 2.5em; justify-content: center; margin: 2em 0;">
+        <div>
+          <div style="font-size: 2.5em; font-weight: 900; color: var(--accent);">80</div>
+          <div style="font-size: 0.9em; color: var(--dim);">functions in RSR-Bench</div>
+        </div>
+        <div>
+          <div style="font-size: 2.5em; font-weight: 900; color: var(--green);">64</div>
+          <div style="font-size: 0.9em; color: var(--dim);">RSRs discovered</div>
+        </div>
+        <div>
+          <div style="font-size: 2.5em; font-weight: 900; color: var(--orange);">175</div>
+          <div style="font-size: 0.9em; color: var(--dim);">algebraic RSRs</div>
+        </div>
+        <div>
+          <div style="font-size: 2.5em; font-weight: 900; color: var(--accent2);">ICML</div>
+          <div style="font-size: 0.9em; color: var(--dim);">2026</div>
+        </div>
+      </div>
+      <div style="margin-top: 2em; display: flex; gap: 0.5em; flex-wrap: wrap; justify-content: center;">
+        <span class="tag">RSR</span>
+        <span class="tag">Self-Correction</span>
+        <span class="tag">Neuro-Symbolic</span>
+        <span class="tag">LLM Agents</span>
+        <span class="tag">Regression</span>
+        <span class="tag">Formal Verification</span>
+      </div>
+      <div style="margin-top: 2.5em; font-size: clamp(0.9rem, 1.4vw, 1.15rem); color: var(--dim); font-family: 'JetBrains Mono', monospace;">
+        40 years of theory &rarr; automated discovery &rarr; algebraic frontiers
+      </div>
+      <div class="author" style="margin-top: 2em;">
+        <strong>Ferhat Erata</strong> &middot; Yale University
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+<!-- Controls -->
+<div class="progress" id="progress"></div>
+<div class="slide-num" id="slideNum">1 / 3</div>
+<div class="section-label" id="sectionLabel"></div>
+
+<script>
+  // ── Navigation with sub-step support ──
+  const slides = document.querySelectorAll('.slide');
+  const progress = document.getElementById('progress');
+  const slideNum = document.getElementById('slideNum');
+  const sectionLabel = document.getElementById('sectionLabel');
+  let current = 0;
+
+  function getSteps(slideEl) {
+    return slideEl.querySelectorAll('.step');
+  }
+
+  function getVisibleStepCount(slideEl) {
+    return slideEl.querySelectorAll('.step.visible').length;
+  }
+
+  function showNextStep(slideEl) {
+    const steps = getSteps(slideEl);
+    const nextIdx = getVisibleStepCount(slideEl);
+    if (nextIdx < steps.length) {
+      steps[nextIdx].classList.add('visible');
+      return true;
+    }
+    return false;
+  }
+
+  function resetSteps(slideEl) {
+    slideEl.querySelectorAll('.step').forEach(s => s.classList.remove('visible'));
+  }
+
+  function showAllSteps(slideEl) {
+    slideEl.querySelectorAll('.step').forEach(s => s.classList.add('visible'));
+  }
+
+  function show(n) {
+    if (n === current) return;
+    const goingForward = n > current;
+    slides[current].classList.remove('active');
+    resetSteps(slides[current]);
+    current = Math.max(0, Math.min(n, slides.length - 1));
+    slides[current].classList.add('active');
+    if (!goingForward) {
+      // going backward: show all steps so you see the full slide
+      showAllSteps(slides[current]);
+    }
+    updateUI();
+  }
+
+  function advance() {
+    // Try to advance a step within the current slide first
+    if (!showNextStep(slides[current])) {
+      show(current + 1);
+    }
+  }
+
+  function retreat() {
+    show(current - 1);
+  }
+
+  function updateUI() {
+    progress.style.width = ((current / (slides.length - 1)) * 100) + '%';
+    slideNum.textContent = (current + 1) + ' / ' + slides.length;
+    const section = slides[current].getAttribute('data-section');
+    sectionLabel.textContent = section || '';
+    // update URL hash
+    history.replaceState(null, '', '#' + (current + 1));
+  }
+
+  // ── Load from URL hash on startup ──
+  function loadFromHash() {
+    const hash = window.location.hash.replace('#', '');
+    const n = parseInt(hash, 10);
+    if (n >= 1 && n <= slides.length) {
+      current = 0; // reset so show() will work
+      show(n - 1);
+      showAllSteps(slides[current]); // show fully when jumping directly
+    }
+  }
+  window.addEventListener('hashchange', loadFromHash);
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') { e.preventDefault(); advance(); }
+    if (e.key === 'ArrowLeft' || e.key === 'Backspace' || e.key === 'PageUp') { e.preventDefault(); retreat(); }
+    if (e.key === 'Home') { e.preventDefault(); show(0); }
+    if (e.key === 'End') { e.preventDefault(); show(slides.length - 1); }
+    if (e.key === 'f' || e.key === 'F') {
+      if (!document.fullscreenElement) document.documentElement.requestFullscreen();
+      else document.exitFullscreen();
+    }
+  });
+
+  let touchX = 0;
+  document.addEventListener('touchstart', e => { touchX = e.touches[0].clientX; });
+  document.addEventListener('touchend', e => {
+    const dx = e.changedTouches[0].clientX - touchX;
+    if (Math.abs(dx) > 50) { if (dx < 0) advance(); else retreat(); }
+  });
+
+  // ── Agent trace counter sync ──
+  // Maps step index (within the trace slide) to [think, infer, verify, found, verified, time_s, tokens_k]
+  const traceSlide = document.getElementById('s13');
+  const traceCounters = [
+    //  think infer verify found verif  time  tok
+    [0,  0,  0,  0,  0,    0,   0],   // 0: $ cat
+    [0,  0,  0,  0,  0,    0,   0],   // 1: def f(...)
+    [0,  0,  0,  0,  0,    0,   0],   // 2: $ bitween
+    [0,  0,  0,  0,  0,    5,   2],   // 3: agent intro
+    [1,  0,  0,  0,  0,   15,   8],   // 4: seq_thinking
+    [1,  1,  0,  0,  0,   30,  22],   // 5: infer call
+    [1,  1,  0,  1,  0,   35,  28],   // 6: found result
+    [1,  1,  1,  1,  0,   40,  32],   // 7: verify call
+    [1,  1,  1,  1,  1,   45,  36],   // 8: VERIFIED
+    [2,  1,  1,  1,  1,   80,  55],   // 9: seq_thinking scaling
+    [2,  2,  1,  1,  1,  110,  72],   // 10: infer scaling
+    [2,  2,  1,  2,  2,  120,  80],   // 11: found k²
+    [2,  2,  1,  2,  2,  160, 100],   // 12: agent Hadamard
+    [2,  3,  1,  2,  2,  200, 118],   // 13: infer Hadamard
+    [2,  3,  1,  3,  2,  220, 125],   // 14: found Hadamard
+    [2,  3,  2,  3,  3,  240, 130],   // 15: verify Hadamard
+    [2,  3,  2,  3,  3,  280, 138],   // 16: agent explains
+    [7,  3,  5, 30, 30,  320, 144],   // 17: summary
+  ];
+
+  function syncTraceCounters() {
+    if (!traceSlide) return;
+    const steps = traceSlide.querySelectorAll('.step');
+    let visCount = 0;
+    steps.forEach(s => { if (s.classList.contains('visible')) visCount++; });
+    const idx = Math.min(visCount, traceCounters.length - 1);
+    if (idx < 0) return;
+    const c = traceCounters[idx];
+    const el = (id) => document.getElementById(id);
+    if (el('tc-think'))    el('tc-think').textContent    = c[0];
+    if (el('tc-infer'))    el('tc-infer').textContent    = c[1];
+    if (el('tc-verify'))   el('tc-verify').textContent   = c[2];
+    if (el('tc-props'))    el('tc-props').textContent     = c[3];
+    if (el('tc-verified')) el('tc-verified').textContent  = c[4] + ' verified';
+    if (el('tc-time'))     el('tc-time').textContent      = c[5] + 's';
+    if (el('tc-tokens'))   el('tc-tokens').textContent    = c[6] + 'k';
+  }
+
+  // ── Vanilla-Bitween architecture sync ──
+  // visible step count (0..8) drives which pipeline box lights up and which pane shows.
+  // 1..6 → pane i lit on pbox-i; 7 → re-light box 4 + backend table; 8 → keep table + show callout.
+  const archSlide = document.getElementById('s9');
+  function syncArchPipeline() {
+    if (!archSlide) return;
+    const n = archSlide.querySelectorAll('.step.visible').length;
+    for (let i = 1; i <= 6; i++) {
+      const box = document.getElementById('pbox-' + i);
+      if (box) box.classList.remove('pipe-active');
+      const pane = document.getElementById('arch-pane-' + i);
+      if (pane) pane.style.display = 'none';
+    }
+    const table = document.getElementById('arch-table');
+    const callout = document.getElementById('arch-callout');
+    const panes = document.getElementById('arch-panes');
+    if (table) table.style.display = 'none';
+    if (callout) callout.style.display = 'none';
+
+    if (n >= 7) {
+      // table/callout phase: let the region collapse to natural height so the
+      // callout sits right under the table (no leftover gap from the fixed height)
+      if (panes) panes.style.height = 'auto';
+      const box = document.getElementById('pbox-4');
+      if (box) box.classList.add('pipe-active');
+      if (table) table.style.display = '';
+      if (n >= 8 && callout) callout.style.display = '';
+    } else {
+      // pipeline phase: fixed height keeps the pipeline from shifting as panes swap
+      if (panes) panes.style.height = '330px';
+      if (n >= 1) {
+        const box = document.getElementById('pbox-' + n);
+        if (box) box.classList.add('pipe-active');
+        const pane = document.getElementById('arch-pane-' + n);
+        if (pane) pane.style.display = '';
+      }
+    }
+  }
+
+  // Patch showNextStep to also sync counters
+  const _origShowNextStep = showNextStep;
+  showNextStep = function(slideEl) {
+    const result = _origShowNextStep(slideEl);
+    if (slideEl === traceSlide) syncTraceCounters();
+    if (slideEl === archSlide) syncArchPipeline();
+    return result;
+  };
+
+  // Also sync when going backward (showAllSteps)
+  const _origShowAllSteps = showAllSteps;
+  showAllSteps = function(slideEl) {
+    _origShowAllSteps(slideEl);
+    if (slideEl === traceSlide) syncTraceCounters();
+    if (slideEl === archSlide) syncArchPipeline();
+  };
+
+  // Also sync on resetSteps
+  const _origResetSteps = resetSteps;
+  resetSteps = function(slideEl) {
+    _origResetSteps(slideEl);
+    if (slideEl === traceSlide) syncTraceCounters();
+    if (slideEl === archSlide) syncArchPipeline();
+  };
+
+  // ── Auto-run trace ──
+  let traceTimer = null;
+  function runTrace() {
+    const btn = document.getElementById('trace-run-btn');
+    if (traceTimer) { clearInterval(traceTimer); traceTimer = null; btn.textContent = '▶ Run'; return; }
+    btn.textContent = '⏸ Pause';
+    traceTimer = setInterval(() => {
+      if (!showNextStep(slides[current])) {
+        clearInterval(traceTimer); traceTimer = null; btn.textContent = '▶ Run';
+      }
+    }, 1200);
+  }
+
+  loadFromHash();
+  updateUI();
+</script>
+
+</body>
+</html>
