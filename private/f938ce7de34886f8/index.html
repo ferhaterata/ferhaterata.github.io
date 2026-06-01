@@ -159,7 +159,23 @@ window.MathJax = {
 
 <h1>Verbalized Confidence vs. Logit-Expected Confidence</h1>
 
-<h2>The clean question</h2>
+<h2>Motivation</h2>
+
+<p>When a model says "I'm 90% confident," people read that number as if it were a
+considered self-assessment. But it is just <strong>one token sampled from a
+distribution</strong> &mdash; at that position the model holds a full
+distribution over <em>which number it is about to say</em>, and "90" is one draw
+from it; the same step also gave "85", "95", "70", and the rest their own
+probabilities. Nobody checks whether the spoken number is faithful to that
+distribution; they sample once, parse the number, and trust it.</p>
+
+<p>This note asks the narrow, label-free question hiding underneath: <strong>does
+the verbalized confidence reflect the model's own token probabilities?</strong>
+If it does, one sample is a sufficient summary and the logits add nothing. If it
+doesn't &mdash; if the model blurts a round, confident number its own
+distribution doesn't support &mdash; then the spoken confidence is partly
+verbalization habit rather than a faithful read-out of what the model represents.
+That gap is the object of study, and it requires no ground truth to measure.</p>
 
 <p>You ask the model "rate your confidence 0&ndash;100" and it emits some number $c$.
 At that emission position, the model also has a full distribution
@@ -373,8 +389,8 @@ Confidence:</pre>
   <li><strong>$r$ high, $\Delta$ biased</strong>: there's a <em>systematic</em> gap between what the
     model would "average" to and what it emits. This is the most interesting
     outcome &mdash; it says the sampling distribution has a mode the model's expectation
-    disagrees with, which is a kind of self-inconsistency you can detect from one
-    forward pass.</li>
+    disagrees with, a kind of self-inconsistency between what the model says and
+    what it represents.</li>
   <li><strong>$r$ moderate, $H_c$ predicts $|\Delta|$</strong>: $H_c$ is a useful per-instance
     signal of self-report inconsistency &mdash; the model's uncertainty about
     <em>what to say</em> shows up as distributional spread, not just a low number.</li>
@@ -396,8 +412,8 @@ question:</p>
     information the logits hold.</li>
   <li><strong>$\Delta = c - c_E$ is a free self-inconsistency flag.</strong> When the
     model emits a number its own distribution doesn't support, that is detectable
-    from one forward pass, with no labels and no extra calls. It marks the
-    instances where the spoken confidence is least trustworthy as a summary.</li>
+    with no labels and no extra calls. It marks the instances where the spoken
+    confidence is least trustworthy as a summary.</li>
   <li><strong>$c_E$ is a denoised confidence.</strong> The expectation is continuous
     and averages out sampling noise, so even when the emitted token is coarse
     ("85" or "90" and nothing between), $c_E$ recovers a finer-grained value
