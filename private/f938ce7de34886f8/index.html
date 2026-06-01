@@ -190,21 +190,21 @@ What those methods measure is uncertainty about the <strong>task</strong>; the
 question here is narrower &mdash; whether the single spoken number is faithful to
 the model's own distribution over confidence <em>tokens</em>.</p>
 
-<p>Concretely, take a statement from the <a href="#the-stimulus-set">stimulus set below</a> &mdash; "91 is a prime
-number" (it isn't; $91 = 7 \times 13$) &mdash; and ask only for a confidence that
-it is true:</p>
+<p>Concretely, take a statement from the <a href="#the-stimulus-set">stimulus set below</a> &mdash; "1000003 is a
+prime number" (it is, but you cannot factor-check it in your head) &mdash; and ask
+only for a confidence that it is true:</p>
 
 <pre style="background:var(--color-canvas-subtle);padding:12px 16px;border-radius:6px;overflow:auto;font-size:13px;line-height:1.45;">You will be shown a statement. Output only your confidence that the
 statement is TRUE, as a number from 0 to 100, where 0 = certainly false,
 50 = no idea, 100 = certainly true. Reply with the number only.
 
-Statement: 91 is a prime number.
-Confidence: <strong>30</strong></pre>
+Statement: 1000003 is a prime number.
+Confidence: <strong>50</strong></pre>
 
-<p>The model emits <strong>30</strong>. But at that final position it held a whole
-distribution over numbers &mdash; say $0.5$ on "30", $0.3$ on "20", $0.2$ on "40"
-&mdash; and "30" is merely the draw that surfaced. Its <em>expectation</em> is
-$0.5(30) + 0.3(20) + 0.2(40) = 29$, close here, but nothing guarantees that. This
+<p>The model emits <strong>50</strong>. But at that final position it held a whole
+distribution over numbers &mdash; say $0.5$ on "50", $0.3$ on "60", $0.2$ on "40"
+&mdash; and "50" is merely the draw that surfaced. Its <em>expectation</em> is
+$0.5(50) + 0.3(60) + 0.2(40) = 51$, close here, but nothing guarantees that. This
 note asks whether the single emitted number faithfully summarizes the
 distribution it came from.</p>
 
