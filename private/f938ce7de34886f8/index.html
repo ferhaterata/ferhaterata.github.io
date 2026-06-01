@@ -177,6 +177,37 @@ distribution doesn't support &mdash; then the spoken confidence is partly
 verbalization habit rather than a faithful read-out of what the model represents.
 That gap is the object of study, and it requires no ground truth to measure.</p>
 
+<p>Logit-derived uncertainty is well studied: predictive entropy, sequence
+likelihood, and
+<a href="https://arxiv.org/abs/2302.09664">semantic entropy</a>
+(<a href="https://arxiv.org/abs/2302.09664">Kuhn et&nbsp;al. 2023</a>;
+<a href="https://www.nature.com/articles/s41586-024-07421-0">Farquhar et&nbsp;al. 2024</a>)
+all read uncertainty off token probabilities, and verbalized confidence has been
+compared against them
+(<a href="https://arxiv.org/abs/2305.14975">Tian et&nbsp;al. 2023</a>;
+<a href="https://arxiv.org/abs/2306.13063">Xiong et&nbsp;al. 2024</a>).
+What those methods measure is uncertainty about the <strong>task</strong>; the
+question here is narrower &mdash; whether the single spoken number is faithful to
+the model's own distribution over confidence <em>tokens</em>.</p>
+
+<p>Concretely, take a statement from the stimulus set below &mdash; "91 is a prime
+number" (it isn't; $91 = 7 \times 13$) &mdash; and ask only for a confidence that
+it is true:</p>
+
+<pre style="background:var(--color-canvas-subtle);padding:12px 16px;border-radius:6px;overflow:auto;font-size:13px;line-height:1.45;">You will be shown a statement. Output only your confidence that the
+statement is TRUE, as a number from 0 to 100, where 0 = certainly false,
+50 = no idea, 100 = certainly true. Reply with the number only.
+
+Statement: 91 is a prime number.
+Confidence: <strong>30</strong></pre>
+
+<p>The model emits <strong>30</strong>. But at that final position it held a whole
+distribution over numbers &mdash; say $0.5$ on "30", $0.3$ on "20", $0.2$ on "40"
+&mdash; and "30" is merely the draw that surfaced. Its <em>expectation</em> is
+$0.5(30) + 0.3(20) + 0.2(40) = 29$, close here, but nothing guarantees that. This
+note asks whether the single emitted number faithfully summarizes the
+distribution it came from.</p>
+
 <p>You ask the model "rate your confidence 0&ndash;100" and it emits some number $c$.
 At that emission position, the model also has a full distribution
 $p(\text{token} \mid \text{context})$ over what it <em>could</em> have said. Define</p>
@@ -209,6 +240,34 @@ $c$ is what came out, $c_E$ is what it would average to.</p>
 softmax over the whole vocabulary, so in practice we keep the numeric tokens
 (from the top-K logprobs the API returns) and renormalize them to sum to one
 before taking the expectation.</p>
+
+<h2 id="why-this-is-useful">Why this is useful</h2>
+
+<p>The verbalized number is the <em>only</em> confidence signal most people ever
+read off a model &mdash; they sample once, parse "90", and trust it. This
+investigation asks whether that single token is a faithful summary of the
+distribution it was drawn from. The payoff is independent of any correctness
+question:</p>
+
+<ul>
+  <li><strong>It tells you whether one sample is enough.</strong> If $c \approx c_E$
+    everywhere (Regime 1&ndash;2), the verbalized number already <em>is</em> the
+    distribution's center &mdash; no need to sample $n$ times or pull logits; one
+    greedy decode suffices. If they diverge, the single sample is throwing away
+    information the logits hold.</li>
+  <li><strong>$\Delta = c - c_E$ is a free self-inconsistency flag.</strong> When the
+    model emits a number its own distribution doesn't support, that is detectable
+    with no labels and no extra calls. It marks the instances where the spoken
+    confidence is least trustworthy as a summary.</li>
+  <li><strong>$c_E$ is a denoised confidence.</strong> The expectation is continuous
+    and averages out sampling noise, so even when the emitted token is coarse
+    ("85" or "90" and nothing between), $c_E$ recovers a finer-grained value
+    &mdash; a better quantity to feed downstream than the raw token.</li>
+  <li><strong>$H_c$ surfaces hidden indecision.</strong> A model can stamp a confident
+    "90" while its distribution is actually split across $\{70, 90\}$; $H_c$
+    exposes that the number was a near-tie the sampler happened to break one
+    way.</li>
+</ul>
 
 <h2 id="what-wed-actually-expect-to-see">What we'd actually expect to see</h2>
 
@@ -394,34 +453,6 @@ Confidence:</pre>
   <li><strong>$r$ moderate, $H_c$ predicts $|\Delta|$</strong>: $H_c$ is a useful per-instance
     signal of self-report inconsistency &mdash; the model's uncertainty about
     <em>what to say</em> shows up as distributional spread, not just a low number.</li>
-</ul>
-
-<h2 id="why-this-is-useful">Why this is useful</h2>
-
-<p>The verbalized number is the <em>only</em> confidence signal most people ever
-read off a model &mdash; they sample once, parse "90", and trust it. This
-investigation asks whether that single token is a faithful summary of the
-distribution it was drawn from. The payoff is independent of any correctness
-question:</p>
-
-<ul>
-  <li><strong>It tells you whether one sample is enough.</strong> If $c \approx c_E$
-    everywhere (Regime 1&ndash;2), the verbalized number already <em>is</em> the
-    distribution's center &mdash; no need to sample $n$ times or pull logits; one
-    greedy decode suffices. If they diverge, the single sample is throwing away
-    information the logits hold.</li>
-  <li><strong>$\Delta = c - c_E$ is a free self-inconsistency flag.</strong> When the
-    model emits a number its own distribution doesn't support, that is detectable
-    with no labels and no extra calls. It marks the instances where the spoken
-    confidence is least trustworthy as a summary.</li>
-  <li><strong>$c_E$ is a denoised confidence.</strong> The expectation is continuous
-    and averages out sampling noise, so even when the emitted token is coarse
-    ("85" or "90" and nothing between), $c_E$ recovers a finer-grained value
-    &mdash; a better quantity to feed downstream than the raw token.</li>
-  <li><strong>$H_c$ surfaces hidden indecision.</strong> A model can stamp a confident
-    "90" while its distribution is actually split across $\{70, 90\}$; $H_c$
-    exposes that the number was a near-tie the sampler happened to break one
-    way.</li>
 </ul>
 
 <h2 id="modeling-when-numbers-concentrate">Modeling $c$ vs. $c_E$ when the numbers concentrate</h2>
