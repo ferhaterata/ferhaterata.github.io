@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Formal policy refinement for AI safety &amp; security ships in Amazon Bedrock — Ferhat Erata</title>
+<meta name="description" content="Formal policy refinement for AI safety and security: neuro-symbolic methods that resolve ambiguous policy translations shipped in Amazon Bedrock Guardrails, announced on the AWS Machine Learning Blog." />
+<link rel="icon" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%23ffffff'/><text x='50%25' y='55%25' font-size='18' text-anchor='middle' dominant-baseline='middle' font-family='system-ui, sans-serif' fill='%231a73e8' font-weight='700'>ƒe</text></svg>" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wdth,wght@8..144,75..125,300..800&family=Roboto+Mono:wght@400;500&display=swap" />
+<link rel="stylesheet" href="../../styles.css?v=2026-08-29" />
+<link rel="canonical" href="https://ferhat.ai/news/policy-refinement-launch/" />
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-LHSH4FCVBC"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-LHSH4FCVBC');
+</script>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="nav">
+    <a href="../../#top" class="nav-brand">Ferhat <em>Erata</em></a>
+    <nav class="nav-links" aria-label="Primary">
+      <a href="../../#about">About</a>
+      <a href="../../#news">News</a>
+      <a href="../../posts/">Writing</a>
+      <a href="../../#experience">Experience</a>
+      <a href="../../#education">Education</a>
+      <a href="../../#publications">Publications</a>
+      <a href="../../#contact">Contact</a>
+    </nav>
+    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle colour scheme">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+    </button>
+  </div>
+</header>
+
+<main class="page">
+<div class="container post-container">
+
+<article class="post">
+  <p class="post-back"><a href="../../#news">← All news</a></p>
+
+  <header class="post-header">
+    <p class="post-kicker">August 2026 · AWS</p>
+    <h1 class="post-title">Formal policy refinement for AI safety &amp; security ships in Amazon Bedrock</h1>
+    <p class="post-lede">
+      Some of my science work in <strong>formal policy refinement</strong> for AI safety and security shipped in <a href="https://aws.amazon.com/bedrock/guardrails/">Amazon Bedrock</a>'s Automated Reasoning checks, announced on the <a href="https://aws.amazon.com/blogs/machine-learning/automated-reasoning-policy-refinement-in-amazon-bedrock/">AWS Machine Learning Blog</a> in a post I co-authored with Nafi Diallo and Fernando Galves. The methods reduce a quiet safety and security risk: a policy that a model can read two ways.
+    </p>
+    <p class="post-disclaimer">
+      Opinions expressed in this post are my own and do not necessarily reflect the views of my employer. Information here is limited to what has been publicly announced by AWS.
+    </p>
+  </header>
+
+  <div class="post-body">
+    <p>
+      An Automated Reasoning policy is a formal translation of a customer's written rules; a chatbot's answers are checked against it by a solver rather than scored by another model. Writing the policy is the hard part, and until now the diagnose-and-fix loop was manual. The new feature automates it in two modes. <strong>Iterative Refinement</strong> proposes rule or variable changes when saved tests fail because the logic is wrong. <strong>Ambiguous Variable Refinement</strong> rewrites or merges variable descriptions when tests come back <em>translation ambiguous</em>. Both run as build workflows that simulate candidate changes against the test suite until they converge, then present a diff with per-test before-and-after outcomes. You approve every change, and a Fidelity Report checks the result for drift from the source document.
+    </p>
+    <p>
+      The ambiguity problem is the one I worked on, and it is a security problem before it is a usability one. When a policy's variable names and descriptions are vague or overlapping, language models cannot agree on which variable a piece of text refers to, and they produce competing formal translations. A guardrail built on the wrong reading can wave through an answer the policy was written to forbid, and the mistake is invisible because every individual translation looks plausible. Our neuro-symbolic approach uses a <strong>theorem prover</strong> to judge whether candidate translations are semantically equivalent, quantifies the disagreement with <strong>formal semantic entropy</strong>, and applies <strong>symbolic compression</strong> to pinpoint exactly which variables cause the confusion. The system ranks the ambiguities by how much disagreement they cause and resolves the most problematic variables first, while keeping every rule grounded in the source text.
+    </p>
+    <p>
+      It is the same principle as the <a href="../bedrock-guardrails-ga/">redundant-formalization step</a> in Automated Reasoning checks, turned into a repair tool: where independent translations agree, trust the backbone; where they diverge, that is where the policy needs a human's attention.
+    </p>
+    <p class="post-tags">
+      <span class="tag">#AWS</span>
+      <span class="tag">#BedrockGuardrails</span>
+      <span class="tag">#AutomatedReasoning</span>
+      <span class="tag">#Autoformalization</span>
+      <span class="tag">#AISafety</span>
+      <span class="tag">#AISecurity</span>
+    </p>
+    <p style="margin-top: 1.5rem;">
+      <a class="pub-link" href="https://aws.amazon.com/blogs/machine-learning/automated-reasoning-policy-refinement-in-amazon-bedrock/">AWS ML Blog post <span aria-hidden="true">↗</span></a>
+      <a class="pub-link" href="https://aws.amazon.com/bedrock/guardrails/">Product page <span aria-hidden="true">↗</span></a>
+      <a class="pub-link" href="https://www.linkedin.com/feed/update/urn:li:activity:7500285959989714944/">LinkedIn announcement <span aria-hidden="true">↗</span></a>
+    </p>
+  </div>
+</article>
+
+</div>
+</main>
+
+<footer class="site-footer">
+  <div class="container" style="display:flex; justify-content:space-between; width:100%; gap:1rem; flex-wrap:wrap">
+    <span>© <span id="year"></span> Ferhat Erata</span>
+    <span class="colophon">Set in Roboto Flex</span>
+  </div>
+</footer>
+
+<script src="../../app.js?v=2026-08-29"></script>
+</body>
+</html>

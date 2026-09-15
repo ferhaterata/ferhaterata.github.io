@@ -91,6 +91,35 @@
       "doubleBlind": true
     },
     {
+      "key": "singh2026genv",
+      "title": "Beyond Solver Verdicts: Generative Reward Models for Autoformalization",
+      "authors": [
+        "Vikash Singh",
+        "Debargha Ganguly",
+        "Aman Goel",
+        "Ali Torkamani",
+        "Xiaoxue Han",
+        "Joseph Lilien",
+        "Ferhat Erata",
+        "Vipin Chaudhary"
+      ],
+      "venue": "arXiv",
+      "venueFull": "arXiv preprint",
+      "year": 2026,
+      "links": [
+        {
+          "label": "arXiv",
+          "url": "https://arxiv.org/abs/2609.11085"
+        }
+      ],
+      "tags": [
+        "neuro-symbolic",
+        "ai-safety",
+        "uncertainty"
+      ],
+      "selected": true
+    },
+    {
       "key": "erata2026selfbrier",
       "title": "Self-Brier and Formal Semantic Entropy: Regime-Aware Uncertainty for LLM Judges",
       "authors": [
