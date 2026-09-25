@@ -4,8 +4,8 @@
       "slug": "learning-how-to-cube",
       "date": "2026-05",
       "kicker": "Essay",
-      "title": "Learning How to Cube: when a 4B transformer ties decades of SAT craft",
-      "excerpt": "A neuro-symbolic post-training recipe that lets a small transformer match the best symbolic cubing heuristic on hard SAT benchmarks — and why SFT-unlocks-diversity is the real story."
+      "title": "Learning How to Cube: training a transformer to guide a SAT solver",
+      "excerpt": "Our NeurIPS 2026 paper trains a 4B transformer to choose useful SAT splits. With SFT and solver-grounded preference training, it matches the best symbolic heuristic's coverage across five runs."
     },
     {
       "slug": "code-spec-alignment",

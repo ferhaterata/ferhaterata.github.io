@@ -1,6 +1,13 @@
 {
   "news": [
     {
+      "date": "2026-09-24",
+      "tag": "NeurIPS 2026",
+      "featured": true,
+      "href": "https://arxiv.org/abs/2605.16632",
+      "html": "<a href=\"https://arxiv.org/abs/2605.16632\"><em>Learning How to Cube</em></a> accepted as a <strong>poster</strong> at NeurIPS 2026."
+    },
+    {
       "date": "2026-08",
       "tag": "AWS",
       "featured": true,

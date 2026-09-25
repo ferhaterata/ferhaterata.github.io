@@ -52,6 +52,8 @@
         "Byron Cook",
         "Ruzica Piskac"
       ],
+      "venue": "NeurIPS",
+      "venueFull": "Conference on Neural Information Processing Systems (poster)",
       "year": 2026,
       "links": [
         {
@@ -66,7 +68,8 @@
         "reinforcement-learning"
       ],
       "selected": true,
-      "doubleBlind": true
+      "doubleBlind": false,
+      "status": "accepted"
     },
     {
       "key": "erata2026fidelity",

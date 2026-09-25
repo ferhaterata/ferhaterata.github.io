@@ -37,7 +37,7 @@
   // ---------- fetch helper (works from filesystem too) ----------
   // Append a version query so the browser doesn't serve a stale
   // JSON body when the file has changed.
-  const JSON_VERSION = "2026-07-04";
+  const JSON_VERSION = "2026-09-24";
   const fetchJSON = async (path) => {
     try {
       const sep = path.includes("?") ? "&" : "?";
@@ -291,6 +291,7 @@
   };
 
   const loadPubs = async () => {
+    if (!document.getElementById("publications-list")) return;
     const data = await fetchJSON("publications.json");
     if (!data) {
       const c = document.getElementById("publications-list");
