@@ -53,7 +53,7 @@
         "Ruzica Piskac"
       ],
       "venue": "NeurIPS",
-      "venueFull": "Conference on Neural Information Processing Systems (poster)",
+      "venueFull": "Conference on Neural Information Processing Systems",
       "year": 2026,
       "links": [
         {
@@ -124,7 +124,7 @@
     },
     {
       "key": "erata2026selfbrier",
-      "title": "Self-Brier and Formal Semantic Entropy: Regime-Aware Uncertainty for LLM Judges",
+      "title": "Self-Brier and Formal Semantic Entropy",
       "authors": [
         "Ferhat Erata",
         "Florian Felice",

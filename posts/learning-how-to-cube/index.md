@@ -1,6 +1,6 @@
-*Companion post to [Learning How to Cube](https://arxiv.org/abs/2605.16632), accepted as a poster at NeurIPS 2026 on September 24, 2026. Updated September 24, 2026.*
+*Companion post to [Learning How to Cube](https://arxiv.org/abs/2605.16632), accepted at NeurIPS 2026 on September 24, 2026. Updated September 25, 2026.*
 
-Our paper *Learning How to Cube* has been accepted as a poster at NeurIPS 2026. We trained a 4B-parameter transformer to choose splits in SAT formulas, using feedback grounded in the work a symbolic solver actually performs. Across five runs, it solves **53 of 100 held-out competition benchmarks**, tying the best symbolic cubing heuristic under that budget. The interesting part is how the training changes the decisions the model makes.
+Our paper *Learning How to Cube* has been accepted at NeurIPS 2026. We trained a 4B-parameter transformer to choose splits in SAT formulas, using feedback grounded in the work a symbolic solver actually performs. Across five runs, it solves **53 of 100 held-out competition benchmarks**, tying the best symbolic cubing heuristic under that budget. The interesting part is how the training changes the decisions the model makes.
 
 ## The setup, briefly
 
@@ -8,8 +8,8 @@ Cube-and-Conquer splits a propositional satisfiability (SAT) formula into subpro
 
 We train the 4B transformer in two stages: **supervised fine-tuning (SFT)** on teacher-generated reasoning traces, followed by **direct preference optimisation (DPO)**. Monte Carlo Tree Search (MCTS) produces preference pairs grounded in solver outcomes. These preferences connect the model's splitting choices to downstream solver performance.
 
-<figure class="post-figure">
-<img src="figures/neural_heuristic.png" alt="Cube-and-Conquer with a neural cubing heuristic: the transformer chooses a splitting variable, and a symbolic solver works on the resulting subproblems." />
+<figure class="post-figure post-figure--scientific post-figure--diagram">
+<a href="figures/neural_heuristic.png" aria-label="View the neural cubing diagram at full resolution"><img src="figures/neural_heuristic.png" width="1600" height="1979" alt="Cube-and-Conquer with a neural cubing heuristic: the transformer chooses a splitting variable, and a symbolic solver works on the resulting subproblems." /></a>
 <figcaption>The learned component chooses how to split the formula; the symbolic solver handles the resulting subproblems.</figcaption>
 </figure>
 
@@ -34,8 +34,8 @@ The training ablation separates the contributions of the two stages. SFT takes t
 | SFT | 51 |
 | SFT + DPO | 53 |
 
-<figure class="post-figure">
-<img src="figures/training_stage_ablation.png" alt="Training ablations comparing pass@5 and first-split diversity measurements for the base model, DPO-only, SFT-only, SFT plus DPO, and the teacher model." />
+<figure class="post-figure post-figure--scientific">
+<a href="figures/training_stage_ablation.png" aria-label="View the training ablation chart at full resolution"><img src="figures/training_stage_ablation.png" width="1600" height="448" alt="Training ablations comparing pass@5 and first-split diversity measurements for the base model, DPO-only, SFT-only, SFT plus DPO, and the teacher model." /></a>
 <figcaption>The training ablations report both coverage and first-split diversity. Along the base → SFT → SFT+DPO sequence, pass@5 is 46 → 51 → 53. The diversity measurements describe observed behaviour; they do not establish why coverage improves.</figcaption>
 </figure>
 

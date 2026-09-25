@@ -982,6 +982,13 @@ main#top { scroll-margin-top: 5rem; }
 /* For portrait-aspect images (certificates tend to be near-square or portrait-ish on close crop),
    cap narrower so they don't dominate the reading column. */
 .post-figure.post-figure--compact img { max-height: 26rem; max-width: 32rem; margin: 0 auto; }
+/* Preserve complete diagrams and plots instead of applying the photo crop. */
+.post-figure--scientific img {
+  max-height: none;
+  object-fit: contain;
+}
+.post-figure--scientific > a { display: block; }
+.post-figure--diagram img { max-width: 28rem; margin: 0 auto; }
 .post-figure figcaption {
   font-size: .95rem;
   color: var(--ink-faint);
