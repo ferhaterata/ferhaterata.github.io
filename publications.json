@@ -99,6 +99,7 @@
       ],
       "tags": [
         "formal-methods",
+        "lean",
         "software-engineering",
         "evaluation"
       ],
@@ -112,6 +113,8 @@
         "Hao Zhou",
         "Jun Huan"
       ],
+      "venue": "arXiv",
+      "venueFull": "arXiv preprint",
       "year": 2026,
       "links": [
         {
@@ -123,8 +126,7 @@
         "ai-safety",
         "program-analysis"
       ],
-      "selected": true,
-      "doubleBlind": true
+      "selected": true
     },
     {
       "key": "singh2026genv",
