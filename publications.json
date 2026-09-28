@@ -72,6 +72,39 @@
       "status": "accepted"
     },
     {
+      "key": "ma2026sweproof",
+      "title": "SWE-Proof: Can Language Models Resolve Real-World Issues with Machine-Checked Proofs?",
+      "authors": [
+        "George Ma",
+        "Benjamin Mikek",
+        "Haoyu Li",
+        "Ferhat Erata",
+        "Yuhao Zhang",
+        "Zeren Shui",
+        "Behrooz Omidvar Tehrani",
+        "Jun Huan",
+        "Murali Krishna Ramanathan",
+        "Somayeh Sojoudi",
+        "Hao Zhou",
+        "Anoop Deoras"
+      ],
+      "venue": "arXiv",
+      "venueFull": "arXiv preprint",
+      "year": 2026,
+      "links": [
+        {
+          "label": "arXiv",
+          "url": "https://arxiv.org/abs/2609.21190"
+        }
+      ],
+      "tags": [
+        "formal-methods",
+        "software-engineering",
+        "evaluation"
+      ],
+      "selected": true
+    },
+    {
       "key": "erata2026fidelity",
       "title": "Fidelity Probes for Specification–Code Alignment",
       "authors": [
