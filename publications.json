@@ -72,6 +72,34 @@
       "status": "accepted"
     },
     {
+      "key": "yu2026instruct",
+      "title": "Instruct, Not Answer: Using Instruction Privileges in On-Policy Context Distillation",
+      "authors": [
+        "Hantao Yu",
+        "Sandy Han",
+        "Udaya Ghai",
+        "Ferhat Erata",
+        "Joe Lilien",
+        "Aman Goel",
+        "Ali Torkamani"
+      ],
+      "venue": "arXiv",
+      "venueFull": "arXiv preprint",
+      "year": 2026,
+      "links": [
+        {
+          "label": "arXiv",
+          "url": "https://arxiv.org/abs/2609.32201"
+        }
+      ],
+      "tags": [
+        "post-training",
+        "neuro-symbolic",
+        "formal-methods"
+      ],
+      "selected": true
+    },
+    {
       "key": "ma2026sweproof",
       "title": "SWE-Proof: Can Language Models Resolve Real-World Issues with Machine-Checked Proofs?",
       "authors": [
