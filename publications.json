@@ -259,18 +259,28 @@
       "authors": [
         "Zhichao Hou",
         "Ferhat Erata",
-        "Joseph Lilien",
-        "Ali Torkamani"
+        "Joe Lilien",
+        "MohamadAli Torkamani"
       ],
+      "venue": "NeurIPS Workshop",
+      "venueFull": "VeriCodeGen: AI for Verifiable Coding",
       "year": 2026,
-      "links": [],
+      "links": [
+        {
+          "label": "arXiv",
+          "url": "https://arxiv.org/abs/2608.30258"
+        },
+        {
+          "label": "Workshop",
+          "url": "https://vericodegen.github.io/"
+        }
+      ],
       "tags": [
         "ai-safety",
         "neuro-symbolic",
         "post-training"
       ],
-      "status": "in preparation",
-      "doubleBlind": true
+      "status": "accepted"
     },
     {
       "key": "erata2026eaft",
