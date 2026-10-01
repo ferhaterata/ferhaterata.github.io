@@ -5,7 +5,7 @@
       "tag": "NeurIPS 2026",
       "featured": true,
       "href": "https://arxiv.org/abs/2605.16632",
-      "html": "<a href=\"https://arxiv.org/abs/2605.16632\"><em>Learning How to Cube</em></a> accepted at NeurIPS 2026."
+      "html": "<a href=\"https://arxiv.org/abs/2605.16632\"><em>Learning How to Cube</em></a> accepted at NeurIPS 2026. We train a 4B language model to split hard logical constraint problems (SAT) into smaller subproblems for a symbolic solver to tackle. The model learns which splits work well through search and solver feedback."
     },
     {
       "date": "2026-08",
