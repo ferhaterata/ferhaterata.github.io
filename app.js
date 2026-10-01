@@ -37,7 +37,7 @@
   // ---------- fetch helper (works from filesystem too) ----------
   // Append a version query so the browser doesn't serve a stale
   // JSON body when the file has changed.
-  const JSON_VERSION = "2026-10-01-3";
+  const JSON_VERSION = "2026-10-01-4";
   const fetchJSON = async (path) => {
     try {
       const sep = path.includes("?") ? "&" : "?";
@@ -88,17 +88,18 @@
       el.innerHTML = `<li class="empty-state">News feed could not be loaded. If opening this file directly, serve with a local HTTP server.</li>`;
       return;
     }
-    // Main-page list: show items flagged featured:true first, then fall back
-    // to newest 10 if fewer than 10 featured items exist.
+    // Main-page list: show featured items first, then fill remaining slots
+    // from the rest of the feed.
+    const limit = 11;
     const featured = data.news.filter((n) => n.featured === true);
     let visible;
-    if (featured.length >= 10) {
-      visible = featured.slice(0, 10);
+    if (featured.length >= limit) {
+      visible = featured.slice(0, limit);
     } else if (featured.length > 0) {
       const rest = data.news.filter((n) => n.featured !== true);
-      visible = featured.concat(rest).slice(0, 10);
+      visible = featured.concat(rest).slice(0, limit);
     } else {
-      visible = data.news.slice(0, 10);
+      visible = data.news.slice(0, limit);
     }
 
     el.innerHTML = visible.map((n) => renderNewsItem(n)).join("");
