@@ -8,6 +8,13 @@
       "html": "<a href=\"https://arxiv.org/abs/2605.16632\"><em>Learning How to Cube</em></a> accepted at NeurIPS 2026. We train a 4B language model to split hard logical constraint problems (SAT) into smaller subproblems for a symbolic solver to tackle. The model learns which splits work well through search and solver feedback."
     },
     {
+      "date": "2026-10-01",
+      "tag": "NeurIPS Workshop",
+      "featured": true,
+      "href": "news/stratified-consistency-distillation/",
+      "html": "<a href=\"news/stratified-consistency-distillation/\"><em>Stratified Consistency Distillation</em></a> accepted at the VeriCodeGen workshop at NeurIPS 2026. We use a frontier model's disagreement over formal translations to train a smaller open model."
+    },
+    {
       "date": "2026-08",
       "tag": "AWS",
       "featured": true,

@@ -273,6 +273,10 @@
         {
           "label": "Workshop",
           "url": "https://vericodegen.github.io/"
+        },
+        {
+          "label": "Overview",
+          "url": "https://ferhat.ai/news/stratified-consistency-distillation/"
         }
       ],
       "tags": [

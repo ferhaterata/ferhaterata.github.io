@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Stratified Consistency Distillation for Natural Language Formalization — Ferhat Erata</title>
+<meta name="description" content="Using a frontier model's disagreement over formal translations to train a smaller open model. Stratified Consistency Distillation, accepted at the NeurIPS 2026 Workshop on AI for Verifiable Coding." />
+<link rel="icon" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%23ffffff'/><text x='50%25' y='55%25' font-size='18' text-anchor='middle' dominant-baseline='middle' font-family='system-ui, sans-serif' fill='%231a73e8' font-weight='700'>ƒe</text></svg>" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wdth,wght@8..144,75..125,300..800&family=Roboto+Mono:wght@400;500&display=swap" />
+<link rel="stylesheet" href="../../styles.css?v=2026-09-28" />
+<link rel="canonical" href="https://ferhat.ai/news/stratified-consistency-distillation/" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Stratified Consistency Distillation for Natural Language Formalization" />
+<meta property="og:description" content="How disagreement between formal translations helps us train a smaller open model. Accepted at the NeurIPS 2026 Workshop on AI for Verifiable Coding." />
+<meta property="og:url" content="https://ferhat.ai/news/stratified-consistency-distillation/" />
+<meta property="og:image" content="https://ferhat.ai/og-card.png" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Stratified Consistency Distillation for Natural Language Formalization" />
+<meta name="twitter:description" content="How disagreement between formal translations helps us train a smaller open model." />
+<meta name="twitter:image" content="https://ferhat.ai/og-card.png" />
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-LHSH4FCVBC"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-LHSH4FCVBC');
+</script>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="nav">
+    <a href="../../#top" class="nav-brand">Ferhat <em>Erata</em></a>
+    <nav class="nav-links" aria-label="Primary">
+      <a href="../../#about">About</a>
+      <a href="../../#news">News</a>
+      <a href="../../posts/">Writing</a>
+      <a href="../../#experience">Experience</a>
+      <a href="../../#education">Education</a>
+      <a href="../../#publications">Publications</a>
+      <a href="../../#contact">Contact</a>
+    </nav>
+    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle colour scheme">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+    </button>
+  </div>
+</header>
+
+<main class="page">
+<div class="container post-container">
+
+<article class="post">
+  <p class="post-back"><a href="../../#news">← All news</a></p>
+
+  <header class="post-header">
+    <p class="post-kicker">October 1, 2026 · NeurIPS 2026 Workshop</p>
+    <h1 class="post-title">Stratified Consistency Distillation for Natural Language Formalization</h1>
+    <p class="post-lede">
+      Training a smaller open model to turn natural language into logic, using a frontier model's disagreement to decide what to teach it.
+    </p>
+  </header>
+
+  <div class="post-body">
+    <p>
+      As AI agents take on more autonomy, controlling what they're allowed to do comes down to policy: authorization rules, compliance requirements, filesystem and network permissions. Policy formalization turns that natural language intent into a precise representation that a system can check.
+    </p>
+    <p>
+      There are several ways to express these rules. <a href="https://cedarpolicy.com/">Cedar</a> is the authorization policy language behind Amazon Verified Permissions. <a href="https://aws.amazon.com/blogs/opensource/introducing-dogwood-runtime-verification-for-ai-agents/">Dogwood</a> combines Cedar policies with temporal conditions over an agent's actions. <a href="https://docs.nvidia.com/openshell/how-it-works/policies/schema">OpenShell</a> uses YAML policies to describe filesystem and network access, while <a href="https://cel.dev/overview/cel-overview">Common Expression Language (CEL)</a> lets applications express and evaluate conditions. For reasoning directly with solvers and proof assistants, we can use <a href="https://smt-lib.org/">SMT-LIB</a>, the standard input language used by solvers such as <a href="https://github.com/Z3Prover/z3">Z3</a> and <a href="https://cvc5.github.io/">cvc5</a>, or <a href="https://lean-lang.org/">Lean</a>.
+    </p>
+    <p>
+      NVIDIA's <a href="https://nvidia.github.io/OpenShell-Research/dev-notes/posts/2026-09-10-learning-formal-methods-agent-policy-prover/">OpenShell write-up on formal methods and Z3</a> gives a concrete example: its policy prover checks whether a proposed policy stays within an approved access boundary. If it doesn't, the solver can produce a counterexample showing access that the proposed policy allows but the boundary forbids.
+    </p>
+    <p>
+      Once a policy is formal, we can check an agent's actions or an LLM's answers against the encoded rules. The bottleneck is getting the translation right. Frontier models can do this well with careful prompting, but repeated inference is expensive, and closed model weights limit how we can adapt them to a particular application.
+    </p>
+    <p>
+      Our approach, <strong>Stratified Consistency Distillation</strong>, tackles this for SMT-LIB. We sample multiple translations from a frontier model, use Z3 to cluster them by logical equivalence, and compute semantic entropy over the clusters. This measures disagreement about meaning: two translations that look different can still express the same rule.
+    </p>
+    <p>
+      We then choose the training target, or <em>pseudo-label</em>, according to how much the model disagrees with itself:
+    </p>
+    <ul>
+      <li><strong>Low entropy:</strong> choose a translation from the largest cluster—the majority vote.</li>
+      <li><strong>Medium entropy:</strong> ask an LLM judge to choose between the two leading clusters.</li>
+      <li><strong>High entropy:</strong> try to unify the leading translations, or leave the example out.</li>
+    </ul>
+
+    <figure class="post-figure post-figure--scientific">
+      <a href="scd-overview.png" target="_blank" rel="noopener" aria-label="Open the Stratified Consistency Distillation figure at full resolution">
+        <img src="scd-overview.png" width="2600" height="1628" loading="lazy" decoding="async" alt="Stratified Consistency Distillation pipeline: generate SMT-LIB translations, cluster them by logical equivalence, select training targets according to semantic entropy, and fine-tune a smaller model. Three examples below show how the correct translation can fall outside the largest cluster as disagreement increases." />
+      </a>
+      <figcaption>
+        The pipeline above uses disagreement to choose what to distill. Below, the stars mark the correct translations in three illustrative cluster distributions: majority vote becomes less reliable as entropy rises. <a href="scd-overview.png" target="_blank" rel="noopener">Open the full-resolution figure ↗</a>
+      </figcaption>
+    </figure>
+
+    <p>
+      During his internship with the AWS Automated Reasoning group, Zhichao Hou turned this into a distillation pipeline for fine-tuning a small open model.
+    </p>
+    <p>
+      On FOLIO, SCD takes <strong>Qwen2.5-7B-Instruct from 21.9% to 55.2% Pass@10</strong>; ordinary distillation reaches 50.3%. Pass@10 measures whether at least one of ten generated translations is logically equivalent to the reference formula. These are the results in <a href="https://arxiv.org/pdf/2608.30258#page=5">Table 1 of the paper</a>. The paper also reports 5–20× lower inference cost than the frontier teacher.
+    </p>
+    <p>
+      The same idea could extend to other target languages, provided we have a suitable way to check semantic equivalence. The experiments here use SMT-LIB and Z3; applying the recipe to other policy languages would require implementing and evaluating those checks.
+    </p>
+    <p>
+      An early version of this work will appear at <a href="https://vericodegen.github.io/">VeriCodeGen: AI for Verifiable Coding at NeurIPS 2026</a>. Great working with Zhichao Hou, Joe Lilien, and MohamadAli Torkamani on this.
+    </p>
+    <p class="post-tags">
+      <span class="tag">#Autoformalization</span>
+      <span class="tag">#AutomatedReasoning</span>
+      <span class="tag">#AISecurity</span>
+      <span class="tag">#Distillation</span>
+    </p>
+    <p style="margin-top: 1.5rem;">
+      <a class="pub-link" href="https://arxiv.org/abs/2608.30258">Read the paper <span aria-hidden="true">↗</span></a>
+      <a class="pub-link" href="https://vericodegen.github.io/">NeurIPS workshop <span aria-hidden="true">↗</span></a>
+    </p>
+  </div>
+</article>
+
+</div>
+</main>
+
+<footer class="site-footer">
+  <div class="container" style="display:flex; justify-content:space-between; width:100%; gap:1rem; flex-wrap:wrap">
+    <span>© <span id="year"></span> Ferhat Erata</span>
+    <span class="colophon">Set in Roboto Flex</span>
+  </div>
+</footer>
+
+<script src="../../app.js?v=2026-10-01-2"></script>
+</body>
+</html>
