@@ -12,7 +12,7 @@
       "tag": "NeurIPS Workshop",
       "featured": true,
       "href": "news/stratified-consistency-distillation/",
-      "html": "<a href=\"news/stratified-consistency-distillation/\"><em>Stratified Consistency Distillation</em></a> accepted at the VeriCodeGen workshop at NeurIPS 2026. We use a frontier model's disagreement over formal translations to train a smaller open model."
+      "html": "<a href=\"news/stratified-consistency-distillation/\"><em>Stratified Consistency Distillation</em></a> accepted at the <strong>AI for Verifiable Coding</strong> workshop at NeurIPS 2026. We use a frontier model's disagreement over formal translations to train a smaller open model."
     },
     {
       "date": "2026-08",
