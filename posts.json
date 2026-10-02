@@ -1,6 +1,13 @@
 {
   "posts": [
     {
+      "slug": "stratified-consistency-distillation",
+      "date": "2026-10-02",
+      "kicker": "Essay",
+      "title": "Training small models to formalize policies",
+      "excerpt": "We've been training small open models to translate natural language policies into formal specifications, a step known as policy formalization."
+    },
+    {
       "slug": "learning-how-to-cube",
       "date": "2026-05",
       "kicker": "Essay",

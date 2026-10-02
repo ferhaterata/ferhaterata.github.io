@@ -58,13 +58,13 @@
     <p class="post-kicker">October 1, 2026 · NeurIPS 2026 Workshop</p>
     <h1 class="post-title">Stratified Consistency Distillation for Natural Language Formalization</h1>
     <p class="post-lede">
-      Training a smaller open model to turn natural language into logic, using a frontier model's disagreement to decide what to teach it.
+      We've been training small open models to translate natural language policies into formal specifications, a step known as policy formalization.
     </p>
   </header>
 
   <div class="post-body">
     <p>
-      As AI agents take on more autonomy, controlling what they're allowed to do comes down to policy: authorization rules, compliance requirements, filesystem and network permissions. Policy formalization turns that natural language intent into a precise representation that a system can check.
+      The policies might describe authorization rules, compliance requirements, filesystem access, or network permissions. Once those rules have a formal representation, a system can check an agent's actions or a formalized interpretation of an LLM's answer against them. But the check is only meaningful if the translation preserved what the policy meant.
     </p>
     <p>
       There are several ways to express these rules. <a href="https://cedarpolicy.com/">Cedar</a> is the authorization policy language behind Amazon Verified Permissions. <a href="https://aws.amazon.com/blogs/opensource/introducing-dogwood-runtime-verification-for-ai-agents/">Dogwood</a> combines Cedar policies with temporal conditions over an agent's actions. <a href="https://docs.nvidia.com/openshell/how-it-works/policies/schema">OpenShell</a> uses YAML policies to describe filesystem and network access, while <a href="https://cel.dev/overview/cel-overview">Common Expression Language (CEL)</a> lets applications express and evaluate conditions. For reasoning directly with solvers and proof assistants, we can use <a href="https://smt-lib.org/">SMT-LIB</a>, the standard input language used by solvers such as <a href="https://github.com/Z3Prover/z3">Z3</a> and <a href="https://cvc5.github.io/">cvc5</a>, or <a href="https://lean-lang.org/">Lean</a>.
@@ -73,7 +73,7 @@
       NVIDIA's <a href="https://nvidia.github.io/OpenShell-Research/dev-notes/posts/2026-09-10-learning-formal-methods-agent-policy-prover/">OpenShell write-up on formal methods and Z3</a> gives a concrete example: its policy prover checks whether a proposed policy stays within an approved access boundary. If it doesn't, the solver can produce a counterexample showing access that the proposed policy allows but the boundary forbids.
     </p>
     <p>
-      Once a policy is formal, we can check an agent's actions or an LLM's answers against the encoded rules. The bottleneck is getting the translation right. Frontier models can do this well with careful prompting, but repeated inference is expensive, and closed model weights limit how we can adapt them to a particular application.
+      The bottleneck is getting the translation right. Frontier models can do this well with careful prompting, but repeated inference is expensive, and closed model weights limit how we can adapt them to a particular application. We wanted to distill that ability into smaller open models we could fine-tune and run ourselves.
     </p>
     <p>
       Our approach, <strong>Stratified Consistency Distillation</strong>, tackles this for SMT-LIB. We sample multiple translations from a frontier model, use Z3 to cluster them by logical equivalence, and compute semantic entropy over the clusters. This measures disagreement about meaning: two translations that look different can still express the same rule.
@@ -106,7 +106,7 @@
       The same idea could extend to other target languages, provided we have a suitable way to check semantic equivalence. The experiments here use SMT-LIB and Z3; applying the recipe to other policy languages would require implementing and evaluating those checks.
     </p>
     <p>
-      An early version of this work will appear at the <a href="https://vericodegen.github.io/">AI for Verifiable Coding workshop at NeurIPS 2026</a>. Great working with Zhichao Hou, Joe Lilien, and MohamadAli Torkamani on this.
+      An early version of this work will appear at the <a href="https://vericodegen.github.io/">AI for Verifiable Coding workshop at NeurIPS 2026</a>. Joint work with Zhichao Hou, Joseph Lilien, Rémi Delmas, and Ali Torkamani.
     </p>
     <p class="post-tags">
       <span class="tag">#Autoformalization</span>
@@ -115,6 +115,7 @@
       <span class="tag">#Distillation</span>
     </p>
     <p style="margin-top: 1.5rem;">
+      <a class="pub-link" href="../../posts/#stratified-consistency-distillation">Read the write-up <span aria-hidden="true">↗</span></a>
       <a class="pub-link" href="https://arxiv.org/abs/2608.30258">Read the paper <span aria-hidden="true">↗</span></a>
       <a class="pub-link" href="https://vericodegen.github.io/">NeurIPS workshop <span aria-hidden="true">↗</span></a>
     </p>
@@ -131,6 +132,6 @@
   </div>
 </footer>
 
-<script src="../../app.js?v=2026-10-01-4"></script>
+<script src="../../app.js?v=2026-10-02"></script>
 </body>
 </html>
