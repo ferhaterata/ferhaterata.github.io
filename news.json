@@ -13,7 +13,7 @@
       "date": "2026-09-24",
       "tag": "NeurIPS 2026",
       "featured": true,
-      "image": "news/assets/learning-how-to-cube.svg",
+      "image": "news/assets/learning-how-to-cube.svg?v=2026-10-09-3",
       "imageType": "illustration",
       "href": "https://arxiv.org/abs/2605.16632",
       "html": "<a href=\"https://arxiv.org/abs/2605.16632\"><em>Learning How to Cube</em></a> accepted at NeurIPS 2026. Using search and solver feedback, we train a 4B model to split SAT problems for a symbolic solver."
@@ -30,13 +30,13 @@
       "tag": "AWS",
       "featured": true,
       "href": "news/policy-refinement-launch/",
-      "html": "Some of my work on <strong>formal policy refinement</strong> for AI safety and security shipped in <a href=\"https://aws.amazon.com/bedrock/guardrails/\">Amazon Bedrock</a>'s Automated Reasoning checks, announced on the <a href=\"https://aws.amazon.com/blogs/machine-learning/automated-reasoning-policy-refinement-in-amazon-bedrock/\">AWS Machine Learning Blog</a> in a post I co-authored. A theorem prover detects when a model reads a policy two ways, and the system pinpoints and resolves the variables that cause it before a guardrail can be built on the wrong reading."
+      "html": "My work on <strong>formal policy refinement</strong> for AI safety and security shipped in <a href=\"https://aws.amazon.com/bedrock/guardrails/\">Amazon Bedrock</a>'s Automated Reasoning checks, announced on the <a href=\"https://aws.amazon.com/blogs/machine-learning/automated-reasoning-policy-refinement-in-amazon-bedrock/\">AWS Machine Learning Blog</a> in a post I co-authored. A theorem prover detects when a model reads a policy two ways, and the system pinpoints and resolves the variables that cause it before a guardrail is built on the wrong reading."
     },
     {
       "date": "2026-05",
       "tag": "ICML 2026",
       "award": true,
-      "image": "news/assets/icml-logo.svg",
+      "image": "news/assets/icml-logo.svg?v=2026-10-09-3",
       "imageType": "logo",
       "html": "Honored to receive a <strong>Gold Reviewer Award</strong> from ICML 2026, recognizing top reviewers based on area-chair ratings. The award includes complimentary registration."
     },

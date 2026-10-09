@@ -418,6 +418,7 @@ main#top { scroll-margin-top: 5rem; }
   object-fit: contain;
   padding: .65rem;
 }
+.news-image-logo img[src*="icml-logo.svg"] { padding: 0; }
 .news-image-illustration { background: #f4f8ff; }
 .news-image-illustration img { object-fit: contain; }
 @media (max-width: 640px) {
