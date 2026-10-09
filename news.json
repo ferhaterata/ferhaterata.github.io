@@ -22,7 +22,7 @@
       "date": "2026-10-01",
       "tag": "NeurIPS Workshop",
       "featured": true,
-      "image": "news/assets/stratified-consistency-distillation.svg?v=2026-10-09-5",
+      "image": "news/assets/stratified-consistency-distillation.svg?v=2026-10-09-9",
       "imageType": "illustration",
       "href": "news/stratified-consistency-distillation/",
       "html": "<a href=\"news/stratified-consistency-distillation/\"><em>Stratified Consistency Distillation for Natural Language Formalization</em></a> accepted at the <strong>AI for Verifiable Coding</strong> workshop at NeurIPS 2026. We use a frontier model's disagreement over formal translations to train a smaller open model."
@@ -50,7 +50,7 @@
       "award": true,
       "image": "news/icml-spotlight/icml-spotlight.jpeg",
       "href": "news/icml-spotlight/",
-      "html": "<em>Learning Randomized Reductions</em> accepted as <strong>Spotlight</strong> paper at ICML 2026 — top 2.2% of 23,918 submissions. With <a href=\"https://en.wikipedia.org/wiki/Shafi_Goldwasser\">Shafi Goldwasser</a> (UC Berkeley) and wonderful collaborators."
+      "html": "<em>Learning Randomized Reductions</em> accepted as <strong>Spotlight</strong> paper at ICML 2026 — top 2.2% of 23,918 submissions. With <a href=\"https://en.wikipedia.org/wiki/Shafi_Goldwasser\">Shafi Goldwasser</a> (Turing Award recipient) and wonderful collaborators."
     },
     {
       "date": "2026-05",

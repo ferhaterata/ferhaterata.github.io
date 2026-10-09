@@ -72,6 +72,39 @@
       "status": "accepted"
     },
     {
+      "key": "hou2026stratified",
+      "title": "Stratified Consistency Distillation for Natural Language Formalization",
+      "authors": [
+        "Zhichao Hou",
+        "Ferhat Erata",
+        "Joe Lilien",
+        "MohamadAli Torkamani"
+      ],
+      "venue": "NeurIPS Workshop",
+      "venueFull": "AI for Verifiable Coding",
+      "year": 2026,
+      "links": [
+        {
+          "label": "arXiv",
+          "url": "https://arxiv.org/abs/2608.30258"
+        },
+        {
+          "label": "Workshop",
+          "url": "https://vericodegen.github.io/"
+        },
+        {
+          "label": "Overview",
+          "url": "https://ferhat.ai/posts/#stratified-consistency-distillation"
+        }
+      ],
+      "tags": [
+        "ai-safety",
+        "neuro-symbolic",
+        "post-training"
+      ],
+      "status": "accepted"
+    },
+    {
       "key": "yu2026instruct",
       "title": "Instruct, Not Answer: Using Instruction Privileges in On-Policy Context Distillation",
       "authors": [
@@ -252,39 +285,6 @@
         "embedded"
       ],
       "selected": true
-    },
-    {
-      "key": "hou2026stratified",
-      "title": "Stratified Consistency Distillation for Natural Language Formalization",
-      "authors": [
-        "Zhichao Hou",
-        "Ferhat Erata",
-        "Joe Lilien",
-        "MohamadAli Torkamani"
-      ],
-      "venue": "NeurIPS Workshop",
-      "venueFull": "AI for Verifiable Coding",
-      "year": 2026,
-      "links": [
-        {
-          "label": "arXiv",
-          "url": "https://arxiv.org/abs/2608.30258"
-        },
-        {
-          "label": "Workshop",
-          "url": "https://vericodegen.github.io/"
-        },
-        {
-          "label": "Overview",
-          "url": "https://ferhat.ai/posts/#stratified-consistency-distillation"
-        }
-      ],
-      "tags": [
-        "ai-safety",
-        "neuro-symbolic",
-        "post-training"
-      ],
-      "status": "accepted"
     },
     {
       "key": "erata2026eaft",
