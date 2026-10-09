@@ -13,10 +13,10 @@
   </g>
   <text x="71" y="73" fill="#1a73e8" font-family="Georgia, 'Times New Roman', serif" font-size="23" text-anchor="middle">≡</text>
   <g fill="none" stroke="#8ab4f8" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M129 67h11l14 13M129 156h11l14-34"/>
-    <path d="M215 100h14m-5-5 5 5-5 5"/>
+    <path d="M129 67h11l23 19M129 156h11l23-42"/>
+    <path d="M207 100h22m-5-5 5 5-5 5"/>
   </g>
-  <path d="M155 65v70l44-22h16V87h-16z" fill="#b8d1fa" stroke="#1a73e8" stroke-width="2.5" stroke-linejoin="round"/>
+  <path d="M164 75v50l31-16h12V91h-12z" fill="#b8d1fa" stroke="#1a73e8" stroke-width="2" stroke-linejoin="round"/>
   <g stroke="#8ab4f8" stroke-width="2" fill="none">
     <path d="M241 74 268 56M241 74l27 26M241 74l27 70M241 126l27-70M241 126l27-26M241 126l27 18"/>
     <path d="m268 56 29 44-29 44M268 100h29"/>

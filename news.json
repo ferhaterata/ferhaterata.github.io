@@ -22,7 +22,7 @@
       "date": "2026-10-01",
       "tag": "NeurIPS Workshop",
       "featured": true,
-      "image": "news/assets/stratified-consistency-distillation.svg",
+      "image": "news/assets/stratified-consistency-distillation.svg?v=2026-10-09-5",
       "imageType": "illustration",
       "href": "news/stratified-consistency-distillation/",
       "html": "<a href=\"news/stratified-consistency-distillation/\"><em>Stratified Consistency Distillation for Natural Language Formalization</em></a> accepted at the <strong>AI for Verifiable Coding</strong> workshop at NeurIPS 2026. We use a frontier model's disagreement over formal translations to train a smaller open model."
@@ -31,8 +31,8 @@
       "date": "2026-08",
       "tag": "AWS",
       "featured": true,
-      "image": "news/assets/aws-logo.svg",
-      "imageType": "logo",
+      "image": "news/assets/formal-policy-refinement.svg",
+      "imageType": "illustration",
       "href": "news/policy-refinement-launch/",
       "html": "My work on <strong>formal policy refinement</strong> for AI safety and security shipped in <a href=\"https://aws.amazon.com/bedrock/guardrails/\">Amazon Bedrock</a>'s Automated Reasoning checks, announced on the <a href=\"https://aws.amazon.com/blogs/machine-learning/automated-reasoning-policy-refinement-in-amazon-bedrock/\">AWS Machine Learning Blog</a> in a post I co-authored. A theorem prover detects when a model reads a policy two ways, and the system pinpoints and resolves the variables that cause it before a guardrail is built on the wrong reading."
     },

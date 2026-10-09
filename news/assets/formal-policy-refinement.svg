@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 200">
+  <title>Formal Policy Refinement</title>
+  <desc>Two non-equivalent interpretations reveal ambiguity in a policy. A pencil represents clarifying its definitions, leading to a checked formal policy.</desc>
+  <rect width="320" height="200" fill="#f4f8ff"/>
+  <g fill="#e8f0fe" stroke="#8ab4f8" stroke-width="2">
+    <rect x="14" y="25" width="112" height="52" rx="9"/>
+    <rect x="14" y="123" width="112" height="52" rx="9"/>
+  </g>
+  <g fill="#185abc" font-family="Georgia, 'Times New Roman', serif" text-anchor="middle">
+    <text x="70" y="60" font-size="27">p → q</text>
+    <text x="70" y="157" font-size="27">q → p</text>
+    <text x="70" y="110" font-size="34">≢</text>
+  </g>
+  <g fill="none" stroke="#8ab4f8" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M127 51h18l26 49M127 149h18l26-49"/>
+    <path d="M171 100h39m-6-6 6 6-6 6"/>
+  </g>
+  <g stroke="#1a73e8" stroke-width="2" stroke-linejoin="round">
+    <path d="m176 79 3-12 23-23 9 9-23 23z" fill="#b8d1fa"/>
+    <path d="m179 67 9 9m10-28 9 9" fill="none"/>
+  </g>
+  <path d="M226 34h56l24 24v106h-80z" fill="#fff" stroke="#1a73e8" stroke-width="2.5" stroke-linejoin="round"/>
+  <path d="M282 34v24h24" fill="#d2e3fc" stroke="#1a73e8" stroke-width="2.5" stroke-linejoin="round"/>
+  <text x="266" y="99" fill="#185abc" font-family="Georgia, 'Times New Roman', serif" font-size="42" text-anchor="middle">φ</text>
+  <path d="M240 116h38m-38 13h28" fill="none" stroke="#8ab4f8" stroke-width="3" stroke-linecap="round"/>
+  <circle cx="280" cy="153" r="18" fill="#1a73e8"/>
+  <path d="m272 153 6 6 11-13" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
