@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 320">
+  <title>Learning How to Cube</title>
+  <desc>A blue cube branches into two smaller cubes, representing a SAT problem split into subproblems.</desc>
+  <rect width="512" height="320" fill="#f4f8ff"/>
+  <g fill="none" stroke="#8ab4f8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M256 176v23H145v23M256 199h111v23"/>
+  </g>
+  <g stroke="#1a73e8" stroke-width="4" stroke-linejoin="round">
+    <path d="m256 22 72 40-72 40-72-40z" fill="#e8f0fe"/>
+    <path d="m184 62 72 40v78l-72-40z" fill="#b8d1fa"/>
+    <path d="m256 102 72-40v78l-72 40z" fill="#5c99ee"/>
+  </g>
+  <g stroke="#1a73e8" stroke-width="3" stroke-linejoin="round">
+    <path d="m145 218 39 22-39 22-39-22z" fill="#e8f0fe"/>
+    <path d="m106 240 39 22v40l-39-22z" fill="#b8d1fa"/>
+    <path d="m145 262 39-22v40l-39 22z" fill="#5c99ee"/>
+    <path d="m367 218 39 22-39 22-39-22z" fill="#e8f0fe"/>
+    <path d="m328 240 39 22v40l-39-22z" fill="#b8d1fa"/>
+    <path d="m367 262 39-22v40l-39 22z" fill="#5c99ee"/>
+  </g>
+</svg>

@@ -413,6 +413,13 @@ main#top { scroll-margin-top: 5rem; }
   object-fit: cover;
   display: block;
 }
+.news-image-logo { background: #fff; }
+.news-image-logo img {
+  object-fit: contain;
+  padding: .65rem;
+}
+.news-image-illustration { background: #f4f8ff; }
+.news-image-illustration img { object-fit: contain; }
 @media (max-width: 640px) {
   .news-item { grid-template-columns: 1fr; gap: .75rem; }
   .news-image { width: 100%; height: 9rem; }

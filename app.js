@@ -37,7 +37,7 @@
   // ---------- fetch helper (works from filesystem too) ----------
   // Append a version query so the browser doesn't serve a stale
   // JSON body when the file has changed.
-  const JSON_VERSION = "2026-10-09";
+  const JSON_VERSION = "2026-10-09-2";
   const fetchJSON = async (path) => {
     try {
       const sep = path.includes("?") ? "&" : "?";
@@ -61,8 +61,9 @@
     const imgTag = n.image
       ? `<img src="${escapeAttr(rewrite(n.image))}" alt="" loading="lazy" onerror="this.closest('.news-image').remove()"/>`
       : "";
+    const imageClass = ["logo", "illustration"].includes(n.imageType) ? ` news-image-${n.imageType}` : "";
     const figure = imgTag
-      ? `<figure class="news-image">${imgTag}</figure>`
+      ? `<figure class="news-image${imageClass}">${imgTag}</figure>`
       : "";
     // Rewrite relative hrefs inside the item's HTML body.
     const body = pathPrefix
@@ -90,7 +91,7 @@
     }
     // Main-page list: show featured items first, then fill remaining slots
     // from the rest of the feed.
-    const limit = 11;
+    const limit = 12;
     const featured = data.news.filter((n) => n.featured === true);
     let visible;
     if (featured.length >= limit) {

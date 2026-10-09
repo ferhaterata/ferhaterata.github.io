@@ -5,21 +5,25 @@
       "tag": "NeurIPS 2026",
       "award": true,
       "featured": true,
-      "html": "Recognized as a <strong>Top Reviewer</strong> at NeurIPS 2026."
+      "image": "news/assets/neurips-logo.svg",
+      "imageType": "logo",
+      "html": "Named a <strong>Top Reviewer</strong>, with complimentary registration."
     },
     {
       "date": "2026-09-24",
       "tag": "NeurIPS 2026",
       "featured": true,
+      "image": "news/assets/learning-how-to-cube.svg",
+      "imageType": "illustration",
       "href": "https://arxiv.org/abs/2605.16632",
-      "html": "<a href=\"https://arxiv.org/abs/2605.16632\"><em>Learning How to Cube</em></a> accepted at NeurIPS 2026. We train a 4B language model to split hard logical constraint problems (SAT) into smaller subproblems for a symbolic solver to tackle. The model learns which splits work well through search and solver feedback."
+      "html": "<a href=\"https://arxiv.org/abs/2605.16632\"><em>Learning How to Cube</em></a> accepted at NeurIPS 2026. Using search and solver feedback, we train a 4B model to split SAT problems for a symbolic solver."
     },
     {
       "date": "2026-10-01",
       "tag": "NeurIPS Workshop",
       "featured": true,
       "href": "news/stratified-consistency-distillation/",
-      "html": "<a href=\"news/stratified-consistency-distillation/\"><em>Stratified Consistency Distillation</em></a> accepted at the <strong>AI for Verifiable Coding</strong> workshop at NeurIPS 2026. We use a frontier model's disagreement over formal translations to train a smaller open model."
+      "html": "<a href=\"news/stratified-consistency-distillation/\"><em>Stratified Consistency Distillation for Natural Language Formalization</em></a> accepted at the <strong>AI for Verifiable Coding</strong> workshop at NeurIPS 2026. We use a frontier model's disagreement over formal translations to train a smaller open model."
     },
     {
       "date": "2026-08",
@@ -32,6 +36,8 @@
       "date": "2026-05",
       "tag": "ICML 2026",
       "award": true,
+      "image": "news/assets/icml-logo.svg",
+      "imageType": "logo",
       "html": "Honored to receive a <strong>Gold Reviewer Award</strong> from ICML 2026, recognizing top reviewers based on area-chair ratings. The award includes complimentary registration."
     },
     {
