@@ -9,7 +9,10 @@
   <g fill="#185abc" font-family="Georgia, 'Times New Roman', serif" text-anchor="middle">
     <text x="70" y="60" font-size="27">p → q</text>
     <text x="70" y="157" font-size="27">q → p</text>
-    <text x="70" y="110" font-size="34">≢</text>
+  </g>
+  <g aria-label="not logically equivalent" fill="none" stroke="#185abc" stroke-width="2.4" stroke-linecap="round">
+    <path d="M58 91h24M58 99h24M58 107h24"/>
+    <path d="m61 113 18-28"/>
   </g>
   <g fill="none" stroke="#8ab4f8" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
     <path d="M127 51h18l26 49M127 149h18l26-49"/>

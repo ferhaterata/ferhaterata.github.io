@@ -31,7 +31,7 @@
       "date": "2026-08",
       "tag": "AWS",
       "featured": true,
-      "image": "news/assets/formal-policy-refinement.svg",
+      "image": "news/assets/formal-policy-refinement.svg?v=2026-10-09-6",
       "imageType": "illustration",
       "href": "news/policy-refinement-launch/",
       "html": "My work on <strong>formal policy refinement</strong> for AI safety and security shipped in <a href=\"https://aws.amazon.com/bedrock/guardrails/\">Amazon Bedrock</a>'s Automated Reasoning checks, announced on the <a href=\"https://aws.amazon.com/blogs/machine-learning/automated-reasoning-policy-refinement-in-amazon-bedrock/\">AWS Machine Learning Blog</a> in a post I co-authored. A theorem prover detects when a model reads a policy two ways, and the system pinpoints and resolves the variables that cause it before a guardrail is built on the wrong reading."
@@ -70,7 +70,7 @@
     {
       "date": "2025-08",
       "tag": "JHU AI2AI",
-      "image": "news/assets/jhu-shield.svg",
+      "image": "news/assets/jhu-aws.svg",
       "imageType": "logo",
       "html": "Served as <strong>Amazon Research Liaison</strong> at the <a href=\"https://ai2ai.engineering.jhu.edu/2025-ai2ai-research-festival/\">JHU AI2AI 2025 Research Festival</a> for <a href=\"https://engineering.jhu.edu/faculty/carey-priebe/\">Prof. Carey Priebe</a>'s project on representing collections of LLMs as Gaussian mixtures in data-kernel perspective space, and gave an invited talk on automated reasoning at AWS."
     },
