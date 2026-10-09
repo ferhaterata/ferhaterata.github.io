@@ -1,6 +1,13 @@
 {
   "news": [
     {
+      "date": "2026-10-09",
+      "tag": "NeurIPS 2026",
+      "award": true,
+      "featured": true,
+      "html": "Recognized as a <strong>Top Reviewer</strong> at NeurIPS 2026."
+    },
+    {
       "date": "2026-09-24",
       "tag": "NeurIPS 2026",
       "featured": true,

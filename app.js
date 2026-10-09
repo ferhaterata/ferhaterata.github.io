@@ -37,7 +37,7 @@
   // ---------- fetch helper (works from filesystem too) ----------
   // Append a version query so the browser doesn't serve a stale
   // JSON body when the file has changed.
-  const JSON_VERSION = "2026-10-02";
+  const JSON_VERSION = "2026-10-09";
   const fetchJSON = async (path) => {
     try {
       const sep = path.includes("?") ? "&" : "?";
@@ -150,7 +150,7 @@
       const body = `
           <span class="post-card-date">${escapeHTML(dateLabel)}</span>
           <h3 class="post-card-title">${escapeHTML(headline)}</h3>
-          <p class="post-card-excerpt">${escapeHTML(excerpt)}</p>`;
+          ${excerpt !== headline ? `<p class="post-card-excerpt">${escapeHTML(excerpt)}</p>` : ""}`;
       return href
         ? `<a class="post-card" href="${escapeAttr(href)}">${body}</a>`
         : `<div class="post-card">${body}</div>`;
