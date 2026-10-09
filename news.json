@@ -34,7 +34,7 @@
       "image": "news/assets/formal-policy-refinement.svg?v=2026-10-09-6",
       "imageType": "illustration",
       "href": "news/policy-refinement-launch/",
-      "html": "My work on <strong>formal policy refinement</strong> for AI safety and security shipped in <a href=\"https://aws.amazon.com/bedrock/guardrails/\">Amazon Bedrock</a>'s Automated Reasoning checks, announced on the <a href=\"https://aws.amazon.com/blogs/machine-learning/automated-reasoning-policy-refinement-in-amazon-bedrock/\">AWS Machine Learning Blog</a> in a post I co-authored. A theorem prover detects when a model reads a policy two ways, and the system pinpoints and resolves the variables that cause it before a guardrail is built on the wrong reading."
+      "html": "My work on <strong>formal policy refinement</strong> for AI safety and security shipped in <a href=\"https://aws.amazon.com/bedrock/guardrails/\">Amazon Bedrock</a>'s Automated Reasoning checks, described in an <a href=\"https://aws.amazon.com/blogs/machine-learning/automated-reasoning-policy-refinement-in-amazon-bedrock/\">AWS ML Blog</a> post I co-authored. The system uses theorem proving to detect and resolve ambiguous policy readings before building a guardrail."
     },
     {
       "date": "2026-05",
