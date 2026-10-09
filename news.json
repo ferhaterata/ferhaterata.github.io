@@ -13,7 +13,7 @@
       "date": "2026-09-24",
       "tag": "NeurIPS 2026",
       "featured": true,
-      "image": "news/assets/learning-how-to-cube.svg?v=2026-10-09-3",
+      "image": "news/assets/learning-how-to-cube.svg?v=2026-10-09-4",
       "imageType": "illustration",
       "href": "https://arxiv.org/abs/2605.16632",
       "html": "<a href=\"https://arxiv.org/abs/2605.16632\"><em>Learning How to Cube</em></a> accepted at NeurIPS 2026. Using search and solver feedback, we train a 4B model to split SAT problems for a symbolic solver."
@@ -22,6 +22,8 @@
       "date": "2026-10-01",
       "tag": "NeurIPS Workshop",
       "featured": true,
+      "image": "news/assets/stratified-consistency-distillation.svg",
+      "imageType": "illustration",
       "href": "news/stratified-consistency-distillation/",
       "html": "<a href=\"news/stratified-consistency-distillation/\"><em>Stratified Consistency Distillation for Natural Language Formalization</em></a> accepted at the <strong>AI for Verifiable Coding</strong> workshop at NeurIPS 2026. We use a frontier model's disagreement over formal translations to train a smaller open model."
     },
@@ -29,6 +31,8 @@
       "date": "2026-08",
       "tag": "AWS",
       "featured": true,
+      "image": "news/assets/aws-logo.svg",
+      "imageType": "logo",
       "href": "news/policy-refinement-launch/",
       "html": "My work on <strong>formal policy refinement</strong> for AI safety and security shipped in <a href=\"https://aws.amazon.com/bedrock/guardrails/\">Amazon Bedrock</a>'s Automated Reasoning checks, announced on the <a href=\"https://aws.amazon.com/blogs/machine-learning/automated-reasoning-policy-refinement-in-amazon-bedrock/\">AWS Machine Learning Blog</a> in a post I co-authored. A theorem prover detects when a model reads a policy two ways, and the system pinpoints and resolves the variables that cause it before a guardrail is built on the wrong reading."
     },
@@ -66,11 +70,15 @@
     {
       "date": "2025-08",
       "tag": "JHU AI2AI",
+      "image": "news/assets/jhu-shield.svg",
+      "imageType": "logo",
       "html": "Served as <strong>Amazon Research Liaison</strong> at the <a href=\"https://ai2ai.engineering.jhu.edu/2025-ai2ai-research-festival/\">JHU AI2AI 2025 Research Festival</a> for <a href=\"https://engineering.jhu.edu/faculty/carey-priebe/\">Prof. Carey Priebe</a>'s project on representing collections of LLMs as Gaussian mixtures in data-kernel perspective space, and gave an invited talk on automated reasoning at AWS."
     },
     {
       "date": "2025-06",
       "tag": "AWS",
+      "image": "news/assets/aws-logo.svg",
+      "imageType": "logo",
       "href": "news/bedrock-guardrails-ga/",
       "html": "<a href=\"https://aws.amazon.com/bedrock/guardrails/\">Amazon Bedrock Guardrails</a> Automated Reasoning checks reach general availability — now delivering up to 99% verification accuracy to enterprise customers."
     },

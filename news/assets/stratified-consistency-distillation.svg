@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 200">
+  <title>Stratified Consistency Distillation for Natural Language Formalization</title>
+  <desc>Logically equivalent candidate formulas are grouped together, selected through a funnel, and distilled into a small neural model. The formulas p implies q and not p or q share a group; q implies p forms a different group.</desc>
+  <rect width="320" height="200" fill="#f4f8ff"/>
+  <g stroke="#8ab4f8" stroke-width="2">
+    <rect x="14" y="18" width="114" height="98" rx="9" fill="#e8f0fe"/>
+    <rect x="14" y="130" width="114" height="52" rx="9" fill="#d2e3fc"/>
+  </g>
+  <g fill="#185abc" font-family="Georgia, 'Times New Roman', serif" font-size="25" text-anchor="middle">
+    <text x="71" y="49">p → q</text>
+    <text x="71" y="97">¬p ∨ q</text>
+    <text x="71" y="165">q → p</text>
+  </g>
+  <text x="71" y="73" fill="#1a73e8" font-family="Georgia, 'Times New Roman', serif" font-size="23" text-anchor="middle">≡</text>
+  <g fill="none" stroke="#8ab4f8" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M129 67h11l14 13M129 156h11l14-34"/>
+    <path d="M215 100h14m-5-5 5 5-5 5"/>
+  </g>
+  <path d="M155 65v70l44-22h16V87h-16z" fill="#b8d1fa" stroke="#1a73e8" stroke-width="2.5" stroke-linejoin="round"/>
+  <g stroke="#8ab4f8" stroke-width="2" fill="none">
+    <path d="M241 74 268 56M241 74l27 26M241 74l27 70M241 126l27-70M241 126l27-26M241 126l27 18"/>
+    <path d="m268 56 29 44-29 44M268 100h29"/>
+  </g>
+  <g stroke="#1a73e8" stroke-width="2">
+    <circle cx="241" cy="74" r="6" fill="#e8f0fe"/>
+    <circle cx="241" cy="126" r="6" fill="#e8f0fe"/>
+    <circle cx="268" cy="56" r="6" fill="#5c99ee"/>
+    <circle cx="268" cy="100" r="6" fill="#5c99ee"/>
+    <circle cx="268" cy="144" r="6" fill="#5c99ee"/>
+    <circle cx="297" cy="100" r="6" fill="#1a73e8"/>
+  </g>
+</svg>
