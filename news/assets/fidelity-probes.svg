@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 200">
+  <title>Fidelity Probes</title>
+  <desc>Questions grounded in source code are checked against a specification. A magnifying glass represents the probe. A checkmark, cross, and dash represent agreement, contradiction, and a coverage gap.</desc>
+  <rect width="320" height="200" fill="#f4f8ff"/>
+  <g fill="none" stroke="#8ab4f8" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M118 53h17l18 32M107 146h28l18-31"/>
+    <path d="M203 100h25V50h31M228 100h31M228 100v50h31"/>
+  </g>
+  <rect x="14" y="20" width="104" height="66" rx="8" fill="#e8f0fe" stroke="#8ab4f8" stroke-width="2"/>
+  <path d="M14 36h104" fill="none" stroke="#8ab4f8" stroke-width="2"/>
+  <g fill="#8ab4f8">
+    <circle cx="24" cy="28" r="2"/>
+    <circle cx="32" cy="28" r="2"/>
+  </g>
+  <path d="m46 49-9 9 9 9m35-18 9 9-9 9M69 45 58 71" fill="none" stroke="#185abc" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M24 110h64l19 19v53H24z" fill="#fff" stroke="#8ab4f8" stroke-width="2" stroke-linejoin="round"/>
+  <path d="M88 110v19h19" fill="#d2e3fc" stroke="#8ab4f8" stroke-width="2" stroke-linejoin="round"/>
+  <path d="M40 139h46m-46 12h46m-46 12h30" fill="none" stroke="#8ab4f8" stroke-width="3" stroke-linecap="round"/>
+  <path d="m195 119 18 18" fill="none" stroke="#1a73e8" stroke-width="5" stroke-linecap="round"/>
+  <circle cx="176" cy="100" r="27" fill="#e8f0fe" stroke="#1a73e8" stroke-width="2.5"/>
+  <text x="176" y="112" fill="#185abc" font-family="Georgia, 'Times New Roman', serif" font-size="35" text-anchor="middle">?</text>
+  <g fill="#e8f0fe" stroke="#8ab4f8" stroke-width="2">
+    <circle cx="278" cy="50" r="19"/>
+    <circle cx="278" cy="100" r="19"/>
+    <circle cx="278" cy="150" r="19"/>
+  </g>
+  <g fill="none" stroke="#185abc" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+    <path d="m269 50 6 6 11-13"/>
+    <path d="m271 93 14 14m0-14-14 14"/>
+    <path d="M270 150h16"/>
+  </g>
+</svg>

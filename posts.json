@@ -2,6 +2,7 @@
   "posts": [
     {
       "slug": "stratified-consistency-distillation",
+      "image": "news/assets/stratified-consistency-distillation.svg?v=2026-10-09-9",
       "date": "2026-10-02",
       "kicker": "Essay",
       "title": "Training small models to formalize policies",
@@ -9,6 +10,7 @@
     },
     {
       "slug": "learning-how-to-cube",
+      "image": "news/assets/learning-how-to-cube.svg?v=2026-10-09-4",
       "date": "2026-05",
       "kicker": "Essay",
       "title": "Learning How to Cube: training a transformer to guide a SAT solver",
@@ -16,6 +18,7 @@
     },
     {
       "slug": "code-spec-alignment",
+      "image": "news/assets/fidelity-probes.svg",
       "date": "2026-05",
       "kicker": "Essay",
       "title": "Fidelity Probes: Measuring the gap between code and its specification",

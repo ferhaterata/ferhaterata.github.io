@@ -37,7 +37,7 @@
   // ---------- fetch helper (works from filesystem too) ----------
   // Append a version query so the browser doesn't serve a stale
   // JSON body when the file has changed.
-  const JSON_VERSION = "2026-10-10-1";
+  const JSON_VERSION = "2026-10-10-2";
   const fetchJSON = async (path) => {
     try {
       const sep = path.includes("?") ? "&" : "?";
@@ -360,7 +360,7 @@
   loadPubs();
   renderPatents();
 
-  // ---------- homepage writing section (latest 2 essays) ----------
+  // ---------- homepage writing section (first 3 entries) ----------
   const writingList = document.getElementById("writing-list");
   if (writingList) {
     fetchJSON("posts.json").then((data) => {
@@ -378,10 +378,13 @@
         .slice(0, 3)
         .map(
           (p) => `
-        <a class="post-card" href="${escapeAttr(postHref(p))}">
-          <span class="post-card-date">${formatDate(p.date)}${p.kicker ? ` · ${escapeHTML(p.kicker)}` : ""}</span>
-          <h3 class="post-card-title">${escapeHTML(p.title)}</h3>
-          <p class="post-card-excerpt">${escapeHTML(p.excerpt || "")}</p>
+        <a class="post-card${p.image ? " post-card-with-image" : ""}" href="${escapeAttr(postHref(p))}">
+          <div class="post-card-body">
+            <span class="post-card-date">${formatDate(p.date)}${p.kicker ? ` · ${escapeHTML(p.kicker)}` : ""}</span>
+            <h3 class="post-card-title">${escapeHTML(p.title)}</h3>
+            <p class="post-card-excerpt">${escapeHTML(p.excerpt || "")}</p>
+          </div>
+          ${p.image ? `<img class="post-card-image" src="${escapeAttr(p.image)}" alt="" width="320" height="200" loading="lazy"/>` : ""}
         </a>`
         )
         .join("");
