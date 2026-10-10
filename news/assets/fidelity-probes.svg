@@ -3,12 +3,12 @@
   <desc>Questions grounded in source code are checked against a specification. A magnifying glass represents the probe. A checkmark, cross, and dash represent agreement, contradiction, and a coverage gap. Feedback from contradictions and coverage gaps loops back to improve the specification.</desc>
   <rect width="320" height="200" fill="#f4f8ff"/>
   <g fill="none" stroke="#8ab4f8" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M118 53h17l18 32M107 146h28l18-31"/>
+    <path d="M118 53h17l18 32M107 128h28l18-13"/>
     <path d="M203 100h25V50h31M228 100h31M228 100v50h31"/>
   </g>
   <g fill="none" stroke="#1a73e8" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M297 100h6q7 0 7 7v69q0 12-12 12H146q-12 0-12-12v-6h-24M297 150h13"/>
-    <path d="m118 162-8 8 8 8"/>
+    <path d="M297 100h6q7 0 7 7v69q0 12-12 12H180q-12 0-12-12v-26h-61M297 150h13"/>
+    <path d="m115 142-8 8 8 8"/>
   </g>
   <rect x="14" y="20" width="104" height="66" rx="8" fill="#e8f0fe" stroke="#8ab4f8" stroke-width="2"/>
   <path d="M14 36h104" fill="none" stroke="#8ab4f8" stroke-width="2"/>
@@ -21,9 +21,9 @@
     <path d="M93 45h4q6 0 6 6v3q0 5 5 6-5 1-5 6v3q0 6-6 6h-4"/>
     <path d="M46 50h22m-15 10h31m-38 10h22"/>
   </g>
-  <path d="M24 110h64l19 19v53H24z" fill="#fff" stroke="#8ab4f8" stroke-width="2" stroke-linejoin="round"/>
-  <path d="M88 110v19h19" fill="#d2e3fc" stroke="#8ab4f8" stroke-width="2" stroke-linejoin="round"/>
-  <path d="M40 139h46m-46 12h46m-46 12h30" fill="none" stroke="#8ab4f8" stroke-width="3" stroke-linecap="round"/>
+  <path d="M24 100h64l19 19v53H24z" fill="#fff" stroke="#8ab4f8" stroke-width="2" stroke-linejoin="round"/>
+  <path d="M88 100v19h19" fill="#d2e3fc" stroke="#8ab4f8" stroke-width="2" stroke-linejoin="round"/>
+  <path d="M40 129h46m-46 12h46m-46 12h30" fill="none" stroke="#8ab4f8" stroke-width="3" stroke-linecap="round"/>
   <path d="m195 119 18 18" fill="none" stroke="#1a73e8" stroke-width="5" stroke-linecap="round"/>
   <circle cx="176" cy="100" r="27" fill="#e8f0fe" stroke="#1a73e8" stroke-width="2.5"/>
   <text x="176" y="112" fill="#185abc" font-family="Georgia, 'Times New Roman', serif" font-size="35" text-anchor="middle">?</text>

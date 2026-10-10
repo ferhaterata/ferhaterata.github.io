@@ -296,32 +296,17 @@ main#top { scroll-margin-top: 5rem; }
   color: var(--ink);
 }
 .spotlight-body p { margin: 0; font-size: .9rem; color: var(--ink-soft); }
-.spotlight-stat {
-  text-align: right;
-  border-left: 1px solid var(--rule);
-  padding-left: 1.25rem;
-}
-.spotlight-stat .num {
+.spotlight-illustration {
   display: block;
-  font-size: 1.85rem;
-  font-weight: 600;
-  color: var(--accent);
-  line-height: 1;
-  font-variant-numeric: tabular-nums;
-}
-.spotlight-stat .lbl {
-  display: block;
-  font-size: .68rem;
-  letter-spacing: .05em;
-  text-transform: uppercase;
-  color: var(--ink-fainter);
-  margin-top: .35rem;
-  font-weight: 500;
+  width: 11rem;
+  height: auto;
+  object-fit: contain;
+  border-radius: 6px;
 }
 @media (max-width: 720px) {
   .spotlight { grid-template-columns: 1fr; gap: 1rem; padding: 1.25rem; }
   .spotlight-badges { flex-direction: row; flex-wrap: wrap; }
-  .spotlight-stat { text-align: left; border-left: none; border-top: 1px solid var(--rule); padding: .75rem 0 0; }
+  .spotlight-illustration { width: min(100%, 16rem); justify-self: center; }
 }
 
 /* section heads (kept for potential future use; page sections rely on rail label) */
