@@ -301,8 +301,10 @@ main#top { scroll-margin-top: 5rem; }
   width: 10rem;
   height: auto;
   object-fit: contain;
-  border-radius: 6px;
 }
+.spotlight-illustration--dark { display: none; }
+[data-theme="dark"] .spotlight-illustration--light { display: none; }
+[data-theme="dark"] .spotlight-illustration--dark { display: block; }
 @media (max-width: 720px) {
   .spotlight { grid-template-columns: 1fr; gap: 1rem; padding: 1.25rem; }
   .spotlight-badges { flex-direction: row; flex-wrap: wrap; }
