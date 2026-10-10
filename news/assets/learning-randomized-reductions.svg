@@ -2,6 +2,7 @@
   <title>Learning Randomized Reductions</title>
   <desc>Schematic randomized self-reduction. An input x branches into two queries using shared randomness r. The learned reconstruction rule R combines their function values to recover f(x). A checkmark represents formal verification. The number of queries is illustrative. Source: https://arxiv.org/abs/2412.18134.</desc>
   <rect width="320" height="200" fill="#f4f8ff"/>
+  <g transform="translate(16 21.1) scale(.9)">
   <g fill="none" stroke="#8ab4f8" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
     <path d="M38 100h10l20-42M48 100l20 42"/>
     <path d="M178 58h8l19 30M178 142h8l19-30"/>
@@ -24,4 +25,5 @@
   </g>
   <circle cx="287" cy="137" r="14" fill="#1a73e8"/>
   <path d="m280 137 5 5 9-11" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
 </svg>
