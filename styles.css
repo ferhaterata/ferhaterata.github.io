@@ -298,7 +298,7 @@ main#top { scroll-margin-top: 5rem; }
 .spotlight-body p { margin: 0; font-size: .9rem; color: var(--ink-soft); }
 .spotlight-illustration {
   display: block;
-  width: 11rem;
+  width: 10rem;
   height: auto;
   object-fit: contain;
   border-radius: 6px;
@@ -306,7 +306,7 @@ main#top { scroll-margin-top: 5rem; }
 @media (max-width: 720px) {
   .spotlight { grid-template-columns: 1fr; gap: 1rem; padding: 1.25rem; }
   .spotlight-badges { flex-direction: row; flex-wrap: wrap; }
-  .spotlight-illustration { width: min(100%, 16rem); justify-self: center; }
+  .spotlight-illustration { width: min(100%, 14rem); justify-self: center; }
 }
 
 /* section heads (kept for potential future use; page sections rely on rail label) */
