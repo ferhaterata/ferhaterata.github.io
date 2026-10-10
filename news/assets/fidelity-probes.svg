@@ -12,7 +12,11 @@
     <circle cx="24" cy="28" r="2"/>
     <circle cx="32" cy="28" r="2"/>
   </g>
-  <path d="m46 49-9 9 9 9m35-18 9 9-9 9M69 45 58 71" fill="none" stroke="#185abc" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <g fill="none" stroke="#185abc" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M39 45h-4q-6 0-6 6v3q0 5-5 6 5 1 5 6v3q0 6 6 6h4"/>
+    <path d="M93 45h4q6 0 6 6v3q0 5 5 6-5 1-5 6v3q0 6-6 6h-4"/>
+    <path d="M46 50h22m-15 10h31m-38 10h22"/>
+  </g>
   <path d="M24 110h64l19 19v53H24z" fill="#fff" stroke="#8ab4f8" stroke-width="2" stroke-linejoin="round"/>
   <path d="M88 110v19h19" fill="#d2e3fc" stroke="#8ab4f8" stroke-width="2" stroke-linejoin="round"/>
   <path d="M40 139h46m-46 12h46m-46 12h30" fill="none" stroke="#8ab4f8" stroke-width="3" stroke-linecap="round"/>
