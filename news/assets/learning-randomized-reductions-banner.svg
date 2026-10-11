@@ -16,8 +16,8 @@
   <g fill="#185abc" font-family="Georgia, 'Times New Roman', serif" text-anchor="middle">
     <text x="22" y="108" font-size="25">x</text>
     <text x="123" y="22" font-size="18">r ∼ U</text>
-    <text x="123" y="64" font-size="18">f(q₁(x,r))</text>
-    <text x="123" y="148" font-size="18">f(q₂(x,r))</text>
+    <text x="123" y="64" font-size="18">f(q<tspan font-size="12" dy="5">1</tspan><tspan dy="-5">(x,r))</tspan></text>
+    <text x="123" y="148" font-size="18">f(q<tspan font-size="12" dy="5">2</tspan><tspan dy="-5">(x,r))</tspan></text>
     <text x="219" y="108" font-size="24">R</text>
     <text x="284" y="108" font-size="23">f(x)</text>
   </g>
