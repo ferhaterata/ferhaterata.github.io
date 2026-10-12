@@ -26,6 +26,9 @@
   --reading: 44rem;
   --content-width: calc(var(--rail) + var(--reading));
   --nav-width: 60rem;
+  --site-header-height: 4.125rem;
+  --sticky-top: calc(var(--site-header-height) + .75rem);
+  --section-bar-height: 2.75rem;
 }
 
 [data-theme="dark"] {
@@ -77,7 +80,7 @@ a:hover { color: var(--accent-hover); text-decoration: underline; text-underline
 section {
   padding: clamp(1.5rem, 3vw, 2.25rem) 0;
   position: relative;
-  scroll-margin-top: 5rem;
+  scroll-margin-top: var(--sticky-top);
   border-top: 1px solid var(--rule);
 }
 section:first-of-type { border-top: none; }
@@ -105,7 +108,7 @@ main#top { scroll-margin-top: 5rem; }
 
 .rail {
   position: sticky;
-  top: 5rem;
+  top: var(--sticky-top);
   align-self: start;
 }
 .rail .section-num { display: none; }
@@ -116,6 +119,23 @@ main#top { scroll-margin-top: 5rem; }
   letter-spacing: -.015em;
   line-height: 1.15;
   display: block;
+}
+
+/* Once the rail moves above the content, it becomes an opaque section bar. */
+@media (max-width: 900px) {
+  .rail {
+    top: var(--site-header-height);
+    z-index: 20;
+    height: var(--section-bar-height);
+    display: flex;
+    align-items: center;
+    background: var(--bg);
+    border-bottom: 1px solid var(--rule);
+  }
+  .rail .section-name {
+    font-size: 1rem;
+    line-height: 1.25;
+  }
 }
 
 /* header / nav */
@@ -539,15 +559,26 @@ main#top { scroll-margin-top: 5rem; }
 .pub-group { margin-bottom: 1.5rem; padding: 0; border: none; }
 .pub-group:last-child { margin-bottom: 0; }
 .pub-year {
+  position: sticky;
+  top: var(--site-header-height);
+  z-index: 10;
+  background: var(--bg);
   font-style: normal;
   font-weight: 600;
   font-size: 1.05rem;
   color: var(--ink-faint);
   margin: 0 0 .5rem;
-  padding-bottom: .25rem;
+  padding: .75rem 0 .4rem;
   border-bottom: 1px solid var(--rule-soft);
   font-variant-numeric: tabular-nums;
   letter-spacing: -.005em;
+}
+
+@media (max-width: 900px) {
+  .pub-year {
+    top: calc(var(--site-header-height) + var(--section-bar-height));
+    padding-top: .4rem;
+  }
 }
 
 .pub-list { list-style: none; padding: 0; margin: 0; }

@@ -30,6 +30,20 @@
     });
   }
 
+  // Keep sticky labels below the nav as its height changes with fonts or zoom.
+  const header = document.querySelector(".site-header");
+  if (header) {
+    const updateHeaderHeight = () => {
+      root.style.setProperty("--site-header-height", `${header.getBoundingClientRect().height}px`);
+    };
+    updateHeaderHeight();
+    if ("ResizeObserver" in window) {
+      new ResizeObserver(updateHeaderHeight).observe(header);
+    } else {
+      window.addEventListener("resize", updateHeaderHeight);
+    }
+  }
+
   // ---------- year in footer ----------
   const y = document.getElementById("year");
   if (y) y.textContent = new Date().getFullYear();
