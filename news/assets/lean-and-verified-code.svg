@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 200">
-  <title>Code and checked proofs</title>
-  <desc>A code editor and a proof document feed a formal checker, represented by a checkmark. The drawing illustrates checking code and proofs against a specification.</desc>
+  <title>Lean and checked proofs</title>
+  <desc>The Lean logo and a proof document marked with a turnstile and P feed a verification checkmark.</desc>
   <rect width="320" height="200" fill="#f4f8ff"/>
   <g fill="none" stroke="#8ab4f8" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
     <path d="M136 57h28l28 43M136 143h28l28-43M192 100h31"/>
@@ -12,10 +12,10 @@
     <circle cx="29" cy="32" r="2"/>
     <circle cx="37" cy="32" r="2"/>
   </g>
-  <g fill="none" stroke="#185abc" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-    <path d="m45 53-10 10 10 10m64-20 10 10-10 10M72 51l-9 24"/>
-    <path d="M81 57h14m-17 12h14"/>
-  </g>
+  <!-- Official Lean wordmark from lean-lang.org; geometry and color preserved. -->
+  <svg x="29" y="47" width="96" height="35" viewBox="0 0 486 169" stroke="#386EE0" fill="none" stroke-width="10">
+    <path d="M206.333 5.67949H105.667M206.333 5.67949L243.25 84.5M206.333 5.67949V84.5M243.25 84.5H317.549M243.25 84.5L279.667 163.321L280.889 163.318L317.549 84.5M206.333 84.5V163.321H5V5M206.333 84.5H105.667M317.549 84.5L353 5.67949M353 5.67949V164M353 5.67949H353.667L480.333 163.454H481V5" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>
   <path d="M29 110h88l19 19v47H29z" fill="#fff" stroke="#8ab4f8" stroke-width="2" stroke-linejoin="round"/>
   <path d="M117 110v19h19" fill="#d2e3fc" stroke="#8ab4f8" stroke-width="2" stroke-linejoin="round"/>
   <text x="80" y="157" fill="#185abc" font-family="Georgia, 'Times New Roman', serif" font-size="31" text-anchor="middle">⊢ P</text>
