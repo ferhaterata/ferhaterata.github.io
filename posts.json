@@ -1,6 +1,14 @@
 {
   "posts": [
     {
+      "slug": "lean-and-verified-code",
+      "image": "news/assets/lean-and-verified-code.svg?v=2026-10-21-1",
+      "date": "2026-10-21",
+      "kicker": "Research note",
+      "title": "Three papers on Lean and verified code",
+      "excerpt": "Celebrating work with Ben Mikek, George Ma, and Haoyu Li on software specifications, verifier-guided learning, and coordinated proof development."
+    },
+    {
       "slug": "stratified-consistency-distillation",
       "image": "news/assets/stratified-consistency-distillation.svg?v=2026-10-09-9",
       "date": "2026-10-02",

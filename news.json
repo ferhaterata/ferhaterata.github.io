@@ -1,6 +1,15 @@
 {
   "news": [
     {
+      "date": "2026-10-21",
+      "tag": "Research",
+      "featured": true,
+      "image": "news/assets/lean-and-verified-code.svg?v=2026-10-21-1",
+      "imageType": "illustration",
+      "href": "posts/#lean-and-verified-code",
+      "html": "Our work with incredible interns <strong>Ben Mikek, George Ma, and Haoyu Li</strong> has led to <a href=\"posts/#lean-and-verified-code\"><em>three papers on Lean and verified code</em></a>, covering <a href=\"https://arxiv.org/abs/2609.21190\">software specifications</a>, <a href=\"https://arxiv.org/abs/2610.19298\">verifier-guided learning</a>, and <a href=\"https://arxiv.org/abs/2610.25920\">proof coordination</a>."
+    },
+    {
       "date": "2026-10-09",
       "tag": "NeurIPS 2026",
       "award": true,

@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 200">
+  <title>Code and checked proofs</title>
+  <desc>A code editor and a proof document feed a formal checker, represented by a checkmark. The drawing illustrates checking code and proofs against a specification.</desc>
+  <rect width="320" height="200" fill="#f4f8ff"/>
+  <g fill="none" stroke="#8ab4f8" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M136 57h28l28 43M136 143h28l28-43M192 100h31"/>
+    <path d="m215 93 8 7-8 7"/>
+  </g>
+  <rect x="18" y="24" width="118" height="66" rx="8" fill="#e8f0fe" stroke="#8ab4f8" stroke-width="2"/>
+  <path d="M18 40h118" fill="none" stroke="#8ab4f8" stroke-width="2"/>
+  <g fill="#8ab4f8">
+    <circle cx="29" cy="32" r="2"/>
+    <circle cx="37" cy="32" r="2"/>
+  </g>
+  <g fill="none" stroke="#185abc" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="m45 53-10 10 10 10m64-20 10 10-10 10M72 51l-9 24"/>
+    <path d="M81 57h14m-17 12h14"/>
+  </g>
+  <path d="M29 110h88l19 19v47H29z" fill="#fff" stroke="#8ab4f8" stroke-width="2" stroke-linejoin="round"/>
+  <path d="M117 110v19h19" fill="#d2e3fc" stroke="#8ab4f8" stroke-width="2" stroke-linejoin="round"/>
+  <text x="80" y="157" fill="#185abc" font-family="Georgia, 'Times New Roman', serif" font-size="31" text-anchor="middle">⊢ P</text>
+  <circle cx="192" cy="100" r="4" fill="#8ab4f8"/>
+  <circle cx="263" cy="100" r="32" fill="#e8f0fe" stroke="#1a73e8" stroke-width="2.5"/>
+  <path d="m248 100 10 10 20-23" fill="none" stroke="#1a73e8" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

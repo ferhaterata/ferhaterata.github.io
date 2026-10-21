@@ -133,6 +133,71 @@
       "selected": true
     },
     {
+      "key": "li2027maestro",
+      "title": "Maestro: Agentic Formal Proof Development by Coordination",
+      "authors": [
+        "Haoyu Li",
+        "Zeren Shui",
+        "Yuhao Zhang",
+        "Ferhat Erata",
+        "Benjamin Mikek",
+        "Murali Krishna Ramanathan",
+        "Hao Zhou"
+      ],
+      "venue": "arXiv",
+      "venueFull": "arXiv preprint",
+      "year": 2026,
+      "links": [
+        {
+          "label": "arXiv",
+          "url": "https://arxiv.org/abs/2610.25920"
+        },
+        {
+          "label": "Overview",
+          "url": "https://ferhat.ai/posts/#lean-and-verified-code"
+        }
+      ],
+      "tags": [
+        "formal-methods",
+        "lean",
+        "reasoning"
+      ],
+      "selected": true
+    },
+    {
+      "key": "ma2027verified",
+      "title": "Verifier-Grounded Agentic RL for Provably Correct Code",
+      "authors": [
+        "George Ma",
+        "Yuhao Zhang",
+        "Bing He",
+        "Zeren Shui",
+        "Ferhat Erata",
+        "Murali Krishna Ramanathan",
+        "Somayeh Sojoudi",
+        "Hao Zhou"
+      ],
+      "venue": "arXiv",
+      "venueFull": "arXiv preprint",
+      "year": 2026,
+      "links": [
+        {
+          "label": "arXiv",
+          "url": "https://arxiv.org/abs/2610.19298"
+        },
+        {
+          "label": "Overview",
+          "url": "https://ferhat.ai/posts/#lean-and-verified-code"
+        }
+      ],
+      "tags": [
+        "formal-methods",
+        "reinforcement-learning",
+        "software-engineering"
+      ],
+      "selected": true
+    },
+    {
       "key": "ma2026sweproof",
       "title": "SWE-Proof: Can Language Models Resolve Real-World Issues with Machine-Checked Proofs?",
       "authors": [
@@ -156,6 +221,10 @@
         {
           "label": "arXiv",
           "url": "https://arxiv.org/abs/2609.21190"
+        },
+        {
+          "label": "Overview",
+          "url": "https://ferhat.ai/posts/#lean-and-verified-code"
         }
       ],
       "tags": [
