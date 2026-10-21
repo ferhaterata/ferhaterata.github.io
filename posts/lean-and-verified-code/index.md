@@ -1,4 +1,4 @@
-Our interns **Ben Mikek, George Ma, and Haoyu Li** have done incredible work on AI for formal reasoning. Three papers from this collaboration are now on arXiv.
+Our interns [Ben Mikek](https://mikekben.github.io/), [George Ma](https://georgemlp.github.io/), and [Haoyu Li](https://haoyuli02.github.io/) have done incredible work on AI for formal reasoning. Three papers from this collaboration are now on arXiv.
 
 - **[SWE-Proof: Can Language Models Resolve Real-World Issues with Machine-Checked Proofs?](https://arxiv.org/abs/2609.21190)** pairs real software issues with formal specifications and verified implementations, with [Lean](https://lean-lang.org/) among its backends. It also examines a crucial question: does the specification actually capture the intended fix?
 
