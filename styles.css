@@ -946,6 +946,7 @@ main#top { scroll-margin-top: 5rem; }
   line-height: 1.3;
   letter-spacing: -.01em;
 }
+.post-card-title-plain { font-weight: 400; }
 .post-card-excerpt { color: var(--ink-soft); margin: 0; font-size: .92rem; }
 .post-card-with-image {
   display: grid;

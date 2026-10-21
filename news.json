@@ -7,7 +7,7 @@
       "image": "news/assets/lean-and-verified-code.svg?v=2026-10-21-3",
       "imageType": "illustration",
       "href": "posts/#lean-and-verified-code",
-      "html": "Our work with incredible interns <a href=\"https://mikekben.github.io/\">Ben Mikek</a>, <a href=\"https://georgemlp.github.io/\">George Ma</a>, and <a href=\"https://haoyuli02.github.io/\">Haoyu Li</a> has led to <em><a href=\"posts/#lean-and-verified-code\">three papers on</a> <a href=\"./?tag=lean#publications\" data-pub-tag=\"lean\">#Lean</a> <a href=\"posts/#lean-and-verified-code\">and verified code</a></em>, covering <a href=\"https://arxiv.org/abs/2609.21190\">software specifications</a>, <a href=\"https://arxiv.org/abs/2610.19298\">verifier-guided learning</a>, and <a href=\"https://arxiv.org/abs/2610.25920\">proof coordination</a>. Thanks also to Zeren, Yuhao, Murali, and Hao for the great collaboration."
+      "html": "Our work with incredible interns <a href=\"https://mikekben.github.io/\">Ben Mikek</a>, <a href=\"https://georgemlp.github.io/\">George Ma</a>, and <a href=\"https://haoyuli02.github.io/\">Haoyu Li</a> has led to <span data-news-headline>three papers on <a href=\"./?tag=lean#publications\" data-pub-tag=\"lean\">#Lean</a> and verified code</span>, covering <a href=\"https://arxiv.org/abs/2609.21190\">software specifications</a>, <a href=\"https://arxiv.org/abs/2610.19298\">verifier-guided learning</a>, and <a href=\"https://arxiv.org/abs/2610.25920\">proof coordination</a>. Thanks also to Zeren, Yuhao, Murali, and Hao for the great collaboration."
     },
     {
       "date": "2026-10-09",
@@ -49,6 +49,7 @@
       "date": "2026-05",
       "tag": "ICML 2026",
       "award": true,
+      "featured": true,
       "image": "news/assets/icml-logo.svg?v=2026-10-09-3",
       "imageType": "logo",
       "html": "Honored to receive a <strong>Gold Reviewer Award</strong> from ICML 2026, recognizing top reviewers based on area-chair ratings."
@@ -57,6 +58,7 @@
       "date": "2026-05",
       "tag": "ICML 2026",
       "award": true,
+      "featured": true,
       "image": "news/assets/learning-randomized-reductions.svg?v=2026-10-11-3",
       "imageType": "illustration",
       "href": "news/icml-spotlight/",
@@ -66,6 +68,7 @@
       "date": "2026-05",
       "tag": "HOST 2026",
       "award": true,
+      "featured": true,
       "image": "news/host-tinyml-best-paper/award.jpeg",
       "href": "news/host-tinyml-best-paper/",
       "html": "<em>Fault Injection Attacks and Countermeasures on TinyML Algorithms</em> received the <strong>Best Student Paper Award</strong> at IEEE HOST 2026. The ML countermeasure in this work partly relies on a property discovered in <a href=\"https://arxiv.org/abs/2412.18134\">Learning Randomized Reductions</a> — great to see RSRs hardening TinyML against fault injection attacks."
@@ -73,6 +76,7 @@
     {
       "date": "2025-12",
       "tag": "Patents",
+      "featured": true,
       "image": "news/amazon-inventor/puzzle.jpeg",
       "href": "news/amazon-inventor/",
       "html": "<em>The pieces are coming together</em> — twelve Amazon patent filings across neuro-symbolic systems and automated reasoning, thanks to incredible collaborators."
@@ -80,6 +84,7 @@
     {
       "date": "2025-08",
       "tag": "JHU AI2AI",
+      "featured": true,
       "image": "news/assets/jhu-aws.svg",
       "imageType": "logo",
       "html": "Served as <strong>Amazon Research Liaison</strong> at the <a href=\"https://ai2ai.engineering.jhu.edu/2025-ai2ai-research-festival/\">JHU AI2AI 2025 Research Festival</a> for <a href=\"https://engineering.jhu.edu/faculty/carey-priebe/\">Prof. Carey Priebe</a>'s project on representing collections of LLMs as Gaussian mixtures in data-kernel perspective space, and gave an invited talk on automated reasoning at AWS."
@@ -87,6 +92,7 @@
     {
       "date": "2025-06",
       "tag": "AWS",
+      "featured": false,
       "image": "news/assets/aws-logo.svg",
       "imageType": "logo",
       "href": "news/bedrock-guardrails-ga/",
@@ -95,6 +101,7 @@
     {
       "date": "2025-03",
       "tag": "Yale",
+      "featured": true,
       "image": "news/phd-defense/defense.jpeg",
       "href": "news/phd-defense/",
       "html": "Defended my PhD in Computer Science at Yale: <em>Learning Randomized Reductions for Security, Privacy, and Side-Channel Resilience</em>. Thesis committee: <a href=\"http://www.cs.yale.edu/homes/piskac/\">Ruzica Piskac</a>, <a href=\"https://caslab.csl.yale.edu/~jakub/\">Jakub Szefer</a>, <a href=\"https://en.wikipedia.org/wiki/Shafi_Goldwasser\">Shafi Goldwasser</a>, <a href=\"https://en.wikipedia.org/wiki/Byron_Cook\">Byron Cook</a>, <a href=\"https://flint.cs.yale.edu/shao/\">Zhong Shao</a>, and <a href=\"https://law.yale.edu/scott-j-shapiro\">Scott J. Shapiro</a>."
@@ -103,6 +110,7 @@
       "date": "2025-01",
       "tag": "Award",
       "award": true,
+      "featured": true,
       "image": "news/distinguished-teaching-award/certificate.jpeg",
       "href": "news/distinguished-teaching-award/",
       "html": "Received Yale CS Graduate <a href=\"https://engineering.yale.edu/news-and-events/news/graduate-student-awards-2023-24-announced\">Distinguished Teaching Award</a> for 2023–2024."
@@ -110,6 +118,7 @@
     {
       "date": "2024-09",
       "tag": "CHES 2024",
+      "featured": false,
       "image": "news/ches-2024-quantum/side-channel-threats.png",
       "href": "news/ches-2024-quantum/",
       "html": "<em>Quantum Circuit Reconstruction from Power Side-Channel Attacks on Quantum Computer Controllers</em> appeared in IACR TCHES 2024. Joint work with Chuanqi Xu, Ruzica Piskac, and Jakub Szefer (Yale)."

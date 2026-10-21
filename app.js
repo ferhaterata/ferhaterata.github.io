@@ -51,7 +51,7 @@
   // ---------- fetch helper (works from filesystem too) ----------
   // Append a version query so the browser doesn't serve a stale
   // JSON body when the file has changed.
-  const JSON_VERSION = "2026-10-21-4";
+  const JSON_VERSION = "2026-10-21-5";
   const fetchJSON = async (path) => {
     try {
       const sep = path.includes("?") ? "&" : "?";
@@ -103,19 +103,8 @@
       el.innerHTML = `<li class="empty-state">News feed could not be loaded. If opening this file directly, serve with a local HTTP server.</li>`;
       return;
     }
-    // Main-page list: show featured items first, then fill remaining slots
-    // from the rest of the feed.
-    const limit = 12;
-    const featured = data.news.filter((n) => n.featured === true);
-    let visible;
-    if (featured.length >= limit) {
-      visible = featured.slice(0, limit);
-    } else if (featured.length > 0) {
-      const rest = data.news.filter((n) => n.featured !== true);
-      visible = featured.concat(rest).slice(0, limit);
-    } else {
-      visible = data.news.slice(0, limit);
-    }
+    // Promotion explicitly controls homepage visibility, in feed order.
+    const visible = data.news.filter((n) => n.featured === true);
 
     el.innerHTML = visible.map((n) => renderNewsItem(n)).join("");
 
@@ -143,12 +132,13 @@
     const tmp = document.createElement("div");
     const extract = (html) => {
       tmp.innerHTML = html;
-      // Headline: first <em> (usually the paper/product title), or the
-      // first sentence of plain text.
-      const firstEm = tmp.querySelector("em");
+      // A marked phrase can be a headline without visual emphasis.
+      // Other entries use the first <em>, or their first sentence.
+      const headlineElement = tmp.querySelector("[data-news-headline], em");
+      const plainHeadline = headlineElement?.hasAttribute("data-news-headline");
       let headline;
-      if (firstEm && firstEm.textContent.trim()) {
-        headline = firstEm.textContent.trim();
+      if (headlineElement && headlineElement.textContent.trim()) {
+        headline = headlineElement.textContent.trim();
       } else {
         const txt = tmp.textContent.trim();
         headline = txt.split(/(?<=[.?!])\s/)[0] || txt.slice(0, 80);
@@ -156,26 +146,34 @@
       // Excerpt: whole plain-text body (the card CSS clamps it).
       const excerpt = tmp.textContent.trim();
       // Keep topic links usable in the archive without nesting anchors.
-      const linkedHeadline = firstEm?.querySelector("a[data-pub-tag]")
-        ? firstEm.innerHTML.replace(/href="(?!([a-z]+:|\/|#))/gi, 'href="../')
+      const linkedHeadline = headlineElement?.querySelector("a[data-pub-tag]")
+        ? headlineElement.innerHTML.replace(/href="(?!([a-z]+:|\/|#))/gi, 'href="../')
         : null;
-      return { headline, excerpt, linkedHeadline };
+      return { headline, excerpt, linkedHeadline, plainHeadline };
     };
     const rewrite = (u) => /^([a-z]+:|\/|#)/i.test(u) ? u : "../" + u;
     cards.innerHTML = data.news.map((n) => {
-      const { headline, excerpt, linkedHeadline } = extract(n.html);
+      const { headline, excerpt, linkedHeadline, plainHeadline } = extract(n.html);
       const href = n.href ? rewrite(n.href) : null;
       const dateLabel = `${formatDate(n.date)} · ${n.tag}`;
+      const imageClass = ["logo", "illustration"].includes(n.imageType) ? ` news-image-${n.imageType}` : "";
+      const figure = n.image
+        ? `<figure class="news-image${imageClass}"><img src="${escapeAttr(rewrite(n.image))}" alt="" loading="lazy" onerror="this.closest('.news-image').remove()"/></figure>`
+        : "";
+      const cardClass = `post-card${figure ? " post-card-with-image" : ""}`;
       const body = `
-          <span class="post-card-date">${escapeHTML(dateLabel)}</span>
-          <h3 class="post-card-title">${linkedHeadline || escapeHTML(headline)}</h3>
-          ${excerpt !== headline ? `<p class="post-card-excerpt">${escapeHTML(excerpt)}</p>` : ""}`;
+          <div class="post-card-body">
+            <span class="post-card-date">${escapeHTML(dateLabel)}</span>
+            <h3 class="post-card-title${plainHeadline ? " post-card-title-plain" : ""}">${linkedHeadline || escapeHTML(headline)}</h3>
+            ${excerpt !== headline ? `<p class="post-card-excerpt">${escapeHTML(excerpt)}</p>` : ""}
+          </div>
+          ${figure}`;
       if (linkedHeadline && href) {
-        return `<div class="post-card news-item-clickable" data-href="${escapeAttr(href)}">${body}</div>`;
+        return `<div class="${cardClass} news-item-clickable" data-href="${escapeAttr(href)}" role="link" tabindex="0" aria-label="${escapeAttr(headline)}">${body}</div>`;
       }
       return href
-        ? `<a class="post-card" href="${escapeAttr(href)}">${body}</a>`
-        : `<div class="post-card">${body}</div>`;
+        ? `<a class="${cardClass}" href="${escapeAttr(href)}">${body}</a>`
+        : `<div class="${cardClass}">${body}</div>`;
     }).join("");
   };
 
@@ -193,6 +191,13 @@
     } else {
       window.location.href = href;
     }
+  });
+
+  document.addEventListener("keydown", (e) => {
+    const row = e.target.closest('.news-item-clickable[role="link"]');
+    if (e.key !== "Enter" || !row || e.target !== row) return;
+    e.preventDefault();
+    window.location.href = row.dataset.href;
   });
 
   // ---------- publications ----------
