@@ -1,25 +1,47 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 200">
-  <title>Lean and checked proofs</title>
-  <desc>The Lean logo and a proof document marked with a turnstile and P feed a verification checkmark.</desc>
-  <rect width="320" height="200" fill="#f4f8ff"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="210" viewBox="0 0 400 210">
+  <title>Specifications, proof search, and checked proofs</title>
+  <desc>A specification labeled P(x) enters a Lean proof-search window. A branching search leads to a checked proof labeled turnstile P, with a feedback arrow returning to the specification.</desc>
+  <rect width="400" height="210" fill="#f4f8ff"/>
+  <!-- Forward flow and the feedback loop. -->
   <g fill="none" stroke="#8ab4f8" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M136 57h28l28 43M136 143h28l28-43M192 100h31"/>
-    <path d="m215 93 8 7-8 7"/>
+    <path d="M96 105h32m-6-5 6 5-6 5M269 105h32m-6-5 6 5-6 5"/>
+    <path d="M343 145v34q0 11-11 11H68q-11 0-11-11v-31"/>
+    <path d="m52 153 5-5 5 5"/>
   </g>
-  <rect x="18" y="24" width="118" height="66" rx="8" fill="#e8f0fe" stroke="#8ab4f8" stroke-width="2"/>
-  <path d="M18 40h118" fill="none" stroke="#8ab4f8" stroke-width="2"/>
+  <!-- Specification. -->
+  <path d="M18 65h62l16 16v64H18z" fill="#fff" stroke="#8ab4f8" stroke-width="2" stroke-linejoin="round"/>
+  <path d="M80 65v16h16" fill="#d2e3fc" stroke="#8ab4f8" stroke-width="2" stroke-linejoin="round"/>
+  <path d="M30 83h32M30 129h49" fill="none" stroke="#d2e3fc" stroke-width="2.5" stroke-linecap="round"/>
+  <text x="57" y="116" fill="#185abc" font-family="Georgia, 'Times New Roman', serif" font-size="25" text-anchor="middle">P(x)</text>
+  <!-- Lean window, with a search tree beneath the wordmark. -->
+  <rect x="131" y="27" width="138" height="150" rx="9" fill="#e8f0fe" stroke="#8ab4f8" stroke-width="2"/>
+  <path d="M131 45h138" fill="none" stroke="#8ab4f8" stroke-width="2"/>
   <g fill="#8ab4f8">
-    <circle cx="29" cy="32" r="2"/>
-    <circle cx="37" cy="32" r="2"/>
+    <circle cx="142" cy="36" r="2"/>
+    <circle cx="151" cy="36" r="2"/>
   </g>
   <!-- Official Lean wordmark from lean-lang.org; geometry and color preserved. -->
-  <svg x="29" y="47" width="96" height="35" viewBox="0 0 486 169" stroke="#386EE0" fill="none" stroke-width="10">
+  <svg x="147" y="54" width="106" height="37" viewBox="0 0 486 169" stroke="#386EE0" fill="none" stroke-width="10">
     <path d="M206.333 5.67949H105.667M206.333 5.67949L243.25 84.5M206.333 5.67949V84.5M243.25 84.5H317.549M243.25 84.5L279.667 163.321L280.889 163.318L317.549 84.5M206.333 84.5V163.321H5V5M206.333 84.5H105.667M317.549 84.5L353 5.67949M353 5.67949V164M353 5.67949H353.667L480.333 163.454H481V5" stroke-linecap="round" stroke-linejoin="round"/>
   </svg>
-  <path d="M29 110h88l19 19v47H29z" fill="#fff" stroke="#8ab4f8" stroke-width="2" stroke-linejoin="round"/>
-  <path d="M117 110v19h19" fill="#d2e3fc" stroke="#8ab4f8" stroke-width="2" stroke-linejoin="round"/>
-  <text x="80" y="157" fill="#185abc" font-family="Georgia, 'Times New Roman', serif" font-size="31" text-anchor="middle">⊢ P</text>
-  <circle cx="192" cy="100" r="4" fill="#8ab4f8"/>
-  <circle cx="263" cy="100" r="32" fill="#e8f0fe" stroke="#1a73e8" stroke-width="2.5"/>
-  <path d="m248 100 10 10 20-23" fill="none" stroke="#1a73e8" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path d="m200 107-28 25-15 22m15-22 15 22" stroke="#8ab4f8" stroke-width="2"/>
+    <path d="m200 107 28 25v22" stroke="#1a73e8" stroke-width="2.5"/>
+  </g>
+  <g fill="#fff" stroke="#8ab4f8" stroke-width="2">
+    <circle cx="172" cy="132" r="4"/>
+    <circle cx="157" cy="154" r="4"/>
+    <circle cx="187" cy="154" r="4"/>
+  </g>
+  <g fill="#1a73e8">
+    <circle cx="200" cy="107" r="4.5"/>
+    <circle cx="228" cy="132" r="4.5"/>
+    <circle cx="228" cy="154" r="4.5"/>
+  </g>
+  <!-- Checked proof. -->
+  <path d="M304 65h62l16 16v64h-78z" fill="#fff" stroke="#8ab4f8" stroke-width="2" stroke-linejoin="round"/>
+  <path d="M366 65v16h16" fill="#d2e3fc" stroke="#8ab4f8" stroke-width="2" stroke-linejoin="round"/>
+  <text x="343" y="117" fill="#185abc" font-family="Georgia, 'Times New Roman', serif" font-size="28" text-anchor="middle">⊢ P</text>
+  <circle cx="374" cy="144" r="12" fill="#1a73e8"/>
+  <path d="m368 144 4 4 8-9" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
 </svg>
