@@ -4,13 +4,14 @@
       "slug": "lean-and-verified-code",
       "url": "lean-and-verified-code/",
       "image": "news/assets/lean-and-verified-code.svg?v=2026-10-21-7",
+      "showHeaderImage": true,
       "shareImage": "posts/lean-and-verified-code/preview.png",
       "shareImageWidth": 400,
       "shareImageHeight": 210,
       "shareImageAlt": "A specification enters a Lean proof-search window and produces a checked proof, with feedback returning to the specification.",
       "date": "2026-10-21",
       "kicker": "Research note",
-      "title": "Three papers on Lean and verified code",
+      "title": "New research on Lean and verified code",
       "excerpt": "Celebrating work with Ben Mikek, George Ma, and Haoyu Li on software specifications, verifier-guided learning, and coordinated proof development."
     },
     {

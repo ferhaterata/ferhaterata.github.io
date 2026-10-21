@@ -1017,6 +1017,22 @@ main#top { scroll-margin-top: 5rem; }
   color: var(--ink-soft);
   margin: 0;
 }
+.post-lede-with-image {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 14rem;
+  gap: 1.5rem;
+  align-items: center;
+}
+.post-lede-image {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+@media (max-width: 640px) {
+  .post-lede-with-image { grid-template-columns: 1fr; gap: 1rem; }
+  .post-lede-image { width: 14rem; max-width: 100%; justify-self: center; }
+}
 
 .post-figure { margin: 2rem 0; }
 .post-figure img {
