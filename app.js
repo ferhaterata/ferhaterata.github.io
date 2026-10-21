@@ -51,7 +51,7 @@
   // ---------- fetch helper (works from filesystem too) ----------
   // Append a version query so the browser doesn't serve a stale
   // JSON body when the file has changed.
-  const JSON_VERSION = "2026-10-21-3";
+  const JSON_VERSION = "2026-10-21-4";
   const fetchJSON = async (path) => {
     try {
       const sep = path.includes("?") ? "&" : "?";
@@ -155,17 +155,24 @@
       }
       // Excerpt: whole plain-text body (the card CSS clamps it).
       const excerpt = tmp.textContent.trim();
-      return { headline, excerpt };
+      // Keep topic links usable in the archive without nesting anchors.
+      const linkedHeadline = firstEm?.querySelector("a[data-pub-tag]")
+        ? firstEm.innerHTML.replace(/href="(?!([a-z]+:|\/|#))/gi, 'href="../')
+        : null;
+      return { headline, excerpt, linkedHeadline };
     };
     const rewrite = (u) => /^([a-z]+:|\/|#)/i.test(u) ? u : "../" + u;
     cards.innerHTML = data.news.map((n) => {
-      const { headline, excerpt } = extract(n.html);
+      const { headline, excerpt, linkedHeadline } = extract(n.html);
       const href = n.href ? rewrite(n.href) : null;
       const dateLabel = `${formatDate(n.date)} · ${n.tag}`;
       const body = `
           <span class="post-card-date">${escapeHTML(dateLabel)}</span>
-          <h3 class="post-card-title">${escapeHTML(headline)}</h3>
+          <h3 class="post-card-title">${linkedHeadline || escapeHTML(headline)}</h3>
           ${excerpt !== headline ? `<p class="post-card-excerpt">${escapeHTML(excerpt)}</p>` : ""}`;
+      if (linkedHeadline && href) {
+        return `<div class="post-card news-item-clickable" data-href="${escapeAttr(href)}">${body}</div>`;
+      }
       return href
         ? `<a class="post-card" href="${escapeAttr(href)}">${body}</a>`
         : `<div class="post-card">${body}</div>`;
@@ -191,6 +198,39 @@
   // ---------- publications ----------
   let PUBS = [];
   let activeFilter = { type: "all", value: null };
+
+  const readPubFilter = () => {
+    const params = new URLSearchParams(window.location.search);
+    const tag = params.get("tag");
+    if (tag && PUBS.some((p) => (p.tags || []).includes(tag))) {
+      return { type: "tag", value: tag };
+    }
+    const year = Number(params.get("year"));
+    if (year && PUBS.some((p) => p.year === year)) {
+      return { type: "year", value: year };
+    }
+    return { type: "all", value: null };
+  };
+
+  const pubFilterHref = ({ type, value }) => {
+    const url = new URL(window.location.href);
+    url.searchParams.delete("tag");
+    url.searchParams.delete("year");
+    if (type !== "all") url.searchParams.set(type, value);
+    url.hash = "publications";
+    return `${url.pathname}${url.search}${url.hash}`;
+  };
+
+  const applyPubFilter = (filter, scroll = false) => {
+    activeFilter = filter;
+    const href = pubFilterHref(filter);
+    if (href !== `${location.pathname}${location.search}${location.hash}`) {
+      window.history.pushState(null, "", href);
+    }
+    renderPubControls();
+    renderPubs();
+    if (scroll) document.getElementById("publications").scrollIntoView({ block: "start" });
+  };
 
   const renderPubs = () => {
     const container = document.getElementById("publications-list");
@@ -262,7 +302,7 @@
     const meta = [
       p.awardDetail ? escapeHTML(p.awardDetail) : "",
       !hideVenue && p.venueFull ? escapeHTML(p.venueFull) : "",
-      (p.tags || []).map((t) => `<a href="#publications" class="tag" data-tag="${escapeAttr(t)}">#${escapeHTML(t)}</a>`).join(" "),
+      (p.tags || []).map((t) => `<a href="${escapeAttr(pubFilterHref({ type: "tag", value: t }))}" class="tag" data-pub-tag="${escapeAttr(t)}">#${escapeHTML(t)}</a>`).join(" "),
     ]
       .filter(Boolean)
       .join(" · ");
@@ -299,9 +339,7 @@
         const type = b.dataset.type;
         const raw = b.dataset.value;
         const value = type === "year" ? Number(raw) : raw || null;
-        activeFilter = { type, value };
-        renderPubControls();
-        renderPubs();
+        applyPubFilter({ type, value });
       });
     });
   };
@@ -315,24 +353,27 @@
         c.innerHTML = `<p class="empty-state">Publications could not be loaded. If opening this file directly, serve with <code>python3 -m http.server</code>.</p>`;
       return;
     }
-    PUBS = data.publications;
+    PUBS = data.publications.filter((p) => p.selected !== false);
+    activeFilter = readPubFilter();
     renderPubControls();
     renderPubs();
 
-    // click an inline #tag in a publication row to activate that tag filter
-    const container = document.getElementById("publications-list");
-    if (container && !container.__tagWired) {
-      container.addEventListener("click", (e) => {
-        const a = e.target.closest("a.tag[data-tag]");
-        if (!a) return;
-        e.preventDefault();
-        activeFilter = { type: "tag", value: a.dataset.tag };
-        renderPubControls();
-        renderPubs();
-        document.getElementById("publications").scrollIntoView({ block: "start" });
-      });
-      container.__tagWired = true;
-    }
+    // News and publication tags are real, shareable links. Handle ordinary
+    // same-page clicks in place; modified clicks retain native link behavior.
+    document.addEventListener("click", (e) => {
+      const a = e.target.closest("a[data-pub-tag]");
+      if (!a || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+      const url = new URL(a.href);
+      if (url.origin !== location.origin || url.pathname !== location.pathname) return;
+      e.preventDefault();
+      applyPubFilter({ type: "tag", value: a.dataset.pubTag }, true);
+    });
+
+    window.addEventListener("popstate", () => {
+      activeFilter = readPubFilter();
+      renderPubControls();
+      renderPubs();
+    });
   };
 
   // ---------- patents ----------
@@ -369,15 +410,16 @@
   const escapeAttr = (s) => escapeHTML(s);
 
   // ---------- init ----------
-  renderNews();
+  const newsReady = renderNews();
   renderNewsArchive();
-  loadPubs();
+  const pubsReady = loadPubs();
   renderPatents();
 
   // ---------- homepage writing section (first 3 entries) ----------
   const writingList = document.getElementById("writing-list");
+  let writingReady = Promise.resolve();
   if (writingList) {
-    fetchJSON("posts.json").then((data) => {
+    writingReady = fetchJSON("posts.json").then((data) => {
       const posts = (data && data.posts) || [];
       if (!posts.length) {
         writingList.innerHTML = `<p class="empty-state">No essays yet.</p>`;
@@ -404,4 +446,11 @@
         .join("");
     });
   }
+
+  // Wait for the sections above publications before positioning a deep link.
+  Promise.all([newsReady, pubsReady, writingReady]).then(() => {
+    if (location.hash === "#publications") {
+      document.getElementById("publications")?.scrollIntoView({ block: "start" });
+    }
+  });
 })();

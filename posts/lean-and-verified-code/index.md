@@ -8,4 +8,4 @@ Our interns [Ben Mikek](https://mikekben.github.io/), [George Ma](https://george
 
 Together, they connect three parts of the problem: what to specify, how to learn from verification, and how to organize the search for a proof. A successful check is still only as useful as the specification it checks against.
 
-Huge thanks to Ben, George, Haoyu, and all our collaborators. It's been a pleasure working on this together.
+Thanks also to Zeren Shui, Yuhao Zhang, Murali Krishna Ramanathan, and Hao Zhou for the great collaboration, and to all our coauthors. It's been a pleasure working on this together.

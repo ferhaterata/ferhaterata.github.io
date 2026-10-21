@@ -7,7 +7,7 @@
       "image": "news/assets/lean-and-verified-code.svg?v=2026-10-21-3",
       "imageType": "illustration",
       "href": "posts/#lean-and-verified-code",
-      "html": "Our work with incredible interns <a href=\"https://mikekben.github.io/\">Ben Mikek</a>, <a href=\"https://georgemlp.github.io/\">George Ma</a>, and <a href=\"https://haoyuli02.github.io/\">Haoyu Li</a> has led to <a href=\"posts/#lean-and-verified-code\"><em>three papers on Lean and verified code</em></a>, covering <a href=\"https://arxiv.org/abs/2609.21190\">software specifications</a>, <a href=\"https://arxiv.org/abs/2610.19298\">verifier-guided learning</a>, and <a href=\"https://arxiv.org/abs/2610.25920\">proof coordination</a>."
+      "html": "Our work with incredible interns <a href=\"https://mikekben.github.io/\">Ben Mikek</a>, <a href=\"https://georgemlp.github.io/\">George Ma</a>, and <a href=\"https://haoyuli02.github.io/\">Haoyu Li</a> has led to <em><a href=\"posts/#lean-and-verified-code\">three papers on</a> <a href=\"./?tag=lean#publications\" data-pub-tag=\"lean\">#Lean</a> <a href=\"posts/#lean-and-verified-code\">and verified code</a></em>, covering <a href=\"https://arxiv.org/abs/2609.21190\">software specifications</a>, <a href=\"https://arxiv.org/abs/2610.19298\">verifier-guided learning</a>, and <a href=\"https://arxiv.org/abs/2610.25920\">proof coordination</a>. Thanks also to Zeren, Yuhao, Murali, and Hao for the great collaboration."
     },
     {
       "date": "2026-10-09",
@@ -34,7 +34,7 @@
       "image": "news/assets/stratified-consistency-distillation.svg?v=2026-10-09-9",
       "imageType": "illustration",
       "href": "news/stratified-consistency-distillation/",
-      "html": "<a href=\"news/stratified-consistency-distillation/\"><em>Stratified Consistency Distillation for Natural Language Formalization</em></a> accepted at the <strong>AI for Verifiable Coding</strong> workshop at NeurIPS 2026. We use a frontier model's disagreement over formal translations to train a smaller open model."
+      "html": "<a href=\"news/stratified-consistency-distillation/\"><em>Stratified Consistency Distillation for Natural Language Formalization</em></a> accepted at the <strong><a href=\"https://vericodegen.github.io/\">AI for Verifiable Coding</a></strong> workshop at NeurIPS 2026. We use a frontier model's disagreement over formal translations to train a smaller open model."
     },
     {
       "date": "2026-08",
