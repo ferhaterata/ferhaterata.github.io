@@ -105,6 +105,44 @@
       "status": "accepted"
     },
     {
+      "key": "ma2026sweproof",
+      "title": "SWE-Proof: Can Language Models Resolve Real-World Issues with Machine-Checked Proofs?",
+      "authors": [
+        "George Ma",
+        "Benjamin Mikek",
+        "Haoyu Li",
+        "Ferhat Erata",
+        "Yuhao Zhang",
+        "Zeren Shui",
+        "Behrooz Omidvar Tehrani",
+        "Jun Huan",
+        "Murali Krishna Ramanathan",
+        "Somayeh Sojoudi",
+        "Hao Zhou",
+        "Anoop Deoras"
+      ],
+      "venue": "arXiv",
+      "venueFull": "arXiv preprint",
+      "year": 2026,
+      "links": [
+        {
+          "label": "arXiv",
+          "url": "https://arxiv.org/abs/2609.21190"
+        },
+        {
+          "label": "Overview",
+          "url": "https://ferhat.ai/posts/#lean-and-verified-code"
+        }
+      ],
+      "tags": [
+        "formal-methods",
+        "lean",
+        "software-engineering",
+        "evaluation"
+      ],
+      "selected": true
+    },
+    {
       "key": "ganguly2026scaling",
       "title": "Scaling Lean Theorem Proving for Real-World Code Verification",
       "authors": [
@@ -226,44 +264,6 @@
         "lean",
         "reinforcement-learning",
         "software-engineering"
-      ],
-      "selected": true
-    },
-    {
-      "key": "ma2026sweproof",
-      "title": "SWE-Proof: Can Language Models Resolve Real-World Issues with Machine-Checked Proofs?",
-      "authors": [
-        "George Ma",
-        "Benjamin Mikek",
-        "Haoyu Li",
-        "Ferhat Erata",
-        "Yuhao Zhang",
-        "Zeren Shui",
-        "Behrooz Omidvar Tehrani",
-        "Jun Huan",
-        "Murali Krishna Ramanathan",
-        "Somayeh Sojoudi",
-        "Hao Zhou",
-        "Anoop Deoras"
-      ],
-      "venue": "arXiv",
-      "venueFull": "arXiv preprint",
-      "year": 2026,
-      "links": [
-        {
-          "label": "arXiv",
-          "url": "https://arxiv.org/abs/2609.21190"
-        },
-        {
-          "label": "Overview",
-          "url": "https://ferhat.ai/posts/#lean-and-verified-code"
-        }
-      ],
-      "tags": [
-        "formal-methods",
-        "lean",
-        "software-engineering",
-        "evaluation"
       ],
       "selected": true
     },
