@@ -105,6 +105,37 @@
       "status": "accepted"
     },
     {
+      "key": "ganguly2026scaling",
+      "title": "Scaling Lean Theorem Proving for Real-World Code Verification",
+      "authors": [
+        "Debargha Ganguly",
+        "Divya Raghunathan",
+        "Dejan Jovanović",
+        "Vikash Singh",
+        "Soonho Kong",
+        "Aaron Tomb",
+        "Aman Goel",
+        "Ferhat Erata",
+        "Sam Bayless"
+      ],
+      "venue": "arXiv",
+      "venueFull": "arXiv preprint",
+      "year": 2026,
+      "links": [
+        {
+          "label": "arXiv",
+          "url": "https://arxiv.org/abs/2610.38174"
+        }
+      ],
+      "tags": [
+        "formal-methods",
+        "lean",
+        "software-engineering",
+        "reasoning"
+      ],
+      "selected": true
+    },
+    {
       "key": "yu2026instruct",
       "title": "Instruct, Not Answer: Using Instruction Privileges in On-Policy Context Distillation",
       "authors": [
