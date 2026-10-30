@@ -51,7 +51,7 @@
   // ---------- fetch helper (works from filesystem too) ----------
   // Append a version query so the browser doesn't serve a stale
   // JSON body when the file has changed.
-  const JSON_VERSION = "2026-10-27-1";
+  const JSON_VERSION = "2026-10-30-1";
   const fetchJSON = async (path) => {
     try {
       const sep = path.includes("?") ? "&" : "?";
@@ -420,7 +420,7 @@
   const pubsReady = loadPubs();
   renderPatents();
 
-  // ---------- homepage writing section (first 3 entries) ----------
+  // ---------- homepage writing section (first 4 entries) ----------
   const writingList = document.getElementById("writing-list");
   let writingReady = Promise.resolve();
   if (writingList) {
@@ -436,7 +436,7 @@
         ? (/^([a-z]+:|\/)/i.test(p.url) ? p.url : `posts/${p.url}`)
         : `posts/#${p.slug}`;
       writingList.innerHTML = posts
-        .slice(0, 3)
+        .slice(0, 4)
         .map(
           (p) => `
         <a class="post-card${p.image ? " post-card-with-image" : ""}" href="${escapeAttr(postHref(p))}">
