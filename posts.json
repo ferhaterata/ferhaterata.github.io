@@ -31,6 +31,14 @@
       "excerpt": "Our NeurIPS 2026 paper trains a 4B transformer to choose useful SAT splits. With SFT and solver-grounded preference training, it matches the best symbolic heuristic's coverage across five runs."
     },
     {
+      "slug": "counting-sat-with-shared-summaries",
+      "image": "news/assets/counting-sat-with-shared-summaries.svg",
+      "date": "2026-10-27",
+      "kicker": "Research note",
+      "title": "Counting SAT models with shared summaries and interpolation",
+      "excerpt": "A small worked example of the algebraic idea in OpenAI's ETH preprint, and what it might mean for practical model counting."
+    },
+    {
       "slug": "code-spec-alignment",
       "image": "news/assets/fidelity-probes.svg?v=2026-10-10-6",
       "date": "2026-05",
