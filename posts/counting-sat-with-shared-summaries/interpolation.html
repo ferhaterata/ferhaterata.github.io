@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>Two points and a slope — SAT model counting</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wdth,wght@8..144,75..125,300..800&display=swap" />
+<link rel="stylesheet" href="../../styles.css?v=2026-10-30-2" />
+<style>
+  html { overflow: hidden; }
+  body { background: var(--bg); }
+  .counting-plot { margin: 0; padding: .25rem 0 .75rem; }
+  .counting-plot h3 { margin: 0 0 1rem; font-size: 1.15rem; font-weight: 600; }
+  .controls { display: flex; align-items: center; flex-wrap: wrap; gap: 1rem; }
+  .slope-field { flex: 1 1 16rem; }
+  .slope-label { display: flex; justify-content: space-between; gap: 1rem; }
+  output, .result { font-variant-numeric: tabular-nums; }
+  input[type="range"] {
+    display: block; width: 100%; min-height: 2.75rem; margin: 0;
+    accent-color: var(--accent); cursor: pointer;
+  }
+  button {
+    padding: .65rem .8rem; min-height: 2.75rem; border: 1px solid var(--rule);
+    border-radius: .4rem; background: var(--bg-soft); color: var(--ink);
+    font: inherit; font-size: .9rem; cursor: pointer;
+  }
+  button:hover { border-color: var(--accent); }
+  button:focus-visible, input:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+  .plot-wrap { margin-top: .75rem; }
+  svg { display: block; width: 100%; }
+  svg text { fill: var(--ink); font-family: var(--serif-body); font-size: 12px; }
+  .result { margin: .65rem 0 .4rem; font-weight: 600; }
+  figcaption { color: var(--ink-faint); font-size: .9rem; line-height: 1.55; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+</style>
+</head>
+<body>
+<figure class="counting-plot" aria-labelledby="plot-heading">
+  <h3 id="plot-heading">Two points and a slope determine the count</h3>
+  <div class="controls">
+    <label class="slope-field" for="slope">
+      <span class="slope-label">
+        <span>Slope at t = 1</span>
+        <output id="slope-value" for="slope">10</output>
+      </span>
+      <input id="slope" type="range" min="4" max="16" step="0.2" value="10" aria-describedby="plot-caption" />
+    </label>
+    <button id="restore" type="button">Use measured slope 10</button>
+  </div>
+  <div class="plot-wrap">
+    <svg id="plot" role="img" aria-labelledby="chart-title chart-description"></svg>
+  </div>
+  <p class="result" id="result" aria-live="polite">Model count: 8 · measured slope matched</p>
+  <figcaption id="plot-caption">
+    Move the slider to explore candidate curves through (−1, 1) and (1, 17).
+    The dashed line is the tangent at t = 1. Only the measured slope of 10
+    recovers this example’s model count. Other values of H(0) are candidates,
+    not counts for new SAT formulas.
+  </figcaption>
+  <noscript>The measured values H(−1) = 1, H(1) = 17, and H′(1) = 10 determine the quadratic H(t) = 8 + 8t + t², with model count H(0) = 8.</noscript>
+</figure>
+<script>
+(() => {
+  const figure = document.querySelector(".counting-plot");
+  const plotWrap = document.querySelector(".plot-wrap");
+  const svg = document.getElementById("plot");
+  const input = document.getElementById("slope");
+  const output = document.getElementById("slope-value");
+  const result = document.getElementById("result");
+  const restore = document.getElementById("restore");
+  const namespace = "http://www.w3.org/2000/svg";
+  const media = window.matchMedia("(prefers-reduced-motion: reduce)");
+  let slope = 10;
+  let animation;
+  let previousWidth = 0;
+
+  // Every member has H(-1) = 1, H(1) = 17, and H'(1) = m.
+  // These are candidate polynomials, not a family of SAT instances.
+  const value = (t, m) => 9 + 8 * t + (m - 8) / 2 * (t * t - 1);
+  const tangent = (t, m) => 17 + m * (t - 1);
+  const format = n => Number(n.toFixed(1)).toString();
+  const samples = Array.from({ length: 121 }, (_, i) => -1.12 + 2.24 * i / 120);
+  const values = [4, 10, 16].flatMap(m => samples.map(t => value(t, m)));
+  values.push(0, ...[4, 16].flatMap(m => [tangent(0, m), tangent(1.12, m)]));
+  const yMin = Math.min(...values);
+  const yMax = Math.max(...values);
+  const ySpan = yMax - yMin;
+  const domain = [yMin - .06 * ySpan, yMax + .12 * ySpan];
+
+  function element(parent, name, attributes = {}, text) {
+    const node = document.createElementNS(namespace, name);
+    Object.entries(attributes).forEach(([key, val]) => node.setAttribute(key, val));
+    if (text !== undefined) node.textContent = text;
+    parent.appendChild(node);
+    return node;
+  }
+
+  function resizeFrame() {
+    if (window.frameElement) {
+      window.frameElement.style.height = `${Math.ceil(figure.getBoundingClientRect().height) + 2}px`;
+    }
+  }
+
+  function draw() {
+    const width = plotWrap.getBoundingClientRect().width;
+    if (!width) return;
+    previousWidth = width;
+    const height = width < 460 ? 320 : 350;
+    const frame = { left: 48, right: width - 12, top: 32, bottom: height - 44 };
+    const x = t => frame.left + 6 + (t + 1.176) / 2.352 * (frame.right - frame.left - 12);
+    const y = v => frame.bottom - 6 - (v - domain[0]) / (domain[1] - domain[0]) * (frame.bottom - frame.top - 12);
+    const count = value(0, slope);
+    const matched = Math.abs(slope - 10) < 1e-6;
+    svg.setAttribute("viewBox", `0 0 ${width} ${height}`);
+    svg.setAttribute("height", height);
+    svg.replaceChildren();
+    element(svg, "title", { id: "chart-title" }, "Quadratics through two known points");
+    element(svg, "desc", { id: "chart-description" },
+      `The curve passes through (−1, 1) and (1, 17). Its slope at t = 1 is ${format(slope)}. ` +
+      `${matched ? "The model count" : "The candidate value"} at t = 0 is ${format(count)}. ` +
+      "The dashed line is the tangent at t = 1.");
+    const defs = element(svg, "defs");
+    const clip = element(defs, "clipPath", { id: "curve-clip" });
+    element(clip, "rect", {
+      x: frame.left, y: frame.top, width: frame.right - frame.left, height: frame.bottom - frame.top
+    });
+    element(svg, "rect", {
+      x: frame.left, y: frame.top, width: frame.right - frame.left,
+      height: frame.bottom - frame.top, fill: "none", stroke: "var(--rule)"
+    });
+    [0, 5, 10, 15, 20].forEach(tick => {
+      element(svg, "line", {
+        x1: frame.left, x2: frame.right, y1: y(tick), y2: y(tick),
+        stroke: "var(--rule)", "stroke-opacity": ".65"
+      });
+      element(svg, "text", { x: frame.left - 10, y: y(tick) + 4, "text-anchor": "end" }, tick);
+    });
+    [-1, 0, 1].forEach(tick => {
+      element(svg, "text", { x: x(tick), y: frame.bottom + 20, "text-anchor": "middle" },
+        tick === -1 ? "−1" : tick);
+    });
+    element(svg, "text", { x: frame.left, y: 15 }, "Algebraic sum H(t)");
+    element(svg, "text", { x: (frame.left + frame.right) / 2, y: height - 3, "text-anchor": "middle" }, "Parameter t");
+    const marks = element(svg, "g", { "clip-path": "url(#curve-clip)" });
+    element(marks, "line", {
+      x1: x(0), x2: x(0), y1: frame.top, y2: frame.bottom, stroke: "var(--rule)"
+    });
+    element(marks, "path", {
+      d: samples.map((t, i) => `${i ? "L" : "M"}${x(t)},${y(value(t, slope))}`).join(" "),
+      fill: "none", stroke: "var(--accent)", "stroke-width": "2.5"
+    });
+    element(marks, "line", {
+      x1: x(0), x2: x(1.12), y1: y(tangent(0, slope)), y2: y(tangent(1.12, slope)),
+      stroke: "var(--ink-faint)", "stroke-width": "1.5", "stroke-dasharray": "6 5"
+    });
+    [[-1, 1], [1, 17]].forEach(([t, v]) => {
+      element(marks, "circle", { cx: x(t), cy: y(v), r: 4.5, fill: "var(--ink)" });
+    });
+    element(marks, "circle", { cx: x(0), cy: y(count), r: 5.5, fill: "var(--accent)" });
+    element(svg, "text", { x: x(-1) + 9, y: y(1) - 13 }, "(−1, 1)");
+    element(svg, "text", { x: x(1) - 9, y: y(17) - 14, "text-anchor": "end" }, "(1, 17)");
+    element(svg, "text", { x: x(0), y: y(count) - 19, "text-anchor": "middle" }, `H(0) = ${format(count)}`);
+    element(svg, "text", { x: x(0) + 10, y: y(tangent(0, slope)) + 20 }, "Tangent");
+    output.value = format(slope);
+    input.value = slope;
+    result.textContent = matched
+      ? "Model count: 8 · measured slope matched"
+      : `Candidate H(0): ${format(count)} · measured slope is 10`;
+    resizeFrame();
+  }
+
+  input.addEventListener("input", () => {
+    cancelAnimationFrame(animation);
+    slope = Number(input.value);
+    draw();
+  });
+  restore.addEventListener("click", () => {
+    cancelAnimationFrame(animation);
+    const startSlope = slope;
+    let start;
+    function step(now) {
+      if (start === undefined) start = now;
+      const progress = media.matches ? 1 : Math.min(1, Math.max(0, (now - start) / 180));
+      slope = startSlope + (10 - startSlope) * progress;
+      draw();
+      if (progress < 1) animation = requestAnimationFrame(step);
+    }
+    animation = requestAnimationFrame(step);
+  });
+
+  const resizeObserver = new ResizeObserver(() => {
+    if (plotWrap.getBoundingClientRect().width !== previousWidth) draw();
+    resizeFrame();
+  });
+  resizeObserver.observe(figure);
+
+  // Follow the article's explicit theme, including changes while the figure is visible.
+  const themeRoot = window.frameElement ? parent.document.documentElement : null;
+  const themeMedia = window.matchMedia("(prefers-color-scheme: dark)");
+  const syncTheme = () => {
+    document.documentElement.dataset.theme = themeRoot?.dataset.theme || (themeMedia.matches ? "dark" : "light");
+  };
+  const themeObserver = new MutationObserver(syncTheme);
+  if (themeRoot) themeObserver.observe(themeRoot, { attributes: true, attributeFilter: ["data-theme"] });
+  else themeMedia.addEventListener("change", syncTheme);
+  window.addEventListener("pagehide", () => {
+    cancelAnimationFrame(animation);
+    resizeObserver.disconnect();
+    themeObserver.disconnect();
+    themeMedia.removeEventListener("change", syncTheme);
+  }, { once: true });
+  syncTheme();
+  draw();
+})();
+</script>
+</body>
+</html>

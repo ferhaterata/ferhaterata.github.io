@@ -168,6 +168,16 @@ H'(1)
 \end{aligned}
 $$
 
+The plot below shows why the derivative matters. Two fixed values still allow many quadratic curves. The measured slope at $t=1$ selects the one whose value at $t=0$ is our model count.
+
+<iframe src="/posts/counting-sat-with-shared-summaries/interpolation.html?v=2026-11-01-1" title="Interactive interpolation: two points and a slope determine the model count" width="100%" height="650" loading="lazy" style="display: block; border: 0; margin: 1.5rem 0;"></iframe>
+
+At the measured slope, the tangent line reaches 7 at $t=0$. The quadratic correction adds 1, giving the exact count 8. Written around $t=1$, this is the Taylor expansion
+
+$$
+H(t)=17+10(t-1)+(t-1)^2.
+$$
+
 For any polynomial $H$ of degree at most two, the following identity holds:
 
 $$
