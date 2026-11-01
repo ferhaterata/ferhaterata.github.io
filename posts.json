@@ -1,6 +1,14 @@
 {
   "posts": [
     {
+      "slug": "where-shared-summaries-come-from",
+      "image": "news/assets/where-shared-summaries-come-from.svg",
+      "date": "2026-11-01",
+      "kicker": "Research note",
+      "title": "Where do shared summaries come from?",
+      "excerpt": "How the ETH preprint constructs a shared measurement and polynomial replacement: a worked example with swaps, cancellation, and separate group sums."
+    },
+    {
       "slug": "counting-sat-with-shared-summaries",
       "image": "news/assets/counting-sat-with-shared-summaries.svg",
       "date": "2026-10-27",

@@ -163,6 +163,8 @@ $$
 
 The two evaluation points use different summaries. Our substitutions were chosen by hand to make this happen.
 
+The paper also supplies a deterministic construction of replacements and summaries. In the follow-up, [*Where do shared summaries come from?*](/posts/#where-shared-summaries-come-from), I work through its small matrix example and the rule that removes unwanted cross-group dependencies.
+
 ## Recover the count with one derivative
 
 Two values do not generally determine a quadratic. We need one more piece of information.
@@ -278,6 +280,8 @@ The example shows a useful pattern: keep the desired count at one parameter valu
 There is no performance claim here. The original formula is easy, the groups are tiny, and we chose convenient substitutions ourselves.
 
 In the [paper's construction][eth], summaries take the form $y_g=C_gx_g$, with bounded integer coefficients. Its central challenge is obtaining few summaries, small groups, and low-degree replacements together. Sections 2.5 and 3 recover Taylor data through additional restricted sums and inclusion–exclusion; the simple derivative calculation above does not replace that machinery.
+
+Section 4 and Lemma 4.7 construct the replacements, partitions, and measurement matrices algorithmically under the paper's parameter conditions. The hand-chosen substitutions here are a teaching example; they do not represent a missing construction step in the paper. The [follow-up post](/posts/#where-shared-summaries-come-from) explains Remark 4.4.
 
 ## How this relates to practical model counters
 
