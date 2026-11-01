@@ -163,7 +163,7 @@
     // External artifacts (slide decks etc.) don't route through
     // the markdown renderer — just navigate.
     if (meta.url) { window.location.href = meta.url; return; }
-    const md = await fetch(`${slug}/index.md?v=2026-11-01-2`).then((r) => r.ok ? r.text() : "").catch(() => "");
+    const md = await fetch(`${slug}/index.md?v=2026-11-01-3`).then((r) => r.ok ? r.text() : "").catch(() => "");
     if (!md) { renderListing(); return; }
 
     document.getElementById("essay-kicker").textContent = `${meta.date || ""}${meta.kicker ? " · " + meta.kicker : ""}`;

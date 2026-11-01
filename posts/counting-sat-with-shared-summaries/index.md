@@ -34,7 +34,13 @@ Thus $\#F=0+2+2+4=8$. We will use this as a check on the algebra.
 
 ## Turn the clauses into polynomials
 
-Define
+Represent false by 0 and true by 1. A two-literal clause $x\lor y$ is false exactly when both inputs are zero. On Boolean inputs, the product $(1-x)(1-y)$ is 1 precisely in that case, so subtracting it from 1 gives the clause's truth value:
+
+$$
+1-(1-x)(1-y)=x+y-xy.
+$$
+
+This polynomial is the clause's **indicator**: it equals 1 when the clause is satisfied and 0 otherwise. For our example, define
 
 $$
 \begin{aligned}
@@ -43,7 +49,20 @@ v(c,d)&=c+d-cd.
 \end{aligned}
 $$
 
-On Boolean inputs, these are the indicators of $a\lor z$ and $c\lor d$. Consequently,
+The first expression is the same OR polynomial, written as $a+z-az$. **Here $z$ is a placeholder for the second input of $\phi$, not another SAT variable.** We use $\phi(a,c)$ for the clause $a\lor c$ and $\phi(b,d)$ for $b\lor d$. The notation lets us replace that second input by a more general expression later.
+
+There are two easy cases to check:
+
+- If $a=1$, then $\phi(1,z)=1$: the clause is already satisfied.
+- If $a=0$, then $\phi(0,z)=z$: the clause's truth value is the other input.
+
+The same construction handles negated literals by representing $\neg x$ as $1-x$. For example, the indicator of $\neg a\lor c$ is
+
+$$
+1-a(1-c)=1-a+ac.
+$$
+
+**AND becomes multiplication.** The product $\phi(a,c)\phi(b,d)v(c,d)$ is 1 exactly when all three clauses are satisfied, and 0 otherwise. Summing this product over all Boolean assignments therefore counts the models:
 
 $$
 \#F=\sum_{a,b,c,d\in\{0,1\}}
@@ -52,7 +71,9 @@ $$
 
 So far this is only a different expression for the same count. There are still 16 assignments in the sum.
 
-Now introduce a parameter $t$. In the first clause, replace $c$ by $c+td$. In the second, replace $d$ by $d+tc$. Leave the third clause unchanged:
+We introduce a parameter $t$ to connect the original count to algebraic sums with simpler dependencies. Think of it as a dial that mixes the inputs $c$ and $d$. We choose the substitutions to preserve the original inputs at $t=0$ and expose a shared summary at other values.
+
+In the first clause, replace $c$ by $c+td$. In the second, replace $d$ by $d+tc$. Leave the third clause unchanged:
 
 <div style="overflow-x: auto;"><div style="min-width: max-content;">
 
@@ -62,6 +83,8 @@ $$
 
 </div></div>
 
+In $\phi(a,c+td)$, the entire expression $c+td$ goes into the input slot we called $z$. The SAT variables are still $a,b,c,d$; $t$ is the interpolation parameter. When a substituted input leaves $\{0,1\}$, the polynomial supplies an algebraic weight rather than a Boolean truth value.
+
 At $t=0$, both replacements restore the original inputs, so
 
 $$
@@ -69,6 +92,8 @@ H(0)=\#F.
 $$
 
 Also, **$H$ has degree at most two**: each of the first two factors is linear in $t$, and the third does not depend on $t$. That degree bound will let us reconstruct $H(0)$ from other information about $H$.
+
+Here is what the dial buys us: at $t=1$, both transformed inputs equal $c+d$; at $t=-1$, they are $c-d$ and its negative. At either point, one shared quantity is enough for the first two factors. We will compute these structured sums and one derivative, then recover the original count by interpolation. We never sum over $t$.
 
 ## At $t=1$, only a shared sum matters
 
@@ -232,7 +257,7 @@ Direct enumeration of all 128 assignments gives:
 
 For the algebraic check, put $A=\{a,b,e,f\}$ and $B=\{c,d,g\}$. Make the same substitutions $c\mapsto c+td$ and $d\mapsto d+tc$ in the first six clauses, leaving the last clause unchanged.
 
-The [second verification script](verify_second_example.py) recovers the coefficients around $t=1$ by separately summing over each group, with inclusion–exclusion over restrictions on $c$ and $d$. It computes all coefficients through degree four, the degree bound before cancellation. The result is
+The [second verification script](verify_second_example.py) recovers the coefficients around $t=1$ by separately summing over each group, with inclusion–exclusion over restrictions on $c$ and $d$. It computes all coefficients through degree four, the degree bound before cancellation. With $z=t-1$ denoting the offset from the expansion point, the result is
 
 $$
 H(1+z)=30-15z-8z^2.
