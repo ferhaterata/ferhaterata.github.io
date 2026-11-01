@@ -54,13 +54,13 @@ So far this is only a different expression for the same count. There are still 1
 
 Now introduce a parameter $t$. In the first clause, replace $c$ by $c+td$. In the second, replace $d$ by $d+tc$. Leave the third clause unchanged:
 
+<div style="overflow-x: auto;"><div style="min-width: max-content;">
+
 $$
-\begin{aligned}
-H(t)&=\sum_{a,b,c,d\in\{0,1\}}
-\Big[\phi(a,c+td)\\
-&\qquad\cdot\phi(b,d+tc)\,v(c,d)\Big].
-\end{aligned}
+H(t)=\sum_{a,b,c,d\in\{0,1\}}\Big[\phi(a,c+td)\cdot\phi(b,d+tc)\,v(c,d)\Big].
 $$
+
+</div></div>
 
 At $t=0$, both replacements restore the original inputs, so
 
@@ -150,13 +150,13 @@ $$
 
 Its derivative at $t=1$ is
 
+<div style="overflow-x: auto;"><div style="min-width: max-content;">
+
 $$
-\begin{aligned}
-&d(1+c+d)v(c,d)\\
-&\quad+c(1+c+d)v(c,d)\\
-&=s(1+s)v(c,d).
-\end{aligned}
+d(1+c+d)v(c,d)+c(1+c+d)v(c,d)=s(1+s)v(c,d).
 $$
+
+</div></div>
 
 We can reuse the same multiplicities $B(s)$:
 
