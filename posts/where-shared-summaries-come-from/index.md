@@ -180,16 +180,6 @@ The general algorithm has to do this for every relevant occurrence, while contro
 
 There are two limits to keep in view. First, Remark 4.4 deliberately takes $Q=R=2$, outside the $R<Q$ regime used for the runtime bound. It illustrates the construction without establishing a speedup. Second, this is one replacement row on four auxiliary coordinates, not a complete implementation or independent verification of the paper's counting algorithm.
 
-## Could this become a practical counter?
-
-That is the research direction I find interesting: implement the deterministic construction, identify its costs, and investigate whether the approach can count a defined class of structured CNFs faster or with less memory than established counters. The eventual result might be a new exact model counter, or an algebraic backend within an existing one.
-
-GPU acceleration is one possibility to investigate. Independent evaluations and structured matrix operations offer potential parallel work. Exact counting, however, requires an exact arithmetic plan; a floating-point answer alone is not a certificate. Construction costs, local summation, Taylor-data recovery, and interpolation all belong in the comparison.
-
-An LLM could also propose cheaper instance-specific choices. That would be an optional optimization of an existing algorithm. It would not fill a missing construction step. Any proposal would need exact verification, and any performance comparison would need to include the time spent proposing and checking it.
-
-These are possible next experiments. This post does not report a GPU implementation, an LLM-assisted counter, or a practical speedup.
-
 ## Sources
 
 - OpenAI, [*The Exponential Time Hypothesis Is False*][eth], October 25, 2026 revision. Section 4.2 and equation (4.7) give the matrix construction; Section 4.3 and equations (4.9)–(4.12) give the replacements and group restrictions; Remark 4.4 on page 30 gives this example. Lemma 4.7 states the general construction guarantee.
