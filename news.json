@@ -1,6 +1,15 @@
 {
   "news": [
     {
+      "date": "2026-11-02",
+      "tag": "Kiro",
+      "featured": true,
+      "image": "news/assets/kiro-harness-lean.svg",
+      "imageType": "illustration",
+      "href": "https://kiro.dev/blog/harness-properties-in-lean/",
+      "html": "<a href=\"https://kiro.dev/blog/harness-properties-in-lean/\"><em>The Kiro coding agent proves properties of its own harness in Lean</em></a>. Our workflow combines Lean proofs with testing against real code, establishing 70 properties of formalized harness functions and reproducing 18 counterexamples."
+    },
+    {
       "date": "2026-10-21",
       "tag": "Research",
       "featured": true,
