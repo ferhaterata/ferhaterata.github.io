@@ -490,6 +490,18 @@ main#top { scroll-margin-top: 5rem; }
 .news-body strong, .news-body em { color: var(--ink); font-style: normal; font-weight: 600; }
 .news-body a { color: var(--accent); border: none; }
 .news-body a:hover { text-decoration: underline; }
+.news-related {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .3rem 1rem;
+  list-style: none;
+  margin: .45rem 0 0;
+  padding: 0;
+  font-size: .85rem;
+  line-height: 1.5;
+}
+.news-related a { color: var(--accent); font-weight: 500; }
+.news-related a:hover { text-decoration: underline; }
 
 /* People links (advisors, committee, collaborators): bold + ink-colored,
    reading as names rather than as blue hyperlinks. Accent only on hover. */

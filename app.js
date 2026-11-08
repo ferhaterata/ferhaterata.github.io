@@ -51,7 +51,7 @@
   // ---------- fetch helper (works from filesystem too) ----------
   // Append a version query so the browser doesn't serve a stale
   // JSON body when the file has changed.
-  const JSON_VERSION = "2026-11-01-1";
+  const JSON_VERSION = "2026-11-08-1";
   const fetchJSON = async (path) => {
     try {
       const sep = path.includes("?") ? "&" : "?";
@@ -66,6 +66,16 @@
 
   // ---------- news ----------
   const trophy = `<svg class="pill-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg>`;
+
+  const renderNewsRelatedLinks = (n, pathPrefix = "") => {
+    if (!n.relatedLinks?.length) return "";
+    const links = n.relatedLinks.map(({ label, href, title }) => {
+      const url = /^([a-z]+:|\/|#)/i.test(href) ? href : pathPrefix + href;
+      const titleAttr = title ? ` title="${escapeAttr(title)}"` : "";
+      return `<li><a href="${escapeAttr(url)}"${titleAttr}>${escapeHTML(label)}</a></li>`;
+    }).join("");
+    return `<ul class="news-related" aria-label="Related coverage">${links}</ul>`;
+  };
 
   // Render one news item to HTML. `pathPrefix` is prepended to any relative
   // image or href (so the archive page at /news/ can point to detail pages
@@ -90,6 +100,7 @@
         <div class="news-body">
           <span class="news-date">${formatDate(n.date)}</span>
           <div class="news-content"><span class="tag ${n.award ? "tag-award" : ""}">${n.award ? trophy : ""}${escapeHTML(n.tag)}</span>${body}</div>
+          ${renderNewsRelatedLinks(n, pathPrefix)}
         </div>
         ${figure}
       </li>`;
@@ -161,14 +172,16 @@
         ? `<figure class="news-image${imageClass}"><img src="${escapeAttr(rewrite(n.image))}" alt="" loading="lazy" onerror="this.closest('.news-image').remove()"/></figure>`
         : "";
       const cardClass = `post-card${figure ? " post-card-with-image" : ""}`;
+      const relatedLinks = renderNewsRelatedLinks(n, "../");
       const body = `
           <div class="post-card-body">
             <span class="post-card-date">${escapeHTML(dateLabel)}</span>
             <h3 class="post-card-title${plainHeadline ? " post-card-title-plain" : ""}">${linkedHeadline || escapeHTML(headline)}</h3>
             ${excerpt !== headline ? `<p class="post-card-excerpt">${escapeHTML(excerpt)}</p>` : ""}
+            ${relatedLinks}
           </div>
           ${figure}`;
-      if (linkedHeadline && href) {
+      if ((linkedHeadline || relatedLinks) && href) {
         return `<div class="${cardClass} news-item-clickable" data-href="${escapeAttr(href)}" role="link" tabindex="0" aria-label="${escapeAttr(headline)}">${body}</div>`;
       }
       return href

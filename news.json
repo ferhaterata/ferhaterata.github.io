@@ -7,7 +7,18 @@
       "image": "news/assets/kiro-harness-lean.svg",
       "imageType": "illustration",
       "href": "https://kiro.dev/blog/harness-properties-in-lean/",
-      "html": "<a href=\"https://kiro.dev/blog/harness-properties-in-lean/\"><em>The Kiro coding agent proves properties of its own harness in Lean</em></a>. Our workflow combines Lean proofs with testing against real code, establishing 70 properties of formalized harness functions and reproducing 18 counterexamples."
+      "relatedLinks": [
+        {
+          "label": "Swami’s highlight (VP, AWS Agentic AI)",
+          "title": "Swami Sivasubramanian, VP, AWS Agentic AI",
+          "href": "https://www.linkedin.com/posts/swaminathansivasubramanian_automated-reasoning-has-been-a-core-investment-share-7523502466101886976-ZBJB/"
+        },
+        {
+          "label": "Brooke Jamieson’s video overview",
+          "href": "https://www.linkedin.com/posts/brookejamieson_aws-kiro-lean-ugcPost-7524535725812301825-mLx3/"
+        }
+      ],
+      "html": "<a href=\"https://kiro.dev/blog/harness-properties-in-lean/\"><em>The Kiro coding agent proves properties of its own harness in Lean</em></a>. 26 functions: 70 properties proved in Lean models; 18 counterexamples reproduced against real code."
     },
     {
       "date": "2026-10-21",
