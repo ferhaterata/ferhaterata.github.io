@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Semantic diffing of formal policies — Ferhat Erata</title>
+<meta name="description" content="Finding what two policies share and where they differ. An AWS AI Blog post with Rémi Delmas on anti-unification and a shared policy abstraction." />
+<link rel="icon" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%23ffffff'/><text x='50%25' y='55%25' font-size='18' text-anchor='middle' dominant-baseline='middle' font-family='system-ui, sans-serif' fill='%231a73e8' font-weight='700'>ƒe</text></svg>" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wdth,wght@8..144,75..125,300..800&family=Roboto+Mono:wght@400;500&display=swap" />
+<link rel="stylesheet" href="../../styles.css?v=2026-11-08-1" />
+<link rel="canonical" href="https://ferhat.ai/news/semantic-policy-diffing/" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Semantic diffing of formal policies" />
+<meta property="og:description" content="Finding shared logic and isolating differences with anti-unification. An AWS AI Blog post with Rémi Delmas and Ferhat Erata." />
+<meta property="og:url" content="https://ferhat.ai/news/semantic-policy-diffing/" />
+<meta property="og:image" content="https://ferhat.ai/news/semantic-policy-diffing/social-preview.png" />
+<meta property="og:image:width" content="1600" />
+<meta property="og:image:height" content="840" />
+<meta property="og:image:alt" content="Two policy documents feed a shared abstraction function. A compact diff isolates their changing usage limits." />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Semantic diffing of formal policies" />
+<meta name="twitter:description" content="Finding shared logic and isolating differences with anti-unification." />
+<meta name="twitter:image" content="https://ferhat.ai/news/semantic-policy-diffing/social-preview.png" />
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-LHSH4FCVBC"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-LHSH4FCVBC');
+</script>
+</head>
+<body>
+<header class="site-header">
+  <div class="nav">
+    <a href="../../#top" class="nav-brand">Ferhat <em>Erata</em></a>
+    <nav class="nav-links" aria-label="Primary">
+      <a href="../../#about">About</a>
+      <a href="../../#news">News</a>
+      <a href="../../posts/">Writing</a>
+      <a href="../../#experience">Experience</a>
+      <a href="../../#education">Education</a>
+      <a href="../../#publications">Publications</a>
+      <a href="../../#contact">Contact</a>
+    </nav>
+    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle colour scheme">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+    </button>
+  </div>
+</header>
+
+<main class="page">
+<div class="container post-container">
+<article class="post">
+  <p class="post-back"><a href="../">← All news</a></p>
+  <header class="post-header">
+    <p class="post-kicker"><time datetime="2026-11-11">November 11, 2026</time> · AWS AI Blog</p>
+    <h1 class="post-title">Semantic diffing of formal policies</h1>
+    <p class="post-lede">
+      We use <strong>anti-unification</strong> to find what two policies share and where they differ.
+    </p>
+  </header>
+  <div class="post-body">
+    <p>
+      Rémi Delmas and I wrote about <a href="https://aws.amazon.com/blogs/machine-learning/semantic-diffing-of-formal-policies-with-anti-unification/">semantic diffing</a> on the AWS AI Blog. Local rewrites let us recognize equivalent expressions and compress shared logic into a common backbone (an abstraction function). The remaining differences are the parts to review.
+    </p>
+    <figure class="post-figure post-figure--scientific">
+      <a href="shared-backbone.svg" target="_blank" rel="noopener" aria-label="Open the semantic diffing figure at full size">
+        <img src="shared-backbone.svg" width="1800" height="680" decoding="async" alt="Two SMT-LIB policies feed a shared abstraction function F(k). Both require administrator, owner, or delegate authorization and encryption for confidential data, despite differences in syntax and ordering. The semantic diff isolates their usage limits: 100 in Policy A and budget minus reserve in Policy B. Only the differing limits are highlighted." />
+      </a>
+      <figcaption>
+        Both policies keep the same authorization and encryption requirements. The usage limit changes from 100 to the budget minus the reserved amount. The shared function captures the common logic; the diff isolates the limit. <a href="shared-backbone.svg" target="_blank" rel="noopener">Open the full-size figure ↗</a>
+      </figcaption>
+    </figure>
+    <p>
+      To make this scale, we use a semi-persistent e-graph. It handles equivalent reorderings and regroupings natively, keeps representations compact, and supports efficient backtracking.
+    </p>
+    <p>
+      This makes reviews easier in <strong>formal verification</strong> workflows involving languages such as <a href="https://cedarpolicy.com/">Cedar</a>, <a href="https://github.com/dogwood-policy/dogwood">Dogwood</a>, <a href="https://smt-lib.org/">SMT-LIB</a>, and <a href="https://lean-lang.org/">Lean</a>. Comparisons use the equivalences declared for the chosen encoding.
+    </p>
+    <p>
+      <a class="pub-link" href="https://aws.amazon.com/blogs/machine-learning/semantic-diffing-of-formal-policies-with-anti-unification/">Read the AWS AI Blog post <span aria-hidden="true">↗</span></a>
+      <a class="pub-link" href="https://github.com/yaspar-org/semi-persistent">Source code <span aria-hidden="true">↗</span></a>
+    </p>
+    <p class="post-tags">
+      <span class="tag">#FormalVerification</span>
+      <span class="tag">#AntiUnification</span>
+      <span class="tag">#EGraphs</span>
+    </p>
+  </div>
+</article>
+</div>
+</main>
+<footer class="site-footer">
+  <div class="container" style="display:flex; justify-content:space-between; width:100%; gap:1rem; flex-wrap:wrap">
+    <span>© <span id="year"></span> Ferhat Erata</span>
+    <span class="colophon">Set in Roboto Flex</span>
+  </div>
+</footer>
+<script src="../../app.js?v=2026-11-08-1"></script>
+</body>
+</html>

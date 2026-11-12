@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="210"
+  viewBox="0 0 400 210" role="img" aria-labelledby="title desc">
+  <title id="title">Semantic diffing: shared logic and changing limits</title>
+  <desc id="desc">Two policy documents with equivalent authorization clauses feed a shared abstraction function F(k). The usage limits, 100 and budget minus reserve, are highlighted. A minus-and-plus diff beneath the function isolates those limits. B and R abbreviate budget and reserve; u is total usage after the request.</desc>
+  <rect width="400" height="210" fill="#f4f8ff"/>
+  <g fill="none" stroke="#8ab4f8" stroke-width="2.2"
+    stroke-linecap="round" stroke-linejoin="round">
+    <path d="M148 56h17c23 0 24 12 45 12"/>
+    <path d="M148 154h17c23 0 24-86 45-86"/>
+    <path d="M210 68h19m-6-5 6 5-6 5"/>
+    <path d="M311 119v12m-4-4 4 4 4-4"/>
+  </g>
+  <circle cx="210" cy="68" r="3.5" fill="#f4f8ff"
+    stroke="#8ab4f8" stroke-width="1.8"/>
+
+    <path d="M14 16h121l13 13v67h-134z"
+      fill="#fff" stroke="#8ab4f8" stroke-width="1.8" stroke-linejoin="round"/>
+    <path d="M135 16v13h13"
+      fill="#e8f0fe" stroke="#8ab4f8" stroke-width="1.8" stroke-linejoin="round"/>
+    <text x="26" y="34" font-family="Menlo, Consolas, 'Liberation Mono', monospace" font-size="15"
+      fill="#185abc">Policy A</text>
+    <path d="M14 41h134" stroke="#8ab4f8" stroke-width="1.2"/>
+
+
+    <text x="27" y="62" font-family="Menlo, Consolas, 'Liberation Mono', monospace" font-size="14"
+      fill="#496f9e">(a∨b∨c) ∧</text>
+
+    <rect x="67.13999999999999" y="70" width="29.284"
+      height="18" rx="3" fill="#d2e3fc" stroke="#8ab4f8" stroke-width=".8"/>
+    <text x="27" y="83" font-family="Menlo, Consolas, 'Liberation Mono', monospace" font-size="14"
+      fill="#185abc">(u ≤ 100)</text>
+
+    <path d="M14 114h121l13 13v67h-134z"
+      fill="#fff" stroke="#8ab4f8" stroke-width="1.8" stroke-linejoin="round"/>
+    <path d="M135 114v13h13"
+      fill="#e8f0fe" stroke="#8ab4f8" stroke-width="1.8" stroke-linejoin="round"/>
+    <text x="26" y="132" font-family="Menlo, Consolas, 'Liberation Mono', monospace" font-size="15"
+      fill="#185abc">Policy B</text>
+    <path d="M14 139h134" stroke="#8ab4f8" stroke-width="1.2"/>
+
+
+    <text x="27" y="160" font-family="Menlo, Consolas, 'Liberation Mono', monospace" font-size="14"
+      fill="#496f9e">(c∨b∨a) ∧</text>
+
+    <rect x="67.13999999999999" y="168" width="29.284"
+      height="18" rx="3" fill="#d2e3fc" stroke="#8ab4f8" stroke-width=".8"/>
+    <text x="27" y="181" font-family="Menlo, Consolas, 'Liberation Mono', monospace" font-size="14"
+      fill="#185abc">(u ≤ B−R)</text>
+
+    <path d="M236 17h137l13 13v89h-150z"
+      fill="#fff" stroke="#8ab4f8" stroke-width="1.8" stroke-linejoin="round"/>
+    <path d="M373 17v13h13"
+      fill="#e8f0fe" stroke="#8ab4f8" stroke-width="1.8" stroke-linejoin="round"/>
+    <text x="248" y="35" font-family="Menlo, Consolas, 'Liberation Mono', monospace" font-size="15"
+      fill="#185abc">F(k)</text>
+    <path d="M236 42h150" stroke="#8ab4f8" stroke-width="1.2"/>
+
+
+    <text x="251" y="68" font-family="Menlo, Consolas, 'Liberation Mono', monospace" font-size="14"
+      fill="#496f9e">(a∨b∨c) ∧</text>
+
+    <rect x="291.14" y="81" width="12.427999999999999"
+      height="18" rx="3" fill="#d2e3fc" stroke="#8ab4f8" stroke-width=".8"/>
+    <text x="251" y="94" font-family="Menlo, Consolas, 'Liberation Mono', monospace" font-size="14"
+      fill="#185abc">(u ≤ k)</text>
+  <rect x="236" y="137" width="150" height="57" rx="6"
+    fill="#fff" stroke="#8ab4f8" stroke-width="1.8"/>
+  <path d="M246 166h130" stroke="#e8f0fe" stroke-width="1.2"/>
+  <g fill="none" stroke="#1a73e8" stroke-width="1.8" stroke-linecap="round">
+    <path d="M249 153h8M249 181h8M253 177v8"/>
+  </g>
+
+    <rect x="276" y="145" width="29.284"
+      height="18" rx="3" fill="#d2e3fc" stroke="#8ab4f8" stroke-width=".8"/>
+    <text x="278" y="158" font-family="Menlo, Consolas, 'Liberation Mono', monospace" font-size="14"
+      fill="#185abc">100</text>
+
+    <rect x="276" y="173" width="29.284"
+      height="18" rx="3" fill="#d2e3fc" stroke="#8ab4f8" stroke-width=".8"/>
+    <text x="278" y="186" font-family="Menlo, Consolas, 'Liberation Mono', monospace" font-size="14"
+      fill="#185abc">B−R</text>
+</svg>

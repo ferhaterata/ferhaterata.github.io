@@ -1,6 +1,21 @@
 {
   "news": [
     {
+      "date": "2026-11-11",
+      "tag": "AWS AI Blog",
+      "featured": true,
+      "image": "news/assets/semantic-policy-diffing.svg",
+      "imageType": "illustration",
+      "href": "news/semantic-policy-diffing/",
+      "relatedLinks": [
+        {
+          "label": "AWS AI Blog post",
+          "href": "https://aws.amazon.com/blogs/machine-learning/semantic-diffing-of-formal-policies-with-anti-unification/"
+        }
+      ],
+      "html": "We developed a new <strong>anti-unification</strong> method for <a href=\"news/semantic-policy-diffing/\"><em>semantic policy diffing</em></a>, using abstraction learning to compress shared logic."
+    },
+    {
       "date": "2026-11-02",
       "tag": "Kiro",
       "featured": true,
