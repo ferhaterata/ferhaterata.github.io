@@ -1,0 +1,207 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="210"
+    viewBox="0 0 400 210" role="img" aria-labelledby="title desc">
+    <title id="title">Coordinated proof development with Kiro and Lean</title>
+    <desc id="desc">A Kiro coordinator guides a shared proof plan. A specification file branches into lemmas and smaller subgoals. Checkmarks show proved goals, two robot badges represent parallel prover agents, and a crossed-out branch shows a retracted approach. A feedback loop returns to the coordinator. A Lean card on the right represents the verifier and eventual checked proof.</desc>
+    <defs>
+      <marker id="workflow-arrow" viewBox="0 0 7 7" refX="3.5" refY="3.5"
+        markerWidth="7" markerHeight="7" markerUnits="userSpaceOnUse" orient="auto">
+        <path d="M0 0L7 3.5L0 7L1.7 3.5Z" fill="#6f9ee5" stroke="none"/>
+      </marker>
+    </defs>
+    <rect width="400" height="210" fill="#f4f8ff"/>
+    <rect x="93" y="14" width="216" height="177" rx="8"
+      fill="#fff" stroke="#c5d6ef" stroke-width="1.5"/>
+    <g fill="#c5d6ef"><circle cx="104" cy="24" r="1.6"/>
+      <circle cx="111" cy="24" r="1.6"/><circle cx="118" cy="24" r="1.6"/></g>
+    <g fill="none" stroke="#8ab4f8" stroke-width="1.8"
+      stroke-linecap="round" stroke-linejoin="round">
+      <path d="M138 104C150 104 143 60 156 60"/>
+      <path d="M176 60C191 60 191 45 208 45"/>
+      <path d="M176 60C191 60 191 79 208 79"/>
+    </g>
+    <path d="M138 104H156M176 106H208" fill="none" stroke="#8ab4f8"
+      stroke-width="1.5" stroke-dasharray="3 3" opacity=".55"/>
+    <g fill="none" stroke="#1a73e8" stroke-width="1.9"
+      stroke-linecap="round" stroke-linejoin="round">
+      <path d="M138 104C150 104 142 158 156 158"/>
+      <path d="M176 158C191 158 191 134 208 134"/>
+      <path d="M176 158C191 158 191 170 208 170"/>
+      <path d="M228 170C248 170 247 134 267 134"/>
+      <path d="M228 170C248 170 247 169 267 169"/>
+    </g>
+    <path d="M104 80h25l9 9v41h-34z" fill="#fff"
+      stroke="#8ab4f8" stroke-width="1.5" stroke-linejoin="round"/>
+    <path d="M129 80v9h9" fill="#e8f0fe"
+      stroke="#8ab4f8" stroke-width="1.5"/>
+    <path d="M110 94h17M110 122h21" fill="none" stroke="#c5d6ef"
+      stroke-width="1.5" stroke-linecap="round"/>
+    <text x="121" y="113" text-anchor="middle" fill="#185abc"
+      font-family="Georgia, 'Times New Roman', serif" font-size="14">P(x)</text>
+    <g>
+    <circle cx="166" cy="60" r="10" fill="#fff"
+      stroke="#8ab4f8" stroke-width="1.6"
+      />
+    <text x="166" y="65" text-anchor="middle" fill="#185abc"
+      font-family="Georgia, 'Times New Roman', serif" font-size="15">L</text>
+
+    <g transform="translate(174 68)">
+    <circle r="4.5" fill="#1a73e8"/>
+    <path d="m-2.5 0 1.7 1.7 3.3-3.8" fill="none" stroke="#fff"
+      stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+
+  </g>
+    <g opacity=".58">
+    <circle cx="166" cy="106" r="10" fill="#fff"
+      stroke="#8ab4f8" stroke-width="1.6"
+      stroke-dasharray="2.5 2.5"/>
+    <text x="166" y="111" text-anchor="middle" fill="#185abc"
+      font-family="Georgia, 'Times New Roman', serif" font-size="15">L</text>
+    <path d="M159 99l14 14" stroke="#8ab4f8"
+      stroke-width="1.4" stroke-linecap="round"/>
+
+
+  </g>
+    <g>
+    <circle cx="166" cy="158" r="10" fill="#e8f0fe"
+      stroke="#1a73e8" stroke-width="1.6"
+      />
+    <text x="166" y="163" text-anchor="middle" fill="#185abc"
+      font-family="Georgia, 'Times New Roman', serif" font-size="15">L</text>
+
+
+
+  </g>
+    <g>
+    <circle cx="218" cy="45" r="10" fill="#fff"
+      stroke="#8ab4f8" stroke-width="1.6"
+      />
+    <text x="218" y="50" text-anchor="middle" fill="#185abc"
+      font-family="Georgia, 'Times New Roman', serif" font-size="15">L</text>
+
+    <g transform="translate(226 53)">
+    <circle r="4.5" fill="#1a73e8"/>
+    <path d="m-2.5 0 1.7 1.7 3.3-3.8" fill="none" stroke="#fff"
+      stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+
+  </g>
+    <g>
+    <circle cx="218" cy="79" r="10" fill="#fff"
+      stroke="#8ab4f8" stroke-width="1.6"
+      />
+    <text x="218" y="84" text-anchor="middle" fill="#185abc"
+      font-family="Georgia, 'Times New Roman', serif" font-size="15">L</text>
+
+    <g transform="translate(226 87)">
+    <circle r="4.5" fill="#1a73e8"/>
+    <path d="m-2.5 0 1.7 1.7 3.3-3.8" fill="none" stroke="#fff"
+      stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+
+  </g>
+    <g opacity=".58">
+    <circle cx="218" cy="106" r="10" fill="#fff"
+      stroke="#8ab4f8" stroke-width="1.6"
+      stroke-dasharray="2.5 2.5"/>
+    <text x="218" y="111" text-anchor="middle" fill="#185abc"
+      font-family="Georgia, 'Times New Roman', serif" font-size="15">L</text>
+    <path d="M211 99l14 14" stroke="#8ab4f8"
+      stroke-width="1.4" stroke-linecap="round"/>
+
+
+  </g>
+    <g>
+    <circle cx="218" cy="134" r="10" fill="#e8f0fe"
+      stroke="#1a73e8" stroke-width="1.6"
+      />
+    <text x="218" y="139" text-anchor="middle" fill="#185abc"
+      font-family="Georgia, 'Times New Roman', serif" font-size="15">L</text>
+
+
+    <g transform="translate(229 145)">
+    <circle r="7.8" fill="#fff"/>
+    <path d="M0-5.5v-3M-6-1v3M6-1v3" fill="none" stroke="#1a73e8"
+      stroke-width="1.2" stroke-linecap="round"/>
+    <circle cy="-9" r="1.2" fill="#1a73e8"/>
+    <rect x="-5" y="-5" width="10" height="10" rx="2.5"
+      fill="#fff" stroke="#1a73e8" stroke-width="1.2"/>
+    <g fill="#185abc"><circle cx="-2" cy="-1" r=".9"/>
+      <circle cx="2" cy="-1" r=".9"/></g>
+    <path d="M-2 2h4" stroke="#8ab4f8" stroke-linecap="round"/>
+  </g>
+  </g>
+    <g>
+    <circle cx="218" cy="170" r="10" fill="#e8f0fe"
+      stroke="#1a73e8" stroke-width="1.6"
+      />
+    <text x="218" y="175" text-anchor="middle" fill="#185abc"
+      font-family="Georgia, 'Times New Roman', serif" font-size="15">L</text>
+
+
+
+  </g>
+    <g>
+    <circle cx="277" cy="134" r="10" fill="#fff"
+      stroke="#8ab4f8" stroke-width="1.6"
+      />
+    <text x="277" y="139" text-anchor="middle" fill="#185abc"
+      font-family="Georgia, 'Times New Roman', serif" font-size="15">L</text>
+
+    <g transform="translate(285 142)">
+    <circle r="4.5" fill="#1a73e8"/>
+    <path d="m-2.5 0 1.7 1.7 3.3-3.8" fill="none" stroke="#fff"
+      stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+
+  </g>
+    <g>
+    <circle cx="277" cy="169" r="10" fill="#e8f0fe"
+      stroke="#1a73e8" stroke-width="1.6"
+      />
+    <text x="277" y="174" text-anchor="middle" fill="#185abc"
+      font-family="Georgia, 'Times New Roman', serif" font-size="15">L</text>
+
+
+    <g transform="translate(288 180)">
+    <circle r="7.8" fill="#fff"/>
+    <path d="M0-5.5v-3M-6-1v3M6-1v3" fill="none" stroke="#1a73e8"
+      stroke-width="1.2" stroke-linecap="round"/>
+    <circle cy="-9" r="1.2" fill="#1a73e8"/>
+    <rect x="-5" y="-5" width="10" height="10" rx="2.5"
+      fill="#fff" stroke="#1a73e8" stroke-width="1.2"/>
+    <g fill="#185abc"><circle cx="-2" cy="-1" r=".9"/>
+      <circle cx="2" cy="-1" r=".9"/></g>
+    <path d="M-2 2h4" stroke="#8ab4f8" stroke-linecap="round"/>
+  </g>
+  </g>
+    <g fill="none" stroke="#6f9ee5" stroke-width="2.4"
+      stroke-linecap="butt" stroke-linejoin="round">
+      <path d="M76 104H96.5" marker-end="url(#workflow-arrow)"/>
+      <path d="M309 104H320.5" marker-end="url(#workflow-arrow)"/>
+      <path d="M299 191q0 11-11 11H52q-11 0-11-11V155.5"
+        marker-end="url(#workflow-arrow)"/>
+    </g>
+    <svg x="13" y="67" width="59" height="72" viewBox="262 192 675 816">
+    <path d="M398.554 818.914C316.315 1001.03 491.477 1046.74 620.672 940.156C658.687 1059.66 801.052 970.473 852.234 877.795C964.787 673.567 919.318 465.357 907.64 422.374C827.637 129.443 427.623 128.946 358.8 423.865C342.651 475.544 342.402 534.18 333.458 595.051C328.986 625.86 325.507 645.488 313.83 677.785C306.873 696.424 297.68 712.819 282.773 740.645C259.915 783.881 269.604 867.113 387.87 823.883L399.051 818.914H398.554Z" fill="#fff" stroke="#8ab4f8" stroke-width="14" stroke-linejoin="round"/>
+    <path d="M636.123 549.353C603.328 549.353 598.359 510.097 598.359 486.742C598.359 465.623 602.086 448.977 609.293 438.293C615.504 428.852 624.697 424.131 636.123 424.131C647.555 424.131 657.492 428.852 664.447 438.541C672.398 449.474 676.623 466.12 676.623 486.742C676.623 525.998 661.471 549.353 636.375 549.353H636.123Z" fill="#185abc"/>
+    <path d="M771.24 549.353C738.445 549.353 733.477 510.097 733.477 486.742C733.477 465.623 737.203 448.977 744.41 438.293C750.621 428.852 759.814 424.131 771.24 424.131C782.672 424.131 792.609 428.852 799.564 438.541C807.516 449.474 811.74 466.12 811.74 486.742C811.74 525.998 796.588 549.353 771.492 549.353H771.24Z" fill="#185abc"/>
+  </svg>
+    <g transform="translate(328 64) scale(.53)">
+      <rect width="110" height="138" rx="9" fill="#fff" stroke="#8ab4f8" stroke-width="3"/>
+      <path d="M0 16h110" stroke="#8ab4f8" stroke-width="2"/>
+      <g fill="#8ab4f8"><circle cx="11" cy="8" r="2"/>
+        <circle cx="19" cy="8" r="2"/></g>
+      <svg x="15" y="26" width="80" height="28" viewBox="0 0 486 169"
+        stroke="#1a73e8" fill="none" stroke-width="10">
+      <path d="M206.333 5.67949H105.667M206.333 5.67949L243.25 84.5M206.333 5.67949V84.5M243.25 84.5H317.549M243.25 84.5L279.667 163.321L280.889 163.318L317.549 84.5M206.333 84.5V163.321H5V5M206.333 84.5H105.667M317.549 84.5L353 5.67949M353 5.67949V164M353 5.67949H353.667L480.333 163.454H481V5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+      <path d="M16 67h13M35 67h47M16 79h13M35 79h30" fill="none"
+        stroke="#8ab4f8" stroke-width="3" stroke-linecap="round"/>
+      <text x="52" y="115" fill="#185abc" text-anchor="middle"
+        font-family="Georgia, 'Times New Roman', serif" font-size="29">⊢ P</text>
+      <circle cx="101" cy="130" r="12" fill="#1a73e8"/>
+      <path d="m95 130 4 4 8-9" fill="none" stroke="#fff" stroke-width="3"
+        stroke-linecap="round" stroke-linejoin="round"/>
+    </g>
+  </svg>

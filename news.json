@@ -1,6 +1,21 @@
 {
   "news": [
     {
+      "date": "2026-11-12",
+      "tag": "AWS DevOps Blog",
+      "featured": true,
+      "image": "news/assets/kiro-proof-coordination.svg",
+      "imageType": "illustration",
+      "href": "https://aws.amazon.com/blogs/devops/a-coordination-framework-for-formal-proof-development-with-kiro/",
+      "relatedLinks": [
+        {
+          "label": "AWS DevOps Blog post",
+          "href": "https://aws.amazon.com/blogs/devops/a-coordination-framework-for-formal-proof-development-with-kiro/"
+        }
+      ],
+      "html": "We developed a <strong>prover harness</strong> with <em>Kiro and <a href=\"./?tag=lean#publications\" data-pub-tag=\"lean\">#Lean</a></em>, coordinating parallel proof agents and using their feedback to revise the shared proof plan."
+    },
+    {
       "date": "2026-11-11",
       "tag": "AWS AI Blog",
       "featured": true,
@@ -33,7 +48,7 @@
           "href": "https://www.linkedin.com/posts/brookejamieson_aws-kiro-lean-ugcPost-7524535725812301825-mLx3/"
         }
       ],
-      "html": "<a href=\"https://kiro.dev/blog/harness-properties-in-lean/\"><em>The Kiro coding agent proves properties of its own harness in Lean</em></a>. 26 functions: 70 properties proved in Lean models; 18 counterexamples reproduced against real code."
+      "html": "<em><a href=\"https://kiro.dev/blog/harness-properties-in-lean/\">The Kiro coding agent proves properties of its own harness</a> in <a href=\"./?tag=lean#publications\" data-pub-tag=\"lean\">#Lean</a></em>. 26 functions: 70 properties proved in Lean models; 18 counterexamples reproduced against real code."
     },
     {
       "date": "2026-10-21",
