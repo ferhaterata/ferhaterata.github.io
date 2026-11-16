@@ -17,6 +17,22 @@
       "title": "Joining NVIDIA"
     },
     {
+      "date": "2026-11-16",
+      "tag": "Amazon Science",
+      "featured": true,
+      "title": "BenchProofer: Verified coding benchmarks",
+      "image": "news/assets/benchproofer.svg?v=2026-11-16-2",
+      "imageType": "illustration",
+      "href": "https://www.amazon.science/blog/benchproofer-formally-verified-coding-benchmarks-on-demand",
+      "relatedLinks": [
+        {
+          "label": "Amazon Science blog post",
+          "href": "https://www.amazon.science/blog/benchproofer-formally-verified-coding-benchmarks-on-demand"
+        }
+      ],
+      "html": "We developed <strong>BenchProofer</strong> to add formal specifications and machine-checked proofs to coding benchmarks using <a href=\"./?tag=lean#publications\" data-pub-tag=\"lean\">#Lean</a>, Nagini, and Velvet, producing <em>SWE-Proof</em> from 500 real-world issues."
+    },
+    {
       "date": "2026-11-15",
       "tag": "EACL 2027",
       "featured": true,

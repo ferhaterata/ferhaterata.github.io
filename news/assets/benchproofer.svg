@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="210" viewBox="0 0 400 210" role="img" aria-labelledby="title desc">
+  <title id="title">BenchProofer</title>
+  <desc id="desc">A software repository becomes formal specifications and checked proofs, illustrated by the Lean wordmark.</desc>
+  <rect width="400" height="210" rx="12" fill="#f4f8ff" />
+  <g fill="white" stroke="#8ab4f8" stroke-width="2" stroke-linejoin="round">
+    <rect x="22" y="49" width="130" height="106" rx="8" />
+    <path d="M22 75H152M40 89V137M40 99H52M40 117H52M40 135H52" fill="none" />
+    <path d="M57 91H68L73 95H87V105H57ZM57 109H68L73 113H87V123H57ZM57 127H68L73 131H87V141H57Z" fill="#e8f0fe" />
+    <path d="M100 99H127L141 113V161H100Z" />
+    <path d="M127 99V113H141M108 129H131M108 140H126" fill="none" />
+    <rect x="257" y="43" width="104" height="111" rx="8" fill="#e8f0fe" />
+    <rect x="250" y="50" width="104" height="111" rx="8" />
+    <rect x="243" y="57" width="104" height="111" rx="8" />
+  </g>
+  <g fill="none" stroke="#5c99ee" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M166 107H222M214 100L222 107L214 114" />
+    <path d="M38 59V67M38 63H47V59" />
+  </g>
+  <g fill="#5c99ee">
+    <circle cx="38" cy="58" r="2.5" />
+    <circle cx="38" cy="68" r="2.5" />
+    <circle cx="47" cy="58" r="2.5" />
+    <circle cx="344" cy="61" r="15" />
+  </g>
+  <path d="M337 61L342 66L352 55" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+  <g font-family="Arial, Helvetica, sans-serif" fill="#496f9e" text-anchor="middle">
+    <text x="98" y="66" font-size="12">Repository</text>
+    <text x="87" y="186" font-size="15">Code + issue</text>
+    <text x="295" y="190" font-size="15">Specs + proofs</text>
+  </g>
+  <svg x="254" y="88" width="82" height="29" viewBox="0 0 486 169" stroke="#386EE0" fill="none" stroke-width="10">
+    <path d="M206.333 5.67949H105.667M206.333 5.67949L243.25 84.5M206.333 5.67949V84.5M243.25 84.5H317.549M243.25 84.5L279.667 163.321L280.889 163.318L317.549 84.5M206.333 84.5V163.321H5V5M206.333 84.5H105.667M317.549 84.5L353 5.67949M353 5.67949V164M353 5.67949H353.667L480.333 163.454H481V5" stroke-linecap="round" stroke-linejoin="round" />
+  </svg>
+  <path d="M263 132H326M263 145H314" fill="none" stroke="#d2e3fc" stroke-width="3" stroke-linecap="round" />
+</svg>
