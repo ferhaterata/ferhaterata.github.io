@@ -303,9 +303,9 @@
         "Ferhat Erata",
         "Vipin Chaudhary"
       ],
-      "venue": "arXiv",
-      "venueFull": "arXiv preprint",
-      "year": 2026,
+      "venue": "EACL",
+      "venueFull": "Conference of the European Chapter of the Association for Computational Linguistics — Main Conference",
+      "year": 2027,
       "links": [
         {
           "label": "arXiv",
@@ -317,7 +317,9 @@
         "ai-safety",
         "uncertainty"
       ],
-      "selected": true
+      "selected": true,
+      "status": "accepted",
+      "doubleBlind": false
     },
     {
       "key": "erata2026selfbrier",

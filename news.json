@@ -1,6 +1,32 @@
 {
   "news": [
     {
+      "date": "2026-11-16",
+      "tag": "Career",
+      "featured": true,
+      "image": "news/assets/nvidia-logo.svg",
+      "imageType": "logo",
+      "html": "I’m joining <strong>NVIDIA</strong> as a <strong>Principal AI Security Researcher</strong>.",
+      "href": "https://research.nvidia.com/ai-security/",
+      "relatedLinks": [
+        {
+          "label": "NVIDIA AI Security Research",
+          "href": "https://research.nvidia.com/ai-security/"
+        }
+      ],
+      "title": "Joining NVIDIA"
+    },
+    {
+      "date": "2026-11-15",
+      "tag": "EACL 2027",
+      "featured": true,
+      "href": "https://arxiv.org/abs/2609.11085",
+      "html": "<a href=\"https://arxiv.org/abs/2609.11085\">Beyond Solver Verdicts: Generative Reward Models for Autoformalization</a> has been accepted at the <strong>EACL 2027 main conference</strong>.",
+      "image": "news/assets/beyond-solver-verdicts.svg?v=2026-11-15-2",
+      "imageType": "illustration",
+      "title": "Beyond Solver Verdicts accepted at EACL 2027"
+    },
+    {
       "date": "2026-11-12",
       "tag": "AWS DevOps Blog",
       "featured": true,
@@ -66,7 +92,8 @@
       "featured": true,
       "image": "news/assets/neurips-logo.svg?v=2026-10-09-8",
       "imageType": "logo",
-      "html": "Named a <strong>Top Reviewer</strong>, with complimentary registration."
+      "html": "Named a <strong>Top Reviewer</strong>, with complimentary registration.",
+      "title": "NeurIPS 2026 Top Reviewer"
     },
     {
       "date": "2026-09-24",
@@ -93,7 +120,8 @@
       "image": "news/assets/formal-policy-refinement.svg?v=2026-10-09-6",
       "imageType": "illustration",
       "href": "news/policy-refinement-launch/",
-      "html": "My work on <strong>formal policy refinement</strong> for AI safety and security shipped in <a href=\"https://aws.amazon.com/bedrock/guardrails/\">Amazon Bedrock</a>'s Automated Reasoning checks, described in an <a href=\"https://aws.amazon.com/blogs/machine-learning/automated-reasoning-policy-refinement-in-amazon-bedrock/\">AWS ML Blog</a> post I co-authored. The system uses theorem proving to detect and resolve ambiguous policy readings before building a guardrail."
+      "html": "My work on <strong>formal policy refinement</strong> for AI safety and security shipped in <a href=\"https://aws.amazon.com/bedrock/guardrails/\">Amazon Bedrock</a>'s Automated Reasoning checks, described in an <a href=\"https://aws.amazon.com/blogs/machine-learning/automated-reasoning-policy-refinement-in-amazon-bedrock/\">AWS ML Blog</a> post I co-authored. The system uses theorem proving to detect and resolve ambiguous policy readings before building a guardrail.",
+      "title": "Formal policy refinement in Bedrock"
     },
     {
       "date": "2026-05",
@@ -102,7 +130,8 @@
       "featured": true,
       "image": "news/assets/icml-logo.svg?v=2026-10-09-3",
       "imageType": "logo",
-      "html": "Honored to receive a <strong>Gold Reviewer Award</strong> from ICML 2026, recognizing top reviewers based on area-chair ratings."
+      "html": "Honored to receive a <strong>Gold Reviewer Award</strong> from ICML 2026, recognizing top reviewers based on area-chair ratings.",
+      "title": "ICML 2026 Gold Reviewer Award"
     },
     {
       "date": "2026-05",
@@ -137,16 +166,18 @@
       "featured": true,
       "image": "news/assets/jhu-aws.svg",
       "imageType": "logo",
-      "html": "Served as <strong>Amazon Research Liaison</strong> at the <a href=\"https://ai2ai.engineering.jhu.edu/2025-ai2ai-research-festival/\">JHU AI2AI 2025 Research Festival</a> for <a href=\"https://engineering.jhu.edu/faculty/carey-priebe/\">Prof. Carey Priebe</a>'s project on representing collections of LLMs as Gaussian mixtures in data-kernel perspective space, and gave an invited talk on automated reasoning at AWS."
+      "html": "Served as <strong>Amazon Research Liaison</strong> at the <a href=\"https://ai2ai.engineering.jhu.edu/2025-ai2ai-research-festival/\">JHU AI2AI 2025 Research Festival</a> for <a href=\"https://engineering.jhu.edu/faculty/carey-priebe/\">Prof. Carey Priebe</a>'s project on representing collections of LLMs as Gaussian mixtures in data-kernel perspective space, and gave an invited talk on automated reasoning at AWS.",
+      "title": "Amazon Research Liaison at JHU AI2AI"
     },
     {
       "date": "2025-06",
       "tag": "AWS",
-      "featured": false,
-      "image": "news/assets/aws-logo.svg",
-      "imageType": "logo",
+      "featured": true,
+      "image": "news/assets/guardrails-automated-reasoning.png",
+      "imageType": "illustration",
       "href": "news/bedrock-guardrails-ga/",
-      "html": "<a href=\"https://aws.amazon.com/bedrock/guardrails/\">Amazon Bedrock Guardrails</a> Automated Reasoning checks reach general availability — now delivering up to 99% verification accuracy to enterprise customers."
+      "html": "<a href=\"https://aws.amazon.com/bedrock/guardrails/\">Amazon Bedrock Guardrails</a> Automated Reasoning checks reach general availability — now delivering up to 99% verification accuracy to enterprise customers.",
+      "title": "Bedrock Automated Reasoning checks launch"
     },
     {
       "date": "2025-03",
@@ -157,13 +188,23 @@
       "html": "Defended my PhD in Computer Science at Yale: <em>Learning Randomized Reductions for Security, Privacy, and Side-Channel Resilience</em>. Thesis committee: <a href=\"http://www.cs.yale.edu/homes/piskac/\">Ruzica Piskac</a>, <a href=\"https://caslab.csl.yale.edu/~jakub/\">Jakub Szefer</a>, <a href=\"https://en.wikipedia.org/wiki/Shafi_Goldwasser\">Shafi Goldwasser</a>, <a href=\"https://en.wikipedia.org/wiki/Byron_Cook\">Byron Cook</a>, <a href=\"https://flint.cs.yale.edu/shao/\">Zhong Shao</a>, and <a href=\"https://law.yale.edu/scott-j-shapiro\">Scott J. Shapiro</a>."
     },
     {
+      "date": "2025-02",
+      "tag": "Career",
+      "title": "Joining AWS Automated Reasoning",
+      "featured": true,
+      "image": "news/assets/aws-logo.svg",
+      "imageType": "logo",
+      "html": "I joined the <strong>AWS Automated Reasoning Group</strong> as an <strong>Applied Scientist</strong>."
+    },
+    {
       "date": "2025-01",
       "tag": "Award",
       "award": true,
       "featured": true,
       "image": "news/distinguished-teaching-award/certificate.jpeg",
       "href": "news/distinguished-teaching-award/",
-      "html": "Received Yale CS Graduate <a href=\"https://engineering.yale.edu/news-and-events/news/graduate-student-awards-2023-24-announced\">Distinguished Teaching Award</a> for 2023–2024."
+      "html": "Received Yale CS Graduate <a href=\"https://engineering.yale.edu/news-and-events/news/graduate-student-awards-2023-24-announced\">Distinguished Teaching Award</a> for 2023–2024.",
+      "title": "Yale Distinguished Teaching Award"
     },
     {
       "date": "2024-09",

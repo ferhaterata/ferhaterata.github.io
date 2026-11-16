@@ -51,7 +51,7 @@
   // ---------- fetch helper (works from filesystem too) ----------
   // Append a version query so the browser doesn't serve a stale
   // JSON body when the file has changed.
-  const JSON_VERSION = "2026-11-08-1";
+  const JSON_VERSION = "2026-11-15-12";
   const fetchJSON = async (path) => {
     try {
       const sep = path.includes("?") ? "&" : "?";
@@ -139,16 +139,18 @@
       cards.innerHTML = `<p class="empty-state">News feed could not be loaded.</p>`;
       return;
     }
-    // Pull a short headline and excerpt out of the item's html.
+    // Use an explicit archive title when provided, otherwise extract a headline.
     const tmp = document.createElement("div");
-    const extract = (html) => {
+    const extract = (html, title) => {
       tmp.innerHTML = html;
       // A marked phrase can be a headline without visual emphasis.
       // Other entries use the first <em>, or their first sentence.
-      const headlineElement = tmp.querySelector("[data-news-headline], em");
+      const headlineElement = title ? null : tmp.querySelector("[data-news-headline], em");
       const plainHeadline = headlineElement?.hasAttribute("data-news-headline");
       let headline;
-      if (headlineElement && headlineElement.textContent.trim()) {
+      if (title) {
+        headline = title;
+      } else if (headlineElement && headlineElement.textContent.trim()) {
         headline = headlineElement.textContent.trim();
       } else {
         const txt = tmp.textContent.trim();
@@ -164,7 +166,7 @@
     };
     const rewrite = (u) => /^([a-z]+:|\/|#)/i.test(u) ? u : "../" + u;
     cards.innerHTML = data.news.map((n) => {
-      const { headline, excerpt, linkedHeadline, plainHeadline } = extract(n.html);
+      const { headline, excerpt, linkedHeadline, plainHeadline } = extract(n.html, n.title);
       const href = n.href ? rewrite(n.href) : null;
       const dateLabel = `${formatDate(n.date)} · ${n.tag}`;
       const imageClass = ["logo", "illustration"].includes(n.imageType) ? ` news-image-${n.imageType}` : "";

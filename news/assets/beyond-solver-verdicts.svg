@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 200">
+  <title>Beyond Solver Verdicts: Generative Reward Models for Autoformalization</title>
+  <desc>Two non-equivalent formulas, p implies q and q implies p, share the same SAT verdict. GenV produces different fidelity scores relative to an intended specification, which is not shown. The bars are schematic illustrations, not measured results or proof certificates.</desc>
+  <rect width="320" height="200" fill="#f4f8ff"/>
+  <g font-family="'Roboto Flex', Roboto, Arial, sans-serif" transform="translate(0 -21.5)">
+    <g fill="#fff" stroke="#8ab4f8" stroke-width="2">
+      <rect x="12" y="55" width="102" height="59" rx="8"/>
+      <rect x="12" y="129" width="102" height="59" rx="8"/>
+    </g>
+    <g text-anchor="middle" fill="#185abc" font-size="25">
+      <text x="63" y="82">p → q</text>
+      <text x="63" y="156">q → p</text>
+    </g>
+    <g fill="#e8f0fe">
+      <rect x="40" y="90" width="46" height="17" rx="8"/>
+      <rect x="40" y="164" width="46" height="17" rx="8"/>
+    </g>
+    <g text-anchor="middle" fill="#3d5e8e" font-size="12" font-weight="600">
+      <text x="63" y="103">SAT</text>
+      <text x="63" y="177">SAT</text>
+    </g>
+
+    <g fill="none" stroke="#8ab4f8" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M115 85h10l17 19m-7-1 7 1-1-7"/>
+      <path d="M115 159h10l17-19m-7 1 7-1-1 7"/>
+      <path d="M207 104l16-19h10m-5-5 5 5-5 5"/>
+      <path d="M207 140l16 19h10m-5-5 5 5-5 5"/>
+    </g>
+
+    <rect x="143" y="75" width="63" height="94" rx="12" fill="#e8f0fe" stroke="#1a73e8" stroke-width="2"/>
+    <g fill="none" stroke="#8ab4f8" stroke-width="2">
+      <path d="m155 97 20 11 19-11m-39 0 20 31 19-31m-39 31 20-20 19 20m-39 0h39"/>
+    </g>
+    <g stroke="#1a73e8" stroke-width="1.5">
+      <circle cx="155" cy="97" r="4" fill="#fff"/>
+      <circle cx="155" cy="128" r="4" fill="#fff"/>
+      <circle cx="175" cy="108" r="4" fill="#8ab4f8"/>
+      <circle cx="175" cy="128" r="4" fill="#8ab4f8"/>
+      <circle cx="194" cy="97" r="4" fill="#1a73e8"/>
+      <circle cx="194" cy="128" r="4" fill="#1a73e8"/>
+    </g>
+    <text x="174.5" y="156" text-anchor="middle" font-size="17" font-weight="600" fill="#185abc">GenV</text>
+
+    <text x="273" y="65" text-anchor="middle" font-size="15" fill="#185abc">Fidelity</text>
+    <g fill="#d2e3fc">
+      <rect x="240" y="79" width="68" height="14" rx="5"/>
+      <rect x="240" y="153" width="68" height="14" rx="5"/>
+    </g>
+    <g fill="#1a73e8">
+      <rect x="240" y="79" width="61" height="14" rx="5"/>
+      <rect x="240" y="153" width="15" height="14" rx="5"/>
+    </g>
+  </g>
+</svg>
